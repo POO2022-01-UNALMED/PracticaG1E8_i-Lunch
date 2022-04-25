@@ -6,3 +6,4 @@ build/
 .settings
 .idea/
 *__pycache__*
+/.metadata/
