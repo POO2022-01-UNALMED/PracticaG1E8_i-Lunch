@@ -1,4 +1,4 @@
-package gestorAplicación.usuariosRestaurante;
+package gestorAplicacion.usuariosRestaurante;
 
 public class Administrador extends Empleado{
 
