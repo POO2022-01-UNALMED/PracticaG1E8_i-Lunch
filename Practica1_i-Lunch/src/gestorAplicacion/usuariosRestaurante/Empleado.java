@@ -17,17 +17,12 @@ public class Empleado { /*
 	protected boolean disponibilidad;
 	protected int salario;
 	protected Restaurante restaurante;
-	/*
-	 * protected boolean pagado=false; <--- Que tal este atributo pagado?
-	 * Refiriendose a su salario.
-	 */
 
-	/* Constructor de la clase empleado */ /*
-											 * Tengo duda con este atributo restaurante, explicarme porfa que es. Falta
-											 * set y get de esto
-											 */
-	public Empleado(int cedula, String nombre, String cargo, boolean disponibilidad, int salario,
-			Restaurante restaurante/* , boolean pagado */) {
+	/*protected boolean pagado=false; <--- Que tal este atributo pagado? Refiriendose a su salario.  */
+	
+	/*Constructor de la clase empleado*/								/*Tengo duda con este atributo restaurante, explicarme porfa que es.*/
+	public Empleado(int cedula, String nombre, String cargo, boolean disponibilidad, int salario, Restaurante restaurante/*, boolean pagado*/) {
+
 		this.cedula = cedula;
 		this.nombre = nombre;
 		this.cargo = cargo;
