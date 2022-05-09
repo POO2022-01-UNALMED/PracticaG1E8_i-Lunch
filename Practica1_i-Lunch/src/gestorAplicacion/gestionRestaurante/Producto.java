@@ -6,14 +6,16 @@ public class Producto {
 	private int precio;
 	private boolean disponiblidad;
 	private boolean restriccion;
-	
-	public Producto(String nombre, String descripcion, int precio, boolean disponiblidad, boolean restriccion) {
+	private int cantidad;
+	public Producto(String nombre, String descripcion, int precio, boolean disponiblidad, boolean restriccion, int cantidad) {
 		super();
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.precio = precio;
 		this.disponiblidad = disponiblidad;
 		this.restriccion = restriccion;
+		this.cantidad = cantidad;
+		
 	}
 
 	public String getNombre() {
@@ -40,7 +42,7 @@ public class Producto {
 		this.precio = precio;
 	}
 
-	public boolean isDisponiblidad() {
+	public boolean getDisponiblidad() {
 		return disponiblidad;
 	}
 
@@ -48,11 +50,21 @@ public class Producto {
 		this.disponiblidad = disponiblidad;
 	}
 
-	public boolean isRestriccion() {
+	public boolean getRestriccion() {
 		return restriccion;
 	}
 
 	public void setRestriccion(boolean restriccion) {
 		this.restriccion = restriccion;
 	}
+
+	public int getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
+	}
+	
+	
 }

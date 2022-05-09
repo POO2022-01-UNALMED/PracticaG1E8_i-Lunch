@@ -20,6 +20,7 @@ public class Pedido {
 	
 	private Cliente cliente;
 	private int codigo;
+	private String estado;
 	
 	//ArrayList donde se encuentran todos los productos que componen el pedido.
 	private ArrayList<Producto> productos = new ArrayList<Producto>();
@@ -120,6 +121,15 @@ public class Pedido {
 	public void setRestaurante(Restaurante restaurante) {
 		this.restaurante = restaurante;
 	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+	
 ////////////////////////////////////////
 ////////////////////////////////////////
 ///////////////////////////////////////

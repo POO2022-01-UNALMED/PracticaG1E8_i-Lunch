@@ -16,7 +16,7 @@ public class Restaurante {
 	private ArrayList<Producto> menu = new ArrayList<Producto>();
 	private ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
 	private int balanceCuenta;
-	
+
 //	Metodo constructor del la clase Restaurante
 	public Restaurante(String nombre, int nit, int telefono, String direccion, String correo, boolean abierto,
 			int capacidad, ArrayList<Empleado> empleados, ArrayList<Producto> menu, ArrayList<Pedido> pedidos,
@@ -34,7 +34,7 @@ public class Restaurante {
 		this.pedidos = pedidos;
 		this.balanceCuenta = balanceCuenta;
 	}
-	
+
 // Metodos gets y sets de los atributos 
 	public String getNombre() {
 		return nombre;
@@ -123,52 +123,100 @@ public class Restaurante {
 	public void setBalanceCuenta(int balanceCuenta) {
 		this.balanceCuenta = balanceCuenta;
 	}
-	
-//	Metodo que rectifica si el restaurante cuenta con todos los implementos y personal necesario para
-//	atender un pedido solicitado
-	public boolean procesarPedido(Pedido pedido) {
-		
-//		Identificar los productos solicitados y la cantidad de ellos
-//		Rectificar en el menú si se encuentran disponibles
-//		Identificar el tipo de pedido
-//		Rectificar el personal del restaurante y comprobar que haya el necesario
-//		para el tipo de pedido
-//		Si falla alguno de los anteriores no se puede realizar
-//		Si todo es aceptable se realiza el pedido
-		return true;
-		
-	}
 
 //	Metodo que determina si existe el personal necesario 
 //	en el restaurante para realizar un pedido solicitado
-	public boolean verificarPersonal() {
+	public boolean verificarPersonal(Pedido pedido) {
+
+//		Comprobamos si existe un chef en el restaurante
+		boolean chef = false;
+		for (int i = 0; i < empleados.size(); i++) {
+			Empleado empleado = empleados.get(i);
+			if (empleado.getCargo() == "Chef") {
+				chef = true;
+			}
+		}
+
 //		Identificar el tipo de pedido
-//		Rectificar el personal del restaurante y comprobar que haya el necesario
-//		para el tipo de pedido
-//		Si si no hay alguno no se puede realizar
+		switch (pedido.getTipo()) {
+		case "Domicilio": {
+
+//			Rectificar el personal del restaurante y comprobar que haya el necesario para el tipo de pedido
+			boolean repartidor = false;
+			for (int i = 0; i < empleados.size(); i++) {
+				Empleado empleado = empleados.get(i);
+				if (empleado.getCargo() == "Repartidor") {
+					repartidor = true;
+				}
+			}
+//			Si si no hay alguno no se puede realizar
+			if (!chef && !repartidor) {
+				return false;
+			}
+//		Si todo es aceptable se realiza el pedido
+		}
+		case "Consumir en el local": {
+
+//			Rectificar el personal del restaurante y comprobar que haya el necesario para el tipo de pedido
+			boolean mesero = false;
+			for (int i = 0; i < empleados.size(); i++) {
+				Empleado empleado = empleados.get(i);
+				if (empleado.getCargo() == "mesero") {
+					mesero = true;
+				}
+			}
+//			Si si no hay alguno no se puede realizar
+			if (!chef && !mesero) {
+				return false;
+			}
+//		Si todo es aceptable se realiza el pedido
+		}
+		
+		case "Para llevar": {
+
+//			Rectificar el personal del restaurante y comprobar que haya el necesario para el tipo de pedido
+			boolean mesero = false;
+			for (int i = 0; i < empleados.size(); i++) {
+				Empleado empleado = empleados.get(i);
+				if (empleado.getCargo() == "mesero") {
+					mesero = true;
+				}
+			}
+//			Si si no hay alguno no se puede realizar
+			if (!chef && !mesero) {
+				return false;
+			}
+		}
+
+		}
+
 //		Si todo es aceptable se realiza el pedido
 		return true;
 	}
-	
+
 //	Metodo que determina si el restaurante posee los productos 
 //	solicitados en un pedido
-	public boolean verificarProductos() {
-//		Identificar los productos solicitados y la cantidad de ellos
-//		Rectificar en el menú si se encuentran disponibles
-//		Si si no hay alguno no se puede realizar
-//		Si todo es aceptable se realiza el pedido
-		return true;
-	}
-	
-//	Analizando no le veo mucha lógica a esto ahora
-	public boolean verificarBalance() {
-		return true;
-	}
-	
+	public boolean verificarProductos(Pedido pedido) {
 
-	
-	
-	
-	
+//		Identificar los productos solicitados y la cantidad de ellos
+		ArrayList<Producto> productos = pedido.getProductos();
+		for (int i = 0; i < productos.size(); i++) {
+			Producto demanda = productos.get(i);
+
+//		Rectificar que el restaurante tenga los productos solicitados en las cantidad pedidas.
+			for (int j = 0; j < menu.size(); j++) {
+				Producto oferta = menu.get(j);
+
+//		Si no hay alguno de los productos disponibles o en la cantidad deseada no se puede realizar
+				if (demanda.getNombre() != oferta.getNombre() || !oferta.getDisponiblidad()
+						|| demanda.getCantidad() > oferta.getCantidad()) {
+					return false;
+				}
+			}
+		}
+
+//		Si todo es aceptable se puede realizar el pedido
+		return true;
+	}
 
 }
