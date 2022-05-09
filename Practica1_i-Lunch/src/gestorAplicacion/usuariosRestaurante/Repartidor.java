@@ -1,10 +1,10 @@
 /*CLASE CREADA POR JERONIMO GOMEZ RESTREPO
  * Clase que hereda de EMPLEADO y que tiene como finalidad llevar un pedido a su etapa final "Entregado". Se le asignan 3 nuevos atributos: 
-   PoseeVehiculo, Placa, tipoVehiculo.*/
+   poseeVehiculo, placa, tipoVehiculo.*/
 
 package gestorAplicacion.usuariosRestaurante;
-import gestorAplicacion.gestionRestaurante.Restaurante;
-import gestorAplicacion.gestionRestaurante.Pedido;
+import gestorAplicacion.gestionRestaurante.*;
+
 
 public class Repartidor extends Empleado {
 	/*Como REPARTIDOR hereda de EMPLEADO, utiliza sus atributos y ademas se crean 3 nuevos.*/
@@ -12,7 +12,7 @@ public class Repartidor extends Empleado {
 	private String placa;
 	private String tipoVehiculo;
 	
-	/*Constructor*/
+	/*Constructor de la clase Repartidor*/
 	public Repartidor(int cedula, String nombre, String cargo, boolean disponibilidad, int salario, Restaurante restaurante/*, boolean pagado*/, 
 			boolean poseeVehiculo, String placa, String tipoVehiculo) {
 		this.setCedula(cedula);
@@ -27,7 +27,8 @@ public class Repartidor extends Empleado {
 		this.placa = placa;
 		this.tipoVehiculo = tipoVehiculo; 
 	}
-	/*Constructor con valores por defecto*/
+
+	/*Sobrecarga del constructor para valores predeterminados*/
 	public Repartidor() {
 		this(0, "NN","NA", false, 0, null/*, false*/, false, "NA", "NA" );
 	}
@@ -57,11 +58,15 @@ public class Repartidor extends Empleado {
 		this.tipoVehiculo = tipoVehiculo;
 	}
 	
-	/*Metodo para cambiar el estado de pedido a su estado final "Entregado". Recibe como parametro estado 
-	 * y se debe revisar que este "Listo para ser despachado"*/
+	/*Metodo para cambiar el estado de un pedido(atributo "estadoPedido") a su estado final "Entregado". Recibe como parametro un pedido 
+	  y tiene como finalidad modificar el atributo "estadoPedido", por ultima vez y de manera unica. Se debe revisar que el estado anterior
+	  del pedido sea "Listo para ser despachado" y que sea para llevar*/
 	public void repartirPedido(Pedido pedido) {
 		
 	}
 	
+	/*public void entregarPedido(Pedido pedido) { <-------- es necesario este metodo o con el anterior es suficiente?
+		
+	}*/
 
 }

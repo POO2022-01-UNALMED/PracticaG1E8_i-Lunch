@@ -4,8 +4,7 @@
  *nombre, cargo, disponinilidad, salario, restaurante y ****pagado****. Ademas de sus respectivos metodos get y set.*/
 
 package gestorAplicacion.usuariosRestaurante;
-import gestorAplicacion.gestionRestaurante.Restaurante;
-import gestorAplicacion.gestionRestaurante.Pedido;
+import gestorAplicacion.gestionRestaurante.*;
 
 
 public class Empleado { /*Por ahora puse todos protected, si no recuerdo mal por sugerencia del profe. Sujeto a revision*/
@@ -31,6 +30,8 @@ public class Empleado { /*Por ahora puse todos protected, si no recuerdo mal por
 	public Empleado() {
 		this(0, "NN","NA", false, 0, null/*, false*/);
 	}
+	
+	/*Metodos GET y SET para los atributos*/
 	
 	public int getCedula() {
 		return this.cedula;
@@ -91,11 +92,18 @@ public class Empleado { /*Por ahora puse todos protected, si no recuerdo mal por
 		pagado=estado;}*/
 	
 	
-	/*Metodo para cambiar el estado de un pedido a su fase inicial "En preparacion". Recibe como parametro pedido*/
+	/*Metodo para cambiar el estado de un pedido(atributo "estadoPedido") a su fase inicial "En preparacion". Recibe como parametro un pedido
+	  y tiene como finalidad modificar el atributo "estadoPedido", la primera vez y de manera unica.*/
 	public void aceptarPedido(Pedido pedido) {
 		
 		
 	}
 	
-	
+	/*Metodo para cambiar el estado de un pedido(atributo "estadoPedido") en sus distintas etapas, de manera secuencial. Una vez termine la 
+	 etapa actual, se puede continuar con la siguiente fase. Recibe como parametro un pedido y tiene como finalidad modificar el atributo 
+	 "estadoPedido".*/
+	public void actualizarEstadoPedido(Pedido pedido) {
+		
+		
+	}
 }
