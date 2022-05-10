@@ -1,9 +1,17 @@
 package gestorAplicacion.gestionRestaurante;
 
 import java.util.ArrayList;
+import java.io.Serializable;
 import gestorAplicacion.usuariosRestaurante.Empleado;
 
-public class Restaurante {
+public class Restaurante implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	private static ArrayList<Restaurante> restaurantes;
+	static {
+		restaurantes = new ArrayList<Restaurante>();
+	}
+	
 //	Atributos de la clase Restaurante
 	private String nombre;
 	private int nit;
@@ -124,7 +132,11 @@ public class Restaurante {
 		this.balanceCuenta = balanceCuenta;
 	}
 
-//	Metodo que determina si existe el personal necesario 
+	public static ArrayList<Restaurante> getRestaurantes() {
+		return restaurantes;
+	}
+
+	//	Metodo que determina si existe el personal necesario 
 //	en el restaurante para realizar un pedido solicitado
 	public boolean verificarPersonal(Pedido pedido) {
 

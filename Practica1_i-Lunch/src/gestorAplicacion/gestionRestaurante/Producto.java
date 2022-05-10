@@ -1,12 +1,23 @@
 package gestorAplicacion.gestionRestaurante;
 
-public class Producto {
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class Producto implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	private static ArrayList<Producto> productos;
+	static {
+		productos = new ArrayList<Producto>();
+	}
+	
 	private String nombre;
 	private String descripcion;
 	private int precio;
 	private boolean disponiblidad;
 	private boolean restriccion;
 	private int cantidad;
+	
 	public Producto(String nombre, String descripcion, int precio, boolean disponiblidad, boolean restriccion, int cantidad) {
 		super();
 		this.nombre = nombre;
@@ -65,6 +76,8 @@ public class Producto {
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
-	
-	
+
+	public static ArrayList<Producto> getProductos() {
+		return productos;
+	}
 }

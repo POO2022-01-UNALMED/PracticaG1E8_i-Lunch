@@ -1,21 +1,26 @@
 package gestorAplicacion.gestionRestaurante;
 
-
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.zone.ZoneOffsetTransitionRule;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.DoubleAdder;
 import java.util.function.BiConsumer;
 
+import gestorAplicacion.usuariosRestaurante.Administrador;
 import gestorAplicacion.usuariosRestaurante.Cliente;
 
-public class Pedido {
+public class Pedido implements Serializable {
+
 ////////////////////////////////////////
 //////////////ATRIBUTOS //////////////
 ///////////////////////////////////////
 	
+	private static final long serialVersionUID = 1L;
+	private static ArrayList<Pedido> pedidos;
 	static {
 		int totalPedidos = 0;
+		pedidos = new ArrayList<Pedido>();
 	}
 	
 	private Cliente cliente;
@@ -136,6 +141,10 @@ public class Pedido {
 
 	public void setRestaurante(Restaurante restaurante) {
 		this.restaurante = restaurante;
+	}
+
+	public static ArrayList<Pedido> getPedidos() {
+		return pedidos;
 	}
 	
 ////////////////////////////////////////

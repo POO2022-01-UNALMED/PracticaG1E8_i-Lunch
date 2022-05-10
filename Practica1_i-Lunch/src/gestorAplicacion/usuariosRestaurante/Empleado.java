@@ -6,8 +6,10 @@
 package gestorAplicacion.usuariosRestaurante;
 
 import gestorAplicacion.gestionRestaurante.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 
-public class Empleado { /*
+public class Empleado implements Serializable { /*
 						 * Por ahora puse todos protected, si no recuerdo mal por sugerencia del profe.
 						 * Sujeto a revision
 						 */
@@ -19,6 +21,13 @@ public class Empleado { /*
 	protected Restaurante restaurante;
 
 	/*protected boolean pagado=false; <--- Que tal este atributo pagado? Refiriendose a su salario.  */
+	
+	// Atributos utilizados para la serialización
+		private static final long serialVersionUID = 1L; // Se requiere del atributo serialVersionUID por usar la interface Serializable.
+		private static ArrayList<Empleado> empleados;
+		static {
+			empleados = new ArrayList<Empleado>();
+		}
 	
 	/*Constructor de la clase empleado*/								/*Tengo duda con este atributo restaurante, explicarme porfa que es.*/
 	public Empleado(int cedula, String nombre, String cargo, boolean disponibilidad, int salario, Restaurante restaurante/*, boolean pagado*/) {
@@ -85,6 +94,14 @@ public class Empleado { /*
 
 	public void setRestaurante(Restaurante restaurante) {
 		this.restaurante = restaurante;
+	}
+	
+	public static ArrayList<Empleado> getEmpleados() {
+		return empleados;
+	}
+
+	public Restaurante getRestaurante() {
+		return restaurante;
 	}
 
 	/*

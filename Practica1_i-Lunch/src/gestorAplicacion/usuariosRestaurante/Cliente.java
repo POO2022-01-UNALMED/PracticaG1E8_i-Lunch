@@ -5,15 +5,23 @@ package gestorAplicacion.usuariosRestaurante;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Random;
+import java.io.Serializable;
 
 import gestorAplicacion.gestionRestaurante.Pedido;
 import gestorAplicacion.gestionRestaurante.Producto;
 import gestorAplicacion.gestionRestaurante.Restaurante;
 
-public class Cliente {
-////////////////////////////////////////
-////////////// ATRIBUTOS //////////////
-///////////////////////////////////////
+public class Cliente implements Serializable {
+	////////////////////////////////////////
+	////////////// ATRIBUTOS //////////////
+	///////////////////////////////////////
+	
+	private static final long serialVersionUID = 1L;
+	private static ArrayList<Cliente> clientes;
+	static {
+		clientes = new ArrayList<Cliente>();
+	}
+	
 	private int telefono;
 	// Pienso que es mejor separar asi el nombre (pensando en bases de datos lol)
 	private String primerNombre;
@@ -32,11 +40,10 @@ public class Cliente {
 	// ArrayList en el cual se agregaran todos los pedidos hechos por el cliente a lo largo del tiempo.
 	private ArrayList<Pedido> historialPedidos = new ArrayList<Pedido>();
 	
+	////////////////////////////////////////
+	////////////// METODOS ////////////////
+	///////////////////////////////////////
 	
-	
-////////////////////////////////////////
-////////////// METODOS ////////////////
-///////////////////////////////////////	
 	public Pedido iniciarPedido() {
 		return new Pedido(this, new Random().nextInt(999999),"Ni idea, falta implementar", LocalDateTime.now(), null);		
 	}
@@ -53,13 +60,10 @@ public class Cliente {
 		//PENDIENTE
 	}
 	
+	////////////////////////////////////////
+	///////// GETTERS AND SETTERS /////////
+	///////////////////////////////////////
 	
-	
-	
-
-////////////////////////////////////////
-///////// GETTERS AND SETTERS /////////
-///////////////////////////////////////
 	public int getTelefono() {
 		return telefono;
 	}
@@ -102,6 +106,27 @@ public class Cliente {
 	public void setFechaNacimientol(LocalDateTime fechaNacimientol) {
 		this.fechaNacimientol = fechaNacimientol;
 	}
+
+	public static ArrayList<Cliente> getClientes() {
+		return clientes;
+	}
+
+	public Pedido getPedidoActivo() {
+		return pedidoActivo;
+	}
+
+	public void setPedidoActivo(Pedido pedidoActivo) {
+		this.pedidoActivo = pedidoActivo;
+	}
+
+	public ArrayList<Pedido> getHistorialPedidos() {
+		return historialPedidos;
+	}
+
+	public void setHistorialPedidos(ArrayList<Pedido> historialPedidos) {
+		this.historialPedidos = historialPedidos;
+	}
+	
 }
 ////////////////////////////////////////
 ////////////////////////////////////////

@@ -12,7 +12,7 @@ import gestorAplicacion.gestionRestaurante.*;
  * todas las funcionalidades. Esta clase hereda de Empleado
  */
 
-public class Administrador extends Empleado{
+public class Administrador extends Empleado implements Serializable {
 	// Como Administrador hereda de Empleado, se utilizarán los atributos de este. No es necesario implementar atributos nuevos
 	
 	// Atributos utilizados para la serialización

@@ -3,10 +3,20 @@
    poseeVehiculo, placa, tipoVehiculo.*/
 
 package gestorAplicacion.usuariosRestaurante;
+import java.io.Serializable;
+import java.util.ArrayList;
+
 import gestorAplicacion.gestionRestaurante.*;
 
 
-public class Repartidor extends Empleado {
+public class Repartidor extends Empleado implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	private static ArrayList<Repartidor> repartidores;
+	static {
+		repartidores = new ArrayList<Repartidor>();
+	}
+	
 	/*Como REPARTIDOR hereda de EMPLEADO, utiliza sus atributos y ademas se crean 3 nuevos.*/
 	private boolean poseeVehiculo;
 	private String placa;
@@ -38,10 +48,6 @@ public class Repartidor extends Empleado {
 		return this.poseeVehiculo;
 	}
 	
-	public void setposeeVehiculo(boolean poseeVehiculo) {
-		this.poseeVehiculo = poseeVehiculo;
-	}
-	
 	public String getPlaca() {
 		return this.placa;
 	}
@@ -58,6 +64,14 @@ public class Repartidor extends Empleado {
 		this.tipoVehiculo = tipoVehiculo;
 	}
 	
+	public static ArrayList<Repartidor> getRepartidores() {
+		return repartidores;
+	}
+
+	public void setPoseeVehiculo(boolean poseeVehiculo) {
+		this.poseeVehiculo = poseeVehiculo;
+	}
+
 	/*Metodo para cambiar el estado de un pedido(atributo "estadoPedido") a su estado final "Entregado". Recibe como parametro un pedido 
 	  y tiene como finalidad modificar el atributo "estadoPedido", por ultima vez y de manera unica. Se debe revisar que el estado anterior
 	  del pedido sea "Listo para ser despachado" y que sea para llevar*/

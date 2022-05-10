@@ -45,14 +45,16 @@ public class Serializador {
 	}
 
 	/* Serializamos todas las clases que necesitamos  */
-	/*
 	public static void serializarTodo() {
 		Serializador.serializar(Pedido.getPedidos(), "pedidos");
 		Serializador.serializar(Producto.getProductos(), "productos");
 		Serializador.serializar(Restaurante.getRestaurantes(), "restaurantes");
-		Serializador.serializar(Administrador.getAdministradores(), "administradores");
 		Serializador.serializar(Cliente.getClientes(), "clientes");
 		Serializador.serializar(Empleado.getEmpleados(), "empleados");
+		Serializador.serializar(Chef.getChefs(), "chefs");
+		Serializador.serializar(Repartidor.getRepartidores(), "repartidores");
+		Serializador.serializar(Mesero.getMeseros(), "meseros");
+		Serializador.serializar(Administrador.getAdministradores(), "administradores");
 	}
-	*/
+
 }

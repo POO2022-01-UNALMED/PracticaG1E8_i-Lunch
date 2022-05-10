@@ -5,10 +5,20 @@
   */
 
 package gestorAplicacion.usuariosRestaurante;
+import java.io.Serializable;
+import java.util.ArrayList;
+
 import gestorAplicacion.gestionRestaurante.*;
 
 
-public class Mesero extends Empleado {
+public class Mesero extends Empleado implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+	private static ArrayList<Mesero> meseros;
+	static {
+		meseros = new ArrayList<Mesero>();
+	}
+	
 	/*Como CHEF hereda de EMPLEADO, utiliza sus atributo*/
 	
 	/*Constructor de la clase Mesero*/
@@ -30,6 +40,10 @@ public class Mesero extends Empleado {
 	/*Metodo que permite ingresar al sistema la orden del cliente y asi crear el objeto de tipo pedido.?? dudas con la creacion del objeto pedido
 	  Seria como el paso previo a utilizar el metodo aceptarPedido?*/
 	
+	public static ArrayList<Mesero> getMeseros() {
+		return meseros;
+	}
+
 	public void tomarPedido(Pedido pedido) { /*<-- Puede ser que tomar pedido no sea tan util y que mejor sea crearPedido directamente*/
 		
 	}

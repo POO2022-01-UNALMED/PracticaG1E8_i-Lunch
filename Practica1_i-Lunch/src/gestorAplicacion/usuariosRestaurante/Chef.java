@@ -5,9 +5,19 @@
 
 package gestorAplicacion.usuariosRestaurante;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+
 import gestorAplicacion.gestionRestaurante.*;
 
-public class Chef extends Empleado {
+public class Chef extends Empleado implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	private static ArrayList<Chef> chefs;
+	static {
+		chefs = new ArrayList<Chef>();
+	}
+	
 	/*Como CHEF hereda de EMPLEADO, utiliza sus atributos y ademas se crean 2 nuevos.*/
 	private String cargoEnCocina;
 	private String especialidad;
@@ -50,6 +60,10 @@ public class Chef extends Empleado {
 		this.especialidad = especialidad;
 	}
 	
+	public static ArrayList<Chef> getChefs() {
+		return chefs;
+	}
+
 	/*Metodo que permite a un chef preparar un producto de la lista de productos de la clase Pedido(Suponemos que un chef crea un solo producto a 
 	 * la vez?). Recibe como argumento un pedido, se toma un producto de la listo y se prepara. Asi, hasta preparar todos los productos de la lista.*/
 	public void prepararProducto(Pedido pedido) {
