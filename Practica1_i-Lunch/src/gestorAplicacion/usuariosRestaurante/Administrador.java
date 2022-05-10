@@ -68,8 +68,8 @@ public class Administrador extends Empleado{
 	 * de productos del restaurante. Antes de agregarlo se comprueba que no haya un producto
 	 * con un nombre exactamente igual y si esto no se cumple, se agrega.
 	 */
-	public void crearProducto(String nombre, String descripcion, int precio, boolean disponibilidad, boolean restriccion) {
-		Producto productoNuevo = new Producto(nombre, descripcion, precio, disponibilidad, restriccion);
+	public void crearProducto(String nombre, String descripcion, int precio, boolean disponibilidad, boolean restriccion, int cantidad) {
+		Producto productoNuevo = new Producto(nombre, descripcion, precio, disponibilidad, restriccion, cantidad);
 		
 		ArrayList<Producto> listaMenu = this.restaurante.getMenu();
 		if(!listaMenu.contains(productoNuevo)) {
@@ -158,6 +158,23 @@ public class Administrador extends Empleado{
 			int indiceProducto = listaMenu.indexOf(producto);
 			Producto productoActualizado = listaMenu.get(indiceProducto);
 			productoActualizado.setDisponiblidad(disponibilidad);
+			listaMenu.set(indiceProducto, productoActualizado);
+			this.restaurante.setMenu(listaMenu);
+		} else {
+			// De alguna manera retornar un mensaje de error
+		}
+	}
+	
+	/* Método útil para cambiar la cantidad actual de un Producto pasado por parámetro.
+	 * Antes de cambiar el atributo se debe de comprobar que el producto esté 
+	 * en la lista de productos del restaurante.
+	 */
+	public void actualizarCantidadProducto(Producto producto, int cantidad) {
+		ArrayList<Producto> listaMenu = this.restaurante.getMenu();
+		if(listaMenu.contains(producto)) {
+			int indiceProducto = listaMenu.indexOf(producto);
+			Producto productoActualizado = listaMenu.get(indiceProducto);
+			productoActualizado.setCantidad(cantidad);
 			listaMenu.set(indiceProducto, productoActualizado);
 			this.restaurante.setMenu(listaMenu);
 		} else {

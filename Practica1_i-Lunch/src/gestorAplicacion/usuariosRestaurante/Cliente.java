@@ -38,8 +38,7 @@ public class Cliente {
 ////////////// METODOS ////////////////
 ///////////////////////////////////////	
 	public Pedido iniciarPedido() {
-		return new Pedido(this, new Random().nextInt(999999),"Ni idea, falta implementar", LocalDateTime.now(),
-				Restaurante restaurante);		
+		return new Pedido(this, new Random().nextInt(999999),"Ni idea, falta implementar", LocalDateTime.now(), null);		
 	}
 	
 	public void agregarProducto(Producto producto) {

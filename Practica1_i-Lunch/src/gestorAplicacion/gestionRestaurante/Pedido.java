@@ -60,66 +60,26 @@ public class Pedido {
 		this.tipo = tipo;
 		this.fechaHora = fechaHora;
 		this.restaurante = restaurante;
-	}
-	
-	
+	}	
 	
 ////////////////////////////////////////
 ///////// GETTERS AND SETTERS /////////
 ///////////////////////////////////////
+
 	public Cliente getCliente() {
 		return cliente;
 	}
+
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
+
 	public int getCodigo() {
 		return codigo;
 	}
+
 	public void setCodigo(int codigo) {
 		this.codigo = codigo;
-	}
-	public ArrayList<Producto> getProductos() {
-		return productos;
-	}
-	public void setProductos(ArrayList<Producto> productos) {
-		this.productos = productos;
-	}
-	public String getTipo() {
-		return tipo;
-	}
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
-	public LocalDateTime getFecha() {
-		return fecha;
-	}
-	public void setFecha(LocalDateTime fecha) {
-		this.fecha = fecha;
-	}
-	public LocalDateTime getHora() {
-		return hora;
-	}
-	public void setHora(LocalDateTime hora) {
-		this.hora = hora;
-	}
-	public String getMensaje() {
-		return mensaje;
-	}
-	public void setMensaje(String mensaje) {
-		this.mensaje = mensaje;
-	}
-	public int getPrecioTotal() {
-		return precioTotal;
-	}
-	public void setPrecioTotal(int precioTotal) {
-		this.precioTotal = precioTotal;
-	}
-	public Restaurante getRestaurante() {
-		return restaurante;
-	}
-	public void setRestaurante(Restaurante restaurante) {
-		this.restaurante = restaurante;
 	}
 
 	public String getEstado() {
@@ -128,6 +88,54 @@ public class Pedido {
 
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+
+	public ArrayList<Producto> getProductos() {
+		return productos;
+	}
+
+	public void setProductos(ArrayList<Producto> productos) {
+		this.productos = productos;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	public LocalDateTime getFechaHora() {
+		return fechaHora;
+	}
+
+	public void setFechaHora(LocalDateTime fechaHora) {
+		this.fechaHora = fechaHora;
+	}
+
+	public String getMensaje() {
+		return mensaje;
+	}
+
+	public void setMensaje(String mensaje) {
+		this.mensaje = mensaje;
+	}
+
+	public int getPrecioTotal() {
+		return precioTotal;
+	}
+
+	public void setPrecioTotal(int precioTotal) {
+		this.precioTotal = precioTotal;
+	}
+
+	public Restaurante getRestaurante() {
+		return restaurante;
+	}
+
+	public void setRestaurante(Restaurante restaurante) {
+		this.restaurante = restaurante;
 	}
 	
 ////////////////////////////////////////
