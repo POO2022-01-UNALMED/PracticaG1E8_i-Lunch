@@ -17,6 +17,7 @@ public class Producto implements Serializable {
 	private boolean disponiblidad;
 	private boolean restriccion;
 	private int cantidad;
+	private boolean estado;
 	
 	public Producto(String nombre, String descripcion, int precio, boolean disponiblidad, boolean restriccion, int cantidad) {
 		super();
@@ -26,6 +27,7 @@ public class Producto implements Serializable {
 		this.disponiblidad = disponiblidad;
 		this.restriccion = restriccion;
 		this.cantidad = cantidad;
+		this.estado = false;/*<<-- false significa sin preparar y true, preparado*/
 		
 	}
 
@@ -77,6 +79,14 @@ public class Producto implements Serializable {
 		this.cantidad = cantidad;
 	}
 
+	public boolean getEstado() {
+		return estado;
+	}
+
+	public void setEstado(boolean estado) {
+		this.estado = estado;
+	}
+	
 	public static ArrayList<Producto> getProductos() {
 		return productos;
 	}

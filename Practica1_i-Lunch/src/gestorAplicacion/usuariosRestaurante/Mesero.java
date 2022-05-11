@@ -37,32 +37,23 @@ public class Mesero extends Empleado implements Serializable{
 		this(0, "NN","NA", false, 0, null/*, false*/);
 	}
 	
-	/*Metodo que permite ingresar al sistema la orden del cliente y asi crear el objeto de tipo pedido.?? dudas con la creacion del objeto pedido
-	  Seria como el paso previo a utilizar el metodo aceptarPedido?*/
 	
 	public static ArrayList<Mesero> getMeseros() {
 		return meseros;
 	}
 
-	public void tomarPedido(Pedido pedido) { /*<-- Puede ser que tomar pedido no sea tan util y que mejor sea crearPedido directamente*/
-		
-	}
-	
 	
 	/* Metodo para cambiar el estado de un pedido(atributo "estadoPedido") a su estado final "Entregado". Recibe como parametro un pedido 
 	  y tiene como finalidad modificar el atributo "estadoPedido", por ultima vez y de manera unica. Se debe revisar que el estado anterior
-	  del pedido sea "Listo para ser despachado" y que sea para consumir en el lugar. 
+	  del pedido sea "Listo para ser despachado" y que sea para consumir en el lugar. */
 	 
-	 public void llevarPedido(Pedido pedido) { <--- Un poco inutil?
-		
-	}*/
-	
-	
-	/* Metodo que permite al cliente conocer el total de su pedido, mediante el atributo "precioTotal". Recibe como parametro un pedido.*/
-	public void llevarCuenta(Pedido pedido) {
-		
+	 public void llevarPedido(Pedido pedido) {
+		 if(pedido.getEstado().equals("Listo") && pedido.getTipo().equals("Para Consumir en el lugar")) { /*<<<<<--------- Falta aplicar el ENUM*/
+				pedido.setEstado("Despachado"); 		/*<<<<<--------- Falta aplicar el ENUM*/
+			}
 	}
+	
+
 	
 }
 
-/*Esta clase me genera dudas sobre su utilidad a la hora de simular el proceso.*/

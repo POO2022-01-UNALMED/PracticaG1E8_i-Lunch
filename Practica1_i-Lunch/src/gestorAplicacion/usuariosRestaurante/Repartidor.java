@@ -72,15 +72,16 @@ public class Repartidor extends Empleado implements Serializable {
 		this.poseeVehiculo = poseeVehiculo;
 	}
 
-	/*Metodo para cambiar el estado de un pedido(atributo "estadoPedido") a su estado final "Entregado". Recibe como parametro un pedido 
-	  y tiene como finalidad modificar el atributo "estadoPedido", por ultima vez y de manera unica. Se debe revisar que el estado anterior
+	/*Metodo para cambiar el estado de un pedido(atributo "estado") a su estado final "Entregado". Recibe como parametro un pedido 
+	  y tiene como finalidad modificar el atributo "estado", por ultima vez y de manera unica. Se debe revisar que el estado anterior
 	  del pedido sea "Listo para ser despachado" y que sea para llevar*/
 	public void repartirPedido(Pedido pedido) {
+		if(pedido.getEstado().equals("Listo") && pedido.getTipo().equals("Para llevar")) { /*<<<<<--------- Falta aplicar el ENUM*/
+			pedido.setEstado("Enviado"); 		/*<<<<<--------- Falta aplicar el ENUM*/
+		}
+		
 		
 	}
 	
-	/*public void entregarPedido(Pedido pedido) { <-------- es necesario este metodo o con el anterior es suficiente?
-		
-	}*/
 
 }

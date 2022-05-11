@@ -66,16 +66,29 @@ public class Chef extends Empleado implements Serializable {
 
 	/*Metodo que permite a un chef preparar un producto de la lista de productos de la clase Pedido(Suponemos que un chef crea un solo producto a 
 	 * la vez?). Recibe como argumento un pedido, se toma un producto de la listo y se prepara. Asi, hasta preparar todos los productos de la lista.*/
-	public void prepararProducto(Pedido pedido) {
-		
-	}
 	
+	public void prepararProducto(Pedido pedido) {
+		for (int i=0;i<pedido.getProductos().size();i++) {
+				pedido.getProductos().get(i).setEstado(true);}
+			}
+
+
 	/*Metodo que permite saber si el pedido ha sido preparado de manera correcta y asi cambiar su estado a "Listo para ser despachado".
 	  Esta revision la realiza el chef en jefe del restaurante, quien decide si esta listo o no. Recibe como parametros un pedido y 
 	  (Lista de productos??) y tiene como finalidad ser el requisito para poder cambiar el estado de un pedido a su estado final 
 	  "Listo para ser despachado"*/
 	
-	public void revisionPedido(Pedido pedido, Producto producto) {
-		
+	public void revisionPedido(Pedido pedido) {
+		if(this.cargoEnCocina.equals("Chef en jefe")) {
+			int contador = 0;
+			for (int i=0;i<pedido.getProductos().size();i++) {
+				if(pedido.getProductos().get(i).getEstado() == true) {
+					contador++;
+				}
+			}
+			if (contador == pedido.getProductos().size()) {
+				pedido.setEstado("Listo para ser despachado"); /* <-------- Falta aplicar el ENUM*/
+			}
+		}
 	}
 }
