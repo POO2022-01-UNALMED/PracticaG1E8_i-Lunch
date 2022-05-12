@@ -9,8 +9,7 @@ import gestorAplicacion.gestionRestaurante.*;
 
 /* Esta es la clase principal de la aplicación, ya que el administrador
  * es quien tiene acceso a la aplicación y desde su cuenta se manejan
- * todas las funcionalidades. Esta clase hereda de Empleado
- */
+ * todas las funcionalidades. Esta clase hereda de Empleado */
 
 public class Administrador extends Empleado implements Serializable {
 	// Como Administrador hereda de Empleado, se utilizarán los atributos de este. No es necesario implementar atributos nuevos
@@ -40,8 +39,7 @@ public class Administrador extends Empleado implements Serializable {
 	
 	/* Este método recibe como parámetro un objeto Empleado, comprueba que no esté ya
 	 * contratado en el restaurante y si no lo está lo agrega a la lista de empleados
-	 * del restaurante. También cambia el atributo Resturante del Empleado.
-	 */
+	 * del restaurante. También cambia el atributo Resturante del Empleado. */
 	public void contratarEmpleado(Empleado empleado) {
 		ArrayList<Empleado> listaEmpleados = this.restaurante.getEmpleados();
 		listaEmpleados.add(empleado);
@@ -50,8 +48,7 @@ public class Administrador extends Empleado implements Serializable {
 	
 	/* Este método recibe como parámetro un objeto Empleado, comprueba que este esté ya
 	 * contratado en el restaurante y si lo está lo agrega a la lista de empleados
-	 * del restaurante. También cambia el atributo Resturante del Empleado.
-	 */
+	 * del restaurante. También cambia el atributo Resturante del Empleado. */
 	public void despedirEmpleado(Empleado empleado) {
 		ArrayList<Empleado> listaEmpleados = this.restaurante.getEmpleados();
 		listaEmpleados.remove(empleado);
@@ -66,8 +63,7 @@ public class Administrador extends Empleado implements Serializable {
 	 * - Un bool que indica la disponibilidad actual del producto
 	 * Luego, se crea un objeto de tipo Producto con estos atributos y se agrega a la lista
 	 * de productos del restaurante. Antes de agregarlo se comprueba que no haya un producto
-	 * con un nombre exactamente igual y si esto no se cumple, se agrega.
-	 */
+	 * con un nombre exactamente igual y si esto no se cumple, se agrega. */
 	public void crearProducto(String nombre, String descripcion, int precio, boolean disponibilidad, boolean restriccion, int cantidad) {
 		Producto productoNuevo = new Producto(nombre, descripcion, precio, disponibilidad, restriccion, cantidad);
 		
@@ -82,8 +78,7 @@ public class Administrador extends Empleado implements Serializable {
 	
 	/* Método útil para cambiar el nombre de un Producto pasado por parámetro.
 	 * Antes de cambiar el atributo se debe de comprobar que el producto esté 
-	 * en la lista de productos del restaurante.
-	 */
+	 * en la lista de productos del restaurante. */
 	public void actualizarNombreProducto(Producto producto, String nombre) {
 		ArrayList<Producto> listaMenu = this.restaurante.getMenu();
 		if(listaMenu.contains(producto)) {
@@ -99,8 +94,7 @@ public class Administrador extends Empleado implements Serializable {
 	
 	/* Método útil para cambiar la descripción de un Producto pasado por parámetro.
 	 * Antes de cambiar el atributo se debe de comprobar que el producto esté 
-	 * en la lista de productos del restaurante.
-	 */
+	 * en la lista de productos del restaurante. */
 	public void actualizarDescripcionProducto(Producto producto, String descripcion) {
 		ArrayList<Producto> listaMenu = this.restaurante.getMenu();
 		if(listaMenu.contains(producto)) {
@@ -116,8 +110,7 @@ public class Administrador extends Empleado implements Serializable {
 	
 	/* Método útil para cambiar el precio de un Producto pasado por parámetro.
 	 * Antes de cambiar el atributo se debe de comprobar que el producto esté 
-	 * en la lista de productos del restaurante.
-	 */
+	 * en la lista de productos del restaurante. */
 	public void actualizarPrecioProducto(Producto producto, int precio) {
 		ArrayList<Producto> listaMenu = this.restaurante.getMenu();
 		if(listaMenu.contains(producto)) {
@@ -133,8 +126,7 @@ public class Administrador extends Empleado implements Serializable {
 	
 	/* Método útil para cambiar el estado de la restricción de un Producto pasado por parámetro.
 	 * Antes de cambiar el atributo se debe de comprobar que el producto esté 
-	 * en la lista de productos del restaurante.
-	 */
+	 * en la lista de productos del restaurante. */
 	public void actualizarRestriccionProducto(Producto producto, boolean restriccion) {
 		ArrayList<Producto> listaMenu = this.restaurante.getMenu();
 		if(listaMenu.contains(producto)) {
@@ -150,8 +142,7 @@ public class Administrador extends Empleado implements Serializable {
 	
 	/* Método útil para cambiar la disponibilidad actual de un Producto pasado por parámetro.
 	 * Antes de cambiar el atributo se debe de comprobar que el producto esté 
-	 * en la lista de productos del restaurante.
-	 */
+	 * en la lista de productos del restaurante. */
 	public void actualizarDisponibilidadProducto(Producto producto, boolean disponibilidad) {
 		ArrayList<Producto> listaMenu = this.restaurante.getMenu();
 		if(listaMenu.contains(producto)) {
@@ -167,8 +158,7 @@ public class Administrador extends Empleado implements Serializable {
 	
 	/* Método útil para cambiar la cantidad actual de un Producto pasado por parámetro.
 	 * Antes de cambiar el atributo se debe de comprobar que el producto esté 
-	 * en la lista de productos del restaurante.
-	 */
+	 * en la lista de productos del restaurante. */
 	public void actualizarCantidadProducto(Producto producto, int cantidad) {
 		ArrayList<Producto> listaMenu = this.restaurante.getMenu();
 		if(listaMenu.contains(producto)) {
@@ -184,8 +174,7 @@ public class Administrador extends Empleado implements Serializable {
 	
 	/* Método que sirve para eliminar un Producto de la lista de productos del restaurante.
 	 * Antes de eliminar el producto se debe de verificar que el producto se encuentre
-	 * en la lista de productos del restaurante.
-	 */
+	 * en la lista de productos del restaurante. */
 	public void eliminarProducto(Producto producto) {
 		ArrayList<Producto> listaMenu = this.restaurante.getMenu();
 		if(listaMenu.contains(producto)) {
@@ -198,8 +187,7 @@ public class Administrador extends Empleado implements Serializable {
 	
 	/* Método que realiza el pago de la nómina a todos los empleados del restaurante incluyendo
 	 * al Administrador mismo. Antes de hacer efectivo el pago se debe de comprobar que en el balance
-	 * de cuenta del restaurtante existan fondos sufucientes para pagar a los empleados
-	 */
+	 * de cuenta del restaurtante existan fondos sufucientes para pagar a los empleados */
 	public void autorizarPagoNomina() {
 		ArrayList<Empleado> listaEmpleados = this.restaurante.getEmpleados();
 		int totalSalarios = 0;
@@ -218,8 +206,7 @@ public class Administrador extends Empleado implements Serializable {
 	
 	/* Método que sirve para simular un pedido al restaurante. Este recibe como parámetros un Cliente
 	 * con quien se asociará el pedido simulado y un objeto Pedido que contiene toda la información
-	 * del pedido simulado.
-	 */
+	 * del pedido simulado. */
 	public void simularPedido(Cliente cliente, Pedido pedido) {
 		// Esta funcionalidad es algo más complicada
 	}

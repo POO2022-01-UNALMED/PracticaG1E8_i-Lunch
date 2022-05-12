@@ -1,40 +1,33 @@
 package gestorAplicacion.usuariosRestaurante;
-////////////////////////////////////////
-//////////////  IMPORTES //////////////
-///////////////////////////////////////
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Random;
 import java.io.Serializable;
 
-import gestorAplicacion.gestionRestaurante.Pedido;
-import gestorAplicacion.gestionRestaurante.Producto;
-import gestorAplicacion.gestionRestaurante.Restaurante;
+import gestorAplicacion.gestionRestaurante.*;
 
 public class Cliente implements Serializable {
-	////////////////////////////////////////
-	////////////// ATRIBUTOS //////////////
-	///////////////////////////////////////
 	
+	// Serializacion
 	private static final long serialVersionUID = 1L;
 	private static ArrayList<Cliente> clientes;
 	static {
 		clientes = new ArrayList<Cliente>();
 	}
 	
+	// Atributos
 	private int telefono;
-	// Pienso que es mejor separar asi el nombre (pensando en bases de datos lol)
 	private String primerNombre;
 	private String segundoNombre;
 	private String primerApellido;
 	private String segundoApellido;
-	
 	private String direccion;
-	private LocalDateTime fechaNacimientol;
+	private LocalDateTime fechaNacimiento;
 	
 
 	public Cliente(int telefono, String primerNombre, String segundoNombre, String primerApellido,
-			String segundoApellido, String direccion, LocalDateTime fechaNacimientol, Pedido pedidoActivo,
+			String segundoApellido, String direccion, LocalDateTime fechaNacimiento, Pedido pedidoActivo,
 			ArrayList<Pedido> historialPedidos) {
 		super();
 		this.telefono = telefono;
@@ -43,24 +36,25 @@ public class Cliente implements Serializable {
 		this.primerApellido = primerApellido;
 		this.segundoApellido = segundoApellido;
 		this.direccion = direccion;
-		this.fechaNacimientol = fechaNacimientol;
+		this.fechaNacimiento = fechaNacimiento;
 		this.pedidoActivo = pedidoActivo;
 		this.historialPedidos = historialPedidos;
 		clientes.add(this);
 	}
+	
+	public Cliente() {
+		this(0, "", "", "", "", "", null, null, null);
+	}
 
-	//Aca se almacenara el pedido que este la persona realizando en el momento,
-	//al despachar o cancelar dicho pedido este atributo tiene que volver a null.
-	//y en particular despues de ser despachado este pedido activo tiene que ser agregado al historial.
+	// Aca se almacenara el pedido que este la persona realizando en el momento,
+	// al despachar o cancelar dicho pedido este atributo tiene que volver a null.
+	// y en particular despues de ser despachado este pedido activo tiene que ser agregado al historial.
 	private Pedido pedidoActivo = null;
 	
 	// ArrayList en el cual se agregaran todos los pedidos hechos por el cliente a lo largo del tiempo.
 	private ArrayList<Pedido> historialPedidos = new ArrayList<Pedido>();
 	
-	////////////////////////////////////////
 	////////////// METODOS ////////////////
-	///////////////////////////////////////
-	
 	public Pedido iniciarPedido() {
 		return new Pedido(this, new Random().nextInt(999999),"Ni idea, falta implementar", LocalDateTime.now(), null);		
 	}
@@ -77,10 +71,7 @@ public class Cliente implements Serializable {
 		//PENDIENTE
 	}
 	
-	////////////////////////////////////////
 	///////// GETTERS AND SETTERS /////////
-	///////////////////////////////////////
-	
 	public int getTelefono() {
 		return telefono;
 	}
@@ -117,11 +108,11 @@ public class Cliente implements Serializable {
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
-	public LocalDateTime getFechaNacimientol() {
-		return fechaNacimientol;
+	public LocalDateTime getfechaNacimiento() {
+		return fechaNacimiento;
 	}
-	public void setFechaNacimientol(LocalDateTime fechaNacimientol) {
-		this.fechaNacimientol = fechaNacimientol;
+	public void setfechaNacimiento(LocalDateTime fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
 	}
 
 	public static ArrayList<Cliente> getClientes() {
@@ -142,9 +133,5 @@ public class Cliente implements Serializable {
 
 	public void setHistorialPedidos(ArrayList<Pedido> historialPedidos) {
 		this.historialPedidos = historialPedidos;
-	}
-	
+	}	
 }
-////////////////////////////////////////
-////////////////////////////////////////
-///////////////////////////////////////

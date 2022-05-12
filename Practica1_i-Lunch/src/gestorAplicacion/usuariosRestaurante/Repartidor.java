@@ -8,9 +8,9 @@ import java.util.ArrayList;
 
 import gestorAplicacion.gestionRestaurante.*;
 
-
 public class Repartidor extends Empleado implements Serializable {
 	
+	// Serializacion
 	private static final long serialVersionUID = 1L;
 	private static ArrayList<Repartidor> repartidores;
 	static {
@@ -80,9 +80,6 @@ public class Repartidor extends Empleado implements Serializable {
 		if(pedido.getEstado().equals("Listo") && pedido.getTipo().equals("Para llevar")) { /*<<<<<--------- Falta aplicar el ENUM*/
 			pedido.setEstado("Enviado"); 		/*<<<<<--------- Falta aplicar el ENUM*/
 		}
-		
-		
-	}
-	
 
+	}
 }

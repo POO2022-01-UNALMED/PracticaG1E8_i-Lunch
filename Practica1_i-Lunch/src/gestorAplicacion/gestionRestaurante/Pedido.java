@@ -7,15 +7,12 @@ import java.util.ArrayList;
 import java.util.concurrent.atomic.DoubleAdder;
 import java.util.function.BiConsumer;
 
-import gestorAplicacion.usuariosRestaurante.Administrador;
-import gestorAplicacion.usuariosRestaurante.Cliente;
+import gestorAplicacion.usuariosRestaurante.*;
+import gestorAplicacion.usuariosRestaurante.*;
 
 public class Pedido implements Serializable {
-
-////////////////////////////////////////
-//////////////ATRIBUTOS //////////////
-///////////////////////////////////////
 	
+	// Serializacion
 	private static final long serialVersionUID = 1L;
 	private static ArrayList<Pedido> pedidos;
 	static {
@@ -23,6 +20,7 @@ public class Pedido implements Serializable {
 		pedidos = new ArrayList<Pedido>();
 	}
 	
+	////////////// ATRIBUTOS //////////////
 	private Cliente cliente;
 	private int codigo;
 	private String estado;
@@ -39,11 +37,7 @@ public class Pedido implements Serializable {
 	private int precioTotal;
 	private Restaurante restaurante;
 
-	
-	
-////////////////////////////////////////
-////////////// METODOS ////////////////
-///////////////////////////////////////
+	////////////// METODOS ////////////////
 
 	private int calcularPrecioTotal() {
 		int sum = 0;
@@ -53,10 +47,7 @@ public class Pedido implements Serializable {
 		return sum;
 	}
 	
-////////////////////////////////////////
-/////////// CONSTRUCTORES /////////////
-///////////////////////////////////////
-	
+	/////////// CONSTRUCTORES /////////////
 	
 	public Pedido(Cliente cliente, int codigo, String tipo, LocalDateTime fechaHora, Restaurante restaurante) {
 		//Considero que estos son los datos necesarios para empezar un pedido
@@ -68,9 +59,11 @@ public class Pedido implements Serializable {
 		pedidos.add(this);
 	}
 	
-////////////////////////////////////////
-///////// GETTERS AND SETTERS /////////
-///////////////////////////////////////
+	public Pedido() {
+		this(null, 0, "", null, null);
+	}
+	
+	///////// GETTERS AND SETTERS /////////
 
 	public Cliente getCliente() {
 		return cliente;
@@ -147,8 +140,4 @@ public class Pedido implements Serializable {
 	public static ArrayList<Pedido> getPedidos() {
 		return pedidos;
 	}
-	
-////////////////////////////////////////
-////////////////////////////////////////
-///////////////////////////////////////
 }

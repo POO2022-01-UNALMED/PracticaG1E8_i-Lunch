@@ -12,6 +12,7 @@ import gestorAplicacion.gestionRestaurante.*;
 
 public class Chef extends Empleado implements Serializable {
 	
+	// Serializacion
 	private static final long serialVersionUID = 1L;
 	private static ArrayList<Chef> chefs;
 	static {
@@ -44,7 +45,6 @@ public class Chef extends Empleado implements Serializable {
 	}
 	
 	/*Metodos GET y SET para los 2 nuevos atributos*/
-	
 	public String getCargoEnCocina() {
 		return this.cargoEnCocina;
 	}

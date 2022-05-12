@@ -41,13 +41,12 @@ public class Deserializador {
 			fileIn.close();
 
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			System.out.println("Esta vacio");
+			
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

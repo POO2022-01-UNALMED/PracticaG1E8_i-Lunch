@@ -9,29 +9,26 @@ import gestorAplicacion.gestionRestaurante.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Empleado implements Serializable { /*
-						 * Por ahora puse todos protected, si no recuerdo mal por sugerencia del profe.
-						 * Sujeto a revision
-						 */
+public class Empleado implements Serializable {
+	
+	// Atributos utilizados para la serialización
+	private static final long serialVersionUID = 1L; // Se requiere del atributo serialVersionUID por usar la interface Serializable.
+	private static ArrayList<Empleado> empleados;
+	static {
+		empleados = new ArrayList<Empleado>();
+	}
+	
+	// Atributos
 	protected int cedula;
 	protected String nombre;
 	protected String cargo;
 	protected boolean disponibilidad;
 	protected int salario;
 	protected Restaurante restaurante;
-
 	/*protected boolean pagado=false; <--- Que tal este atributo pagado? Refiriendose a su salario.  */
 	
-	// Atributos utilizados para la serialización
-		private static final long serialVersionUID = 1L; // Se requiere del atributo serialVersionUID por usar la interface Serializable.
-		private static ArrayList<Empleado> empleados;
-		static {
-			empleados = new ArrayList<Empleado>();
-		}
-	
-	/*Constructor de la clase empleado*/								/*Tengo duda con este atributo restaurante, explicarme porfa que es.*/
+	/*Constructor de la clase empleado*/
 	public Empleado(int cedula, String nombre, String cargo, boolean disponibilidad, int salario, Restaurante restaurante/*, boolean pagado*/) {
-
 		this.cedula = cedula;
 		this.nombre = nombre;
 		this.cargo = cargo;
@@ -48,7 +45,6 @@ public class Empleado implements Serializable { /*
 	}
 
 	/* Metodos GET y SET para los atributos */
-
 	public int getCedula() {
 		return this.cedula;
 	}
@@ -119,6 +115,8 @@ public class Empleado implements Serializable { /*
 	 * finalidad modificar el atributo "estadoPedido", la primera vez y de manera
 	 * unica.
 	 */
+	
+	// Métodos
 	public boolean procesarPedido(Pedido pedido) {
 		if (restaurante.verificarPersonal(pedido) && restaurante.verificarProductos(pedido)) {
 			return true;

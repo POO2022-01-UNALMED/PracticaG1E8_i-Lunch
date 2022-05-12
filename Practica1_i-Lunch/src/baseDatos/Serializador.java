@@ -10,19 +10,16 @@ import java.util.List;
 import gestorAplicacion.gestionRestaurante.*;
 import gestorAplicacion.usuariosRestaurante.*;
 
-/*
- * Se utiliza para serializar todos los objetos creados durante la ejecucion del proyecto
+/* Se utiliza para serializar todos los objetos creados durante la ejecucion del proyecto
  * @author Erik Gonzalez
- * @author Felipe Miranda
- */
+ * @author Felipe Miranda */
 
 public class Serializador {
-	/*
-	 * Serializamos una lista por el nombre de la clase
+	/* Serializamos una lista por el nombre de la clase
 	 * @param <E>       El generico se usa para poder agredar las clases que se crearon
 	 * @param lista     Una lista de objetos
-	 * @param className El nombre de la clase que queremos usar como nombre del archivo
-	 */
+	 * @param className El nombre de la clase que queremos usar como nombre del archivo */
+	
 	public static <E> void serializar(List<E> lista, String className) {
 		FileOutputStream fileOut;
 
@@ -36,10 +33,11 @@ public class Serializador {
 			out.writeObject(lista);
 			out.close();
 			fileOut.close();
+			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

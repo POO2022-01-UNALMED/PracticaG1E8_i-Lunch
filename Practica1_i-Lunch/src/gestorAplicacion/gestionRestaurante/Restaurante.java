@@ -2,17 +2,18 @@ package gestorAplicacion.gestionRestaurante;
 
 import java.util.ArrayList;
 import java.io.Serializable;
-import gestorAplicacion.usuariosRestaurante.Empleado;
+import gestorAplicacion.usuariosRestaurante.*;
 
 public class Restaurante implements Serializable {
-	
+
+	// Serializacion
 	private static final long serialVersionUID = 1L;
 	private static ArrayList<Restaurante> restaurantes;
 	static {
 		restaurantes = new ArrayList<Restaurante>();
 	}
-	
-//	Atributos de la clase Restaurante
+
+	// Atributos
 	private String nombre;
 	private int nit;
 	private int telefono;
@@ -25,7 +26,7 @@ public class Restaurante implements Serializable {
 	private ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
 	private int balanceCuenta;
 
-//	Metodo constructor del la clase Restaurante
+	// Constructores
 	public Restaurante(String nombre, int nit, int telefono, String direccion, String correo, boolean abierto,
 			int capacidad, ArrayList<Empleado> empleados, ArrayList<Producto> menu, ArrayList<Pedido> pedidos,
 			int balanceCuenta) {
@@ -44,7 +45,11 @@ public class Restaurante implements Serializable {
 		restaurantes.add(this);
 	}
 
-// Metodos gets y sets de los atributos 
+	public Restaurante() {
+		this("", 0, 0, "", "", false, 0, null, null, null, 0);
+	}
+
+	// Getters y Setters
 	public String getNombre() {
 		return nombre;
 	}
@@ -137,11 +142,11 @@ public class Restaurante implements Serializable {
 		return restaurantes;
 	}
 
-	//	Metodo que determina si existe el personal necesario 
-//	en el restaurante para realizar un pedido solicitado
+	// Metodo que determina si existe el personal necesario en el restaurante para
+	// realizar un pedido solicitado
 	public boolean verificarPersonal(Pedido pedido) {
 
-//		Comprobamos si existe un chef en el restaurante
+		// Comprobamos si existe un chef en el restaurante
 		boolean chef = false;
 		for (int i = 0; i < empleados.size(); i++) {
 			Empleado empleado = empleados.get(i);
@@ -150,11 +155,12 @@ public class Restaurante implements Serializable {
 			}
 		}
 
-//		Identificar el tipo de pedido
+		// Identificar el tipo de pedido
 		switch (pedido.getTipo()) {
 		case "Domicilio": {
 
-//			Rectificar el personal del restaurante y comprobar que haya el necesario para el tipo de pedido
+			// Rectificar el personal del restaurante y comprobar que haya el necesario para
+			// el tipo de pedido
 			boolean repartidor = false;
 			for (int i = 0; i < empleados.size(); i++) {
 				Empleado empleado = empleados.get(i);
@@ -162,15 +168,16 @@ public class Restaurante implements Serializable {
 					repartidor = true;
 				}
 			}
-//			Si si no hay alguno no se puede realizar
+			// Si si no hay alguno no se puede realizar
 			if (!chef && !repartidor) {
 				return false;
 			}
-//		Si todo es aceptable se realiza el pedido
+			// Si todo es aceptable se realiza el pedido
 		}
 		case "Consumir en el local": {
 
-//			Rectificar el personal del restaurante y comprobar que haya el necesario para el tipo de pedido
+			// Rectificar el personal del restaurante y comprobar que haya el necesario para
+			// el tipo de pedido
 			boolean mesero = false;
 			for (int i = 0; i < empleados.size(); i++) {
 				Empleado empleado = empleados.get(i);
@@ -178,16 +185,17 @@ public class Restaurante implements Serializable {
 					mesero = true;
 				}
 			}
-//			Si si no hay alguno no se puede realizar
+			// Si si no hay alguno no se puede realizar
 			if (!chef && !mesero) {
 				return false;
 			}
-//		Si todo es aceptable se realiza el pedido
+			// Si todo es aceptable se realiza el pedido
 		}
-		
+
 		case "Para llevar": {
 
-//			Rectificar el personal del restaurante y comprobar que haya el necesario para el tipo de pedido
+			// Rectificar el personal del restaurante y comprobar que haya el necesario para
+			// el tipo de pedido
 			boolean mesero = false;
 			for (int i = 0; i < empleados.size(); i++) {
 				Empleado empleado = empleados.get(i);
@@ -195,32 +203,31 @@ public class Restaurante implements Serializable {
 					mesero = true;
 				}
 			}
-//			Si si no hay alguno no se puede realizar
+			// Si si no hay alguno no se puede realizar
 			if (!chef && !mesero) {
 				return false;
 			}
 		}
-
+		
 		}
 
-//		Si todo es aceptable se realiza el pedido
+		// Si todo es aceptable se realiza el pedido
 		return true;
 	}
 
-//	Metodo que determina si el restaurante posee los productos 
-//	solicitados en un pedido
+	//	Metodo que determina si el restaurante posee los productos solicitados en un pedido
 	public boolean verificarProductos(Pedido pedido) {
 
-//		Identificar los productos solicitados y la cantidad de ellos
+		// Identificar los productos solicitados y la cantidad de ellos
 		ArrayList<Producto> productos = pedido.getProductos();
 		for (int i = 0; i < productos.size(); i++) {
 			Producto demanda = productos.get(i);
 
-//		Rectificar que el restaurante tenga los productos solicitados en las cantidad pedidas.
+			// Rectificar que el restaurante tenga los productos solicitados en las cantidad pedidas.
 			for (int j = 0; j < menu.size(); j++) {
 				Producto oferta = menu.get(j);
 
-//		Si no hay alguno de los productos disponibles o en la cantidad deseada no se puede realizar
+				// Si no hay alguno de los productos disponibles o en la cantidad deseada no se puede realizar
 				if (demanda.getNombre() != oferta.getNombre() || !oferta.getDisponiblidad()
 						|| demanda.getCantidad() > oferta.getCantidad()) {
 					return false;
@@ -228,7 +235,7 @@ public class Restaurante implements Serializable {
 			}
 		}
 
-//		Si todo es aceptable se puede realizar el pedido
+		// Si todo es aceptable se puede realizar el pedido
 		return true;
 	}
 

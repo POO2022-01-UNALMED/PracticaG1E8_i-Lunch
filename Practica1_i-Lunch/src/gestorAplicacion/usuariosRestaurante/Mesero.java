@@ -10,16 +10,16 @@ import java.util.ArrayList;
 
 import gestorAplicacion.gestionRestaurante.*;
 
-
 public class Mesero extends Empleado implements Serializable{
 	
+	// Serialización
 	private static final long serialVersionUID = 1L;
 	private static ArrayList<Mesero> meseros;
 	static {
 		meseros = new ArrayList<Mesero>();
 	}
 	
-	/*Como CHEF hereda de EMPLEADO, utiliza sus atributo*/
+	/*Como CHEF hereda de EMPLEADO, utiliza sus atributos */
 	
 	/*Constructor de la clase Mesero*/
 	public Mesero(int cedula, String nombre, String cargo, boolean disponibilidad, int salario, Restaurante restaurante/*, boolean pagado*/) {
@@ -38,7 +38,7 @@ public class Mesero extends Empleado implements Serializable{
 		this(0, "NN","NA", false, 0, null/*, false*/);
 	}
 	
-	
+	// Getters y Setters
 	public static ArrayList<Mesero> getMeseros() {
 		return meseros;
 	}
@@ -53,8 +53,5 @@ public class Mesero extends Empleado implements Serializable{
 				pedido.setEstado("Despachado"); 		/*<<<<<--------- Falta aplicar el ENUM*/
 			}
 	}
-	
-
-	
 }
 
