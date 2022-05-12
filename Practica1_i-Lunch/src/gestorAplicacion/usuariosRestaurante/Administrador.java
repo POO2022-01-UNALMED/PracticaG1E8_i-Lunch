@@ -1,5 +1,3 @@
-// CLASE CREADA POR: Emmanuel López Rodríguez
-
 package gestorAplicacion.usuariosRestaurante;
 
 import java.io.Serializable;
@@ -64,22 +62,23 @@ public class Administrador extends Empleado implements Serializable {
 	 * Luego, se crea un objeto de tipo Producto con estos atributos y se agrega a la lista
 	 * de productos del restaurante. Antes de agregarlo se comprueba que no haya un producto
 	 * con un nombre exactamente igual y si esto no se cumple, se agrega. */
-	public void crearProducto(String nombre, String descripcion, int precio, boolean disponibilidad, boolean restriccion, int cantidad) {
+	public String crearProducto(String nombre, String descripcion, int precio, boolean disponibilidad, boolean restriccion, int cantidad) {
 		Producto productoNuevo = new Producto(nombre, descripcion, precio, disponibilidad, restriccion, cantidad);
 		
 		ArrayList<Producto> listaMenu = this.restaurante.getMenu();
 		if(!listaMenu.contains(productoNuevo)) {
 			listaMenu.add(productoNuevo);
 			this.restaurante.setMenu(listaMenu);
+			return "Producto " + nombre + "creado con éxito";
 		} else {
-			// De alguna manera retornar un mensaje de error
+			return "ERROR: El producto ya se encuentra creado";
 		}
 	}
 	
 	/* Método útil para cambiar el nombre de un Producto pasado por parámetro.
 	 * Antes de cambiar el atributo se debe de comprobar que el producto esté 
 	 * en la lista de productos del restaurante. */
-	public void actualizarNombreProducto(Producto producto, String nombre) {
+	public String actualizarNombreProducto(Producto producto, String nombre) {
 		ArrayList<Producto> listaMenu = this.restaurante.getMenu();
 		if(listaMenu.contains(producto)) {
 			int indiceProducto = listaMenu.indexOf(producto);
@@ -87,15 +86,16 @@ public class Administrador extends Empleado implements Serializable {
 			productoActualizado.setNombre(nombre);
 			listaMenu.set(indiceProducto, productoActualizado);
 			this.restaurante.setMenu(listaMenu);
+			return "Producto " + producto.getNombre() + " actualizado con éxito";
 		} else {
-			// De alguna manera retornar un mensaje de error
+			return "ERROR: El producto que intentas actualizar no existe";
 		}
 	}
 	
 	/* Método útil para cambiar la descripción de un Producto pasado por parámetro.
 	 * Antes de cambiar el atributo se debe de comprobar que el producto esté 
 	 * en la lista de productos del restaurante. */
-	public void actualizarDescripcionProducto(Producto producto, String descripcion) {
+	public String actualizarDescripcionProducto(Producto producto, String descripcion) {
 		ArrayList<Producto> listaMenu = this.restaurante.getMenu();
 		if(listaMenu.contains(producto)) {
 			int indiceProducto = listaMenu.indexOf(producto);
@@ -103,15 +103,16 @@ public class Administrador extends Empleado implements Serializable {
 			productoActualizado.setDescripcion(descripcion);
 			listaMenu.set(indiceProducto, productoActualizado);
 			this.restaurante.setMenu(listaMenu);
+			return "Producto " + producto.getNombre() + " actualizado con éxito";
 		} else {
-			// De alguna manera retornar un mensaje de error
+			return "ERROR: El producto que intentas actualizar no existe";
 		}
 	}
 	
 	/* Método útil para cambiar el precio de un Producto pasado por parámetro.
 	 * Antes de cambiar el atributo se debe de comprobar que el producto esté 
 	 * en la lista de productos del restaurante. */
-	public void actualizarPrecioProducto(Producto producto, int precio) {
+	public String actualizarPrecioProducto(Producto producto, int precio) {
 		ArrayList<Producto> listaMenu = this.restaurante.getMenu();
 		if(listaMenu.contains(producto)) {
 			int indiceProducto = listaMenu.indexOf(producto);
@@ -119,15 +120,16 @@ public class Administrador extends Empleado implements Serializable {
 			productoActualizado.setPrecio(precio);
 			listaMenu.set(indiceProducto, productoActualizado);
 			this.restaurante.setMenu(listaMenu);
+			return "Producto " + producto.getNombre() + " actualizado con éxito";
 		} else {
-			// De alguna manera retornar un mensaje de error
+			return "ERROR: El producto que intentas actualizar no existe";
 		}
 	}
 	
 	/* Método útil para cambiar el estado de la restricción de un Producto pasado por parámetro.
 	 * Antes de cambiar el atributo se debe de comprobar que el producto esté 
 	 * en la lista de productos del restaurante. */
-	public void actualizarRestriccionProducto(Producto producto, boolean restriccion) {
+	public String actualizarRestriccionProducto(Producto producto, boolean restriccion) {
 		ArrayList<Producto> listaMenu = this.restaurante.getMenu();
 		if(listaMenu.contains(producto)) {
 			int indiceProducto = listaMenu.indexOf(producto);
@@ -135,15 +137,16 @@ public class Administrador extends Empleado implements Serializable {
 			productoActualizado.setRestriccion(restriccion);
 			listaMenu.set(indiceProducto, productoActualizado);
 			this.restaurante.setMenu(listaMenu);
+			return "Producto " + producto.getNombre() + " actualizado con éxito";
 		} else {
-			// De alguna manera retornar un mensaje de error
+			return "ERROR: El producto que intentas actualizar no existe";
 		}
 	}
 	
 	/* Método útil para cambiar la disponibilidad actual de un Producto pasado por parámetro.
 	 * Antes de cambiar el atributo se debe de comprobar que el producto esté 
 	 * en la lista de productos del restaurante. */
-	public void actualizarDisponibilidadProducto(Producto producto, boolean disponibilidad) {
+	public String actualizarDisponibilidadProducto(Producto producto, boolean disponibilidad) {
 		ArrayList<Producto> listaMenu = this.restaurante.getMenu();
 		if(listaMenu.contains(producto)) {
 			int indiceProducto = listaMenu.indexOf(producto);
@@ -151,15 +154,16 @@ public class Administrador extends Empleado implements Serializable {
 			productoActualizado.setDisponiblidad(disponibilidad);
 			listaMenu.set(indiceProducto, productoActualizado);
 			this.restaurante.setMenu(listaMenu);
+			return "Producto " + producto.getNombre() + " actualizado con éxito";
 		} else {
-			// De alguna manera retornar un mensaje de error
+			return "ERROR: El producto que intentas actualizar no existe";
 		}
 	}
 	
 	/* Método útil para cambiar la cantidad actual de un Producto pasado por parámetro.
 	 * Antes de cambiar el atributo se debe de comprobar que el producto esté 
 	 * en la lista de productos del restaurante. */
-	public void actualizarCantidadProducto(Producto producto, int cantidad) {
+	public String actualizarCantidadProducto(Producto producto, int cantidad) {
 		ArrayList<Producto> listaMenu = this.restaurante.getMenu();
 		if(listaMenu.contains(producto)) {
 			int indiceProducto = listaMenu.indexOf(producto);
@@ -167,28 +171,30 @@ public class Administrador extends Empleado implements Serializable {
 			productoActualizado.setCantidad(cantidad);
 			listaMenu.set(indiceProducto, productoActualizado);
 			this.restaurante.setMenu(listaMenu);
+			return "Producto " + producto.getNombre() + " actualizado con éxito";
 		} else {
-			// De alguna manera retornar un mensaje de error
+			return "ERROR: El producto que intentas actualizar no existe";
 		}
 	}
 	
 	/* Método que sirve para eliminar un Producto de la lista de productos del restaurante.
 	 * Antes de eliminar el producto se debe de verificar que el producto se encuentre
 	 * en la lista de productos del restaurante. */
-	public void eliminarProducto(Producto producto) {
+	public String eliminarProducto(Producto producto) {
 		ArrayList<Producto> listaMenu = this.restaurante.getMenu();
 		if(listaMenu.contains(producto)) {
 			listaMenu.remove(producto);
 			this.restaurante.setMenu(listaMenu);
+			return "Producto " + producto.getNombre() + " eliminado con éxito";
 		} else {
-			// De alguna manera retornar un mensaje de error
+			return "ERROR: El producto que intentas eliminar no existe";
 		}
 	}
 	
 	/* Método que realiza el pago de la nómina a todos los empleados del restaurante incluyendo
 	 * al Administrador mismo. Antes de hacer efectivo el pago se debe de comprobar que en el balance
 	 * de cuenta del restaurtante existan fondos sufucientes para pagar a los empleados */
-	public void autorizarPagoNomina() {
+	public String autorizarPagoNomina() {
 		ArrayList<Empleado> listaEmpleados = this.restaurante.getEmpleados();
 		int totalSalarios = 0;
 		
@@ -199,8 +205,9 @@ public class Administrador extends Empleado implements Serializable {
 		if(totalSalarios <= this.restaurante.getBalanceCuenta()) {
 			int nuevoBalance = this.restaurante.getBalanceCuenta() - totalSalarios;
 			this.restaurante.setBalanceCuenta(nuevoBalance);
+			return "Nómina de todos los empleados pagada con éxito. EL nuevo balance de cuenta es: $" + restaurante.getBalanceCuenta();
 		} else {
-			// De alguna manera retornar un mensaje de error
+			return "ERROR: No se posee el suficiente dinero para pagar la nómina de todos los empleados";
 		}
 	}
 	

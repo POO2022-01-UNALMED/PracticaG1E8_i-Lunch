@@ -14,7 +14,7 @@ public class TestClass {
 		Restaurante test3 = new Restaurante(null, 0, 0, null, null, false, 0, null, null, null, 0);
 		Administrador test4 = new Administrador();
 		Chef test5 = new Chef();
-		Cliente test6 = new Cliente(0, null, null, null, null, null, null, test1, null);
+		Cliente test6 = new Cliente(0, null, null, null, null, null, null, null, null);
 		Empleado test7 = new Empleado();
 		Mesero test8 = new Mesero();
 		Repartidor test9 = new Repartidor();
