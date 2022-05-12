@@ -41,6 +41,7 @@ public class Restaurante implements Serializable {
 		this.menu = menu;
 		this.pedidos = pedidos;
 		this.balanceCuenta = balanceCuenta;
+		restaurantes.add(this);
 	}
 
 // Metodos gets y sets de los atributos 

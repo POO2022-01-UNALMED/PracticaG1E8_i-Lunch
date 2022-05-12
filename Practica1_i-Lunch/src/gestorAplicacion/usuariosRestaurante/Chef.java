@@ -35,6 +35,7 @@ public class Chef extends Empleado implements Serializable {
 		
 		this.cargoEnCocina = cargoEnCocina;
 		this.especialidad = especialidad;
+		chefs.add(this);
 	}
 
 	/*Sobrecarga del constructor para valores predeterminados*/

@@ -32,6 +32,23 @@ public class Cliente implements Serializable {
 	private String direccion;
 	private LocalDateTime fechaNacimientol;
 	
+
+	public Cliente(int telefono, String primerNombre, String segundoNombre, String primerApellido,
+			String segundoApellido, String direccion, LocalDateTime fechaNacimientol, Pedido pedidoActivo,
+			ArrayList<Pedido> historialPedidos) {
+		super();
+		this.telefono = telefono;
+		this.primerNombre = primerNombre;
+		this.segundoNombre = segundoNombre;
+		this.primerApellido = primerApellido;
+		this.segundoApellido = segundoApellido;
+		this.direccion = direccion;
+		this.fechaNacimientol = fechaNacimientol;
+		this.pedidoActivo = pedidoActivo;
+		this.historialPedidos = historialPedidos;
+		clientes.add(this);
+	}
+
 	//Aca se almacenara el pedido que este la persona realizando en el momento,
 	//al despachar o cancelar dicho pedido este atributo tiene que volver a null.
 	//y en particular despues de ser despachado este pedido activo tiene que ser agregado al historial.

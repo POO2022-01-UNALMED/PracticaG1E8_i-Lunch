@@ -65,7 +65,8 @@ public class Pedido implements Serializable {
 		this.tipo = tipo;
 		this.fechaHora = fechaHora;
 		this.restaurante = restaurante;
-	}	
+		pedidos.add(this);
+	}
 	
 ////////////////////////////////////////
 ///////// GETTERS AND SETTERS /////////

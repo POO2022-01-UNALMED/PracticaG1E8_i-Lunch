@@ -39,6 +39,7 @@ public class Empleado implements Serializable { /*
 		this.salario = salario;
 		this.restaurante = restaurante;
 		/* this.pagado = pagado; */
+		empleados.add(this);
 	}
 
 	/* Sobrecarga del constructor para valores predeterminados */

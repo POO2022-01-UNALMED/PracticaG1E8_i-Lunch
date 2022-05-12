@@ -28,6 +28,7 @@ public class Producto implements Serializable {
 		this.restriccion = restriccion;
 		this.cantidad = cantidad;
 		this.estado = false;/*<<-- false significa sin preparar y true, preparado*/
+		productos.add(this);
 		
 	}
 

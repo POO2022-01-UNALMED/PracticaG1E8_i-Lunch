@@ -35,7 +35,8 @@ public class Repartidor extends Empleado implements Serializable {
 		
 		this.poseeVehiculo = poseeVehiculo;
 		this.placa = placa;
-		this.tipoVehiculo = tipoVehiculo; 
+		this.tipoVehiculo = tipoVehiculo;
+		repartidores.add(this);
 	}
 
 	/*Sobrecarga del constructor para valores predeterminados*/

@@ -30,6 +30,7 @@ public class Mesero extends Empleado implements Serializable{
 		this.setSalario(salario);
 		this.setRestaurante(restaurante);
 		/*this.setPagado = pagado;*/
+		meseros.add(this);
 	}
 	
 	/*Sobrecarga del constructor para valores predeterminados*/
