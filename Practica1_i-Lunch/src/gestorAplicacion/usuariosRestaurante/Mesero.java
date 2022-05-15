@@ -8,6 +8,8 @@ package gestorAplicacion.usuariosRestaurante;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import javax.print.event.PrintJobAttributeEvent;
+
 import gestorAplicacion.gestionRestaurante.*;
 
 public class Mesero extends Empleado implements Serializable{
@@ -19,7 +21,10 @@ public class Mesero extends Empleado implements Serializable{
 		meseros = new ArrayList<Mesero>();
 	}
 	
-	/*Como CHEF hereda de EMPLEADO, utiliza sus atributos */
+	// Aca se almacenan todos los pedidos atentidos por el mesero en cuestion
+	
+	private ArrayList<Pedido> pedidosAtendidos = new ArrayList<Pedido>();
+	private ArrayList<Float> historialPropinas = new ArrayList<Float>();
 	
 	/*Constructor de la clase Mesero*/
 	public Mesero(int cedula, String nombre, String cargo, boolean disponibilidad, int salario, Restaurante restaurante/*, boolean pagado*/) {
@@ -49,9 +54,45 @@ public class Mesero extends Empleado implements Serializable{
 	  del pedido sea "Listo para ser despachado" y que sea para consumir en el lugar. */
 	 
 	 public void llevarPedido(Pedido pedido) {
+		 pedidosAtendidos.add(pedido); // Se agrega el pedido a la lista de pedidos
 		 if(pedido.getEstado().equals("Listo") && pedido.getTipo().equals("Para Consumir en el lugar")) { /*<<<<<--------- Falta aplicar el ENUM*/
 				pedido.setEstado("Despachado"); 		/*<<<<<--------- Falta aplicar el ENUM*/
 			}
+	}
+	 
+	//metodo para agregar una propina al historial de propinas
+	 
+	 public void recibirPropina(float propina) {
+		 historialPropinas.add(propina);
+	 }
+	 
+	 public int totalPropinas() {
+		 int propinaAdder = 0;
+		 for (float propina: historialPropinas) {
+			 propinaAdder += propina;
+		 }
+		 return propinaAdder;
+	 }
+	 
+	//// GETTERS AND SETTERS \\\\
+	public ArrayList<Pedido> getPedidosAtendidos() {
+		return pedidosAtendidos;
+	}
+
+	public void setPedidosAtendidos(ArrayList<Pedido> pedidosAtendidos) {
+		this.pedidosAtendidos = pedidosAtendidos;
+	}
+
+	public static void setMeseros(ArrayList<Mesero> meseros) {
+		Mesero.meseros = meseros;
+	}
+
+	public ArrayList<Float> getHistorialPropinas() {
+		return historialPropinas;
+	}
+
+	public void setHistorialPropinas(ArrayList<Float> historialPropinas) {
+		this.historialPropinas = historialPropinas;
 	}
 }
 

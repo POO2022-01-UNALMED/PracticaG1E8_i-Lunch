@@ -16,7 +16,6 @@ public class Pedido implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private static ArrayList<Pedido> pedidos;
 	static {
-		int totalPedidos = 0;
 		pedidos = new ArrayList<Pedido>();
 	}
 	
@@ -139,5 +138,17 @@ public class Pedido implements Serializable {
 
 	public static ArrayList<Pedido> getPedidos() {
 		return pedidos;
+	}
+	
+	public static int getTotalPedidos() {
+		int totalPedidos = 0;
+		for (@SuppressWarnings("unused") Pedido pedido: pedidos) {
+			totalPedidos += 1;
+		}
+		return totalPedidos;
+	}
+
+	public static void setPedidos(ArrayList<Pedido> pedidos) {
+		Pedido.pedidos = pedidos;
 	}
 }

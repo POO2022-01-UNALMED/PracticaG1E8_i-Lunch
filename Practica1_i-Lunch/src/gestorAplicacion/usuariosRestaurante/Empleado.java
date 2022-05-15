@@ -100,6 +100,10 @@ public class Empleado implements Serializable {
 	public Restaurante getRestaurante() {
 		return restaurante;
 	}
+	
+	public static void setEmpleados(ArrayList<Empleado> empleados) {
+		Empleado.empleados = empleados;
+	}
 
 	/*
 	 * SET Y GET del atributo pagado
@@ -148,4 +152,5 @@ public class Empleado implements Serializable {
 		return true;
 
 	}
+	
 }

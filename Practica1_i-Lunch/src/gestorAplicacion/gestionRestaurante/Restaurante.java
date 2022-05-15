@@ -1,6 +1,9 @@
 package gestorAplicacion.gestionRestaurante;
 
 import java.util.ArrayList;
+
+import javax.swing.text.TabStop;
+
 import java.io.Serializable;
 import gestorAplicacion.usuariosRestaurante.*;
 
@@ -238,5 +241,41 @@ public class Restaurante implements Serializable {
 		// Si todo es aceptable se puede realizar el pedido
 		return true;
 	}
-
+	
+	
+	//////// ESTADISTICAS \\\\\\\
+	public Repartidor getRepartidorConMasPedidos(){
+		Repartidor topRepartidor = new Repartidor();
+		for (Repartidor repartidor: Repartidor.getRepartidores()) {
+			int repartidos1 = repartidor.getCantidadPedidosEntregados();
+			int repartidos2 = topRepartidor.getCantidadPedidosEntregados();
+			if(repartidos1 > repartidos2) {
+				topRepartidor = repartidor;
+			}
+		}
+		return topRepartidor;
+	}
+	
+	public Mesero getMeseroConMasPropinas() {
+		Mesero topMeseroPropinas = new Mesero();
+		for (Mesero mesero: Mesero.getMeseros()) {
+			int Propinas1 = topMeseroPropinas.totalPropinas();
+			int Propinas2 = mesero.totalPropinas();
+			if(Propinas2 > Propinas1) {
+				topMeseroPropinas = mesero;
+			}
+		}
+		return topMeseroPropinas;
+	}
+	
+	// Este metodo de estadisticas es fail mente modificable para obener mas estadisticas, toca agregar enlos otros lcases 
+	public String estadisticasRestaurante() {
+		Mesero topMesero = getMeseroConMasPropinas();
+		Repartidor topRepartidor = getRepartidorConMasPedidos();
+		return "El mesero con mas propinas es:" + topMesero.getNombre() + 
+				"con" + topMesero.totalPropinas() + "Recibido en propinas." +
+				"\n"+
+				"El repartidor con mas pedidos repartidos es:" + topRepartidor.getNombre() + 
+				"con" + topRepartidor.getCantidadPedidosEntregados() + "Pedidos entregados.";
+	}
 }
