@@ -66,6 +66,7 @@ public class Mesero extends Empleado implements Serializable{
 		 historialPropinas.add(propina);
 	 }
 	 
+	 //Metodo que calcula el total de las propinas recibidas por un mesero.
 	 public int totalPropinas() {
 		 int propinaAdder = 0;
 		 for (float propina: historialPropinas) {

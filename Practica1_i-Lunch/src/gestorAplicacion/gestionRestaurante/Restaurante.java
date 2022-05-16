@@ -30,8 +30,17 @@ public class Restaurante implements Serializable {
 	private int balanceCuenta;
 
 	// Constructores
-	public Restaurante(String nombre, int nit, int telefono, String direccion, String correo, boolean abierto,
-			int capacidad, ArrayList<Empleado> empleados, ArrayList<Producto> menu, ArrayList<Pedido> pedidos,
+	public Restaurante(
+			String nombre, 
+			int nit, 
+			int telefono, 
+			String direccion, 
+			String correo, 
+			boolean abierto,
+			int capacidad, 
+			ArrayList<Empleado> empleados, 
+			ArrayList<Producto> menu, 
+			ArrayList<Pedido> pedidos,
 			int balanceCuenta) {
 		super();
 		this.nombre = nombre;
@@ -245,8 +254,11 @@ public class Restaurante implements Serializable {
 	
 	//////// ESTADISTICAS \\\\\\\
 	public Repartidor getRepartidorConMasPedidos(){
+		//Repartidor vacio para que el metodo funcione
 		Repartidor topRepartidor = new Repartidor();
+		//Loop para encontrar el repartidor con mas pedidos repartidos
 		for (Repartidor repartidor: Repartidor.getRepartidores()) {
+			//Comparamos cada repartidor en la lista de repartidores
 			int repartidos1 = repartidor.getCantidadPedidosEntregados();
 			int repartidos2 = topRepartidor.getCantidadPedidosEntregados();
 			if(repartidos1 > repartidos2) {
@@ -257,8 +269,11 @@ public class Restaurante implements Serializable {
 	}
 	
 	public Mesero getMeseroConMasPropinas() {
+		//Mesero vacio para que el metodo funcione
 		Mesero topMeseroPropinas = new Mesero();
+		// Loop para encontrar al mesero con mas propinas
 		for (Mesero mesero: Mesero.getMeseros()) {
+			//Comparamos todos los meseros en la lista de meseros
 			int Propinas1 = topMeseroPropinas.totalPropinas();
 			int Propinas2 = mesero.totalPropinas();
 			if(Propinas2 > Propinas1) {
@@ -268,7 +283,7 @@ public class Restaurante implements Serializable {
 		return topMeseroPropinas;
 	}
 	
-	// Este metodo de estadisticas es fail mente modificable para obener mas estadisticas, toca agregar enlos otros lcases 
+	// Este es el metodo para mostrar todas las estadisticas que querramos implementar juntas. 
 	public String estadisticasRestaurante() {
 		Mesero topMesero = getMeseroConMasPropinas();
 		Repartidor topRepartidor = getRepartidorConMasPedidos();
@@ -277,5 +292,15 @@ public class Restaurante implements Serializable {
 				"\n"+
 				"El repartidor con mas pedidos repartidos es:" + topRepartidor.getNombre() + 
 				"con" + topRepartidor.getCantidadPedidosEntregados() + "Pedidos entregados.";
+	}
+	
+	
+	// Metodo chequear pedido
+	
+	public Boolean chequearPedido(Pedido pedido) {
+		if(verificarProductos(pedido) && verificarPersonal(pedido)) {
+			return true;
+		}
+		return false;
 	}
 }

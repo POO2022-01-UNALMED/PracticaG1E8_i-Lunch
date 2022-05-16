@@ -22,7 +22,13 @@ public class Producto implements Serializable {
 	private boolean estado;
 	
 	// Constructores
-	public Producto(String nombre, String descripcion, int precio, boolean disponiblidad, boolean restriccion, int cantidad) {
+	public Producto(
+			String nombre, 
+			String descripcion, 
+			int precio, 
+			boolean disponiblidad, 
+			boolean restriccion, 
+			int cantidad) {
 		super();
 		this.nombre = nombre;
 		this.descripcion = descripcion;

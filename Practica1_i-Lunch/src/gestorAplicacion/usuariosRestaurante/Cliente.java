@@ -24,11 +24,15 @@ public class Cliente implements Serializable {
 	private String segundoApellido;
 	private String direccion;
 	private LocalDateTime fechaNacimiento;
+	private String correoElectronico;
+	// ArrayList en el cual se agregaran todos los pedidos hechos por el cliente a lo largo del tiempo.
+	private ArrayList<Pedido> historialPedidos = new ArrayList<Pedido>();
+
 	
 
 	public Cliente(int telefono, String primerNombre, String segundoNombre, String primerApellido,
 			String segundoApellido, String direccion, LocalDateTime fechaNacimiento, Pedido pedidoActivo,
-			ArrayList<Pedido> historialPedidos) {
+			ArrayList<Pedido> historialPedidos, String correo) {
 		super();
 		this.telefono = telefono;
 		this.primerNombre = primerNombre;
@@ -39,20 +43,19 @@ public class Cliente implements Serializable {
 		this.fechaNacimiento = fechaNacimiento;
 		this.pedidoActivo = pedidoActivo;
 		this.historialPedidos = historialPedidos;
+		this.correoElectronico = correo;
 		clientes.add(this);
 	}
 	
 	public Cliente() {
-		this(0, "", "", "", "", "", null, null, null);
+		this(0, "", "", "", "", "", null, null, null,null);
 	}
 
 	// Aca se almacenara el pedido que este la persona realizando en el momento,
 	// al despachar o cancelar dicho pedido este atributo tiene que volver a null.
 	// y en particular despues de ser despachado este pedido activo tiene que ser agregado al historial.
 	private Pedido pedidoActivo = null;
-	
-	// ArrayList en el cual se agregaran todos los pedidos hechos por el cliente a lo largo del tiempo.
-	private ArrayList<Pedido> historialPedidos = new ArrayList<Pedido>();
+
 	
 	////////////// METODOS ////////////////
 	public Pedido iniciarPedido() {
@@ -68,7 +71,11 @@ public class Cliente implements Serializable {
 	}
 	
 	public void pedir(Pedido pedido, String tipo, String mensaje) {
-		//PENDIENTE
+		///
+		//// NO SE QUE HACER ACA JSJSJSJSJ
+		////
+		
+		historialPedidos.add(pedido);
 	}
 	
 	///////// GETTERS AND SETTERS /////////
@@ -133,5 +140,25 @@ public class Cliente implements Serializable {
 
 	public void setHistorialPedidos(ArrayList<Pedido> historialPedidos) {
 		this.historialPedidos = historialPedidos;
+	}
+
+	public LocalDateTime getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(LocalDateTime fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+
+	public String getCorreoElectronico() {
+		return correoElectronico;
+	}
+
+	public void setCorreoElectronico(String correoElectronico) {
+		this.correoElectronico = correoElectronico;
+	}
+
+	public static void setClientes(ArrayList<Cliente> clientes) {
+		Cliente.clientes = clientes;
 	}	
 }

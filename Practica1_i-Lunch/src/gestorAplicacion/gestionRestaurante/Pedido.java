@@ -38,7 +38,7 @@ public class Pedido implements Serializable {
 
 	////////////// METODOS ////////////////
 
-	private int calcularPrecioTotal() {
+	public int calcularPrecioTotal() {
 		int sum = 0;
 		for(int i = 0; i < productos.size(); i++){
 			sum += productos.get(i).getPrecio();
@@ -48,7 +48,12 @@ public class Pedido implements Serializable {
 	
 	/////////// CONSTRUCTORES /////////////
 	
-	public Pedido(Cliente cliente, int codigo, String tipo, LocalDateTime fechaHora, Restaurante restaurante) {
+	public Pedido(
+			Cliente cliente, 
+			int codigo, 
+			String tipo, 
+			LocalDateTime fechaHora, 
+			Restaurante restaurante) {
 		//Considero que estos son los datos necesarios para empezar un pedido
 		this.cliente = cliente;
 		this.codigo = codigo;
@@ -141,11 +146,7 @@ public class Pedido implements Serializable {
 	}
 	
 	public static int getTotalPedidos() {
-		int totalPedidos = 0;
-		for (@SuppressWarnings("unused") Pedido pedido: pedidos) {
-			totalPedidos += 1;
-		}
-		return totalPedidos;
+		return pedidos.size();
 	}
 
 	public static void setPedidos(ArrayList<Pedido> pedidos) {
