@@ -19,7 +19,9 @@ public class Pedido implements Serializable {
 		pedidos = new ArrayList<Pedido>();
 	}
 	
+	
 	////////////// ATRIBUTOS //////////////
+	private static int totalPedidos = 0;
 	private Cliente cliente;
 	private int codigo;
 	private String estado;
@@ -151,5 +153,9 @@ public class Pedido implements Serializable {
 
 	public static void setPedidos(ArrayList<Pedido> pedidos) {
 		Pedido.pedidos = pedidos;
+	}
+
+	public static void setTotalPedidos(int totalPedidos) {
+		Pedido.totalPedidos = totalPedidos;
 	}
 }
