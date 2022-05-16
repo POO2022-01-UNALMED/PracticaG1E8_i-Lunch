@@ -27,7 +27,7 @@ public class Restaurante implements Serializable {
 	private ArrayList<Empleado> empleados = new ArrayList<Empleado>();
 	private ArrayList<Producto> menu = new ArrayList<Producto>();
 	private ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
-	private int balanceCuenta;
+	private float balanceCuenta;
 
 	// Constructores
 	public Restaurante(
@@ -142,11 +142,11 @@ public class Restaurante implements Serializable {
 		this.pedidos = pedidos;
 	}
 
-	public int getBalanceCuenta() {
+	public float getBalanceCuenta() {
 		return balanceCuenta;
 	}
 
-	public void setBalanceCuenta(int balanceCuenta) {
+	public void setBalanceCuenta(float balanceCuenta) {
 		this.balanceCuenta = balanceCuenta;
 	}
 

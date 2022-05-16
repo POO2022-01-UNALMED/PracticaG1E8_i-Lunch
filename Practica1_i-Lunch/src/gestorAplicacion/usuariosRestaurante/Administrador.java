@@ -9,8 +9,10 @@ import gestorAplicacion.gestionRestaurante.*;
  * es quien tiene acceso a la aplicación y desde su cuenta se manejan
  * todas las funcionalidades. Esta clase hereda de Empleado */
 
-public class Administrador extends Empleado implements Serializable {
-	// Como Administrador hereda de Empleado, se utilizarán los atributos de este. No es necesario implementar atributos nuevos
+public class Administrador extends Empleado implements Serializable, Usuario {
+	/* Como Administrador hereda de Empleado, se utilizarán los atributos de este.
+	 * Solo se implementa el atributo extra IMPUESTOS ya que se usará en una de sus funcionalidades */
+	private static final float IMPUESTOS = 1.19f; // 19% de impuestos
 	
 	// Atributos utilizados para la serialización
 	private static final long serialVersionUID = 1L; // Se requiere del atributo serialVersionUID por usar la interface Serializable.
@@ -33,6 +35,11 @@ public class Administrador extends Empleado implements Serializable {
 	// Método utilizado para la serialización/deserielización
 	public static ArrayList<Administrador> getAdministradores(){
 		return administradores;
+	}
+	
+	// Getter de IMPUESTOS (No se implementa Setter debido a que es una constante
+	public static float getImpuestos() {
+		return Administrador.IMPUESTOS;
 	}
 	
 	/* Este método recibe como parámetro un objeto Empleado, comprueba que no esté ya
@@ -194,18 +201,31 @@ public class Administrador extends Empleado implements Serializable {
 	/* Método que realiza el pago de la nómina a todos los empleados del restaurante incluyendo
 	 * al Administrador mismo. Antes de hacer efectivo el pago se debe de comprobar que en el balance
 	 * de cuenta del restaurtante existan fondos sufucientes para pagar a los empleados */
-	public String autorizarPagoNomina() {
+	public String pagoNomina() {
 		ArrayList<Empleado> listaEmpleados = this.restaurante.getEmpleados();
-		int totalSalarios = 0;
+		float totalSalarios = 0;
 		
 		for(Empleado empleado: listaEmpleados) {
-			totalSalarios += empleado.getSalario();
+			totalSalarios += (empleado.getSalario()*Administrador.getImpuestos()); // Salario más un impuesto
 		}
 		
 		if(totalSalarios <= this.restaurante.getBalanceCuenta()) {
-			int nuevoBalance = this.restaurante.getBalanceCuenta() - totalSalarios;
+			float nuevoBalance = this.restaurante.getBalanceCuenta() - totalSalarios;
 			this.restaurante.setBalanceCuenta(nuevoBalance);
-			return "Nómina de todos los empleados pagada con éxito. EL nuevo balance de cuenta es: $" + restaurante.getBalanceCuenta();
+			return "Nómina de todos los empleados pagada con éxito. El nuevo balance de cuenta es: $" + restaurante.getBalanceCuenta();
+		} else {
+			return "ERROR: No se posee el suficiente dinero para pagar la nómina de todos los empleados";
+		}
+	}
+	
+	/* Método que realiza el pago de la nómina a un solo los empleado del restaurante.
+	 * Antes de hacer efectivo el pago se debe de comprobar que en el balance de cuenta
+	 * del restaurtante existan fondos sufucientes para pagar al empleado en cuestión */
+	public String pagoNomina(Empleado empleado) {
+		if((empleado.getSalario()*Administrador.getImpuestos()) <= this.restaurante.getBalanceCuenta()) { // Salario más un impuesto
+			float nuevoBalance = this.restaurante.getBalanceCuenta() - (empleado.getSalario()*Administrador.getImpuestos());
+			this.restaurante.setBalanceCuenta(nuevoBalance);
+			return "Nómina de todos los empleados pagada con éxito. El nuevo balance de cuenta es: $" + restaurante.getBalanceCuenta();
 		} else {
 			return "ERROR: No se posee el suficiente dinero para pagar la nómina de todos los empleados";
 		}
@@ -216,5 +236,18 @@ public class Administrador extends Empleado implements Serializable {
 	 * del pedido simulado. */
 	public void simularPedido(Cliente cliente, Pedido pedido) {
 		// Esta funcionalidad es algo más complicada
+	}
+	
+	// Implementación de la interfaz Usuario
+	public String informacion() {
+		if(this.getDisponibilidad()) {
+			return "El Administrador del restaurante + " + this.restaurante.getNombre() + " es " + this.nombre + " con C.C. " + this.cedula + ".\n"
+					+ "Tiene un salario de: $" + this.salario+ "\n"
+					+ "Está disponible actualmente.";
+		} else {
+			return "El Administrador del restaurante + " + this.restaurante.getNombre() + " es " + this.nombre + " con C.C. " + this.cedula + ".\n"
+					+ "Tiene un salario de: $" + this.salario+ "\n"
+					+ "No está disponible actualmente.";
+		}
 	}
 }

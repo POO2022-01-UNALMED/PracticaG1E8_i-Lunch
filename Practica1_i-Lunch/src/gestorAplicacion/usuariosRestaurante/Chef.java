@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import gestorAplicacion.gestionRestaurante.*;
 
-public class Chef extends Empleado implements Serializable {
+public class Chef extends Empleado implements Serializable, Usuario {
 	
 	// Serializacion
 	private static final long serialVersionUID = 1L;
@@ -93,5 +93,16 @@ public class Chef extends Empleado implements Serializable {
 		}
 	}
 	
-
+	// Implementación de la interfaz Usuario
+	public String informacion() {
+		if(this.getDisponibilidad()) {
+			return "El Chef " + this.nombre +" con C.C. " + this.cedula + " trabaja en el restaurante " + this.restaurante.getNombre() + "\n"
+					+ "Tiene un salario de: $" + this.salario + ", tiene el cargo " + this.cargoEnCocina + " en la cocina y está especializado en " + this.especialidad + ".\n"
+					+ "Está disponible actualmente.";
+		} else {
+			return "El Chef " + this.nombre +" con C.C. " + this.cedula + " trabaja en el restaurante " + this.restaurante.getNombre() + "\n"
+					+ "Tiene un salario de: $" + this.salario + ", tiene el cargo " + this.cargoEnCocina + " en la cocina y está especializado en " + this.especialidad + ".\n"
+					+ "No está disponible actualmente.";
+		}
+	}
 }

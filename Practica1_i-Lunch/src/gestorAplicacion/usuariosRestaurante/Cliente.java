@@ -1,13 +1,13 @@
 package gestorAplicacion.usuariosRestaurante;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Random;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import gestorAplicacion.gestionRestaurante.*;
 
-public class Cliente implements Serializable {
+public class Cliente implements Serializable, Usuario {
 	
 	// Serializacion
 	private static final long serialVersionUID = 1L;
@@ -18,29 +18,19 @@ public class Cliente implements Serializable {
 	
 	// Atributos
 	private int telefono;
-	private String primerNombre;
-	private String segundoNombre;
-	private String primerApellido;
-	private String segundoApellido;
+	private String nombre;
 	private String direccion;
-	private LocalDateTime fechaNacimiento;
+	private int edad;
 	private String correoElectronico;
 	// ArrayList en el cual se agregaran todos los pedidos hechos por el cliente a lo largo del tiempo.
 	private ArrayList<Pedido> historialPedidos = new ArrayList<Pedido>();
 
-	
-
-	public Cliente(int telefono, String primerNombre, String segundoNombre, String primerApellido,
-			String segundoApellido, String direccion, LocalDateTime fechaNacimiento, Pedido pedidoActivo,
-			ArrayList<Pedido> historialPedidos, String correo) {
+	public Cliente(int telefono, String nombre, String direccion, int edad, Pedido pedidoActivo, ArrayList<Pedido> historialPedidos, String correo) {
 		super();
 		this.telefono = telefono;
-		this.primerNombre = primerNombre;
-		this.segundoNombre = segundoNombre;
-		this.primerApellido = primerApellido;
-		this.segundoApellido = segundoApellido;
+		this.nombre = nombre;
 		this.direccion = direccion;
-		this.fechaNacimiento = fechaNacimiento;
+		this.edad = edad;
 		this.pedidoActivo = pedidoActivo;
 		this.historialPedidos = historialPedidos;
 		this.correoElectronico = correo;
@@ -48,7 +38,7 @@ public class Cliente implements Serializable {
 	}
 	
 	public Cliente() {
-		this(0, "", "", "", "", "", null, null, null,null);
+		this(0, "", "", 0, null, null,null);
 	}
 
 	// Aca se almacenara el pedido que este la persona realizando en el momento,
@@ -85,29 +75,11 @@ public class Cliente implements Serializable {
 	public void setTelefono(int telefono) {
 		this.telefono = telefono;
 	}
-	public String getPrimerNombre() {
-		return primerNombre;
+	public String getNombre() {
+		return nombre;
 	}
-	public void setPrimerNombre(String primerNombre) {
-		this.primerNombre = primerNombre;
-	}
-	public String getSegundoNombre() {
-		return segundoNombre;
-	}
-	public void setSegundoNombre(String segundoNombre) {
-		this.segundoNombre = segundoNombre;
-	}
-	public String getPrimerApellido() {
-		return primerApellido;
-	}
-	public void setPrimerApellido(String primerApellido) {
-		this.primerApellido = primerApellido;
-	}
-	public String getSegundoApellido() {
-		return segundoApellido;
-	}
-	public void setSegundoApellido(String segundoApellido) {
-		this.segundoApellido = segundoApellido;
+	public void setPrimerNombre(String nombre) {
+		this.nombre = nombre;
 	}
 	public String getDireccion() {
 		return direccion;
@@ -115,13 +87,8 @@ public class Cliente implements Serializable {
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
-	public LocalDateTime getfechaNacimiento() {
-		return fechaNacimiento;
-	}
-	public void setfechaNacimiento(LocalDateTime fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
-	}
-
+	
+	
 	public static ArrayList<Cliente> getClientes() {
 		return clientes;
 	}
@@ -141,13 +108,17 @@ public class Cliente implements Serializable {
 	public void setHistorialPedidos(ArrayList<Pedido> historialPedidos) {
 		this.historialPedidos = historialPedidos;
 	}
-
-	public LocalDateTime getFechaNacimiento() {
-		return fechaNacimiento;
+	
+	public int getEdad() {
+		return edad;
 	}
 
-	public void setFechaNacimiento(LocalDateTime fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
+	public void setEdad(int edad) {
+		this.edad = edad;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 	public String getCorreoElectronico() {
@@ -161,4 +132,10 @@ public class Cliente implements Serializable {
 	public static void setClientes(ArrayList<Cliente> clientes) {
 		Cliente.clientes = clientes;
 	}	
+	
+	// Implementación de la interfaz Usuario
+	public String informacion() {
+		return "El cliente " + this.nombre + " con email " + this.correoElectronico + " y teléfono " + this.telefono + " vive en la dirección " + this.direccion + " y tiene " + this.edad + " años.\n"
+				+ "Ha hecho " + this.historialPedidos.size() + " en la aplicación.";
+	}
 }

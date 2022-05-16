@@ -9,7 +9,7 @@ import gestorAplicacion.gestionRestaurante.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Empleado implements Serializable {
+public class Empleado implements Serializable, Usuario {
 	
 	// Atributos utilizados para la serialización
 	private static final long serialVersionUID = 1L; // Se requiere del atributo serialVersionUID por usar la interface Serializable.
@@ -151,6 +151,19 @@ public class Empleado implements Serializable {
 		}
 		return true;
 
+	}
+	
+	// Implementación de la interfaz Usuario
+	public String informacion() {
+		if(this.getDisponibilidad()) {
+			return "El Empleado " + this.nombre + " con C.C. " + this.cedula + " trabaja en el restaurante " + this.restaurante.getNombre() + "\n"
+					+ "Tiene un salario de: $" + this.salario + " y desempeña el cargo de " + this.cargo + ".\n"
+					+ "Está disponible actualmente.";
+		} else {
+			return "El Empleado " + this.nombre + " con C.C. " + this.cedula + " trabaja en el restaurante " + this.restaurante.getNombre() + "\n"
+					+ "Tiene un salario de: $" + this.salario + " y desempeña el cargo de " + this.cargo + ".\n"
+					+ "No está disponible actualmente.";
+		}
 	}
 	
 }

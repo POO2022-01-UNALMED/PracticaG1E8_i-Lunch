@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import gestorAplicacion.gestionRestaurante.*;
 
-public class Repartidor extends Empleado implements Serializable {
+public class Repartidor extends Empleado implements Serializable, Usuario {
 	
 	// Serializacion
 	private static final long serialVersionUID = 1L;
@@ -23,6 +23,7 @@ public class Repartidor extends Empleado implements Serializable {
 	private String tipoVehiculo;
 	// Aca se guardan todos pedidos entregados por el repartidor en cuestion.
 	private ArrayList<Pedido> pedidosEntregados = new ArrayList<Pedido>();
+	
 	/*Constructor de la clase Repartidor*/
 	public Repartidor(int cedula, String nombre, String cargo, boolean disponibilidad, int salario, Restaurante restaurante/*, boolean pagado*/, 
 			boolean poseeVehiculo, String placa, String tipoVehiculo) {
@@ -104,5 +105,25 @@ public class Repartidor extends Empleado implements Serializable {
 
 	public void setPedidosEntregados(ArrayList<Pedido> pedidosEntregados) {
 		this.pedidosEntregados = pedidosEntregados;
+	}
+	
+	// Implementación de la interfaz Usuario
+	public String informacion() {
+		String mensaje = "El Repartidor " + this.nombre + " con C.C. " + this.cedula + " trabaja en el restaurante " + this.restaurante.getNombre() + "\n"
+						+ "Tiene un salario de: $" + this.salario + ". Ha entragado " + this.pedidosEntregados.size() + " pedidos.\n";
+		
+		if(this.poseeVehiculo) {
+			mensaje += "Posee un/una " + this.tipoVehiculo + " con placa " + this.placa + ".\n";
+		} else {
+			mensaje += "No tiene vehiculo.\n";
+		}
+		
+		if(this.getDisponibilidad()) {
+			mensaje += "Está disponible actualmente.";
+		} else {
+			mensaje += "No está disponible actualmente.";
+		}
+		
+		return mensaje;
 	}
 }

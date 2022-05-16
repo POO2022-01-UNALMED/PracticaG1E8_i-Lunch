@@ -12,7 +12,7 @@ import javax.print.event.PrintJobAttributeEvent;
 
 import gestorAplicacion.gestionRestaurante.*;
 
-public class Mesero extends Empleado implements Serializable{
+public class Mesero extends Empleado implements Serializable, Usuario{
 	
 	// Serialización
 	private static final long serialVersionUID = 1L;
@@ -94,6 +94,19 @@ public class Mesero extends Empleado implements Serializable{
 
 	public void setHistorialPropinas(ArrayList<Float> historialPropinas) {
 		this.historialPropinas = historialPropinas;
+	}
+	
+	// Implementación de la interfaz Usuario
+	public String informacion() {
+		if(this.getDisponibilidad()) {
+			return "El Mesero " + this.nombre + " con C.C. " + this.cedula + " trabaja en el restaurante " + this.restaurante.getNombre() + "\n"
+					+ "Tiene un salario de: $" + this.salario + ". Ha atendido " + this.pedidosAtendidos.size() + " pedidos y ha recibido " + this.historialPropinas.size() + " propinas.\n"
+					+ "Está disponible actualmente.";
+		} else {
+			return "El Mesero " + this.nombre + " con C.C. " + this.cedula + " trabaja en el restaurante " + this.restaurante.getNombre() + "\n"
+					+ "Tiene un salario de: $" + this.salario + ". Ha atendido " + this.pedidosAtendidos.size() + " pedidos y ha recibido " + this.historialPropinas.size() + " propinas.\n"
+					+ "No está disponible actualmente.";
+		}
 	}
 }
 
