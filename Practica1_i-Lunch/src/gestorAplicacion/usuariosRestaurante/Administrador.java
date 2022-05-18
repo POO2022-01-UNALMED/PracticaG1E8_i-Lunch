@@ -279,7 +279,7 @@ public class Administrador extends Empleado implements Serializable, Usuario {
 	 */
 	public Pedido simularPedido(Cliente cliente) {
 		Pedido pedido = new Pedido();
-		int idTipo = (int) (Math.random());
+		int idTipo = (int) (Math.random()*2);
 		String tipo = "";
 
 		// Se asigna el cliente
@@ -288,7 +288,6 @@ public class Administrador extends Empleado implements Serializable, Usuario {
 		pedido.setRestaurante(restaurante);
 		// Se le asigna un codigo
 		pedido.setCodigo(Pedido.getTotalPedidos());
-		Pedido.setTotalPedidos(Pedido.getTotalPedidos() + 1);
 		// Se guarda fecha y hora
 		pedido.setFechaHora(LocalDateTime.now());
 		// Se le asigna un tipo 
@@ -304,10 +303,31 @@ public class Administrador extends Empleado implements Serializable, Usuario {
 		}
 		}
 		pedido.setTipo(tipo);
-
-		/*
-		 * Se asgina la lista de productos -
-		 */
+		
+		
+	// Se asgina la lista de productos
+		// Se define la canidad de productos a ordenar con base en la cantidad de productos disponible en el restaurante.
+		// De 1 a la cantidad disponible en el restaurante.
+		int cantidadProductos = (int) ((Math.random()*(restaurante.getMenu().size()-1))+1);
+		ArrayList<Producto> productos = new ArrayList<Producto>();
+		//En un ciclo que se repite el numero de productos a solicitar se seleccionan los productos del menu del restaurante.
+		for(int i=0; i<cantidadProductos;i++){
+			// Generamos un numero aleatorio para seleccionar un producto al azar de entre el menu del restaurante.
+			int idProducto = (int) (Math.random() * restaurante.getMenu().size());
+			Producto producto = restaurante.getMenu().get(idProducto);
+			// Si el producto ya hace parte del pedido no se agrega
+			if(!productos.contains(producto)) {
+				// Se genera una cantidad aleatoria del producto seleccionado para ser agregado al pedido.
+				int cantidadXProducto = (int) ((Math.random()*(5-1))+1);
+				producto.setCantidad(cantidadXProducto);
+				productos.add(producto);
+			}else {
+				//Si no se selecciona un producto se repite el ciclo.
+				i--;
+			}
+		}
+		pedido.setProductos(productos);
+		
 		 //Se calcula el precio total 
 		int total = 0;
 		for(Producto producto:pedido.getProductos()) {
@@ -318,6 +338,7 @@ public class Administrador extends Empleado implements Serializable, Usuario {
 		pedido.setEstado(estadoPedido.Enviado.toString());
 		//Se agregan los mensajes del usuario
 		//Se retorna el pedido completo
+		restaurante.agregarPedido(pedido);
 		return pedido;
 
 	}

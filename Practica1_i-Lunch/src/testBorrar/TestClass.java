@@ -1,5 +1,7 @@
 package testBorrar;
 
+import java.util.ArrayList;
+
 import baseDatos.*;
 import gestorAplicacion.gestionRestaurante.*;
 import gestorAplicacion.usuariosRestaurante.*;
@@ -7,20 +9,19 @@ import gestorAplicacion.usuariosRestaurante.*;
 public class TestClass {
 
 	public static void main(String[] args) {
-		Deserializador.deserializarTodo();
+		//Deserializador.deserializarTodo();
+		Restaurante restaurante = new Restaurante("RestauranteTest1", 0, 0, null, null, false, 0, null, new ArrayList<Producto>(),  new ArrayList<Pedido>(), 0);
+		Administrador admin = new Administrador();
+		admin.setRestaurante(restaurante);
+		admin.crearProducto("Hamburguesa",  "Hamburguesa con queso", 15000, true, false, 10);
+		admin.crearProducto("Perro",  "Perro caliente", 9000, true, false, 5);
+		admin.crearProducto("Pizza",  "Pizza con pepperonni", 20000, true, false, 7);
+		admin.crearProducto("Papitas",  "Papas cochinas", 13000, true, false, 15);
+		admin.crearProducto("Sushi",  "Su chicharron", 25000, true, false, 3);	
+		System.out.println(restaurante.getMenu().size());
+		admin.simularPedido(new Cliente());
+		System.out.println(restaurante.getPedidos().size());
 		
-		Pedido test1 = new Pedido();
-		Producto test2 = new Producto();
-		Restaurante test3 = new Restaurante("RestauranteTest1", 0, 0, null, null, false, 0, null, null, null, 0);
-		Administrador test4 = new Administrador();
-		Chef test5 = new Chef();
-		Cliente test6 = new Cliente();
-		Empleado test7 = new Empleado();
-		Mesero test8 = new Mesero();
-		Repartidor test9 = new Repartidor(123456789, "Pepito Pérez", "Repartidor" , true, 100, test3, true, "ABC-123", "Moto");
-		
-		System.out.println(test9.informacion());
-		
-		Serializador.serializarTodo();
+		//Serializador.serializarTodo();
 	}
 }

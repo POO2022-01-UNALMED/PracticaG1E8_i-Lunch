@@ -63,6 +63,7 @@ public class Pedido implements Serializable {
 		this.fechaHora = fechaHora;
 		this.restaurante = restaurante;
 		pedidos.add(this);
+		totalPedidos++;
 	}
 	
 	public Pedido() {

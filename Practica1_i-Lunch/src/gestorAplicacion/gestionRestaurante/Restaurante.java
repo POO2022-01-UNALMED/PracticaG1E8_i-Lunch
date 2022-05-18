@@ -303,4 +303,15 @@ public class Restaurante implements Serializable {
 		}
 		return false;
 	}
+	
+	//Agregar un pedido al historial
+	public String agregarPedido(Pedido pedido) {
+
+		if (!pedidos.contains(pedido)) {
+			pedidos.add(pedido);
+			return "Pedido añadido con exito";
+		} else {
+			return "ERROR: El pedido ya se encuentra añadido";
+		}
+	}
 }
