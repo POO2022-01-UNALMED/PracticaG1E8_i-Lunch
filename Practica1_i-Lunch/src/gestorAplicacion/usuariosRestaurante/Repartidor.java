@@ -51,8 +51,8 @@ public class Repartidor extends Empleado implements Serializable, Usuario {
 	  del pedido sea "Listo para ser despachado" y que sea para llevar*/
 	public void repartirPedido(Pedido pedido) {
 		pedidosEntregados.add(pedido);
-		if(pedido.getEstado().equals("Listo") && pedido.getTipo().equals("Para llevar")) { /*<<<<<--------- Falta aplicar el ENUM*/
-			pedido.setEstado("Enviado"); 		/*<<<<<--------- Falta aplicar el ENUM*/
+		if(pedido.getEstado().equals(TipoPedido.Domicilio.toString()) && pedido.getTipo().equals(TipoPedido.Domicilio.toString())) { 
+			pedido.setEstado(estadoPedido.Enviado.toString()); 
 		}
 
 	}

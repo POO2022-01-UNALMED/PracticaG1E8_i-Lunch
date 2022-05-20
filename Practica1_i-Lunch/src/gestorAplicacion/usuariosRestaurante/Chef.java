@@ -88,7 +88,7 @@ public class Chef extends Empleado implements Serializable, Usuario {
 				}
 			}
 			if (contador == pedido.getProductos().size()) {
-				pedido.setEstado("Listo para ser despachado"); /* <-------- Falta aplicar el ENUM*/
+				pedido.setEstado(estadoPedido.Listo.toString());
 			}
 		}
 	}
