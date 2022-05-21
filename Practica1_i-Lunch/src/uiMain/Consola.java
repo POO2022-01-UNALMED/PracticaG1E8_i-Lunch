@@ -24,17 +24,46 @@ public class Consola {
 	public static void main(String[] args) {
 		//Deserializa todos los objetos.
 		
-		System.out.println(""); //Mensaje de bienvenida
+		//Mensaje de bienvenida
+		System.out.println("                                                ,,                                                                                                    \r\n"
+				+ "                                      &@@@@@@@@@@@@@                                                                                                  \r\n"
+				+ "                                 (@@@@@@@@@@@@@@@@@                                                                                                   \r\n"
+				+ "                              @@@@@@@   @@@@@@@@@@@                                                                                                   \r\n"
+				+ "                            @@@@@@      @@@@@@@@@@                                                                                                    \r\n"
+				+ "                          @@@@@@@      @@@@@@@@@@@                                                                                                    \r\n"
+				+ "       @@@@@@            @@@@@@&       @@@@@@@@@@                                                                                  @@@@@@@@           \r\n"
+				+ "     .@@@@@@@@          @@@@@@@       @@@@@@@@@@@                                                                                  @@@@@@@@           \r\n"
+				+ "      @@@@@@@@          @@@@@@@       @@@@@@@@@@                                                                                  @@@@@@@@            \r\n"
+				+ "                        (@@@@@@      @@@@@@@@@@#                                                                                  @@@@@@@@            \r\n"
+				+ "     .......              /@@@@      @@@@@@@@@@      @@@@@@@@     &@@@@@@@      (@@@@@@@, .@@@@@@@               &@@@@@@@@@      @@@@@@@@  %@@@@@@#   \r\n"
+				+ "    @@@@@@@@                        @@@@@@@@@@(     @@@@@@@@      @@@@@@@@      @@@@@@@@@@@@@@@@@@@@          @@@@@@@*  @@@@%    @@@@@@@@@@@@@@@@@@@@ \r\n"
+				+ "   (@@@@@@@                        /@@@@@@@@@@      @@@@@@@@     @@@@@@@@      #@@@@@@@@@   @@@@@@@@*       @@@@@@@/    #@@@@   @@@@@@@@@/   @@@@@@@@ \r\n"
+				+ "   @@@@@@@@                        @@@@@@@@@@.     @@@@@@@@      @@@@@@@@      @@@@@@@@      @@@@@@@      %@@@@@@@      @@@,   .@@@@@@@@     @@@@@@@@ \r\n"
+				+ "  #@@@@@@@     .,,,,,,,,,,,,      (@@@@@@@@@@      @@@@@@@@     @@@@@@@@      &@@@@@@@      @@@@@@@@     &@@@@@@@.             @@@@@@@@      @@@@@@@# \r\n"
+				+ "  @@@@@@@@    (@@@@@@@@@@@@@(     @@@@@@@@@@.     @@@@@@@@      @@@@@@@@      @@@@@@@@      @@@@@@@      @@@@@@@@             ,@@@@@@@/     #@@@@@@@  \r\n"
+				+ " &@@@@@@@     @@@@@@@@@@@@@@     &@@@@@@@@@@      @@@@@@@@     @@@@@@@@      @@@@@@@@      @@@@@@@@     @@@@@@@@              @@@@@@@@      @@@@@@@.  \r\n"
+				+ " @@@@@@@&                        @@@@@@@@@@      @@@@@@@@     .@@@@@@@@      @@@@@@@@      @@@@@@@      @@@@@@@@             @@@@@@@@,     @@@@@@@@   \r\n"
+				+ "(@@@@@@@                        @@@@@@@@@@@      @@@@@@@@    (@@@@@@@@     ,@@@@@@@@      @@@@@@@@     @@@@@@@@@          .@@@@@@@@@@      @@@@@@@/   \r\n"
+				+ " @@@@@@@@@@@                    @@@@@@@@@@       @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@      @@@@@@@@@@@@@@@@@@@@@@@@(../@@@@@/%@@@@@@@,      @@@@@@@@@@@\r\n"
+				+ " (@@@@@@@@@                    @@@@@@@@@@@        @@@@@@@@@@#  .@@@@@@@@@@(@@@@@@@@        &@@@@@@@@@@#   @@@@@@@@@@@@@@*   @@@@@@@@        @@@@@@@@@ \r\n"
+				+ "                               @@@@@@@@@@/                                                                                                            \r\n"
+				+ "                              @@@@@@@@@@@@@@@@@.                                                                                                      \r\n"
+				+ "                                       @@@@@@@@@@@@@                                                                                                  \r\n"
+				+ "                                           %@@@@@@@@@@@@@                                                                                             \r\n"
+				+ "                                               @@@@@@@@@@@@@@@@@@@@@@@@                                                                               \r\n"
+				+ "                                                  @@@@@@@@@@@@@@@@@@@@@                                                                               \r\n"
+				+ "                                                     @@@@@@@@@@@@@@@@@                                                                                \r\n"
+				+ "                                                         @@@@@@@@@@@*                                                                                 ");
 		
 		String opcion = "0";
 		
 		do {
-			System.out.println(""); //Mensaje de elección
-			System.out.println(" 1. Ver información del Restaurante"); 
-			System.out.println(" 2. Gestionar Menú");
+			System.out.println(""); //Mensaje de elecciï¿½n
+			System.out.println(" 1. Ver informaciï¿½n del Restaurante"); 
+			System.out.println(" 2. Gestionar Menï¿½");
 			System.out.println(" 3. Gestionar Pesonal");
 			System.out.println(" 4. Cola de pedidos");
-			System.out.println(" 5. Pagar nómina");
+			System.out.println(" 5. Pagar nï¿½mina");
 			System.out.println(" Funciones extras del sistemas");
 			System.out.println(" 6. Simular Pedido");
 			System.out.println(" 7. Gestionar Clientela");
@@ -67,7 +96,7 @@ public class Consola {
 				 * 3. Eliminar Producto
 				 * 4. Actualizar Producto
 				 * 4.1 Nombre
-				 * 4.2 Descripción
+				 * 4.2 Descripciï¿½n
 				 * 4.3 Precio
 				 * 4.4 Restriccion
 				 * 4.5 Disponibilidad
@@ -98,7 +127,7 @@ public class Consola {
 			
 			case "6": // Apa
 				// Mensaje de control
-				// Cliente, código pedido
+				// Cliente, cï¿½digo pedido
 				break;	
 				
 			case "7": // Jero
@@ -113,7 +142,7 @@ public class Consola {
 				break;
 				
 			default:
-				System.out.println("La opción ingresada no es valida. Por favor intentelo nuevamente"); //Mensaje de control para inputs invalidos.
+				System.out.println("La opciï¿½n ingresada no es valida. Por favor intentelo nuevamente"); //Mensaje de control para inputs invalidos.
 				break;
 			
 			}
