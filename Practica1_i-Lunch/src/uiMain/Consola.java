@@ -25,7 +25,8 @@ public class Consola {
 		//Deserializa todos los objetos.
 		
 		//Mensaje de bienvenida
-		System.out.println("                                                ,,                                                                                                    \r\n"
+		System.out.println(
+				  "                                                ,,                                                                                                    \r\n"
 				+ "                                      &@@@@@@@@@@@@@                                                                                                  \r\n"
 				+ "                                 (@@@@@@@@@@@@@@@@@                                                                                                   \r\n"
 				+ "                              @@@@@@@   @@@@@@@@@@@                                                                                                   \r\n"
@@ -53,23 +54,28 @@ public class Consola {
 				+ "                                               @@@@@@@@@@@@@@@@@@@@@@@@                                                                               \r\n"
 				+ "                                                  @@@@@@@@@@@@@@@@@@@@@                                                                               \r\n"
 				+ "                                                     @@@@@@@@@@@@@@@@@                                                                                \r\n"
-				+ "                                                         @@@@@@@@@@@*                                                                                 ");
+				+ "                                                         @@@@@@@@@@@*                                                                                 "
+		);
 		
 		String opcion = "0";
 		
 		do {
-			System.out.println(""); //Mensaje de elecci�n
-			System.out.println(" 1. Ver informaci�n del Restaurante"); 
-			System.out.println(" 2. Gestionar Men�");
+			System.out.println("\n"); //Mensaje de eleccion
+			
+			System.out.println(" 1. Ver informacion del Restaurante"); 
+			System.out.println(" 2. Gestionar Menu");
 			System.out.println(" 3. Gestionar Pesonal");
 			System.out.println(" 4. Cola de pedidos");
-			System.out.println(" 5. Pagar n�mina");
-			System.out.println(" Funciones extras del sistemas");
+			System.out.println(" 5. Pagar nomina\n");
+			
+			System.out.println(" Funciones extras del sistemas\n");
+			
 			System.out.println(" 6. Simular Pedido");
 			System.out.println(" 7. Gestionar Clientela");
-			System.out.println(" 8. Guardar y Salir");
+			System.out.println(" 8. Guardar y Salir\n");
 
 			System.out.println("Elija una opcion: ");
+			
 			try {
 				opcion =  readString();
 			} catch (Exception e) {
@@ -77,7 +83,6 @@ public class Consola {
 				opcion = "0";
 			}
 			
-
 			switch (opcion) {
 
 			case "1": // David
@@ -96,7 +101,7 @@ public class Consola {
 				 * 3. Eliminar Producto
 				 * 4. Actualizar Producto
 				 * 4.1 Nombre
-				 * 4.2 Descripci�n
+				 * 4.2 Descripcion
 				 * 4.3 Precio
 				 * 4.4 Restriccion
 				 * 4.5 Disponibilidad
@@ -127,7 +132,7 @@ public class Consola {
 			
 			case "6": // Apa
 				// Mensaje de control
-				// Cliente, c�digo pedido
+				// Cliente, codigo pedido
 				break;	
 				
 			case "7": // Jero
@@ -142,7 +147,7 @@ public class Consola {
 				break;
 				
 			default:
-				System.out.println("La opci�n ingresada no es valida. Por favor intentelo nuevamente"); //Mensaje de control para inputs invalidos.
+				System.out.println("La opcion ingresada no es valida. Por favor intentelo nuevamente"); //Mensaje de control para inputs invalidos.
 				break;
 			
 			}

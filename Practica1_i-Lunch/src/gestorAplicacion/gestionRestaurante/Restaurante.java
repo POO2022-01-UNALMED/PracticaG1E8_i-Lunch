@@ -309,9 +309,9 @@ public class Restaurante implements Serializable {
 
 		if (!pedidos.contains(pedido)) {
 			pedidos.add(pedido);
-			return "Pedido añadido con exito";
+			return "Pedido anadido con exito";
 		} else {
-			return "ERROR: El pedido ya se encuentra añadido";
+			return "ERROR: El pedido ya se encuentra anadido";
 		}
 	}
 }
