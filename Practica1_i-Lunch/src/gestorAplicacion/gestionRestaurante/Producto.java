@@ -104,4 +104,14 @@ public class Producto implements Serializable {
 	public static ArrayList<Producto> getProductos() {
 		return productos;
 	}
+
+	@Override
+	public String toString() {
+		return    "Nombre: \"" + nombre + "\"\n"
+				+ "Descripcion: \"" + descripcion + "\"\n"
+				+ "Precio: $" + precio + "\n"
+				+ "Disponiblidad: " + disponiblidad + "\n"
+				+ "Restriccion de edad: " + restriccion + "\n"
+				+ "Cantidad disponible: " + cantidad;
+	}
 }

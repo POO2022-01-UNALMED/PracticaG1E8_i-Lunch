@@ -92,7 +92,7 @@ public class Administrador extends Empleado implements Serializable, Usuario {
 		if (!listaMenu.contains(productoNuevo)) {
 			listaMenu.add(productoNuevo);
 			this.restaurante.setMenu(listaMenu);
-			return "Producto " + nombre + "creado con éxito";
+			return "Producto " + nombre + " creado con éxito";
 		} else {
 			return "ERROR: El producto ya se encuentra creado";
 		}
@@ -103,16 +103,15 @@ public class Administrador extends Empleado implements Serializable, Usuario {
 	 * Antes de cambiar el atributo se debe de comprobar que el producto esté en la
 	 * lista de productos del restaurante.
 	 */
-	public String actualizarNombreProducto(Producto producto, String nombre) {
+	public String actualizarNombreProducto(int producto, String nombre) {
 		ArrayList<Producto> listaMenu = this.restaurante.getMenu();
-		if (listaMenu.contains(producto)) {
-			int indiceProducto = listaMenu.indexOf(producto);
-			Producto productoActualizado = listaMenu.get(indiceProducto);
+		try {
+			Producto productoActualizado = listaMenu.get(producto);
 			productoActualizado.setNombre(nombre);
-			listaMenu.set(indiceProducto, productoActualizado);
+			listaMenu.set(producto, productoActualizado);
 			this.restaurante.setMenu(listaMenu);
-			return "Producto " + producto.getNombre() + " actualizado con éxito";
-		} else {
+			return "Producto " + productoActualizado.getNombre() + " actualizado con éxito";
+		} catch (Exception e) {
 			return "ERROR: El producto que intentas actualizar no existe";
 		}
 	}
@@ -122,16 +121,15 @@ public class Administrador extends Empleado implements Serializable, Usuario {
 	 * parámetro. Antes de cambiar el atributo se debe de comprobar que el producto
 	 * esté en la lista de productos del restaurante.
 	 */
-	public String actualizarDescripcionProducto(Producto producto, String descripcion) {
+	public String actualizarDescripcionProducto(int producto, String descripcion) {
 		ArrayList<Producto> listaMenu = this.restaurante.getMenu();
-		if (listaMenu.contains(producto)) {
-			int indiceProducto = listaMenu.indexOf(producto);
-			Producto productoActualizado = listaMenu.get(indiceProducto);
+		try {
+			Producto productoActualizado = listaMenu.get(producto);
 			productoActualizado.setDescripcion(descripcion);
-			listaMenu.set(indiceProducto, productoActualizado);
+			listaMenu.set(producto, productoActualizado);
 			this.restaurante.setMenu(listaMenu);
-			return "Producto " + producto.getNombre() + " actualizado con éxito";
-		} else {
+			return "Producto " + productoActualizado.getNombre() + " actualizado con éxito";
+		} catch (Exception e) {
 			return "ERROR: El producto que intentas actualizar no existe";
 		}
 	}
@@ -141,16 +139,15 @@ public class Administrador extends Empleado implements Serializable, Usuario {
 	 * Antes de cambiar el atributo se debe de comprobar que el producto esté en la
 	 * lista de productos del restaurante.
 	 */
-	public String actualizarPrecioProducto(Producto producto, int precio) {
+	public String actualizarPrecioProducto(int producto, int precio) {
 		ArrayList<Producto> listaMenu = this.restaurante.getMenu();
-		if (listaMenu.contains(producto)) {
-			int indiceProducto = listaMenu.indexOf(producto);
-			Producto productoActualizado = listaMenu.get(indiceProducto);
+		try {
+			Producto productoActualizado = listaMenu.get(producto);
 			productoActualizado.setPrecio(precio);
-			listaMenu.set(indiceProducto, productoActualizado);
+			listaMenu.set(producto, productoActualizado);
 			this.restaurante.setMenu(listaMenu);
-			return "Producto " + producto.getNombre() + " actualizado con éxito";
-		} else {
+			return "Producto " + productoActualizado.getNombre() + " actualizado con éxito";
+		} catch(Exception e) {
 			return "ERROR: El producto que intentas actualizar no existe";
 		}
 	}
@@ -160,16 +157,15 @@ public class Administrador extends Empleado implements Serializable, Usuario {
 	 * por parámetro. Antes de cambiar el atributo se debe de comprobar que el
 	 * producto esté en la lista de productos del restaurante.
 	 */
-	public String actualizarRestriccionProducto(Producto producto, boolean restriccion) {
+	public String actualizarRestriccionProducto(int producto, boolean restriccion) {
 		ArrayList<Producto> listaMenu = this.restaurante.getMenu();
-		if (listaMenu.contains(producto)) {
-			int indiceProducto = listaMenu.indexOf(producto);
-			Producto productoActualizado = listaMenu.get(indiceProducto);
+		try {
+			Producto productoActualizado = listaMenu.get(producto);
 			productoActualizado.setRestriccion(restriccion);
-			listaMenu.set(indiceProducto, productoActualizado);
+			listaMenu.set(producto, productoActualizado);
 			this.restaurante.setMenu(listaMenu);
-			return "Producto " + producto.getNombre() + " actualizado con éxito";
-		} else {
+			return "Producto " + productoActualizado.getNombre() + " actualizado con éxito";
+		} catch(Exception e) {
 			return "ERROR: El producto que intentas actualizar no existe";
 		}
 	}
@@ -179,16 +175,15 @@ public class Administrador extends Empleado implements Serializable, Usuario {
 	 * parámetro. Antes de cambiar el atributo se debe de comprobar que el producto
 	 * esté en la lista de productos del restaurante.
 	 */
-	public String actualizarDisponibilidadProducto(Producto producto, boolean disponibilidad) {
+	public String actualizarDisponibilidadProducto(int producto, boolean disponibilidad) {
 		ArrayList<Producto> listaMenu = this.restaurante.getMenu();
-		if (listaMenu.contains(producto)) {
-			int indiceProducto = listaMenu.indexOf(producto);
-			Producto productoActualizado = listaMenu.get(indiceProducto);
+		try {
+			Producto productoActualizado = listaMenu.get(producto);
 			productoActualizado.setDisponiblidad(disponibilidad);
-			listaMenu.set(indiceProducto, productoActualizado);
+			listaMenu.set(producto, productoActualizado);
 			this.restaurante.setMenu(listaMenu);
-			return "Producto " + producto.getNombre() + " actualizado con éxito";
-		} else {
+			return "Producto " + productoActualizado.getNombre() + " actualizado con éxito";
+		} catch(Exception e) {
 			return "ERROR: El producto que intentas actualizar no existe";
 		}
 	}
@@ -198,16 +193,15 @@ public class Administrador extends Empleado implements Serializable, Usuario {
 	 * parámetro. Antes de cambiar el atributo se debe de comprobar que el producto
 	 * esté en la lista de productos del restaurante.
 	 */
-	public String actualizarCantidadProducto(Producto producto, int cantidad) {
+	public String actualizarCantidadProducto(int producto, int cantidad) {
 		ArrayList<Producto> listaMenu = this.restaurante.getMenu();
-		if (listaMenu.contains(producto)) {
-			int indiceProducto = listaMenu.indexOf(producto);
-			Producto productoActualizado = listaMenu.get(indiceProducto);
+		try {
+			Producto productoActualizado = listaMenu.get(producto);
 			productoActualizado.setCantidad(cantidad);
-			listaMenu.set(indiceProducto, productoActualizado);
+			listaMenu.set(producto, productoActualizado);
 			this.restaurante.setMenu(listaMenu);
-			return "Producto " + producto.getNombre() + " actualizado con éxito";
-		} else {
+			return "Producto " + productoActualizado.getNombre() + " actualizado con éxito";
+		} catch(Exception e) {
 			return "ERROR: El producto que intentas actualizar no existe";
 		}
 	}
@@ -217,13 +211,15 @@ public class Administrador extends Empleado implements Serializable, Usuario {
 	 * restaurante. Antes de eliminar el producto se debe de verificar que el
 	 * producto se encuentre en la lista de productos del restaurante.
 	 */
-	public String eliminarProducto(Producto producto) {
+	public String eliminarProducto(String producto) {
 		ArrayList<Producto> listaMenu = this.restaurante.getMenu();
-		if (listaMenu.contains(producto)) {
-			listaMenu.remove(producto);
+		int productoID;
+		try {
+			productoID = Integer.parseInt(producto);
+			listaMenu.remove(productoID);
 			this.restaurante.setMenu(listaMenu);
-			return "Producto " + producto.getNombre() + " eliminado con éxito";
-		} else {
+			return "Producto con ID: " + productoID + " eliminado con éxito";
+		} catch(Exception e) {
 			return "ERROR: El producto que intentas eliminar no existe";
 		}
 	}
