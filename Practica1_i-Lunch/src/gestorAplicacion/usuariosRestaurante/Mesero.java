@@ -5,14 +5,11 @@
   */
 
 package gestorAplicacion.usuariosRestaurante;
-import java.io.Serializable;
 import java.util.ArrayList;
-
-import javax.print.event.PrintJobAttributeEvent;
 
 import gestorAplicacion.gestionRestaurante.*;
 
-public class Mesero extends Empleado implements Serializable, Usuario{
+public class Mesero extends Empleado implements Usuario{
 	
 	// Serialización
 	private static final long serialVersionUID = 1L;
@@ -27,20 +24,24 @@ public class Mesero extends Empleado implements Serializable, Usuario{
 	private ArrayList<Float> historialPropinas = new ArrayList<Float>();
 	
 	/*Constructor de la clase Mesero*/
-	public Mesero(int cedula, String nombre, String cargo, boolean disponibilidad, int salario, Restaurante restaurante/*, boolean pagado*/) {
+	public Mesero(int cedula, String nombre, boolean disponibilidad, int salario, Restaurante restaurante/*, boolean pagado*/) {
 		this.setCedula(cedula);
 		this.setNombre(nombre);
-		this.setCargo(cargo);
+		this.setCargo("Mesero");
 		this.setDisponibilidad(disponibilidad);
 		this.setSalario(salario);
 		this.setRestaurante(restaurante);
 		/*this.setPagado = pagado;*/
-		meseros.add(this);
+		
+		// Serializacion
+		ArrayList<Empleado> empleados = Empleado.getEmpleados();
+		empleados.add(this);
+		Empleado.setEmpleados(empleados);
 	}
 	
 	/*Sobrecarga del constructor para valores predeterminados*/
 	public Mesero() {
-		this(0, "NN","NA", false, 0, null/*, false*/);
+		this(0, "NN", false, 0, null/*, false*/);
 	}
 	
 	// Getters y Setters

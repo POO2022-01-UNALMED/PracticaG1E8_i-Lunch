@@ -2,8 +2,6 @@ package gestorAplicacion.gestionRestaurante;
 
 import java.util.ArrayList;
 
-import javax.swing.text.TabStop;
-
 import java.io.Serializable;
 import gestorAplicacion.usuariosRestaurante.*;
 

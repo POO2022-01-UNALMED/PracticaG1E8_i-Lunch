@@ -3,7 +3,6 @@ package gestorAplicacion.usuariosRestaurante;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Random;
 
 import gestorAplicacion.gestionRestaurante.*;
 
@@ -31,6 +30,11 @@ public class Administrador extends Empleado implements Serializable, Usuario {
 	// debido a que este siempre será "Administrador"
 	public Administrador(int cedula, String nombre, boolean disponibilidad, int salario, Restaurante restaurante) {
 		super(cedula, nombre, "Administrador", disponibilidad, salario, restaurante);
+		
+		ArrayList<Empleado> empleados = this.restaurante.getEmpleados();
+		empleados.add(this);
+		this.restaurante.setEmpleados(empleados);
+		
 		administradores.add(this);
 	}
 
@@ -216,9 +220,10 @@ public class Administrador extends Empleado implements Serializable, Usuario {
 		int productoID;
 		try {
 			productoID = Integer.parseInt(producto);
+			String nombreProd = listaMenu.get(productoID).getNombre();
 			listaMenu.remove(productoID);
 			this.restaurante.setMenu(listaMenu);
-			return "Producto con ID: " + productoID + " eliminado con éxito";
+			return "Producto \"" + nombreProd + "\" eliminado con éxito";
 		} catch(Exception e) {
 			return "ERROR: El producto que intentas eliminar no existe";
 		}
@@ -244,7 +249,7 @@ public class Administrador extends Empleado implements Serializable, Usuario {
 			return "Nómina de todos los empleados pagada con éxito. El nuevo balance de cuenta es: $"
 					+ restaurante.getBalanceCuenta();
 		} else {
-			return "ERROR: No se posee el suficiente dinero para pagar la nómina de todos los empleados";
+			return "ERROR: No se posee el suficiente dinero para pagar la nómina de todos los empleados ($" + totalSalarios + ")";
 		}
 	}
 
@@ -254,18 +259,17 @@ public class Administrador extends Empleado implements Serializable, Usuario {
 	 * balance de cuenta del restaurtante existan fondos sufucientes para pagar al
 	 * empleado en cuestión
 	 */
-	public String pagoNomina(Empleado empleado) {
-		if ((empleado.getSalario() * Administrador.getImpuestos()) <= this.restaurante.getBalanceCuenta()) { // Salario
-																												// más
-																												// un
-																												// impuesto
-			float nuevoBalance = this.restaurante.getBalanceCuenta()
-					- (empleado.getSalario() * Administrador.getImpuestos());
+	public String pagoNomina(int empleadoID) {
+		Empleado empleado = this.restaurante.getEmpleados().get(empleadoID);
+		
+		if ((empleado.getSalario() * Administrador.getImpuestos()) <= this.restaurante.getBalanceCuenta()) { 
+			// Salario mas un impuesto
+			float nuevoBalance = this.restaurante.getBalanceCuenta() - (empleado.getSalario() * Administrador.getImpuestos());
 			this.restaurante.setBalanceCuenta(nuevoBalance);
-			return "Nómina de todos los empleados pagada con éxito. El nuevo balance de cuenta es: $"
-					+ restaurante.getBalanceCuenta();
+			return "Nómina del empleado " + empleado.getNombre() + " pagada con éxito.\n" +
+				   "El nuevo balance de cuenta es: $" + restaurante.getBalanceCuenta();
 		} else {
-			return "ERROR: No se posee el suficiente dinero para pagar la nómina de todos los empleados";
+			return "ERROR: No se posee el suficiente dinero para pagar la nómina del empleado ($" + (empleado.getSalario() * Administrador.getImpuestos()) +")";
 		}
 	}
 

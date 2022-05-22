@@ -2,15 +2,12 @@
   Clase que hereda de EMPLEADO y que tiene como finalidad la preparacion de los pedidos para que puedan ser despachados. 
   Se le asignan 2 nuevos atributos: cargoEnCocina y especialidad.*/
 
-
 package gestorAplicacion.usuariosRestaurante;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-
 import gestorAplicacion.gestionRestaurante.*;
 
-public class Chef extends Empleado implements Serializable, Usuario {
+public class Chef extends Empleado implements Usuario {
 	
 	// Serializacion
 	private static final long serialVersionUID = 1L;
@@ -24,11 +21,11 @@ public class Chef extends Empleado implements Serializable, Usuario {
 	private String especialidad;
 	
 	/*Constructor de la clase Chef*/
-	public Chef(int cedula, String nombre, String cargo, boolean disponibilidad, int salario, Restaurante restaurante/*, boolean pagado*/, 
+	public Chef(int cedula, String nombre, boolean disponibilidad, int salario, Restaurante restaurante/*, boolean pagado*/, 
 			String cargoEnCocina, String especialidad) {
 		this.setCedula(cedula);
 		this.setNombre(nombre);
-		this.setCargo(cargo);
+		this.setCargo("Chef");
 		this.setDisponibilidad(disponibilidad);
 		this.setSalario(salario);
 		this.setRestaurante(restaurante);
@@ -36,12 +33,16 @@ public class Chef extends Empleado implements Serializable, Usuario {
 		
 		this.cargoEnCocina = cargoEnCocina;
 		this.especialidad = especialidad;
-		chefs.add(this);
+
+		// Serializacion
+		ArrayList<Empleado> empleados = Empleado.getEmpleados();
+		empleados.add(this);
+		Empleado.setEmpleados(empleados);
 	}
 
 	/*Sobrecarga del constructor para valores predeterminados*/
 	public Chef() {
-		this(0, "NN","NA", false, 0, null/*, false*/, "NA", "NA");
+		this(0, "NN", false, 0, null/*, false*/, "NA", "NA");
 	}
 	
 	/*Metodos GET y SET para los 2 nuevos atributos*/

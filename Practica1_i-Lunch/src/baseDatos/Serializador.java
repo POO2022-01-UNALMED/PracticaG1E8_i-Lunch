@@ -1,6 +1,5 @@
 package baseDatos;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -49,9 +48,6 @@ public class Serializador {
 		Serializador.serializar(Restaurante.getRestaurantes(), "restaurantes");
 		Serializador.serializar(Cliente.getClientes(), "clientes");
 		Serializador.serializar(Empleado.getEmpleados(), "empleados");
-		Serializador.serializar(Chef.getChefs(), "chefs");
-		Serializador.serializar(Repartidor.getRepartidores(), "repartidores");
-		Serializador.serializar(Mesero.getMeseros(), "meseros");
 		Serializador.serializar(Administrador.getAdministradores(), "administradores");
 	}
 

@@ -1,6 +1,5 @@
 package baseDatos;
 
-import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -58,9 +57,6 @@ public class Deserializador {
 		Deserializador.deserializador(Restaurante.getRestaurantes(), "restaurantes");
 		Deserializador.deserializador(Cliente.getClientes(), "clientes");
 		Deserializador.deserializador(Empleado.getEmpleados(), "empleados");
-		Deserializador.deserializador(Chef.getChefs(), "chefs");
-		Deserializador.deserializador(Repartidor.getRepartidores(), "repartidores");
-		Deserializador.deserializador(Mesero.getMeseros(), "meseros");
 		Deserializador.deserializador(Administrador.getAdministradores(), "administradores");
 	}
 }

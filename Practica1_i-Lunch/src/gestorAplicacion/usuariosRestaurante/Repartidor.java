@@ -3,33 +3,43 @@
    poseeVehiculo, placa, tipoVehiculo.*/
 
 package gestorAplicacion.usuariosRestaurante;
-import java.io.Serializable;
+
 import java.util.ArrayList;
 
 import gestorAplicacion.gestionRestaurante.*;
 
-public class Repartidor extends Empleado implements Serializable, Usuario {
+public class Repartidor extends Empleado implements Usuario {
 	
-	// Serializacion
+	// Serialización
 	private static final long serialVersionUID = 1L;
 	private static ArrayList<Repartidor> repartidores;
 	static {
 		repartidores = new ArrayList<Repartidor>();
 	}
-	
+
+	public static ArrayList<Repartidor> getRepartidores() {
+		return repartidores;
+	}
+
+	public static void setRepartidores(ArrayList<Repartidor> repartidores) {
+		Repartidor.repartidores = repartidores;
+	}
+
 	/*Como REPARTIDOR hereda de EMPLEADO, utiliza sus atributos y ademas se crean 3 nuevos.*/
 	private boolean poseeVehiculo;
 	private String placa;
 	private String tipoVehiculo;
+	
+	
 	// Aca se guardan todos pedidos entregados por el repartidor en cuestion.
 	private ArrayList<Pedido> pedidosEntregados = new ArrayList<Pedido>();
 	
 	/*Constructor de la clase Repartidor*/
-	public Repartidor(int cedula, String nombre, String cargo, boolean disponibilidad, int salario, Restaurante restaurante/*, boolean pagado*/, 
+	public Repartidor(int cedula, String nombre, boolean disponibilidad, int salario, Restaurante restaurante/*, boolean pagado*/, 
 			boolean poseeVehiculo, String placa, String tipoVehiculo) {
 		this.setCedula(cedula);
 		this.setNombre(nombre);
-		this.setCargo(cargo);
+		this.setCargo("Repartidor");
 		this.setDisponibilidad(disponibilidad);
 		this.setSalario(salario);
 		this.setRestaurante(restaurante);
@@ -38,12 +48,15 @@ public class Repartidor extends Empleado implements Serializable, Usuario {
 		this.poseeVehiculo = poseeVehiculo;
 		this.placa = placa;
 		this.tipoVehiculo = tipoVehiculo;
-		repartidores.add(this);
+		
+		ArrayList<Empleado> empleados = Empleado.getEmpleados();
+		empleados.add(this);
+		Empleado.setEmpleados(empleados);
 	}
 
 	/*Sobrecarga del constructor para valores predeterminados*/
 	public Repartidor() {
-		this(0, "NN","NA", false, 0, null/*, false*/, false, "NA", "NA" );
+		this(0, "NN", false, 0, null/*, false*/, false, "NA", "NA" );
 	}
 
 	/*Metodo para cambiar el estado de un pedido(atributo "estado") a su estado final "Entregado". Recibe como parametro un pedido 
@@ -85,18 +98,9 @@ public class Repartidor extends Empleado implements Serializable, Usuario {
 	public void setTipoVehiculo(String tipoVehiculo) {
 		this.tipoVehiculo = tipoVehiculo;
 	}
-	
-	public static ArrayList<Repartidor> getRepartidores() {
-		return repartidores;
-	}
 
 	public void setPoseeVehiculo(boolean poseeVehiculo) {
 		this.poseeVehiculo = poseeVehiculo;
-	}
-	
-
-	public static void setRepartidores(ArrayList<Repartidor> repartidores) {
-		Repartidor.repartidores = repartidores;
 	}
 
 	public ArrayList<Pedido> getPedidosEntregados() {

@@ -1,6 +1,5 @@
 package uiMain;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -66,15 +65,16 @@ public class Consola {
 		
 		System.out.println("----------------------------------------------------------------------------------------------------\n");
 		System.out.println("Bienvenido a i-Lunch: " + admin.getNombre());
-		System.out.println("Restaurante: " + restaurante.getNombre() + "\n");
+		System.out.println("Restaurante: " + restaurante.getNombre());
+		pressEnter(true);
 		
 		String opcion = "0";
 		
 		do {
-			System.out.println("----------------------------------------------------------------------------------------------------");
+			System.out.println("\n----------------------------------------------------------------------------------------------------");
 			System.out.println("Escribe el numero asociado a la funcion que quieres realizar\n");
 			
-			System.out.println("Funciones principales del sistema\n");
+			System.out.println("Gestion del restaurante:\n");
 			
 			System.out.println(" 1. Ver informacion del Restaurante"); 
 			System.out.println(" 2. Gestionar Menu");
@@ -82,7 +82,7 @@ public class Consola {
 			System.out.println(" 4. Cola de pedidos");
 			System.out.println(" 5. Pagar nomina\n");
 			
-			System.out.println("Funciones extra del sistema\n");
+			System.out.println("Funciones extra del sistema:\n");
 			
 			System.out.println(" 6. Simular Pedido");
 			System.out.println(" 7. Gestionar Clientela");
@@ -127,9 +127,8 @@ public class Consola {
 				 * 2. Rechazar */
 				break;
 				
-			case "5": // Emma
-				/* 1. Pagar a un empleado
-				 * 2. Pagar a todos los empleados*/
+			case "5": 
+				submenu5();
 				break;
 			
 			case "6": // Apa
@@ -150,13 +149,14 @@ public class Consola {
 				
 			default:
 				System.out.println("\nLa opcion ingresada no es valida. Por favor intentelo nuevamente"); //Mensaje de control para inputs invalidos.
+				pressEnter();
 				break;
 			}
 			
 		} while (!opcion.equals("8"));
 
 	}
-	
+
 	// Genera datos predeterminados si no existe ninguno
 	// Se puede hacer que se pidan los datos. Pero es algo extra
 	
@@ -166,23 +166,42 @@ public class Consola {
 		ArrayList<Producto> menu = new ArrayList<Producto>();
 		ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
 		
-		if (Administrador.getAdministradores().isEmpty())
-			empleados.add(new Empleado(2, "Leo Messi", "Chef", true, 1000, restaurante));
-			empleados.add(new Empleado(3, "CR7", "Repartidor", false, 1000, restaurante));
+		if (Administrador.getAdministradores().isEmpty())			
+			restaurante = new Restaurante("El Mejor Restaurante de la Facultad", 987654, 192837465, "En la mejor mesa de la Facultad", "lamejormesa@gmail.com", true, 4,  empleados,  menu,  pedidos, 3500);
+			
+			new Administrador(1 , "Fulanito de Tal", true, 0, restaurante);
+			
+			empleados.add(new Repartidor(2, "Leo Messi", true, 1000, restaurante, true, "ABC-123", "Carro"));
+			empleados.add(new Mesero(3, "CR7", false, 1000, restaurante));
+			empleados.add(new Chef(4, "Mbappe", true, 600, restaurante, "Jefe de cocina", "Tortugas"));
 			
 			menu.add(new Producto("Hamburguesa", "Mejor que la Cangreburger y a un menor precio", 5, true, false, 25));
 			menu.add(new Producto("Pizza sin pinha", "Como debe de ser", 7, true, false, 10));
 			menu.add(new Producto("Sushi", "Su chicharron", 3, false, false, 50));
 			
-			restaurante = new Restaurante("El Mejor Restaurante de la Facultad", 987654, 300, "En la mejor mesa de la Facultad", "lamejormesa@gmail.com", true, 4,  empleados,  menu,  pedidos, 0);
-			new Administrador(1 , "Fulanito de Tal", true, 0, restaurante);
+			restaurante.setEmpleados(empleados);
+			restaurante.setMenu(menu);
+	}
+	
+	// Metodo de "Presiona enter para continuar
+	static void pressEnter() {
+		System.out.println("\nPresiona Enter para continuar...");
+		readString();
+	}
+	
+	// Usado en el inicio de la app
+	private static void pressEnter(boolean ingreso) {
+		if(ingreso) {
+			System.out.println("\nPresiona Enter para ingresar...");
+			readString();
+		}
 	}
 	
 	// Submenu de la opcion "2. Gestionar Menu"
 	static void submenu2() {
 		String opcion;
 		do {
-			System.out.println("\n--------------------------------------------------");
+			System.out.println("\n----------------------------------------------------------------------------------------------------");
 			System.out.println("Gestionar Menu\n");
 			
 			System.out.println(" 1. Ver menu"); 
@@ -203,7 +222,7 @@ public class Consola {
 					System.out.println("\nID: " + i);
 					System.out.println(producto.toString());
 				}
-				
+				pressEnter();
 				break;
 			case "2":		
 				// Crear producto
@@ -252,7 +271,7 @@ public class Consola {
 				}
 				
 				System.out.println(admin.crearProducto(nombre, descripcion, precio, disponibilidad, restriccion, cantidad));
-				
+				pressEnter();
 				break;
 			case "3":
 				// Eliminar producto
@@ -262,6 +281,7 @@ public class Consola {
 				String idSt = readString();
 				
 				System.out.println(admin.eliminarProducto(idSt));
+				pressEnter();
 				break;
 			case "4":
 				// Actualizar producto
@@ -271,6 +291,7 @@ public class Consola {
 				break;
 			default:
 				System.out.println("\nLa opcion ingresada no es valida. Por favor intentelo nuevamente"); //Mensaje de control para inputs invalidos.
+				pressEnter();
 				break;
 			}
 		} while(!opcion.equals("5"));
@@ -287,11 +308,13 @@ public class Consola {
 			id = Integer.parseInt(idSt);
 		} catch (Exception e) {
 			System.out.println("El ID ingresado no es valido. Por favor intentelo nuevamente");
+			pressEnter();
 			return;
 		}
 		
 		if(id >= restaurante.getMenu().size()) {
 			System.out.println("El ID ingresado no es valido. Por favor intentelo nuevamente");
+			pressEnter();
 			return;
 		}
 		
@@ -305,7 +328,7 @@ public class Consola {
 			System.out.println(" 4. Restriccion");
 			System.out.println(" 5. Disponibilidad");
 			System.out.println(" 6. Cantidad");
-			System.out.println(" 7. Volver al menu principal\n");
+			System.out.println(" 7. Volver a \"Gestionar Menu\"\n");
 			
 			opcion = readString();
 
@@ -316,6 +339,7 @@ public class Consola {
 				String nombre = readString();
 				
 				System.out.println(admin.actualizarNombreProducto(id, nombre));
+				pressEnter();
 				return;
 			case "2":		
 				// Descripcion
@@ -323,6 +347,7 @@ public class Consola {
 				String descripcion = readString();
 				
 				System.out.println(admin.actualizarDescripcionProducto(id, descripcion));
+				pressEnter();
 				return;
 			case "3":
 				// Precio
@@ -336,6 +361,7 @@ public class Consola {
 				}
 				
 				System.out.println(admin.actualizarPrecioProducto(id, precio));
+				pressEnter();
 				return;
 			case "4":
 				// Restriccion
@@ -349,6 +375,7 @@ public class Consola {
 				}
 				
 				System.out.println(admin.actualizarRestriccionProducto(id, restriccion));
+				pressEnter();
 				return;
 			case "5":
 				// Disponibilidad
@@ -362,6 +389,7 @@ public class Consola {
 				}
 				
 				System.out.println(admin.actualizarDisponibilidadProducto(id, disponibilidad));
+				pressEnter();
 				return;
 			case "6":
 				// Cantidad
@@ -375,14 +403,62 @@ public class Consola {
 				}
 				
 				System.out.println(admin.actualizarCantidadProducto(id, cantidad));
+				pressEnter();
 				return;
 			case "7":
 				break;
 			default:
 				System.out.println("\nLa opcion ingresada no es valida. Por favor intentelo nuevamente"); //Mensaje de control para inputs invalidos.
+				pressEnter();
 				break;
 			}
 		} while(!opcion.equals("7"));
+	}
+	
+	// Submenu de la opcion "5. Pagar nomina"
+	static void submenu5() {
+	
+		String opcion;
+		do {
+			System.out.println("\n----------------------------------------------------------------------------------------------------");
+			System.out.println("Pagar nomina\n");
+			
+			System.out.println("Balance de cuenta: $" + restaurante.getBalanceCuenta() +"\n");
+			
+			System.out.println(" 1. Pagar a un empleado en especifico"); 
+			System.out.println(" 2. Pagar a todos los empleados");
+			System.out.println(" 3. Volver al menu principal\n");
+
+			opcion = readString();
+
+			switch (opcion) {
+			case "1":
+				// Pagar a un empleado en especifico
+				System.out.println("Ingrese el ID del empleado: ");
+				String idSt = readString();
+				int id;
+				try {
+					id = Integer.parseInt(idSt);
+				} catch (Exception e) {
+					id = 0;
+				}
+				
+				System.out.println(admin.pagoNomina(id));
+				pressEnter();
+				break;
+			case "2":		
+				// Pagar a todos los empleados
+				System.out.println(admin.pagoNomina());
+				pressEnter();
+				break;
+			case "3":
+				break;
+			default:
+				System.out.println("\nLa opcion ingresada no es valida. Por favor intentelo nuevamente"); //Mensaje de control para inputs invalidos.
+				pressEnter();
+				break;
+			}
+		} while(!opcion.equals("3"));
 	}
 }
 

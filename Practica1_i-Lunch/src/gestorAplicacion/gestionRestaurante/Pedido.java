@@ -2,12 +2,8 @@ package gestorAplicacion.gestionRestaurante;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.time.zone.ZoneOffsetTransitionRule;
 import java.util.ArrayList;
-import java.util.concurrent.atomic.DoubleAdder;
-import java.util.function.BiConsumer;
 
-import gestorAplicacion.usuariosRestaurante.*;
 import gestorAplicacion.usuariosRestaurante.*;
 
 public class Pedido implements Serializable {
@@ -63,7 +59,7 @@ public class Pedido implements Serializable {
 		this.fechaHora = fechaHora;
 		this.restaurante = restaurante;
 		pedidos.add(this);
-		totalPedidos++;
+		Pedido.totalPedidos += 1;
 	}
 	
 	public Pedido() {
