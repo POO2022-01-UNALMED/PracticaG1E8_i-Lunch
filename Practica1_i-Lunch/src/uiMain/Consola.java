@@ -8,37 +8,65 @@ import gestorAplicacion.gestionRestaurante.*;
 import gestorAplicacion.usuariosRestaurante.*;
 
 public class Consola {
-
 	static Scanner sc = new Scanner(System.in);
-	
-	//Se crean metodos para utilizar el Scanner de Java.
+
+	// Leer int	
 	static int readInt() {
 		return sc.nextInt();
 	}
 
+	// Leer string
 	static String readString() {
 		return sc.nextLine();
 	}
 
+	// Leer double	
 	static double readDouble() {
 		return sc.nextDouble();
 	}
 	
+	// Metodo util para sacar ints randoms
+	static int randInt(int min, int max) {
+		return min + (int)(Math.random() * ((max - min) + 1));
+	}
+	
+	// Metodo util para sacar bools randoms
+	static boolean randBool() {
+		int rand = randInt(0, 1);
+		if(rand == 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	// Metodo util para sacar strings randoms de una lista
+	static String randString(String[] lista) {
+		return lista[randInt(0, lista.length-1)];
+	}
+	
+	// Metodo de "Presiona enter para continuar
+	static void pressEnter() {
+		System.out.println("\nPresiona Enter para continuar...");
+		readString();
+	}
+	
+	// Usado en el inicio de la app
+	private static void pressEnter(boolean ingreso) {
+		if(ingreso) {
+			System.out.println("\nPresiona Enter para ingresar...");
+			readString();
+		}
+	}
+
 	// Administrador que maneja la app
 	static Administrador admin;
 	static Restaurante restaurante;
-
+	
 	// Metodo main
 	public static void main(String[] args) {
 		//Deserializa todos los objetos.
 		Deserializador.deserializarTodo();
-		
-		// Datos predeterminados
-		inicializar();
-		
-		// Administrador que maneja la app
-		admin = Administrador.getAdministradores().get(0);
-		restaurante = admin.getRestaurante();
 		
 		//Mensaje de bienvenida
 		System.out.println(
@@ -63,16 +91,24 @@ public class Consola {
 				+ "                                     @@@@@@@@@                                                      \r\n"
 		);
 		
+		// Generar los datos iniciales
+		inicializar();
+		
+		// Administrador que maneja la app
+		admin = Administrador.getAdministradores().get(0);
+		restaurante = admin.getRestaurante();
+		
 		System.out.println("----------------------------------------------------------------------------------------------------\n");
-		System.out.println("Bienvenido a i-Lunch: " + admin.getNombre());
-		System.out.println("Restaurante: " + restaurante.getNombre());
+		
+		System.out.println("Bienvenido de nuevo a i-Lunch " + admin.getNombre());
+		System.out.println("Restaurante: \"" + restaurante.getNombre() + "\"");
 		pressEnter(true);
 		
 		String opcion = "0";
 		
 		do {
-			System.out.println("\n----------------------------------------------------------------------------------------------------");
-			System.out.println("Escribe el numero asociado a la funcion que quieres realizar\n");
+			System.out.println("----------------------------------------------------------------------------------------------------");
+			System.out.println("\nEscribe el numero asociado a la funcion que quieres realizar\n");
 			
 			System.out.println("Gestion del restaurante:\n");
 			
@@ -156,44 +192,111 @@ public class Consola {
 		} while (!opcion.equals("8"));
 
 	}
-
-	// Genera datos predeterminados si no existe ninguno
-	// Se puede hacer que se pidan los datos. Pero es algo extra
 	
+	// Registro si es la primera vez que se usa la app. Pregunta datos del admin y restaurante y genera otros datos aleatroios
 	public static void inicializar() {
 		Restaurante restaurante = null;
 		ArrayList<Empleado> empleados = new ArrayList<Empleado>();
 		ArrayList<Producto> menu = new ArrayList<Producto>();
 		ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
 		
-		if (Administrador.getAdministradores().isEmpty())			
-			restaurante = new Restaurante("El Mejor Restaurante de la Facultad", 987654, 192837465, "En la mejor mesa de la Facultad", "lamejormesa@gmail.com", true, 4,  empleados,  menu,  pedidos, 3500);
+		// Nombres aleatorios para empleados
+		String[] nombresAleatorios = {"Yasemin Phillips",
+		                              "Lavinia Banks",
+		                              "Kodi Paine",
+		                              "Phebe Beaumont",
+		                              "Amba Bowman",
+		                              "Mila-Rose Bartlett",
+		                              "Alejandro Ventura",
+		                              "Zavier Burns",
+		                              "Rivka Cantu",
+		                              "Anastasia Mckeown"};
+		
+		// Nombres aleatorios para productos
+		String[] productosAleatorios = {"Pizza",
+									    "Hamburguesa",
+									    "Bandeja Paisa",
+									    "Sushi",
+									    "Empanadas",
+									    "Pollo frito",
+									    "Spaghetti",
+									    "Paella",
+									    "Tacos"};
+		
+		// Tipos de cargos en la cocina
+		String[] cargosEnCocina = {"Chef en jefe",
+								   "Chef ejecutivo",
+								   "Chef de cocina",
+								   "Chef repostero",
+								   "Lavaplatos"};
+		
+		// Tipos de especialidades de chefs
+		String[] especialidadesChefs = {"Saucier",
+										"Poissonnier",
+										"Rotisseur",
+										"Grillardin",
+										"Friturier",
+										"Entremetier",
+										"Tournant",
+										"Garde Manger",
+										"Boucher",
+										"Patissier"};
+		
+		// Tipos de vehiculos
+		String[] tiposVehiculos = {"Automovil",
+								   "Motoicicleta",
+								   "Bicicleta",
+								   "Cuatrimoto",
+								   "Monopatin",
+								   "Helicoptero",
+								   "Dirigible",
+								   "Globo aerostatico",
+								   "Tanque de guerra",
+								   "Excavadora industrial",
+								   "Tractor"};
+		
+		if (Administrador.getAdministradores().isEmpty()) {
+			// Registro admin y restaurante
+			System.out.println("----------------------------------------------------------------------------------------------------\n");
 			
-			new Administrador(1 , "Fulanito de Tal", true, 0, restaurante);
+			System.out.println("Bienvenido a i-Lunch, por favor ingrese su nombre: ");
+			String nombreAdmin = readString();
 			
-			empleados.add(new Repartidor(2, "Leo Messi", true, 1000, restaurante, true, "ABC-123", "Carro"));
-			empleados.add(new Mesero(3, "CR7", false, 1000, restaurante));
-			empleados.add(new Chef(4, "Mbappe", true, 600, restaurante, "Jefe de cocina", "Tortugas"));
+			System.out.println("Por favor, ingresa los datos del restaurante que quieres registrar: ");
+			System.out.println("Nombre: ");
+			String nombreRestaurante = readString();
+			System.out.println("Email: ");
+			String emailRestaurante = readString();
+			System.out.println("Direccion: ");
+			String direccionRestaurante = readString();
 			
-			menu.add(new Producto("Hamburguesa", "Mejor que la Cangreburger y a un menor precio", 5, true, false, 25));
-			menu.add(new Producto("Pizza sin pinha", "Como debe de ser", 7, true, false, 10));
-			menu.add(new Producto("Sushi", "Su chicharron", 3, false, false, 50));
+			System.out.println("\n¡Registro completado con exito!\n");
+			
+			restaurante = new Restaurante(nombreRestaurante, randInt(100000, 999999), randInt(100000, 999999), direccionRestaurante, emailRestaurante, true, randInt(1, 20),  empleados,  menu,  pedidos, randInt(1000, 10000));
+			new Administrador(0 , nombreAdmin, true, randInt(500, 2000), restaurante);
+			
+			// Generar de 1 a 3 empleados random de cada tipo
+			int numEmpleados = randInt(1, 3);
+			
+			for(int i=0;i<numEmpleados*3; i++) {
+				if(i<3) {
+					empleados.add(new Repartidor(i+1, randString(nombresAleatorios), randBool(), randInt(400, 1200), restaurante, randBool(), "ABC-"+randInt(100,999) , randString(tiposVehiculos)));
+				} else if(i<6) {
+					empleados.add(new Mesero(i+1, randString(nombresAleatorios), randBool(), randInt(400, 1200), restaurante));
+				} else {
+					empleados.add(new Chef(i+1, randString(nombresAleatorios), randBool(), randInt(400, 1200), restaurante, randString(cargosEnCocina), randString(especialidadesChefs)));
+				}
+			}
+			
+			// Generar de 1 a 10 productos random
+			int numProductos = randInt(1, 10);
+			
+			for(int i=0; i<numProductos; i++) {
+				menu.add(new Producto(randString(productosAleatorios), "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec ultrices dui, ut ultricies leo.", randInt(2, 30), randBool(), randBool(), randInt(1, 50)));
+			}
 			
 			restaurante.setEmpleados(empleados);
 			restaurante.setMenu(menu);
-	}
-	
-	// Metodo de "Presiona enter para continuar
-	static void pressEnter() {
-		System.out.println("\nPresiona Enter para continuar...");
-		readString();
-	}
-	
-	// Usado en el inicio de la app
-	private static void pressEnter(boolean ingreso) {
-		if(ingreso) {
-			System.out.println("\nPresiona Enter para ingresar...");
-			readString();
 		}
 	}
 	

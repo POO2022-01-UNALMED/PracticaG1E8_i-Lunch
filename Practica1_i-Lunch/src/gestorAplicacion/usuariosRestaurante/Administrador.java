@@ -246,10 +246,10 @@ public class Administrador extends Empleado implements Serializable, Usuario {
 		if (totalSalarios <= this.restaurante.getBalanceCuenta()) {
 			float nuevoBalance = this.restaurante.getBalanceCuenta() - totalSalarios;
 			this.restaurante.setBalanceCuenta(nuevoBalance);
-			return "Nómina de todos los empleados pagada con éxito. El nuevo balance de cuenta es: $"
+			return "Nomina de todos los empleados pagada con éxito. El nuevo balance de cuenta es: $"
 					+ restaurante.getBalanceCuenta();
 		} else {
-			return "ERROR: No se posee el suficiente dinero para pagar la nómina de todos los empleados ($" + totalSalarios + ")";
+			return "ERROR: No se posee el suficiente dinero para pagar la nomina de todos los empleados ($" + totalSalarios + ")";
 		}
 	}
 
