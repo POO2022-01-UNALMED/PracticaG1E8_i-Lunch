@@ -158,20 +158,29 @@ public class Consola {
 			case "4":
 				ArrayList<Integer> codPedidos = new ArrayList<Integer>();
 				for (Pedido pedido : restaurante.getPedidos()) {
-					codPedidos.add(pedido.getCodigo());
+					if (pedido.getEstado() == estadoPedido.Enviado.toString()) {
+						codPedidos.add(pedido.getCodigo());
+					}
 				}
-				submenu4(codPedidos);
-				/*
-				 * 1. Aceptar 2. Rechazar
-				 */
+				if (codPedidos.size() == 0) {
+					System.out.println("No hay pedidos en espera en este momento");
+				} else {
+					submenu4(codPedidos);
+				}
 				break;
 
 			case "5":
 				submenu5();
 				break;
 
-			case "6": // Apa
+			case "6":
 				// Mensaje de control
+				Cliente cliente = Cliente.getClientes().get(randInt(0, Cliente.getClientes().size()));
+				Pedido pedido = admin.simularPedido(cliente);
+				System.out.println("Pedido recibido");
+				System.out.println("Cliente: " + cliente.getNombre());
+				System.out.println("Codigo pedido: " + pedido.getCodigo());
+				
 				// Cliente, codigo pedido
 				break;
 
@@ -596,9 +605,9 @@ public class Consola {
 	}
 
 	static void listarPedidosEnEspera() {
-		
+
 		System.out.println("Codigo pedido - " + "Estado pedido");
-		
+
 		for (Pedido pedido : restaurante.getPedidos()) {
 			if (pedido.getEstado() == estadoPedido.Enviado.toString()) {
 				System.out.println(pedido.getCodigo() + " - " + pedido.getEstado());
