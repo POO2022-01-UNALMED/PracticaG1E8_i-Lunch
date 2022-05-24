@@ -124,6 +124,7 @@ public class Consola {
 				 * 1. empleados 2. productos 3. historial pedidos 4. balance de cuenta 5.
 				 * estadisticas (Funcionalidad) 6. Volver al menu principal
 				 */
+				DaviMenu1();
 				break;
 
 			case "2":
@@ -154,7 +155,7 @@ public class Consola {
 
 			case "6":
 				// Mensaje de control
-				Cliente cliente = Cliente.getClientes().get(DatosAleatorios.randInt(0, Cliente.getClientes().size()-1));
+				Cliente cliente = Cliente.getClientes().get(DatosAleatorios.randInt(0, Cliente.getClientes().size()));
 				Pedido pedido = admin.simularPedido(cliente);
 				System.out.println("Pedido recibido");
 				System.out.println("Cliente: " + cliente.getNombre());
@@ -783,7 +784,6 @@ public class Consola {
 			case "5":
 				System.out.println("WIP");
 				break;
-				
 			case "6":
 				System.out.println("WIP");
 				break;
