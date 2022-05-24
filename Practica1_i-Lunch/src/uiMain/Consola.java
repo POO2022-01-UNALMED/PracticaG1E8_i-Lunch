@@ -773,10 +773,10 @@ public class Consola {
 				DaviSubmenuEmpleado();
 				break;
 			case "2":
-				System.out.println("WIP");
+				DaviSubmenuProductos();
 				break;
 			case "3":
-				System.out.println("WIP");
+				DaviSubmenuHistorialPedidos();
 				break;
 			case "4":
 				System.out.println("WIP");
@@ -803,7 +803,8 @@ public class Consola {
 	
 	static void DaviSubmenuEmpleado(){
 		int opcionempleado;
-		opcionempleado = 727;
+		ArrayList<Empleado> listaempleados = restaurante.getEmpleados();
+		opcionempleado = -727;
 		do {
 			System.out.println(
 					"\n----------------------------------------------------------------------------------------------------");
@@ -811,24 +812,102 @@ public class Consola {
 
 			System.out.println("\n");
 			
-			System.out.println("Ingrese 0 para regresar");
 
 			System.out.println(" Seleccione al empleado sobre el que desea consultar");
-			ArrayList<Empleado> listaempleados = Empleado.getEmpleados();
-			for (int i = 0; i < listaempleados.size(); i++) {
+			
+			for (int i = 0; i < listaempleados.size(); ++i) {
 				  System.out.println(i + 1 +". " + listaempleados.get(i).getNombre());
 				}
+			System.out.println("Ingrese 0 para regresar");
 			try {
 				opcionempleado = Integer.parseInt(Consola.readString());
 			} catch (Exception e) {
 				System.out.println("Por favor introduzca un numero valido");
+				pressEnter();
 			} 
 			if(opcionempleado == 0) {
 				continue;
 			}
-			System.out.println(listaempleados.get(opcionempleado - 1));
-			
+			if (opcionempleado!= -727) {
+				System.out.println(listaempleados.get(opcionempleado - 1).informacion());
+				pressEnter();
+				opcionempleado = -727;
+			}
 		} while (!(opcionempleado == 0));
+		
+	}
+	
+	static void DaviSubmenuProductos(){
+		int opcionproducto;
+		ArrayList<Producto> listaproductos = Producto.getProductos();
+		opcionproducto = -727;
+		do {
+			System.out.println(
+					"\n----------------------------------------------------------------------------------------------------");
+			System.out.println("Informacion sobre productos");
+
+			System.out.println("\n");
+			
+
+			System.out.println(" Seleccione el producto sobre el que desea consultar");
+			
+			for (int i = 0; i < listaproductos.size(); ++i) {
+				  System.out.println(i + 1 +". " + listaproductos.get(i).getNombre());
+				}
+			System.out.println("Ingrese 0 para regresar");
+			try {
+				opcionproducto = Integer.parseInt(Consola.readString());
+			} catch (Exception e) {
+				System.out.println("Por favor introduzca un numero valido");
+				pressEnter();
+			} 
+			if(opcionproducto == 0) {
+				continue;
+			}
+			if (opcionproducto!= -727) {
+				System.out.println(listaproductos.get(opcionproducto - 1));
+				pressEnter();
+				opcionproducto = -727;
+			}
+		} while (!(opcionproducto == 0));
+		
+	}
+	
+	static void DaviSubmenuHistorialPedidos(){
+		int opcionpedidos;
+		ArrayList<Pedido> listapedidos = Pedido.getPedidos();
+		opcionpedidos = -727;
+		do {
+			System.out.println(
+					"\n----------------------------------------------------------------------------------------------------");
+			System.out.println("Informacion sobre pedidos realizados");
+
+			System.out.println("\n");
+			
+
+			System.out.println(" Seleccione el pedido sobre el que desea consultar");
+			
+			System.out.println("Tamanho lista" + listapedidos.size());
+			
+			for (int i = 0; i < listapedidos.size(); ++i) {
+				  System.out.println(i + 1 +". " + listapedidos.get(i).getCodigo());
+				}
+			System.out.println("Ingrese 0 para regresar");
+			try {
+				opcionpedidos = Integer.parseInt(Consola.readString());
+			} catch (Exception e) {
+				System.out.println("Por favor introduzca un numero valido");
+				pressEnter();
+			} 
+			if(opcionpedidos == 0) {
+				continue;
+			}
+			if (opcionpedidos!= -727) {
+				System.out.println(listapedidos.get(opcionpedidos - 1));
+				pressEnter();
+				opcionpedidos = -727;
+			}
+		} while (!(opcionpedidos == 0));
 		
 	}
 		
