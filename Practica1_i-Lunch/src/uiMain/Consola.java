@@ -746,4 +746,90 @@ public class Consola {
 			}
 		} while (!opcion.equals("3"));
 	}
+	
+	
+	static void DaviMenu1() {
+
+		String opcion;
+		do {
+			System.out.println(
+					"\n----------------------------------------------------------------------------------------------------");
+			System.out.println("Informacion Basica del restaurante\n");
+
+			System.out.println("\n");
+
+			System.out.println(" 1. Empleados.");
+			System.out.println(" 2. Productos.");
+			System.out.println(" 3. Historial pedidos.");
+			System.out.println(" 4. Balance de cuenta.");
+			System.out.println(" 5. Estadisticas.");
+			System.out.println(" 6. Volver al menu principal\n");
+
+			opcion = readString();
+
+			switch (opcion) {
+			case "1":
+				DaviSubmenuEmpleado();
+				break;
+			case "2":
+				System.out.println("WIP");
+				break;
+			case "3":
+				System.out.println("WIP");
+				break;
+			case "4":
+				System.out.println("WIP");
+				break;
+			case "5":
+				System.out.println("WIP");
+				break;
+				
+			case "6":
+				System.out.println("WIP");
+				break;
+				
+				
+			default:
+				System.out.println("\nLa opcion ingresada no es valida. Por favor intentelo nuevamente"); // Mensaje de
+																											// control
+																											// para
+																											// inputs
+																											// invalidos.
+				pressEnter();
+				break;
+			}
+		} while (!opcion.equals("6"));
+	}
+	
+	static void DaviSubmenuEmpleado(){
+		int opcionempleado;
+		opcionempleado = 727;
+		do {
+			System.out.println(
+					"\n----------------------------------------------------------------------------------------------------");
+			System.out.println("Informacion sobre empleados");
+
+			System.out.println("\n");
+			
+			System.out.println("Ingrese 0 para regresar");
+
+			System.out.println(" Seleccione al empleado sobre el que desea consultar");
+			ArrayList<Empleado> listaempleados = Empleado.getEmpleados();
+			for (int i = 0; i < listaempleados.size(); i++) {
+				  System.out.println(i + 1 +". " + listaempleados.get(i).getNombre());
+				}
+			try {
+				opcionempleado = Integer.parseInt(Consola.readString());
+			} catch (Exception e) {
+				System.out.println("Por favor introduzca un numero valido");
+			} 
+			if(opcionempleado == 0) {
+				continue;
+			}
+			System.out.println(listaempleados.get(opcionempleado - 1));
+			
+		} while (!(opcionempleado == 0));
+		
+	}
+		
 }
