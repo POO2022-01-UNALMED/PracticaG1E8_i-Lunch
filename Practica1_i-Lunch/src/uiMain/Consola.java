@@ -154,7 +154,7 @@ public class Consola {
 
 			case "6":
 				// Mensaje de control
-				Cliente cliente = Cliente.getClientes().get(DatosAleatorios.randInt(0, Cliente.getClientes().size()));
+				Cliente cliente = Cliente.getClientes().get(DatosAleatorios.randInt(0, Cliente.getClientes().size()-1));
 				Pedido pedido = admin.simularPedido(cliente);
 				System.out.println("Pedido recibido");
 				System.out.println("Cliente: " + cliente.getNombre());
