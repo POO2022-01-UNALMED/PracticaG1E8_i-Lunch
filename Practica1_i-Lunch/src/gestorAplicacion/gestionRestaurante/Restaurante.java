@@ -312,4 +312,18 @@ public class Restaurante implements Serializable {
 			return "ERROR: El pedido ya se encuentra anadido";
 		}
 	}
+	/*@Override
+	public String toString() { <--- ESTE TOSTRING GENERA UN ERROR QUE NO SE QUE ES :(
+		return    "Nombre: \"" + nombre + "\"\n"
+				+ "Nit: \"" + nit + "\"\n"
+				+ "Telefono: \"" + telefono + "\"\n"
+				+ "Direccion: " + direccion + "\n"
+				+ "Correo: " + correo + "\n"
+				+ "Estado: " + abierto + "\n"
+				+ "Capacidad: " + capacidad + "\n" 
+				+ "Empleados: " + empleados + "\n"
+				+ "Menu: " + menu + "\n"
+				+ "Pedidos: " + pedidos + "\n"
+				+ "Balance de cuenta: " + balanceCuenta;
+	}*/ 
 }

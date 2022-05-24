@@ -60,10 +60,17 @@ public class Administrador extends Empleado implements Serializable, Usuario {
 	 * de empleados del restaurante. También cambia el atributo Resturante del
 	 * Empleado.
 	 */
-	public void contratarEmpleado(Empleado empleado) {
+	public String contratarEmpleado(int cedula, String nombre, String cargo, boolean disponibilidad, int salario, 
+			Restaurante restaurante) {
+		Empleado empleadoNuevo = new Empleado(cedula, nombre, cargo, disponibilidad, salario, restaurante);
 		ArrayList<Empleado> listaEmpleados = this.restaurante.getEmpleados();
-		listaEmpleados.add(empleado);
-		this.restaurante.setEmpleados(listaEmpleados);
+		if (!listaEmpleados.contains(empleadoNuevo)) {
+			listaEmpleados.add(empleadoNuevo);
+			this.restaurante.setEmpleados(listaEmpleados);
+			return "Empleado " + nombre + " creado con éxito";
+		} else {
+			return "ERROR: El empleado ya se encuentra en la nomina";
+		}
 	}
 
 	/*
@@ -72,10 +79,18 @@ public class Administrador extends Empleado implements Serializable, Usuario {
 	 * empleados del restaurante. También cambia el atributo Resturante del
 	 * Empleado.
 	 */
-	public void despedirEmpleado(Empleado empleado) {
+	public String despedirEmpleado(String empleado) {
 		ArrayList<Empleado> listaEmpleados = this.restaurante.getEmpleados();
-		listaEmpleados.remove(empleado);
-		this.restaurante.setEmpleados(listaEmpleados);
+		int empleadoCedula;
+		try {
+			empleadoCedula = Integer.parseInt(empleado);
+			String nombreEmp = listaEmpleados.get(empleadoCedula).getNombre();
+			listaEmpleados.remove(empleadoCedula);
+			this.restaurante.setEmpleados(listaEmpleados);
+			return "Empleado \"" + nombreEmp + "\" despedido con éxito";
+		} catch(Exception e) {
+			return "ERROR: El empleado que intentas eliminar no trabaja en el restaurante";
+		}
 	}
 
 	/*

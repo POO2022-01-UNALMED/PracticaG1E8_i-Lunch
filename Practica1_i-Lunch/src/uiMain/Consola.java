@@ -20,6 +20,7 @@ public class Consola {
 	static String readString() {
 		return sc.nextLine();
 	}
+	
 
 	// Leer double
 	static double readDouble() {
@@ -116,7 +117,7 @@ public class Consola {
 
 			System.out.println(" 1. Ver informacion del Restaurante");
 			System.out.println(" 2. Gestionar Menu");
-			System.out.println(" 3. Gestionar Pesonal");
+			System.out.println(" 3. Gestionar Personal");
 			System.out.println(" 4. Cola de pedidos");
 			System.out.println(" 5. Pagar nomina\n");
 
@@ -148,11 +149,8 @@ public class Consola {
 				submenu2();
 				break;
 
-			case "3": // Jero
-				/*
-				 * 1. Ver personal 2. Contratar empleado 2.1 Manual 2.2 Automatico 3. Despedir
-				 * empleado 4. Volver al menu principal
-				 */
+			case "3": 
+				submenu3(); 
 				break;
 
 			case "4":
@@ -184,7 +182,8 @@ public class Consola {
 				// Cliente, codigo pedido
 				break;
 
-			case "7": // Jero
+			case "7":
+				// Jero
 				// 1. Ver clientes
 				// 2. Crear cliente
 				// 2.1 Manual
@@ -253,8 +252,8 @@ public class Consola {
 			String emailRestaurante = readString();
 			System.out.println("Direccion: ");
 			String direccionRestaurante = readString();
-
-			System.out.println("\nÂ¡Registro completado con exito!\n");
+								
+			System.out.println("\n¡Registro completado con exito!\n"); 
 
 			restaurante = new Restaurante(nombreRestaurante, randInt(100000, 999999), randInt(100000, 999999),
 					direccionRestaurante, emailRestaurante, true, randInt(1, 20), empleados, menu, pedidos,
@@ -520,8 +519,118 @@ public class Consola {
 		} while (!opcion.equals("7"));
 	}
 
-	// Submenu de la opcion "4. Cola de pedidos"
+	
+	static void submenu3() {
+		String opcion;
+		do {
+			System.out.println(
+					"\n----------------------------------------------------------------------------------------------------");
+			System.out.println("Gestionar Personal\n");
 
+			System.out.println(" 1. Ver personal");
+			System.out.println(" 2. Contratar empleado");
+			System.out.println(" 3. Despedir empleado");
+			System.out.println(" 4. Volver al menu principal\n");
+
+			opcion = readString();
+			
+			switch (opcion) {
+			case "1":
+				//Ver personal
+				System.out.println("\nPersonal del restaurante");
+				
+				for(int i = 0; i < restaurante.getEmpleados().size(); i++) {
+					Empleado empleado = restaurante.getEmpleados().get(i);
+					System.out.println("\nID: " + i);
+					System.out.println(empleado.toString());	
+				}
+				pressEnter();
+				break;
+			
+			case "2":
+				//Contratar empleado
+				System.out.println("Contratar empleado\n");
+				
+				System.out.println("Ingrese la cedula del empleado: "); // <--- Se pueden crear empleados con cedulas repetidas.
+				String cedSt = readString();
+				int cedula;
+				try {
+					cedula = Integer.parseInt(cedSt);
+				} catch (Exception e) {
+					cedula = 0;
+				}
+				
+				System.out.println("Ingrese el nombre del empleado: ");
+				String nombre = readString();
+				
+				System.out.println("Ingrese el cargo del empleado: ");
+				String cargo = readString();
+				
+				System.out.println("¿Esta disponible inmediatamente?: ");
+				String dispSt = readString();
+				boolean disponibilidad;
+				if (dispSt.equals("1")) {
+					disponibilidad = true;
+				} else {
+					disponibilidad = false;
+				}
+				
+				System.out.println("Ingrese el salario del empleado: ");
+				String salarioSt = readString();
+				int salario;
+				try {
+					salario = Integer.parseInt(salarioSt);
+				} catch (Exception e) {
+					salario = 0;
+				}
+				
+				System.out.println("Ingrese el restaurante del empleado: ");
+				Restaurante restaurante = new Restaurante(); /*<------ Se esta creando con constructor con valores por defecto OJO.
+				 														No se como hacer que el otro constructor actue, recibiendo
+				 														un input del usuario con un objeto tipo restaurante*/
+				
+				System.out.println(
+						admin.contratarEmpleado(cedula, nombre, cargo, disponibilidad, salario, restaurante));/*El toString de
+						 																						la clase restaurante
+						 																						me genera error.
+						 																						Ir a la clase 
+						 																						Restaurante*/
+				
+				pressEnter();
+				break;
+				
+			case "3":
+				// Despedir empleado
+				System.out.println("Despedir empleado\n");
+
+				System.out.println("Ingrese el ID del empleado a despedir: ");
+				String cedStr = readString();
+
+				System.out.println(admin.despedirEmpleado(cedStr));
+				pressEnter();
+				break;
+				
+				
+			case "4":
+				break;
+			default:
+				System.out.println("\nLa opcion ingresada no es valida. Por favor intentelo nuevamente"); // Mensaje de
+																											// control
+																											// para
+																											// inputs
+																											// invalidos.
+				pressEnter();
+				break;
+			}
+		} while (!opcion.equals("4"));
+	}
+	
+	
+	
+	
+	
+	// Submenu de la opcion "4. Cola de pedidos"
+	
 	static void submenu4(ArrayList<Integer> codPedidos) {
 		boolean continuar = true;
 		do {

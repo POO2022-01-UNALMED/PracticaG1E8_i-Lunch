@@ -25,23 +25,22 @@ public class Empleado implements Serializable, Usuario {
 	protected boolean disponibilidad;
 	protected int salario;
 	protected Restaurante restaurante;
-	/*protected boolean pagado=false; <--- Que tal este atributo pagado? Refiriendose a su salario.  */
+	
 	
 	/*Constructor de la clase empleado*/
-	public Empleado(int cedula, String nombre, String cargo, boolean disponibilidad, int salario, Restaurante restaurante/*, boolean pagado*/) {
+	public Empleado(int cedula, String nombre, String cargo, boolean disponibilidad, int salario, Restaurante restaurante) {
 		this.cedula = cedula;
 		this.nombre = nombre;
 		this.cargo = cargo;
 		this.disponibilidad = disponibilidad;
 		this.salario = salario;
 		this.restaurante = restaurante;
-		/* this.pagado = pagado; */
 		empleados.add(this);
 	}
 
 	/* Sobrecarga del constructor para valores predeterminados */
 	public Empleado() {
-		this(0, "NN", "NA", false, 0, null/* , false */);
+		this(0, "NN", "NA", false, 0, null);
 	}
 
 	/* Metodos GET y SET para los atributos */
@@ -165,5 +164,14 @@ public class Empleado implements Serializable, Usuario {
 					+ "No está disponible actualmente.";
 		}
 	}
-	
+	public String toString() {
+		return    "Cedula: \"" + cedula + "\"\n"
+				+ "Nombre: \"" + nombre + "\"\n"
+				+ "Cargo: \"" + cargo + "\"\n"
+				+ "Disponiblidad: " + disponibilidad + "\n"
+				+ "Salario: " + salario + "\n"
+				+ "Restaurante: " + restaurante;
+	}
 }
+
+	
