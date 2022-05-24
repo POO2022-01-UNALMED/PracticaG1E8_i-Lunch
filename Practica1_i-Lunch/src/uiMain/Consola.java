@@ -5,6 +5,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import baseDatos.*;
+import uiMain.DatosAleatorios;
 import gestorAplicacion.gestionRestaurante.*;
 import gestorAplicacion.usuariosRestaurante.*;
 
@@ -25,26 +26,6 @@ public class Consola {
 	// Leer double
 	static double readDouble() {
 		return sc.nextDouble();
-	}
-
-	// Metodo util para sacar ints randoms
-	static int randInt(int min, int max) {
-		return min + (int) (Math.random() * ((max - min) + 1));
-	}
-
-	// Metodo util para sacar bools randoms
-	static boolean randBool() {
-		int rand = randInt(0, 1);
-		if (rand == 0) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	// Metodo util para sacar strings randoms de una lista
-	static String randString(String[] lista) {
-		return lista[randInt(0, lista.length - 1)];
 	}
 
 	// Metodo de "Presiona enter para continuar
@@ -173,7 +154,7 @@ public class Consola {
 
 			case "6":
 				// Mensaje de control
-				Cliente cliente = Cliente.getClientes().get(randInt(0, Cliente.getClientes().size()));
+				Cliente cliente = Cliente.getClientes().get(DatosAleatorios.randInt(0, Cliente.getClientes().size()));
 				Pedido pedido = admin.simularPedido(cliente);
 				System.out.println("Pedido recibido");
 				System.out.println("Cliente: " + cliente.getNombre());
@@ -215,28 +196,6 @@ public class Consola {
 		ArrayList<Empleado> empleados = new ArrayList<Empleado>();
 		ArrayList<Producto> menu = new ArrayList<Producto>();
 		ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
-
-		// Nombres aleatorios para empleados
-		String[] nombresAleatorios = { "Yasemin Phillips", "Lavinia Banks", "Kodi Paine", "Phebe Beaumont",
-				"Amba Bowman", "Mila-Rose Bartlett", "Alejandro Ventura", "Zavier Burns", "Rivka Cantu",
-				"Anastasia Mckeown" };
-
-		// Nombres aleatorios para productos
-		String[] productosAleatorios = { "Pizza", "Hamburguesa", "Bandeja Paisa", "Sushi", "Empanadas", "Pollo frito",
-				"Spaghetti", "Paella", "Tacos" };
-
-		// Tipos de cargos en la cocina
-		String[] cargosEnCocina = { "Chef en jefe", "Chef ejecutivo", "Chef de cocina", "Chef repostero",
-				"Lavaplatos" };
-
-		// Tipos de especialidades de chefs
-		String[] especialidadesChefs = { "Saucier", "Poissonnier", "Rotisseur", "Grillardin", "Friturier",
-				"Entremetier", "Tournant", "Garde Manger", "Boucher", "Patissier" };
-
-		// Tipos de vehiculos
-		String[] tiposVehiculos = { "Automovil", "Motoicicleta", "Bicicleta", "Cuatrimoto", "Monopatin", "Helicoptero",
-				"Dirigible", "Globo aerostatico", "Tanque de guerra", "Excavadora industrial", "Tractor" };
-
 		if (Administrador.getAdministradores().isEmpty()) {
 			// Registro admin y restaurante
 			System.out.println(
@@ -244,6 +203,14 @@ public class Consola {
 
 			System.out.println("Bienvenido a i-Lunch, por favor ingrese su nombre: ");
 			String nombreAdmin = readString();
+			System.out.println("Ingrese su cedula: ");
+			String ccAdminSt = readString();
+			int ccAdmin;
+			try {
+				ccAdmin = Integer.parseInt(ccAdminSt);
+			} catch (Exception e) {
+				ccAdmin = 0;
+			}
 
 			System.out.println("Por favor, ingresa los datos del restaurante que quieres registrar: ");
 			System.out.println("Nombre: ");
@@ -253,40 +220,53 @@ public class Consola {
 			System.out.println("Direccion: ");
 			String direccionRestaurante = readString();
 								
-			System.out.println("\n¡Registro completado con exito!\n"); 
+			System.out.println("\nRegistro completado con exito!\n"); 
 
-			restaurante = new Restaurante(nombreRestaurante, randInt(100000, 999999), randInt(100000, 999999),
-					direccionRestaurante, emailRestaurante, true, randInt(1, 20), empleados, menu, pedidos,
-					randInt(1000, 10000));
-			new Administrador(0, nombreAdmin, true, randInt(500, 2000), restaurante);
+			restaurante = new Restaurante(nombreRestaurante, DatosAleatorios.randInt(100000, 999999), DatosAleatorios.randInt(100000, 999999),
+					direccionRestaurante, emailRestaurante, true, DatosAleatorios.randInt(1, 20), empleados, menu, pedidos,
+					DatosAleatorios.randInt(1000, 10000));
+			new Administrador(ccAdmin, nombreAdmin, true, DatosAleatorios.randInt(500, 2000), restaurante);
 
 			// Generar de 1 a 3 empleados random de cada tipo
-			int numEmpleados = randInt(1, 3);
+			int numEmpleados = DatosAleatorios.randInt(1, 3);
 
 			for (int i = 0; i < numEmpleados * 3; i++) {
 				if (i < 3) {
-					empleados.add(new Repartidor(i + 1, randString(nombresAleatorios), randBool(), randInt(400, 1200),
-							restaurante, randBool(), "ABC-" + randInt(100, 999), randString(tiposVehiculos)));
+					empleados.add(new Repartidor(DatosAleatorios.randInt(100000, 999999), DatosAleatorios.randString(DatosAleatorios.nombresAleatorios), DatosAleatorios.randBool(), DatosAleatorios.randInt(400, 1200),
+							restaurante, DatosAleatorios.randBool(), "ABC-" + DatosAleatorios.randInt(100, 999), DatosAleatorios.randString(DatosAleatorios.tiposVehiculos)));
 				} else if (i < 6) {
-					empleados.add(new Mesero(i + 1, randString(nombresAleatorios), randBool(), randInt(400, 1200),
+					empleados.add(new Mesero(DatosAleatorios.randInt(100000, 999999), DatosAleatorios.randString(DatosAleatorios.nombresAleatorios), DatosAleatorios.randBool(), DatosAleatorios.randInt(400, 1200),
 							restaurante));
 				} else {
-					empleados.add(new Chef(i + 1, randString(nombresAleatorios), randBool(), randInt(400, 1200),
-							restaurante, randString(cargosEnCocina), randString(especialidadesChefs)));
+					empleados.add(new Chef(DatosAleatorios.randInt(100000, 999999), DatosAleatorios.randString(DatosAleatorios.nombresAleatorios), DatosAleatorios.randBool(), DatosAleatorios.randInt(400, 1200),
+							restaurante, DatosAleatorios.randString(DatosAleatorios.cargosEnCocina), DatosAleatorios.randString(DatosAleatorios.especialidadesChefs)));
 				}
 			}
 
 			// Generar de 1 a 10 productos random
-			int numProductos = randInt(1, 10);
+			int numProductos = DatosAleatorios.randInt(1, 10);
 
 			for (int i = 0; i < numProductos; i++) {
-				menu.add(new Producto(randString(productosAleatorios),
+				menu.add(new Producto(DatosAleatorios.randString(DatosAleatorios.productosAleatorios),
 						"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec ultrices dui, ut ultricies leo.",
-						randInt(2, 30), randBool(), randBool(), randInt(1, 50)));
+						DatosAleatorios.randInt(2, 30), DatosAleatorios.randBool(), DatosAleatorios.randBool(), DatosAleatorios.randInt(1, 50)));
 			}
 
 			restaurante.setEmpleados(empleados);
 			restaurante.setMenu(menu);
+			
+			// Generar de 1 a 10 clientes random
+			int numClientes = DatosAleatorios.randInt(1, 10);
+			
+			for (int i = 0; i < numClientes; i++) {
+				new Cliente(DatosAleatorios.randInt(100000, 999999),
+						DatosAleatorios.randString(DatosAleatorios.nombresAleatorios),
+						"Calle " + DatosAleatorios.randInt(10, 99) + " #" + DatosAleatorios.randInt(10, 99) + "-" + DatosAleatorios.randInt(10, 99),
+						DatosAleatorios.randInt(18, 99),
+						null,
+						new ArrayList<Pedido>(),
+						"cliente" + i + "@gmail.com");
+			}
 		}
 	}
 
@@ -465,7 +445,7 @@ public class Consola {
 				return;
 			case "4":
 				// Restriccion
-				System.out.println("Â¿El tiene restriccion de edad?: ");
+				System.out.println("Â¿El tiene restriccion de edad? (1: True): ");
 				String restSt = readString();
 				boolean restriccion;
 				if (restSt.equals("1")) {
@@ -479,7 +459,7 @@ public class Consola {
 				return;
 			case "5":
 				// Disponibilidad
-				System.out.println("Â¿El producto sigue disponible?: ");
+				System.out.println("Â¿El producto sigue disponible? (1: True): ");
 				String dispSt = readString();
 				boolean disponibilidad;
 				if (dispSt.equals("1")) {
@@ -542,7 +522,7 @@ public class Consola {
 				for(int i = 0; i < restaurante.getEmpleados().size(); i++) {
 					Empleado empleado = restaurante.getEmpleados().get(i);
 					System.out.println("\nID: " + i);
-					System.out.println(empleado.toString());	
+					System.out.println(empleado.informacion());
 				}
 				pressEnter();
 				break;
@@ -563,10 +543,10 @@ public class Consola {
 				System.out.println("Ingrese el nombre del empleado: ");
 				String nombre = readString();
 				
-				System.out.println("Ingrese el cargo del empleado: ");
+				System.out.println("Ingrese el cargo del empleado (Chef, Repartidor, Mesero u otros): ");
 				String cargo = readString();
 				
-				System.out.println("¿Esta disponible inmediatamente?: ");
+				System.out.println("Esta disponible inmediatamente? (1: True): ");
 				String dispSt = readString();
 				boolean disponibilidad;
 				if (dispSt.equals("1")) {
@@ -584,17 +564,8 @@ public class Consola {
 					salario = 0;
 				}
 				
-				System.out.println("Ingrese el restaurante del empleado: ");
-				Restaurante restaurante = new Restaurante(); /*<------ Se esta creando con constructor con valores por defecto OJO.
-				 														No se como hacer que el otro constructor actue, recibiendo
-				 														un input del usuario con un objeto tipo restaurante*/
-				
 				System.out.println(
-						admin.contratarEmpleado(cedula, nombre, cargo, disponibilidad, salario, restaurante));/*El toString de
-						 																						la clase restaurante
-						 																						me genera error.
-						 																						Ir a la clase 
-						 																						Restaurante*/
+						admin.contratarEmpleado(cedula, nombre, cargo, disponibilidad, salario, restaurante));
 				
 				pressEnter();
 				break;
@@ -635,7 +606,7 @@ public class Consola {
 		boolean continuar = true;
 		do {
 			listarPedidosEnEspera();
-			System.out.print("Ingrese el código de un pedido: ");
+			System.out.print("Ingrese el codigo de un pedido: ");
 			int codigo = 0;
 			boolean valido = false;
 			do {
@@ -658,7 +629,7 @@ public class Consola {
 			Pedido pedido = restaurante.getPedidos().get(codigo);
 
 			do {
-				System.out.println("¿Que desea hacer con este pedido?\n");
+				System.out.println("Que desea hacer con este pedido?\n");
 
 				System.out.println(" 1. Aceptar");
 				System.out.println(" 2. Rechazar");
@@ -667,7 +638,7 @@ public class Consola {
 
 				switch (opcion) {
 				case "1": {
-					System.out.println("Pedido aceptado. Iniciando preparación");
+					System.out.println("Pedido aceptado. Iniciando preparacion");
 					admin.actualizarEstadoPedido(pedido, true);
 					valido = true;
 					break;
@@ -679,7 +650,7 @@ public class Consola {
 					break;
 				}
 				default:
-					System.out.println("Opción no valida\n");
+					System.out.println("Opcion no valida\n");
 					;
 				}
 
@@ -688,7 +659,7 @@ public class Consola {
 			valido = false;
 
 			do {
-				System.out.println("¿Desea continuar con la gestión de pedidos?\n");
+				System.out.println("Desea continuar con la gestion de pedidos?\n");
 
 				System.out.println(" 1. Si, continuar");
 				System.out.println(" 2. No, volver al menu principal");
@@ -706,7 +677,7 @@ public class Consola {
 					break;
 				}
 				default:
-					System.out.println("Opción no valida\n");
+					System.out.println("Opcion no valida\n");
 				}
 			} while (!valido);
 		} while (continuar);

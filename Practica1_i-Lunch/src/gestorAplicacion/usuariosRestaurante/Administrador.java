@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import gestorAplicacion.gestionRestaurante.*;
+import uiMain.DatosAleatorios;
 
 /* Esta es la clase principal de la aplicación, ya que el administrador
  * es quien tiene acceso a la aplicación y desde su cuenta se manejan
@@ -62,7 +63,19 @@ public class Administrador extends Empleado implements Serializable, Usuario {
 	 */
 	public String contratarEmpleado(int cedula, String nombre, String cargo, boolean disponibilidad, int salario, 
 			Restaurante restaurante) {
-		Empleado empleadoNuevo = new Empleado(cedula, nombre, cargo, disponibilidad, salario, restaurante);
+		Empleado empleadoNuevo;
+		
+		if(cargo.equals("Mesero")) {
+			empleadoNuevo = new Mesero(cedula, nombre , disponibilidad, salario, restaurante);
+		} else if(cargo.equals("Repartidor")) {
+			empleadoNuevo = new Repartidor(cedula, nombre, disponibilidad, salario, restaurante, DatosAleatorios.randBool(), "ABC-" + DatosAleatorios.randInt(100, 999), DatosAleatorios.randString(DatosAleatorios.tiposVehiculos));
+		} else if(cargo.equals("Chef")) {
+			empleadoNuevo = new Chef(cedula, nombre, disponibilidad, salario, restaurante, DatosAleatorios.randString(DatosAleatorios.cargosEnCocina), DatosAleatorios.randString(DatosAleatorios.especialidadesChefs));
+		} else {
+			empleadoNuevo = new Empleado(cedula, nombre, cargo, disponibilidad, salario, restaurante);
+		}
+		
+		 
 		ArrayList<Empleado> listaEmpleados = this.restaurante.getEmpleados();
 		if (!listaEmpleados.contains(empleadoNuevo)) {
 			listaEmpleados.add(empleadoNuevo);
@@ -361,11 +374,11 @@ public class Administrador extends Empleado implements Serializable, Usuario {
 	// Implementación de la interfaz Usuario
 	public String informacion() {
 		if (this.getDisponibilidad()) {
-			return "El Administrador del restaurante + " + this.restaurante.getNombre() + " es " + this.nombre
+			return "El Administrador del restaurante " + this.restaurante.getNombre() + " es " + this.nombre
 					+ " con C.C. " + this.cedula + ".\n" + "Tiene un salario de: $" + this.salario + "\n"
 					+ "Está disponible actualmente.";
 		} else {
-			return "El Administrador del restaurante + " + this.restaurante.getNombre() + " es " + this.nombre
+			return "El Administrador del restaurante " + this.restaurante.getNombre() + " es " + this.nombre
 					+ " con C.C. " + this.cedula + ".\n" + "Tiene un salario de: $" + this.salario + "\n"
 					+ "No está disponible actualmente.";
 		}
