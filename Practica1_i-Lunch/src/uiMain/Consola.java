@@ -165,14 +165,14 @@ public class Consola {
 				break;
 
 			case "7":
-				// Jero
+				// David
 				// 1. Ver clientes
 				// 2. Crear cliente
 				// 2.1 Manual
 				// 2.2 Automatico
 				break;
 
-			case "8": // David
+			case "8": // Jero
 				// Serializador
 				break;
 
@@ -782,10 +782,10 @@ public class Consola {
 				System.out.println("WIP");
 				break;
 			case "5":
-				System.out.println("WIP");
+				DaviSubmenuEstadisticas();
 				break;
+				
 			case "6":
-				System.out.println("WIP");
 				break;
 				
 				
@@ -910,5 +910,64 @@ public class Consola {
 		} while (!(opcionpedidos == 0));
 		
 	}
-		
+	
+	static void DaviSubmenuEstadisticas(){
+
+		String opcion;
+		do {
+			System.out.println(
+					"\n----------------------------------------------------------------------------------------------------");
+			System.out.println("Estadisticas\n");
+			System.out.println(restaurante.estadisticasRestaurante());
+			System.out.println("\n");
+			System.out.println(" 0. Regresar al menu principal.");
+
+			opcion = readString();
+
+			switch (opcion) {
+			case "0":
+				break;
+				
+				
+			default:
+				System.out.println("\nLa opcion ingresada no es valida. Por favor intentelo nuevamente"); // Mensaje de
+																											// control
+																											// para
+																											// inputs
+																											// invalidos.
+				pressEnter();
+				break;
+			}
+		} while (!opcion.equals("0"));
+	}
+	
+	static void DaviSubmenuBalanceDeCuenta() {
+
+		String opcion;
+		do {
+			System.out.println(
+					"\n----------------------------------------------------------------------------------------------------");
+			System.out.println("Estadisticas\n");
+			System.out.println(restaurante.getBalanceCuenta());
+			System.out.println("\n");
+			System.out.println(" 0. Regresar al menu principal.");
+
+			opcion = readString();
+
+			switch (opcion) {
+			case "0":
+				break;
+				
+				
+			default:
+				System.out.println("\nLa opcion ingresada no es valida. Por favor intentelo nuevamente"); // Mensaje de
+																											// control
+																											// para
+																											// inputs
+																											// invalidos.
+				pressEnter();
+				break;
+			}
+		} while (!opcion.equals("0"));
+	}
 }

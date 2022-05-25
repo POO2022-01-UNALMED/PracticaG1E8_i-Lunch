@@ -281,15 +281,44 @@ public class Restaurante implements Serializable {
 		return topMeseroPropinas;
 	}
 	
+	
+	public float PromedioPropinasMeseros() {
+		int cantidad = 0;
+		float propinas = 0;
+		for (Mesero mesero: Mesero.getMeseros()) {
+			cantidad +=1;
+			propinas += mesero.totalPropinas();
+		}
+		return propinas / cantidad;
+	}
+	
+	public float promedioPedidosRepartidores() {
+		int cantidad = 0;
+		float pedidos = 0;
+		for (Repartidor repartidor: Repartidor.getRepartidores()) {
+			cantidad +=1;
+			pedidos += repartidor.getCantidadPedidosEntregados();
+		}
+		return pedidos / cantidad;
+	}
+	
 	// Este es el metodo para mostrar todas las estadisticas que querramos implementar juntas. 
 	public String estadisticasRestaurante() {
 		Mesero topMesero = getMeseroConMasPropinas();
 		Repartidor topRepartidor = getRepartidorConMasPedidos();
-		return "El mesero con mas propinas es:" + topMesero.getNombre() + 
-				"con" + topMesero.totalPropinas() + "Recibido en propinas." +
+		return "El mesero con mas propinas es: " + topMesero.getNombre() + 
+				
+				" con " + topMesero.totalPropinas() + " Recibido en propinas." +
+		
 				"\n"+
-				"El repartidor con mas pedidos repartidos es:" + topRepartidor.getNombre() + 
-				"con" + topRepartidor.getCantidadPedidosEntregados() + "Pedidos entregados.";
+				
+				"El repartidor con mas pedidos repartidos es: " + topRepartidor.getNombre() + 
+				
+				" con " + topRepartidor.getCantidadPedidosEntregados() + " Pedidos entregados." + "\n" + 
+				
+				"En promedio un mesero recibe " + PromedioPropinasMeseros() + " en propinas en el restaurante." + "\n" +
+				
+				"En promedio un mesero ha entregado " + promedioPedidosRepartidores() + " pedidos a clientes del restaurante.";
 	}
 	
 	
@@ -312,6 +341,7 @@ public class Restaurante implements Serializable {
 			return "ERROR: El pedido ya se encuentra anadido";
 		}
 	}
+	
 	/*@Override
 	public String toString() { <--- ESTE TOSTRING GENERA UN ERROR QUE NO SE QUE ES :(
 		return    "Nombre: \"" + nombre + "\"\n"
