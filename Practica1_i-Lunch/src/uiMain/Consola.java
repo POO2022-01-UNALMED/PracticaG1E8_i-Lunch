@@ -1045,6 +1045,12 @@ public class Consola {
 				System.out.println("Por favor introduzca un numero valido");
 				pressEnter();
 			} 
+			if((opcionClientes - 1  >= listaclientes.size()) || (opcionClientes < 0)) {
+				System.out.println("Por favor introduzca un numero valido");
+				pressEnter();
+				continue;
+				
+			}			
 			if(opcionClientes == 0) {
 				continue;
 			}
