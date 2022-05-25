@@ -143,7 +143,10 @@ public class Consola {
 					}
 				}
 				if (codPedidos.size() == 0) {
+					System.out.println(
+							"\n----------------------------------------------------------------------------------------------------\n");
 					System.out.println("No hay pedidos en espera en este momento");
+					pressEnter();
 				} else {
 					submenu4(codPedidos);
 				}
@@ -155,11 +158,15 @@ public class Consola {
 
 			case "6":
 				// Mensaje de control
-				Cliente cliente = Cliente.getClientes().get(DatosAleatorios.randInt(0, Cliente.getClientes().size()));
+				Cliente cliente = Cliente.getClientes().get(DatosAleatorios.randInt(0, Cliente.getClientes().size()-1));
 				Pedido pedido = admin.simularPedido(cliente);
+				
+				System.out.println(
+						"\n----------------------------------------------------------------------------------------------------\n");
 				System.out.println("Pedido recibido");
 				System.out.println("Cliente: " + cliente.getNombre());
 				System.out.println("Codigo pedido: " + pedido.getCodigo());
+				pressEnter();
 				
 				// Cliente, codigo pedido
 				break;
