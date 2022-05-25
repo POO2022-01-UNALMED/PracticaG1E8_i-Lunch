@@ -136,6 +136,6 @@ public class Cliente implements Serializable, Usuario {
 	// Implementación de la interfaz Usuario
 	public String informacion() {
 		return "El cliente " + this.nombre + " con email " + this.correoElectronico + " y teléfono " + this.telefono + " vive en la dirección " + this.direccion + " y tiene " + this.edad + " años.\n"
-				+ "Ha hecho " + this.historialPedidos.size() + " en la aplicación.";
+				+ "Ha hecho " + this.historialPedidos.size() + " pedidos en la aplicacion.";
 	}
 }

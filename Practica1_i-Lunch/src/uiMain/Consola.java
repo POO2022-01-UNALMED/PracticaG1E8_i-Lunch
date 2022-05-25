@@ -170,6 +170,7 @@ public class Consola {
 				// 2. Crear cliente
 				// 2.1 Manual
 				// 2.2 Automatico
+				DaviMenu2();
 				break;
 
 			case "8": // Jero
@@ -887,8 +888,6 @@ public class Consola {
 
 			System.out.println(" Seleccione el pedido sobre el que desea consultar");
 			
-			System.out.println("Tamanho lista" + listapedidos.size());
-			
 			for (int i = 0; i < listapedidos.size(); ++i) {
 				  System.out.println(i + 1 +". " + listapedidos.get(i).getCodigo());
 				}
@@ -947,7 +946,7 @@ public class Consola {
 		do {
 			System.out.println(
 					"\n----------------------------------------------------------------------------------------------------");
-			System.out.println("Estadisticas\n");
+			System.out.println("Balance de cuenta\n");
 			System.out.println(restaurante.getBalanceCuenta());
 			System.out.println("\n");
 			System.out.println(" 0. Regresar al menu principal.");
@@ -970,6 +969,122 @@ public class Consola {
 			}
 		} while (!opcion.equals("0"));
 	}
+	
+	
+	static void DaviMenu2() {
 
+		String opcion;
+		do {
+			System.out.println(
+					"\n----------------------------------------------------------------------------------------------------");
+			System.out.println("Informacion Basica sobre clientes \n");
+			System.out.println("\n");
+			System.out.println(" 1. Ver clientes.");
+			System.out.println(" 2. Crear cliente.");
+			System.out.println(" 3. Regresar al menu principal.");
+			opcion = readString();
+
+			switch (opcion) {
+			case "1":
+				DaviSubmenuVerClientes();
+				break;
+				
+			case "2":
+				DaviSubmenuCrearCliente();
+				break;
+				
+			case "3":
+				break;
+				
+				
+			default:
+				System.out.println("\nLa opcion ingresada no es valida. Por favor intentelo nuevamente"); // Mensaje de
+																											// control
+																											// para
+																											// inputs
+																											// invalidos.
+				pressEnter();
+				break;
+			}
+		} while (!opcion.equals("3"));
+	}
+	
+	static void DaviSubmenuVerClientes(){
+		int opcionClientes;
+		ArrayList<Cliente> listaclientes = Cliente.getClientes();
+		opcionClientes = -727;
+		do {
+			System.out.println(
+					"\n----------------------------------------------------------------------------------------------------");
+			System.out.println("Informacion sobre los clientes");
+
+			System.out.println("\n");
+			
+
+			System.out.println(" Seleccione el cliente sobre el que desea consultar");
+			System.out.println(" 0. Regresar.");
+			System.out.println("");			
+			for (int i = 0; i < listaclientes.size(); ++i) {
+				  System.out.println(i + 1 +". " + listaclientes.get(i).getNombre());
+				}
+
+			try {
+				opcionClientes = Integer.parseInt(Consola.readString());
+			} catch (Exception e) {
+				System.out.println("Por favor introduzca un numero valido");
+				pressEnter();
+			} 
+			if(opcionClientes == 0) {
+				continue;
+			}
+			if (opcionClientes!= -727) {
+				System.out.println(listaclientes.get(opcionClientes - 1).informacion());
+				pressEnter();
+				opcionClientes = -727;
+			}
+		} while (!(opcionClientes == 0));
+		
+	}
+	
+	static void DaviSubmenuCrearCliente() {
+
+		String opcion;
+		do {
+			System.out.println(
+					"\n----------------------------------------------------------------------------------------------------");
+			System.out.println("Informacion Basica sobre clientes \n");
+			System.out.println("\n");
+			System.out.println(" 1. Crear Manualmente.");
+			System.out.println(" 2. Crear Automaticamente.");
+			System.out.println(" 3. Regresar al menu principal.");
+			opcion = readString();
+
+			switch (opcion) {
+			
+			case "1":
+				break;
+				
+			case "2":
+				break;
+				
+			case "3":
+				break;
+				
+				
+			default:
+				System.out.println("\nLa opcion ingresada no es valida. Por favor intentelo nuevamente"); // Mensaje de
+																											// control
+																											// para
+																											// inputs
+																											// invalidos.
+				pressEnter();
+				break;
+			}
+		} while (!opcion.equals("3"));
+	}
+	
+	static void DaviSubSubMenuCrearClienteManual() {
+		
+	}
 	
 }
