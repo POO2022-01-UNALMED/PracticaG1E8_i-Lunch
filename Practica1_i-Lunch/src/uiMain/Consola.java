@@ -779,7 +779,7 @@ public class Consola {
 				DaviSubmenuHistorialPedidos();
 				break;
 			case "4":
-				System.out.println("WIP");
+				DaviSubmenuBalanceDeCuenta();
 				break;
 			case "5":
 				DaviSubmenuEstadisticas();
@@ -970,4 +970,6 @@ public class Consola {
 			}
 		} while (!opcion.equals("0"));
 	}
+
+	
 }
