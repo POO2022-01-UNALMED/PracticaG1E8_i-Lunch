@@ -83,7 +83,7 @@ public class Consola {
 		System.out.println(
 				"----------------------------------------------------------------------------------------------------\n");
 
-		System.out.println("Bienvenido de nuevo a i-Lunch " + admin.getNombre());
+		System.out.println("\"" + admin.getNombre() + "\" Bienvenido de nuevo a i-Lunch");
 		System.out.println("Restaurante: \"" + restaurante.getNombre() + "\"");
 		pressEnter(true);
 
@@ -758,8 +758,6 @@ public class Consola {
 					"\n----------------------------------------------------------------------------------------------------");
 			System.out.println("Informacion Basica del restaurante\n");
 
-			System.out.println("\n");
-
 			System.out.println(" 1. Empleados.");
 			System.out.println(" 2. Productos.");
 			System.out.println(" 3. Historial pedidos.");
@@ -810,20 +808,17 @@ public class Consola {
 			System.out.println(
 					"\n----------------------------------------------------------------------------------------------------");
 			System.out.println("Informacion sobre empleados");
-
-			System.out.println("\n");
-			
-
-			System.out.println(" Seleccione al empleado sobre el que desea consultar");
+						
+			System.out.println("Seleccione al empleado sobre el que desea consultar \n");
 			
 			for (int i = 0; i < listaempleados.size(); ++i) {
-				  System.out.println(i + 1 +". " + listaempleados.get(i).getNombre());
+				  System.out.println(" " + (i + 1) +". " + listaempleados.get(i).getNombre());
 				}
-			System.out.println("Ingrese 0 para regresar");
+			System.out.println("\n 0. Regresar al menu principal.");
 			try {
 				opcionempleado = Integer.parseInt(Consola.readString());
 			} catch (Exception e) {
-				System.out.println("Por favor introduzca un numero valido");
+				System.out.println("\nPor favor introduzca un numero valido");
 				pressEnter();
 			} 
 			if(opcionempleado == 0) {
@@ -846,20 +841,18 @@ public class Consola {
 			System.out.println(
 					"\n----------------------------------------------------------------------------------------------------");
 			System.out.println("Informacion sobre productos");
-
-			System.out.println("\n");
 			
 
-			System.out.println(" Seleccione el producto sobre el que desea consultar");
+			System.out.println("Seleccione el producto sobre el que desea consultar\n");
 			
 			for (int i = 0; i < listaproductos.size(); ++i) {
-				  System.out.println(i + 1 +". " + listaproductos.get(i).getNombre());
+				  System.out.println(" " + (i + 1) +". " + listaproductos.get(i).getNombre());
 				}
-			System.out.println("Ingrese 0 para regresar");
+			System.out.println("\n 0. Regresar al menu principal.");
 			try {
 				opcionproducto = Integer.parseInt(Consola.readString());
 			} catch (Exception e) {
-				System.out.println("Por favor introduzca un numero valido");
+				System.out.println("\nPor favor introduzca un numero valido");
 				pressEnter();
 			} 
 			if(opcionproducto == 0) {
@@ -883,19 +876,16 @@ public class Consola {
 					"\n----------------------------------------------------------------------------------------------------");
 			System.out.println("Informacion sobre pedidos realizados");
 
-			System.out.println("\n");
-			
-
-			System.out.println(" Seleccione el pedido sobre el que desea consultar");
+			System.out.println("Seleccione el pedido sobre el que desea consultar\n");
 			
 			for (int i = 0; i < listapedidos.size(); ++i) {
-				  System.out.println(i + 1 +". " + listapedidos.get(i).getCodigo());
+				  System.out.println(" " + (i + 1) +". " + listapedidos.get(i).getCodigo());
 				}
-			System.out.println("Ingrese 0 para regresar");
+			System.out.println("\n 0. Regresar al menu principal.");
 			try {
 				opcionpedidos = Integer.parseInt(Consola.readString());
 			} catch (Exception e) {
-				System.out.println("Por favor introduzca un numero valido");
+				System.out.println("\nPor favor introduzca un numero valido");
 				pressEnter();
 			} 
 			if(opcionpedidos == 0) {
@@ -918,15 +908,13 @@ public class Consola {
 					"\n----------------------------------------------------------------------------------------------------");
 			System.out.println("Estadisticas\n");
 			System.out.println(restaurante.estadisticasRestaurante());
-			System.out.println("\n");
-			System.out.println(" 0. Regresar al menu principal.");
+			System.out.println("\n 0. Regresar al menu principal.");
 
 			opcion = readString();
 
 			switch (opcion) {
 			case "0":
 				break;
-				
 				
 			default:
 				System.out.println("\nLa opcion ingresada no es valida. Por favor intentelo nuevamente"); // Mensaje de
@@ -947,9 +935,8 @@ public class Consola {
 			System.out.println(
 					"\n----------------------------------------------------------------------------------------------------");
 			System.out.println("Balance de cuenta\n");
-			System.out.println(restaurante.getBalanceCuenta());
-			System.out.println("\n");
-			System.out.println(" 0. Regresar al menu principal.");
+			System.out.println("$"+ restaurante.getBalanceCuenta());
+			System.out.println("\n 0. Regresar al menu principal.");
 
 			opcion = readString();
 
@@ -978,7 +965,6 @@ public class Consola {
 			System.out.println(
 					"\n----------------------------------------------------------------------------------------------------");
 			System.out.println("Informacion Basica sobre clientes \n");
-			System.out.println("\n");
 			System.out.println(" 1. Ver clientes.");
 			System.out.println(" 2. Crear cliente.");
 			System.out.println(" 3. Regresar al menu principal.");
@@ -1016,17 +1002,15 @@ public class Consola {
 		do {
 			System.out.println(
 					"\n----------------------------------------------------------------------------------------------------");
-			System.out.println("Informacion sobre los clientes");
+			System.out.println("Informacion sobre los clientes\n");
 
-			System.out.println("\n");
+			System.out.println("Seleccione el cliente sobre el que desea consultar\n");	
 			
-
-			System.out.println(" Seleccione el cliente sobre el que desea consultar");
-			System.out.println(" 0. Regresar.");
-			System.out.println("");			
 			for (int i = 0; i < listaclientes.size(); ++i) {
-				  System.out.println(i + 1 +". " + listaclientes.get(i).getNombre());
+				  System.out.println(" " + (i + 1) +". " + listaclientes.get(i).getNombre());
 				}
+			
+			System.out.println("\n 0. Regresar al menu principal.");
 
 			try {
 				opcionClientes = Integer.parseInt(Consola.readString());
@@ -1053,7 +1037,6 @@ public class Consola {
 			System.out.println(
 					"\n----------------------------------------------------------------------------------------------------");
 			System.out.println("Informacion Basica sobre clientes \n");
-			System.out.println("\n");
 			System.out.println(" 1. Crear Manualmente.");
 			System.out.println(" 2. Crear Automaticamente.");
 			System.out.println(" 3. Regresar al menu principal.");
