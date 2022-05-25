@@ -828,6 +828,12 @@ public class Consola {
 				System.out.println("\nPor favor introduzca un numero valido");
 				pressEnter();
 			} 
+			if((opcionempleado - 1  >= listaempleados.size()) || (opcionempleado < 0)) {
+				System.out.println("Por favor introduzca un numero valido");
+				pressEnter();
+				continue;
+				
+			}			
 			if(opcionempleado == 0) {
 				continue;
 			}
@@ -862,6 +868,13 @@ public class Consola {
 				System.out.println("\nPor favor introduzca un numero valido");
 				pressEnter();
 			} 
+			
+			if((opcionproducto - 1  >= listaproductos.size()) || (opcionproducto < 0)) {
+				System.out.println("Por favor introduzca un numero valido");
+				pressEnter();
+				continue;
+				
+			}			
 			if(opcionproducto == 0) {
 				continue;
 			}
@@ -895,6 +908,13 @@ public class Consola {
 				System.out.println("\nPor favor introduzca un numero valido");
 				pressEnter();
 			} 
+			
+			if((opcionpedidos - 1  >= listapedidos.size()) || (opcionpedidos < 0)) {
+				System.out.println("Por favor introduzca un numero valido");
+				pressEnter();
+				continue;
+				
+			}			
 			if(opcionpedidos == 0) {
 				continue;
 			}
