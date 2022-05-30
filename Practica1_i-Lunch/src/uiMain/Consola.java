@@ -183,7 +183,8 @@ public class Consola {
 				break;
 
 			case "8": // Jero
-				// Serializador
+				System.out.println("Gracias por haber usado nuestra aplicación! Vuelva pronto.\n");
+				Serializador.serializarTodo();
 				break;
 
 			default:
