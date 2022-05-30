@@ -577,6 +577,12 @@ public class Consola {
 					salario = 0;
 				}
 				
+				System.out.println(admin.contratarEmpleado(cedula, nombre, cargo, disponibilidad, salario, restaurante));
+				
+				Empleado empleadoNuevo = restaurante.getEmpleados().get(restaurante.getEmpleados().size()-1);
+				
+				System.out.println(empleadoNuevo.informacion());
+				
 				pressEnter();
 				break;
 				
