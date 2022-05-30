@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import javax.sound.sampled.Port;
+
 import baseDatos.*;
 import uiMain.DatosAleatorios;
 import gestorAplicacion.gestionRestaurante.*;
@@ -627,7 +629,6 @@ public class Consola {
 						System.out.print("Ingrese un codigo de pedido valido: ");
 					}
 				} catch (InputMismatchException e) {
-					// TODO: handle exception
 					System.out.print("Ingrese un codigo de pedido valido: ");
 					sc.next();
 				}
@@ -1069,7 +1070,7 @@ public class Consola {
 		do {
 			System.out.println(
 					"\n----------------------------------------------------------------------------------------------------");
-			System.out.println("Informacion Basica sobre clientes \n");
+			System.out.println("Crear clientes \n");
 			System.out.println(" 1. Crear Manualmente.");
 			System.out.println(" 2. Crear Automaticamente.");
 			System.out.println(" 3. Regresar al menu principal.");
@@ -1078,9 +1079,11 @@ public class Consola {
 			switch (opcion) {
 			
 			case "1":
+				DaviSubSubMenuCrearClienteManual();
 				break;
 				
 			case "2":
+				DaviSubmenuGenerarClienteRandom();
 				break;
 				
 			case "3":
@@ -1100,7 +1103,76 @@ public class Consola {
 	}
 	
 	static void DaviSubSubMenuCrearClienteManual() {
+		String nombreCliente;
+		String edadClienteString;
+		String numeroCliente;
+		int numeroClienteInt = 0;
+		int edadClienteInt = 0;
+		String direccionCliente;
+		String correoElectronicoClienteString;
+		boolean verdad = false;
+		System.out.println("Por favor ingrese el nombre del cliente que desea registrar");
+		nombreCliente = readString();
+		System.out.println("Por favor ingrese la edad del cliente que desea registrar");
+		do {edadClienteString = readString();
+			try {
+				edadClienteInt = Integer.parseInt(edadClienteString);
+				verdad = true;
+			} catch (Exception e) {
+					System.out.println("Por favor ingrese un numero.");
+			}
+			
+			if(edadClienteInt <0 || edadClienteInt > 125) {
+				System.out.println("Por favor ingrese una edad valida.");
+				verdad = false;
+			}
+		}while(!verdad);
 		
+		System.out.println("Por favor ingrese el correo electronico del cliente que desea registrar");
+		
+		correoElectronicoClienteString = readString();
+		
+		System.out.println("Por favor ingrese el numero del cliente que desea registrar");
+		verdad = false;
+		do {numeroCliente = readString();
+		try {
+				numeroClienteInt = Integer.parseInt(numeroCliente);
+				verdad = true;
+			} catch (Exception e) {
+				System.out.println("Por favor ingrese un numero.");
+			}
+		}while(!verdad);
+		System.out.println("Por favor ingrese la direccion del cliente que desea registrar");
+		direccionCliente = readString();
+		new Cliente(numeroClienteInt,nombreCliente,direccionCliente,edadClienteInt,null,new ArrayList<Pedido>(),correoElectronicoClienteString);
+		
+		System.out.println(
+				"Se ha creado el cliente con nombre: " +nombreCliente + "\n" +
+				"con una edad de: " + edadClienteInt + " años" + "\n" +
+				"el cual tiene el numero telfonico: " + numeroCliente + "\n" +
+				"con el correo electronico: " + correoElectronicoClienteString + "\n" + 
+				"el cual tiene por direccion: " + direccionCliente
+				);
+		pressEnter();
+	}
+	
+	static void DaviSubmenuGenerarClienteRandom() {
+		Cliente clienteSummonCliente = new Cliente(DatosAleatorios.randInt(100000, 999999),
+				DatosAleatorios.randString(DatosAleatorios.nombresAleatorios),
+				"Calle " + DatosAleatorios.randInt(10, 99) + " #" + DatosAleatorios.randInt(10, 99) + "-" + DatosAleatorios.randInt(10, 99),
+				DatosAleatorios.randInt(18, 99),
+				null,
+				new ArrayList<Pedido>(),
+				"cliente" + DatosAleatorios.randInt(150, 999999) + "@gmail.com");
+		
+		System.out.println(
+				"Se ha creado el cliente con nombre: " + clienteSummonCliente.getNombre() + "\n" +
+				"con una edad de: " + clienteSummonCliente.getEdad() + " años" + "\n" +
+				"el cual tiene el numero telfonico: " +clienteSummonCliente.getTelefono() + "\n" +
+				"con el correo electronico: " + clienteSummonCliente.getCorreoElectronico() + "\n" + 
+				"el cual tiene por direccion: " + clienteSummonCliente.getDireccion()
+				);
+		pressEnter();
 	}
 	
 }
