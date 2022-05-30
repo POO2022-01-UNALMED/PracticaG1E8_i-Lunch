@@ -183,7 +183,7 @@ public class Consola {
 				break;
 
 			case "8": // Jero
-				System.out.println("Gracias por haber usado nuestra aplicación! Vuelva pronto.\n");
+				System.out.println("Gracias por haber usado nuestra aplicacion! Vuelva pronto.\n");
 				Serializador.serializarTodo();
 				break;
 
@@ -536,6 +536,7 @@ public class Consola {
 					System.out.println("\nID: " + i);
 					System.out.println(empleado.informacion());
 				}
+				
 				pressEnter();
 				break;
 			
@@ -575,9 +576,6 @@ public class Consola {
 				} catch (Exception e) {
 					salario = 0;
 				}
-				
-				System.out.println(
-						admin.contratarEmpleado(cedula, nombre, cargo, disponibilidad, salario, restaurante));
 				
 				pressEnter();
 				break;
@@ -1149,7 +1147,7 @@ public class Consola {
 		
 		System.out.println(
 				"Se ha creado el cliente con nombre: " +nombreCliente + "\n" +
-				"con una edad de: " + edadClienteInt + " años" + "\n" +
+				"con una edad de: " + edadClienteInt + " anhos" + "\n" +
 				"el cual tiene el numero telfonico: " + numeroCliente + "\n" +
 				"con el correo electronico: " + correoElectronicoClienteString + "\n" + 
 				"el cual tiene por direccion: " + direccionCliente
@@ -1168,7 +1166,7 @@ public class Consola {
 		
 		System.out.println(
 				"Se ha creado el cliente con nombre: " + clienteSummonCliente.getNombre() + "\n" +
-				"con una edad de: " + clienteSummonCliente.getEdad() + " años" + "\n" +
+				"con una edad de: " + clienteSummonCliente.getEdad() + " anhos" + "\n" +
 				"el cual tiene el numero telfonico: " +clienteSummonCliente.getTelefono() + "\n" +
 				"con el correo electronico: " + clienteSummonCliente.getCorreoElectronico() + "\n" + 
 				"el cual tiene por direccion: " + clienteSummonCliente.getDireccion()
