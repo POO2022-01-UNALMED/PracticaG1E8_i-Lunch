@@ -23,7 +23,6 @@ public class Consola {
 	static String readString() {
 		return sc.nextLine();
 	}
-	
 
 	// Leer double
 	static double readDouble() {
@@ -133,8 +132,8 @@ public class Consola {
 				submenu2();
 				break;
 
-			case "3": 
-				submenu3(); 
+			case "3":
+				submenu3();
 				break;
 
 			case "4":
@@ -160,16 +159,17 @@ public class Consola {
 
 			case "6":
 				// Mensaje de control
-				Cliente cliente = Cliente.getClientes().get(DatosAleatorios.randInt(0, Cliente.getClientes().size()-1));
+				Cliente cliente = Cliente.getClientes()
+						.get(DatosAleatorios.randInt(0, Cliente.getClientes().size() - 1));
 				Pedido pedido = admin.simularPedido(cliente);
-				
+
 				System.out.println(
 						"\n----------------------------------------------------------------------------------------------------\n");
 				System.out.println("Pedido recibido");
 				System.out.println("Cliente: " + cliente.getNombre());
 				System.out.println("Codigo pedido: " + pedido.getCodigo());
 				pressEnter();
-				
+
 				// Cliente, codigo pedido
 				break;
 
@@ -233,12 +233,12 @@ public class Consola {
 			String emailRestaurante = readString();
 			System.out.println("Direccion: ");
 			String direccionRestaurante = readString();
-								
-			System.out.println("\nRegistro completado con exito!\n"); 
 
-			restaurante = new Restaurante(nombreRestaurante, DatosAleatorios.randInt(100000, 999999), DatosAleatorios.randInt(100000, 999999),
-					direccionRestaurante, emailRestaurante, true, DatosAleatorios.randInt(1, 20), empleados, menu, pedidos,
-					DatosAleatorios.randInt(1000, 10000));
+			System.out.println("\nRegistro completado con exito!\n");
+
+			restaurante = new Restaurante(nombreRestaurante, DatosAleatorios.randInt(100000, 999999),
+					DatosAleatorios.randInt(100000, 999999), direccionRestaurante, emailRestaurante, true,
+					DatosAleatorios.randInt(1, 20), empleados, menu, pedidos, DatosAleatorios.randInt(1000, 10000));
 			new Administrador(ccAdmin, nombreAdmin, true, DatosAleatorios.randInt(500, 2000), restaurante);
 
 			// Generar de 1 a 3 empleados random de cada tipo
@@ -246,14 +246,21 @@ public class Consola {
 
 			for (int i = 0; i < numEmpleados * 3; i++) {
 				if (i < 3) {
-					empleados.add(new Repartidor(DatosAleatorios.randInt(100000, 999999), DatosAleatorios.randString(DatosAleatorios.nombresAleatorios), DatosAleatorios.randBool(), DatosAleatorios.randInt(400, 1200),
-							restaurante, DatosAleatorios.randBool(), "ABC-" + DatosAleatorios.randInt(100, 999), DatosAleatorios.randString(DatosAleatorios.tiposVehiculos)));
+					empleados.add(new Repartidor(DatosAleatorios.randInt(100000, 999999),
+							DatosAleatorios.randString(DatosAleatorios.nombresAleatorios), DatosAleatorios.randBool(),
+							DatosAleatorios.randInt(400, 1200), restaurante, DatosAleatorios.randBool(),
+							"ABC-" + DatosAleatorios.randInt(100, 999),
+							DatosAleatorios.randString(DatosAleatorios.tiposVehiculos)));
 				} else if (i < 6) {
-					empleados.add(new Mesero(DatosAleatorios.randInt(100000, 999999), DatosAleatorios.randString(DatosAleatorios.nombresAleatorios), DatosAleatorios.randBool(), DatosAleatorios.randInt(400, 1200),
-							restaurante));
+					empleados.add(new Mesero(DatosAleatorios.randInt(100000, 999999),
+							DatosAleatorios.randString(DatosAleatorios.nombresAleatorios), DatosAleatorios.randBool(),
+							DatosAleatorios.randInt(400, 1200), restaurante));
 				} else {
-					empleados.add(new Chef(DatosAleatorios.randInt(100000, 999999), DatosAleatorios.randString(DatosAleatorios.nombresAleatorios), DatosAleatorios.randBool(), DatosAleatorios.randInt(400, 1200),
-							restaurante, DatosAleatorios.randString(DatosAleatorios.cargosEnCocina), DatosAleatorios.randString(DatosAleatorios.especialidadesChefs)));
+					empleados.add(new Chef(DatosAleatorios.randInt(100000, 999999),
+							DatosAleatorios.randString(DatosAleatorios.nombresAleatorios), DatosAleatorios.randBool(),
+							DatosAleatorios.randInt(400, 1200), restaurante,
+							DatosAleatorios.randString(DatosAleatorios.cargosEnCocina),
+							DatosAleatorios.randString(DatosAleatorios.especialidadesChefs)));
 				}
 			}
 
@@ -263,23 +270,22 @@ public class Consola {
 			for (int i = 0; i < numProductos; i++) {
 				menu.add(new Producto(DatosAleatorios.randString(DatosAleatorios.productosAleatorios),
 						"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec ultrices dui, ut ultricies leo.",
-						DatosAleatorios.randInt(2, 30), DatosAleatorios.randBool(), DatosAleatorios.randBool(), DatosAleatorios.randInt(1, 50)));
+						DatosAleatorios.randInt(2, 30), DatosAleatorios.randBool(), DatosAleatorios.randBool(),
+						DatosAleatorios.randInt(1, 50)));
 			}
 
 			restaurante.setEmpleados(empleados);
 			restaurante.setMenu(menu);
-			
+
 			// Generar de 1 a 10 clientes random
 			int numClientes = DatosAleatorios.randInt(1, 10);
-			
+
 			for (int i = 0; i < numClientes; i++) {
 				new Cliente(DatosAleatorios.randInt(100000, 999999),
 						DatosAleatorios.randString(DatosAleatorios.nombresAleatorios),
-						"Calle " + DatosAleatorios.randInt(10, 99) + " #" + DatosAleatorios.randInt(10, 99) + "-" + DatosAleatorios.randInt(10, 99),
-						DatosAleatorios.randInt(18, 99),
-						null,
-						new ArrayList<Pedido>(),
-						"cliente" + i + "@gmail.com");
+						"Calle " + DatosAleatorios.randInt(10, 99) + " #" + DatosAleatorios.randInt(10, 99) + "-"
+								+ DatosAleatorios.randInt(10, 99),
+						DatosAleatorios.randInt(18, 99), null, new ArrayList<Pedido>(), "cliente" + i + "@gmail.com");
 			}
 		}
 	}
@@ -513,7 +519,6 @@ public class Consola {
 		} while (!opcion.equals("7"));
 	}
 
-	
 	static void submenu3() {
 		String opcion;
 		do {
@@ -527,26 +532,27 @@ public class Consola {
 			System.out.println(" 4. Volver al menu principal\n");
 
 			opcion = readString();
-			
+
 			switch (opcion) {
 			case "1":
-				//Ver personal
+				// Ver personal
 				System.out.println("\nPersonal del restaurante");
-				
-				for(int i = 0; i < restaurante.getEmpleados().size(); i++) {
+
+				for (int i = 0; i < restaurante.getEmpleados().size(); i++) {
 					Empleado empleado = restaurante.getEmpleados().get(i);
 					System.out.println("\nID: " + i);
 					System.out.println(empleado.informacion());
 				}
-				
+
 				pressEnter();
 				break;
-			
+
 			case "2":
-				//Contratar empleado
+				// Contratar empleado
 				System.out.println("Contratar empleado\n");
-				
-				System.out.println("Ingrese la cedula del empleado: "); // <--- Se pueden crear empleados con cedulas repetidas.
+
+				System.out.println("Ingrese la cedula del empleado: "); // <--- Se pueden crear empleados con cedulas
+																		// repetidas.
 				String cedSt = readString();
 				int cedula;
 				try {
@@ -554,13 +560,13 @@ public class Consola {
 				} catch (Exception e) {
 					cedula = 0;
 				}
-				
+
 				System.out.println("Ingrese el nombre del empleado: ");
 				String nombre = readString();
-				
+
 				System.out.println("Ingrese el cargo del empleado (Chef, Repartidor, Mesero u otros): ");
 				String cargo = readString();
-				
+
 				System.out.println("Esta disponible inmediatamente? (1: True): ");
 				String dispSt = readString();
 				boolean disponibilidad;
@@ -569,7 +575,7 @@ public class Consola {
 				} else {
 					disponibilidad = false;
 				}
-				
+
 				System.out.println("Ingrese el salario del empleado: ");
 				String salarioSt = readString();
 				int salario;
@@ -578,16 +584,17 @@ public class Consola {
 				} catch (Exception e) {
 					salario = 0;
 				}
-				
-				System.out.println(admin.contratarEmpleado(cedula, nombre, cargo, disponibilidad, salario, restaurante));
-				
-				Empleado empleadoNuevo = restaurante.getEmpleados().get(restaurante.getEmpleados().size()-1);
-				
+
+				System.out
+						.println(admin.contratarEmpleado(cedula, nombre, cargo, disponibilidad, salario, restaurante));
+
+				Empleado empleadoNuevo = restaurante.getEmpleados().get(restaurante.getEmpleados().size() - 1);
+
 				System.out.println(empleadoNuevo.informacion());
-				
+
 				pressEnter();
 				break;
-				
+
 			case "3":
 				// Despedir empleado
 				System.out.println("Despedir empleado\n");
@@ -598,8 +605,7 @@ public class Consola {
 				System.out.println(admin.despedirEmpleado(cedStr));
 				pressEnter();
 				break;
-				
-				
+
 			case "4":
 				break;
 			default:
@@ -613,17 +619,19 @@ public class Consola {
 			}
 		} while (!opcion.equals("4"));
 	}
-	
-	
-	
-	
-	
+
 	// Submenu de la opcion "4. Cola de pedidos"
-	
+
 	static void submenu4(ArrayList<Integer> codPedidos) {
 		boolean continuar = true;
 		do {
-			listarPedidosEnEspera();
+			codPedidos = listarPedidosEnEspera();
+			if(codPedidos.size()==0) {
+				System.out.println("No hay más pedidos en cola");
+				System.out.println("\n");
+				pressEnter();
+				return;
+			}
 			System.out.print("Ingrese el codigo de un pedido: ");
 			int codigo = 0;
 			boolean valido = false;
@@ -643,7 +651,12 @@ public class Consola {
 
 			valido = false;
 			String opcion;
-			Pedido pedido = restaurante.getPedidos().get(codigo);
+			Pedido pedido = new Pedido();
+			for (Pedido pedido_aux : restaurante.getPedidos()) {
+				if (pedido_aux.getCodigo() == codigo) {
+					pedido = pedido_aux;
+				}
+			}
 
 			do {
 				System.out.println("Que desea hacer con este pedido?\n");
@@ -651,14 +664,24 @@ public class Consola {
 				System.out.println(" 1. Aceptar");
 				System.out.println(" 2. Rechazar");
 
-				opcion = readString();
-
-				switch (opcion) {
+				opcion = sc.nextLine();
+				
+			switch (opcion) {
 				case "1": {
-					System.out.println("Pedido aceptado. Iniciando preparacion");
-					admin.actualizarEstadoPedido(pedido, true);
-					valido = true;
-					break;
+					if (admin.procesarPedido(pedido)) {
+						
+						
+						System.out.println("Pedido aceptado. Iniciando preparacion");
+						System.out.println("Pedido despachado");
+						admin.actualizarEstadoPedido(pedido, true);
+						valido = true;
+						break;
+					} else {
+						System.out.println("Lo sentimos el pedido no puede ser aceptado por restricciones del restaurante");
+						admin.actualizarEstadoPedido(pedido, false);
+						valido = true;
+						break;
+					}
 				}
 				case "2": {
 					System.out.println("Pedido rechazado");
@@ -668,7 +691,7 @@ public class Consola {
 				}
 				default:
 					System.out.println("Opcion no valida\n");
-					;
+					break;
 				}
 
 			} while (!valido);
@@ -701,16 +724,19 @@ public class Consola {
 
 	}
 
-	static void listarPedidosEnEspera() {
+	static ArrayList<Integer> listarPedidosEnEspera() {
 
+		ArrayList<Integer> codPedidos = new ArrayList<Integer>();
 		System.out.println("Codigo pedido - " + "Estado pedido");
 
 		for (Pedido pedido : restaurante.getPedidos()) {
 			if (pedido.getEstado() == estadoPedido.Enviado.toString()) {
 				System.out.println(pedido.getCodigo() + " - " + pedido.getEstado());
+				codPedidos.add(pedido.getCodigo());
 			}
 		}
 		System.out.println("\n");
+		return codPedidos;
 	}
 
 	// Submenu de la opcion "5. Pagar nomina"
@@ -763,8 +789,7 @@ public class Consola {
 			}
 		} while (!opcion.equals("3"));
 	}
-	
-	
+
 	static void DaviMenu1() {
 
 		String opcion;
@@ -798,11 +823,10 @@ public class Consola {
 			case "5":
 				DaviSubmenuEstadisticas();
 				break;
-				
+
 			case "6":
 				break;
-				
-				
+
 			default:
 				System.out.println("\nLa opcion ingresada no es valida. Por favor intentelo nuevamente"); // Mensaje de
 																											// control
@@ -814,8 +838,8 @@ public class Consola {
 			}
 		} while (!opcion.equals("6"));
 	}
-	
-	static void DaviSubmenuEmpleado(){
+
+	static void DaviSubmenuEmpleado() {
 		int opcionempleado;
 		ArrayList<Empleado> listaempleados = restaurante.getEmpleados();
 		opcionempleado = -727;
@@ -823,38 +847,38 @@ public class Consola {
 			System.out.println(
 					"\n----------------------------------------------------------------------------------------------------");
 			System.out.println("Informacion sobre empleados");
-						
+
 			System.out.println("Seleccione al empleado sobre el que desea consultar \n");
-			
+
 			for (int i = 0; i < listaempleados.size(); ++i) {
-				  System.out.println(" " + (i + 1) +". " + listaempleados.get(i).getNombre());
-				}
+				System.out.println(" " + (i + 1) + ". " + listaempleados.get(i).getNombre());
+			}
 			System.out.println("\n 0. Regresar al menu principal.");
 			try {
 				opcionempleado = Integer.parseInt(Consola.readString());
 			} catch (Exception e) {
 				System.out.println("\nPor favor introduzca un numero valido");
 				pressEnter();
-			} 
-			if((opcionempleado - 1  >= listaempleados.size()) || (opcionempleado < 0)) {
+			}
+			if ((opcionempleado - 1 >= listaempleados.size()) || (opcionempleado < 0)) {
 				System.out.println("Por favor introduzca un numero valido");
 				pressEnter();
 				continue;
-				
-			}			
-			if(opcionempleado == 0) {
+
+			}
+			if (opcionempleado == 0) {
 				continue;
 			}
-			if (opcionempleado!= -727) {
+			if (opcionempleado != -727) {
 				System.out.println(listaempleados.get(opcionempleado - 1).informacion());
 				pressEnter();
 				opcionempleado = -727;
 			}
 		} while (!(opcionempleado == 0));
-		
+
 	}
-	
-	static void DaviSubmenuProductos(){
+
+	static void DaviSubmenuProductos() {
 		int opcionproducto;
 		ArrayList<Producto> listaproductos = Producto.getProductos();
 		opcionproducto = -727;
@@ -862,40 +886,39 @@ public class Consola {
 			System.out.println(
 					"\n----------------------------------------------------------------------------------------------------");
 			System.out.println("Informacion sobre productos");
-			
 
 			System.out.println("Seleccione el producto sobre el que desea consultar\n");
-			
+
 			for (int i = 0; i < listaproductos.size(); ++i) {
-				  System.out.println(" " + (i + 1) +". " + listaproductos.get(i).getNombre());
-				}
+				System.out.println(" " + (i + 1) + ". " + listaproductos.get(i).getNombre());
+			}
 			System.out.println("\n 0. Regresar al menu principal.");
 			try {
 				opcionproducto = Integer.parseInt(Consola.readString());
 			} catch (Exception e) {
 				System.out.println("\nPor favor introduzca un numero valido");
 				pressEnter();
-			} 
-			
-			if((opcionproducto - 1  >= listaproductos.size()) || (opcionproducto < 0)) {
+			}
+
+			if ((opcionproducto - 1 >= listaproductos.size()) || (opcionproducto < 0)) {
 				System.out.println("Por favor introduzca un numero valido");
 				pressEnter();
 				continue;
-				
-			}			
-			if(opcionproducto == 0) {
+
+			}
+			if (opcionproducto == 0) {
 				continue;
 			}
-			if (opcionproducto!= -727) {
+			if (opcionproducto != -727) {
 				System.out.println(listaproductos.get(opcionproducto - 1));
 				pressEnter();
 				opcionproducto = -727;
 			}
 		} while (!(opcionproducto == 0));
-		
+
 	}
-	
-	static void DaviSubmenuHistorialPedidos(){
+
+	static void DaviSubmenuHistorialPedidos() {
 		int opcionpedidos;
 		ArrayList<Pedido> listapedidos = Pedido.getPedidos();
 		opcionpedidos = -727;
@@ -905,37 +928,37 @@ public class Consola {
 			System.out.println("Informacion sobre pedidos realizados");
 
 			System.out.println("Seleccione el pedido sobre el que desea consultar\n");
-			
+
 			for (int i = 0; i < listapedidos.size(); ++i) {
-				  System.out.println(" " + (i + 1) +". " + listapedidos.get(i).getCodigo());
-				}
+				System.out.println(" " + (i + 1) + ". " + listapedidos.get(i).getCodigo());
+			}
 			System.out.println("\n 0. Regresar al menu principal.");
 			try {
 				opcionpedidos = Integer.parseInt(Consola.readString());
 			} catch (Exception e) {
 				System.out.println("\nPor favor introduzca un numero valido");
 				pressEnter();
-			} 
-			
-			if((opcionpedidos - 1  >= listapedidos.size()) || (opcionpedidos < 0)) {
+			}
+
+			if ((opcionpedidos - 1 >= listapedidos.size()) || (opcionpedidos < 0)) {
 				System.out.println("Por favor introduzca un numero valido");
 				pressEnter();
 				continue;
-				
-			}			
-			if(opcionpedidos == 0) {
+
+			}
+			if (opcionpedidos == 0) {
 				continue;
 			}
-			if (opcionpedidos!= -727) {
+			if (opcionpedidos != -727) {
 				System.out.println(listapedidos.get(opcionpedidos - 1));
 				pressEnter();
 				opcionpedidos = -727;
 			}
 		} while (!(opcionpedidos == 0));
-		
+
 	}
-	
-	static void DaviSubmenuEstadisticas(){
+
+	static void DaviSubmenuEstadisticas() {
 
 		String opcion;
 		do {
@@ -950,7 +973,7 @@ public class Consola {
 			switch (opcion) {
 			case "0":
 				break;
-				
+
 			default:
 				System.out.println("\nLa opcion ingresada no es valida. Por favor intentelo nuevamente"); // Mensaje de
 																											// control
@@ -962,7 +985,7 @@ public class Consola {
 			}
 		} while (!opcion.equals("0"));
 	}
-	
+
 	static void DaviSubmenuBalanceDeCuenta() {
 
 		String opcion;
@@ -970,7 +993,7 @@ public class Consola {
 			System.out.println(
 					"\n----------------------------------------------------------------------------------------------------");
 			System.out.println("Balance de cuenta\n");
-			System.out.println("$"+ restaurante.getBalanceCuenta());
+			System.out.println("$" + restaurante.getBalanceCuenta());
 			System.out.println("\n 0. Regresar al menu principal.");
 
 			opcion = readString();
@@ -978,8 +1001,7 @@ public class Consola {
 			switch (opcion) {
 			case "0":
 				break;
-				
-				
+
 			default:
 				System.out.println("\nLa opcion ingresada no es valida. Por favor intentelo nuevamente"); // Mensaje de
 																											// control
@@ -991,8 +1013,7 @@ public class Consola {
 			}
 		} while (!opcion.equals("0"));
 	}
-	
-	
+
 	static void DaviMenu2() {
 
 		String opcion;
@@ -1009,15 +1030,14 @@ public class Consola {
 			case "1":
 				DaviSubmenuVerClientes();
 				break;
-				
+
 			case "2":
 				DaviSubmenuCrearCliente();
 				break;
-				
+
 			case "3":
 				break;
-				
-				
+
 			default:
 				System.out.println("\nLa opcion ingresada no es valida. Por favor intentelo nuevamente"); // Mensaje de
 																											// control
@@ -1029,8 +1049,8 @@ public class Consola {
 			}
 		} while (!opcion.equals("3"));
 	}
-	
-	static void DaviSubmenuVerClientes(){
+
+	static void DaviSubmenuVerClientes() {
 		int opcionClientes;
 		ArrayList<Cliente> listaclientes = Cliente.getClientes();
 		opcionClientes = -727;
@@ -1039,12 +1059,12 @@ public class Consola {
 					"\n----------------------------------------------------------------------------------------------------");
 			System.out.println("Informacion sobre los clientes\n");
 
-			System.out.println("Seleccione el cliente sobre el que desea consultar\n");	
-			
+			System.out.println("Seleccione el cliente sobre el que desea consultar\n");
+
 			for (int i = 0; i < listaclientes.size(); ++i) {
-				  System.out.println(" " + (i + 1) +". " + listaclientes.get(i).getNombre());
-				}
-			
+				System.out.println(" " + (i + 1) + ". " + listaclientes.get(i).getNombre());
+			}
+
 			System.out.println("\n 0. Regresar al menu principal.");
 
 			try {
@@ -1052,25 +1072,25 @@ public class Consola {
 			} catch (Exception e) {
 				System.out.println("Por favor introduzca un numero valido");
 				pressEnter();
-			} 
-			if((opcionClientes - 1  >= listaclientes.size()) || (opcionClientes < 0)) {
+			}
+			if ((opcionClientes - 1 >= listaclientes.size()) || (opcionClientes < 0)) {
 				System.out.println("Por favor introduzca un numero valido");
 				pressEnter();
 				continue;
-				
-			}			
-			if(opcionClientes == 0) {
+
+			}
+			if (opcionClientes == 0) {
 				continue;
 			}
-			if (opcionClientes!= -727) {
+			if (opcionClientes != -727) {
 				System.out.println(listaclientes.get(opcionClientes - 1).informacion());
 				pressEnter();
 				opcionClientes = -727;
 			}
 		} while (!(opcionClientes == 0));
-		
+
 	}
-	
+
 	static void DaviSubmenuCrearCliente() {
 
 		String opcion;
@@ -1084,19 +1104,18 @@ public class Consola {
 			opcion = readString();
 
 			switch (opcion) {
-			
+
 			case "1":
 				DaviSubSubMenuCrearClienteManual();
 				break;
-				
+
 			case "2":
 				DaviSubmenuGenerarClienteRandom();
 				break;
-				
+
 			case "3":
 				break;
-				
-				
+
 			default:
 				System.out.println("\nLa opcion ingresada no es valida. Por favor intentelo nuevamente"); // Mensaje de
 																											// control
@@ -1108,7 +1127,7 @@ public class Consola {
 			}
 		} while (!opcion.equals("3"));
 	}
-	
+
 	static void DaviSubSubMenuCrearClienteManual() {
 		String nombreCliente;
 		String edadClienteString;
@@ -1121,65 +1140,62 @@ public class Consola {
 		System.out.println("Por favor ingrese el nombre del cliente que desea registrar");
 		nombreCliente = readString();
 		System.out.println("Por favor ingrese la edad del cliente que desea registrar");
-		do {edadClienteString = readString();
+		do {
+			edadClienteString = readString();
 			try {
 				edadClienteInt = Integer.parseInt(edadClienteString);
 				verdad = true;
 			} catch (Exception e) {
-					System.out.println("Por favor ingrese un numero.");
+				System.out.println("Por favor ingrese un numero.");
 			}
-			
-			if(edadClienteInt <0 || edadClienteInt > 125) {
+
+			if (edadClienteInt < 0 || edadClienteInt > 125) {
 				System.out.println("Por favor ingrese una edad valida.");
 				verdad = false;
 			}
-		}while(!verdad);
-		
+		} while (!verdad);
+
 		System.out.println("Por favor ingrese el correo electronico del cliente que desea registrar");
-		
+
 		correoElectronicoClienteString = readString();
-		
+
 		System.out.println("Por favor ingrese el numero del cliente que desea registrar");
 		verdad = false;
-		do {numeroCliente = readString();
-		try {
+		do {
+			numeroCliente = readString();
+			try {
 				numeroClienteInt = Integer.parseInt(numeroCliente);
 				verdad = true;
 			} catch (Exception e) {
 				System.out.println("Por favor ingrese un numero.");
 			}
-		}while(!verdad);
+		} while (!verdad);
 		System.out.println("Por favor ingrese la direccion del cliente que desea registrar");
 		direccionCliente = readString();
-		new Cliente(numeroClienteInt,nombreCliente,direccionCliente,edadClienteInt,null,new ArrayList<Pedido>(),correoElectronicoClienteString);
-		
-		System.out.println(
-				"Se ha creado el cliente con nombre: " +nombreCliente + "\n" +
-				"con una edad de: " + edadClienteInt + " anhos" + "\n" +
-				"el cual tiene el numero telfonico: " + numeroCliente + "\n" +
-				"con el correo electronico: " + correoElectronicoClienteString + "\n" + 
-				"el cual tiene por direccion: " + direccionCliente
-				);
+		new Cliente(numeroClienteInt, nombreCliente, direccionCliente, edadClienteInt, null, new ArrayList<Pedido>(),
+				correoElectronicoClienteString);
+
+		System.out.println("Se ha creado el cliente con nombre: " + nombreCliente + "\n" + "con una edad de: "
+				+ edadClienteInt + " anhos" + "\n" + "el cual tiene el numero telfonico: " + numeroCliente + "\n"
+				+ "con el correo electronico: " + correoElectronicoClienteString + "\n"
+				+ "el cual tiene por direccion: " + direccionCliente);
 		pressEnter();
 	}
-	
+
 	static void DaviSubmenuGenerarClienteRandom() {
 		Cliente clienteSummonCliente = new Cliente(DatosAleatorios.randInt(100000, 999999),
 				DatosAleatorios.randString(DatosAleatorios.nombresAleatorios),
-				"Calle " + DatosAleatorios.randInt(10, 99) + " #" + DatosAleatorios.randInt(10, 99) + "-" + DatosAleatorios.randInt(10, 99),
-				DatosAleatorios.randInt(18, 99),
-				null,
-				new ArrayList<Pedido>(),
+				"Calle " + DatosAleatorios.randInt(10, 99) + " #" + DatosAleatorios.randInt(10, 99) + "-"
+						+ DatosAleatorios.randInt(10, 99),
+				DatosAleatorios.randInt(18, 99), null, new ArrayList<Pedido>(),
 				"cliente" + DatosAleatorios.randInt(150, 999999) + "@gmail.com");
-		
-		System.out.println(
-				"Se ha creado el cliente con nombre: " + clienteSummonCliente.getNombre() + "\n" +
-				"con una edad de: " + clienteSummonCliente.getEdad() + " anhos" + "\n" +
-				"el cual tiene el numero telfonico: " +clienteSummonCliente.getTelefono() + "\n" +
-				"con el correo electronico: " + clienteSummonCliente.getCorreoElectronico() + "\n" + 
-				"el cual tiene por direccion: " + clienteSummonCliente.getDireccion()
-				);
+
+		System.out.println("Se ha creado el cliente con nombre: " + clienteSummonCliente.getNombre() + "\n"
+				+ "con una edad de: " + clienteSummonCliente.getEdad() + " anhos" + "\n"
+				+ "el cual tiene el numero telfonico: " + clienteSummonCliente.getTelefono() + "\n"
+				+ "con el correo electronico: " + clienteSummonCliente.getCorreoElectronico() + "\n"
+				+ "el cual tiene por direccion: " + clienteSummonCliente.getDireccion());
 		pressEnter();
 	}
-	
+
 }

@@ -164,10 +164,11 @@ public class Restaurante implements Serializable {
 				chef = true;
 			}
 		}
+		
 
 		// Identificar el tipo de pedido
 		switch (pedido.getTipo()) {
-		case "Domicilio": {
+		case "A domicilio": {
 
 			// Rectificar el personal del restaurante y comprobar que haya el necesario para
 			// el tipo de pedido
@@ -184,7 +185,7 @@ public class Restaurante implements Serializable {
 			}
 			// Si todo es aceptable se realiza el pedido
 		}
-		case "Consumir en el local": {
+		case "Para consumir en la tienda": {
 
 			// Rectificar el personal del restaurante y comprobar que haya el necesario para
 			// el tipo de pedido
@@ -227,7 +228,7 @@ public class Restaurante implements Serializable {
 
 	//	Metodo que determina si el restaurante posee los productos solicitados en un pedido
 	public boolean verificarProductos(Pedido pedido) {
-
+		/*
 		// Identificar los productos solicitados y la cantidad de ellos
 		ArrayList<Producto> productos = pedido.getProductos();
 		for (int i = 0; i < productos.size(); i++) {
@@ -246,6 +247,29 @@ public class Restaurante implements Serializable {
 		}
 
 		// Si todo es aceptable se puede realizar el pedido
+		return true;
+		*/
+		
+		
+		for(Producto demanda: pedido.getProductos()) {
+			boolean existe = false;
+			boolean cantidad = false;
+			boolean disponible = false;
+			for(Producto oferta: menu) {
+				if(demanda.getNombre()==oferta.getNombre()) {
+					existe=true;
+					disponible = oferta.getDisponiblidad();
+					if(oferta.getCantidad() >= demanda.getCantidad()) {
+						cantidad=true;
+					}
+				}
+				
+			}
+			if(!existe || !cantidad || !disponible) {
+				return false;
+			}
+		}
+		
 		return true;
 	}
 	
