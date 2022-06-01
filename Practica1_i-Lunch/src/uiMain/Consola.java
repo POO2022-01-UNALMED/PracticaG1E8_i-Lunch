@@ -923,6 +923,7 @@ public class Consola {
 			System.out.println(
 					"\n----------------------------------------------------------------------------------------------------");
 			System.out.println("Informacion sobre pedidos realizados");
+			System.out.println("Total de pedidos recibidos: " + Pedido.getTotalPedidos());
 
 			System.out.println("Seleccione el pedido sobre el que desea consultar\n");
 
