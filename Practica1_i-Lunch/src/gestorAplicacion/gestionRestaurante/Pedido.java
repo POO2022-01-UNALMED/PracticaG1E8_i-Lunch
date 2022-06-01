@@ -2,6 +2,7 @@ package gestorAplicacion.gestionRestaurante;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import gestorAplicacion.usuariosRestaurante.*;
@@ -154,5 +155,27 @@ public class Pedido implements Serializable {
 
 	public static void setTotalPedidos(int totalPedidos) {
 		Pedido.totalPedidos = totalPedidos;
+	}
+
+	@Override
+	public String toString() {
+		String productosString = "";
+		
+		// Fecha hora
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd - HH:mm:ss"); 
+		String fechaHoraString = fechaHora.format(formatter);
+
+		
+		for(Producto producto: this.productos) {
+			productosString += " - " + producto.getNombre() + " (" + producto.getCantidad() + ")\n";
+		}
+		
+		return "\nPedido "+ codigo + " hecho por el cliente: \"" + cliente.getNombre() + "\"\n" +
+			   "Fecha y hora: " + fechaHoraString + "\n" +
+			   "Estado: " + estado + "\n" +
+			   "Mensaje: " + mensaje + "\n" +
+			   "Tipo: " + tipo + "\n" +
+			   "Productos: \n" + productosString +
+			   "Precio total: $" + precioTotal;
 	}
 }

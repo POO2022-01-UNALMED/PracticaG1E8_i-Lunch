@@ -4,10 +4,7 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import javax.sound.sampled.Port;
-
 import baseDatos.*;
-import uiMain.DatosAleatorios;
 import gestorAplicacion.gestionRestaurante.*;
 import gestorAplicacion.usuariosRestaurante.*;
 
@@ -627,7 +624,7 @@ public class Consola {
 		do {
 			codPedidos = listarPedidosEnEspera();
 			if(codPedidos.size()==0) {
-				System.out.println("No hay más pedidos en cola");
+				System.out.println("No hay mï¿½s pedidos en cola");
 				System.out.println("\n");
 				pressEnter();
 				return;
@@ -930,8 +927,9 @@ public class Consola {
 			System.out.println("Seleccione el pedido sobre el que desea consultar\n");
 
 			for (int i = 0; i < listapedidos.size(); ++i) {
-				System.out.println(" " + (i + 1) + ". " + listapedidos.get(i).getCodigo());
+				System.out.println(" " + (i + 1) + ". Pedido " + listapedidos.get(i).getCodigo());
 			}
+			
 			System.out.println("\n 0. Regresar al menu principal.");
 			try {
 				opcionpedidos = Integer.parseInt(Consola.readString());
@@ -950,6 +948,8 @@ public class Consola {
 				continue;
 			}
 			if (opcionpedidos != -727) {
+				System.out.println(
+						"\n----------------------------------------------------------------------------------------------------");
 				System.out.println(listapedidos.get(opcionpedidos - 1));
 				pressEnter();
 				opcionpedidos = -727;
