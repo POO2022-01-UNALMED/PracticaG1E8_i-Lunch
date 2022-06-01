@@ -981,8 +981,6 @@ public class Consola {
 				continue;
 			}
 			if (opcionpedidos != -727) {
-				System.out.println(
-						"\n----------------------------------------------------------------------------------------------------");
 				System.out.println(listapedidos.get(opcionpedidos - 1));
 				pressEnter();
 				opcionpedidos = -727;
