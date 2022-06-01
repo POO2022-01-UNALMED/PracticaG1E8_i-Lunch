@@ -133,8 +133,8 @@ public class Empleado implements Serializable, Usuario {
 	 * puede continuar con la siguiente fase. Recibe como parametro un pedido y
 	 * tiene como finalidad modificar el atributo "estadoPedido".
 	 */
-	public boolean actualizarEstadoPedido(Pedido pedido, boolean rechazo) {
-		if (rechazo) {
+	public boolean actualizarEstadoPedido(Pedido pedido, boolean aceptado) {
+		if (!aceptado) {
 			pedido.setEstado(estadoPedido.Rechazado.name());
 			return false;
 		}

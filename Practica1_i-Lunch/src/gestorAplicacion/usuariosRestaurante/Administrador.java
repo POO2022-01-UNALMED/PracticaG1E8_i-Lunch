@@ -306,12 +306,10 @@ public class Administrador extends Empleado implements Serializable, Usuario {
 	 * parámetros un Cliente con quien se asociará el pedido simulado.
 	 */
 	public Pedido simularPedido(Cliente cliente) {
-		Pedido pedido = new Pedido();
+		Pedido pedido = new Pedido(cliente);
 		int idTipo = (int) (Math.random()*2);
 		String tipo = "";
 
-		// Se asigna el cliente
-		pedido.setCliente(cliente);
 		// Se asigna el restaurante
 		pedido.setRestaurante(restaurante);
 		// Se le asigna un codigo

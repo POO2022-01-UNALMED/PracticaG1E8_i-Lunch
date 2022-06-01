@@ -134,9 +134,11 @@ public class Consola {
 				break;
 
 			case "4":
+				ArrayList<Pedido> listapedidos = Pedido.getPedidos();
 				ArrayList<Integer> codPedidos = new ArrayList<Integer>();
-				for (Pedido pedido : restaurante.getPedidos()) {
-					if (pedido.getEstado() == estadoPedido.Enviado.toString()) {
+				
+				for (Pedido pedido : listapedidos) {
+					if (pedido.getEstado().equals(estadoPedido.Enviado.toString())) {
 						codPedidos.add(pedido.getCodigo());
 					}
 				}
@@ -268,7 +270,7 @@ public class Consola {
 				menu.add(new Producto(DatosAleatorios.randString(DatosAleatorios.productosAleatorios),
 						"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec ultrices dui, ut ultricies leo.",
 						DatosAleatorios.randInt(2, 30), DatosAleatorios.randBool(), DatosAleatorios.randBool(),
-						DatosAleatorios.randInt(1, 50)));
+						DatosAleatorios.randInt(10, 50)));
 			}
 
 			restaurante.setEmpleados(empleados);
@@ -623,18 +625,26 @@ public class Consola {
 		boolean continuar = true;
 		do {
 			codPedidos = listarPedidosEnEspera();
+			
 			if(codPedidos.size()==0) {
-				System.out.println("No hay m�s pedidos en cola");
-				System.out.println("\n");
+				System.out.println("No hay mas pedidos en cola");
 				pressEnter();
 				return;
 			}
-			System.out.print("Ingrese el codigo de un pedido: ");
+			System.out.println("Ingrese el codigo de un pedido");
+			System.out.println("Ingrese 0 para volver al menu principal");
+			
 			int codigo = 0;
 			boolean valido = false;
 			do {
 				try {
-					codigo = readInt();
+					String entrada = readString();
+					codigo = Integer.parseInt(entrada);
+					
+					if(entrada.equals("0")) {
+						return;
+					}
+					
 					if (codPedidos.contains(codigo)) {
 						valido = true;
 					} else {
@@ -648,7 +658,8 @@ public class Consola {
 
 			valido = false;
 			String opcion;
-			Pedido pedido = new Pedido();
+			
+			Pedido pedido = null;
 			for (Pedido pedido_aux : restaurante.getPedidos()) {
 				if (pedido_aux.getCodigo() == codigo) {
 					pedido = pedido_aux;
@@ -662,8 +673,9 @@ public class Consola {
 				System.out.println(" 2. Rechazar");
 
 				opcion = sc.nextLine();
-				
-			switch (opcion) {
+			
+			if(pedido != null) {
+				switch (opcion) {
 				case "1": {
 					if (admin.procesarPedido(pedido)) {
 						
@@ -691,7 +703,9 @@ public class Consola {
 					break;
 				}
 
-			} while (!valido);
+			}
+			}
+			while (!valido);
 
 			valido = false;
 
@@ -722,12 +736,12 @@ public class Consola {
 	}
 
 	static ArrayList<Integer> listarPedidosEnEspera() {
-
+		ArrayList<Pedido> listapedidos = Pedido.getPedidos();
 		ArrayList<Integer> codPedidos = new ArrayList<Integer>();
 		System.out.println("Codigo pedido - " + "Estado pedido");
 
-		for (Pedido pedido : restaurante.getPedidos()) {
-			if (pedido.getEstado() == estadoPedido.Enviado.toString()) {
+		for (Pedido pedido : listapedidos) {
+			if (pedido.getEstado().equals(estadoPedido.Enviado.toString())) {
 				System.out.println(pedido.getCodigo() + " - " + pedido.getEstado());
 				codPedidos.add(pedido.getCodigo());
 			}

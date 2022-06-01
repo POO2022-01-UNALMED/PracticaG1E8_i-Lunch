@@ -61,10 +61,18 @@ public class Pedido implements Serializable {
 		this.restaurante = restaurante;
 		pedidos.add(this);
 		Pedido.totalPedidos += 1;
+		
+		// Sumar a los pedidos del cliente
+		this.cliente.agregarPedidoHistorial(this);
+		
 	}
 	
 	public Pedido() {
 		this(null, 0, "", null, null);
+	}
+	
+	public Pedido(Cliente cliente) {
+		this(cliente, 0, "", null, null);
 	}
 	
 	///////// GETTERS AND SETTERS /////////
