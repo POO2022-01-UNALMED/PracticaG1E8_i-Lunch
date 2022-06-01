@@ -10,14 +10,15 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Empleado implements Serializable, Usuario {
-	
+
 	// Atributos utilizados para la serialización
-	private static final long serialVersionUID = 1L; // Se requiere del atributo serialVersionUID por usar la interface Serializable.
+	private static final long serialVersionUID = 1L; // Se requiere del atributo serialVersionUID por usar la interface
+														// Serializable.
 	private static ArrayList<Empleado> empleados;
 	static {
 		empleados = new ArrayList<Empleado>();
 	}
-	
+
 	// Atributos
 	protected int cedula;
 	protected String nombre;
@@ -25,10 +26,10 @@ public class Empleado implements Serializable, Usuario {
 	protected boolean disponibilidad;
 	protected int salario;
 	protected Restaurante restaurante;
-	
-	
-	/*Constructor de la clase empleado*/
-	public Empleado(int cedula, String nombre, String cargo, boolean disponibilidad, int salario, Restaurante restaurante) {
+
+	/* Constructor de la clase empleado */
+	public Empleado(int cedula, String nombre, String cargo, boolean disponibilidad, int salario,
+			Restaurante restaurante) {
 		this.cedula = cedula;
 		this.nombre = nombre;
 		this.cargo = cargo;
@@ -91,7 +92,7 @@ public class Empleado implements Serializable, Usuario {
 	public void setRestaurante(Restaurante restaurante) {
 		this.restaurante = restaurante;
 	}
-	
+
 	public static ArrayList<Empleado> getEmpleados() {
 		return empleados;
 	}
@@ -99,7 +100,7 @@ public class Empleado implements Serializable, Usuario {
 	public Restaurante getRestaurante() {
 		return restaurante;
 	}
-	
+
 	public static void setEmpleados(ArrayList<Empleado> empleados) {
 		Empleado.empleados = empleados;
 	}
@@ -118,7 +119,7 @@ public class Empleado implements Serializable, Usuario {
 	 * finalidad modificar el atributo "estadoPedido", la primera vez y de manera
 	 * unica.
 	 */
-	
+
 	// Métodos
 	public boolean procesarPedido(Pedido pedido) {
 		if (restaurante.verificarPersonal(pedido) && restaurante.verificarProductos(pedido)) {
@@ -138,47 +139,43 @@ public class Empleado implements Serializable, Usuario {
 			pedido.setEstado(estadoPedido.Rechazado.name());
 			return false;
 		}
-		
+
 		switch (pedido.getEstado()) {
-		
-			case "Recibido":
-				pedido.setEstado(estadoPedido.Aceptado.name());
-				break;
-			case "Aceptado":
-				pedido.setEstado(estadoPedido.EnPreparacion.name());
-				break;
-			case "EnPreparacion":
-				pedido.setEstado(estadoPedido.Listo.name());
-				break;
-			case "Listo":
-				pedido.setEstado(estadoPedido.Despachado.name());
-				break;
-			}
-		
+
+		case "Recibido":
+			pedido.setEstado(estadoPedido.Aceptado.name());
+			break;
+		case "Aceptado":
+			pedido.setEstado(estadoPedido.EnPreparacion.name());
+			break;
+		case "EnPreparacion":
+			pedido.setEstado(estadoPedido.Listo.name());
+			break;
+		case "Listo":
+			pedido.setEstado(estadoPedido.Despachado.name());
+			break;
+		}
+
 		return true;
 
 	}
-	
+
 	// Implementación de la interfaz Usuario
 	public String informacion() {
-		if(this.getDisponibilidad()) {
-			return "El Empleado " + this.nombre + " con C.C. " + this.cedula + " trabaja en el restaurante " + this.restaurante.getNombre() + "\n"
-					+ "Tiene un salario de: $" + this.salario + " y desempeña el cargo de " + this.cargo + ".\n"
-					+ "Está disponible actualmente.";
+		if (this.getDisponibilidad()) {
+			return "El Empleado " + this.nombre + " con C.C. " + this.cedula + " trabaja en el restaurante "
+					+ this.restaurante.getNombre() + "\n" + "Tiene un salario de: $" + this.salario
+					+ " y desempeña el cargo de " + this.cargo + ".\n" + "Está disponible actualmente.";
 		} else {
-			return "El Empleado " + this.nombre + " con C.C. " + this.cedula + " trabaja en el restaurante " + this.restaurante.getNombre() + "\n"
-					+ "Tiene un salario de: $" + this.salario + " y desempeña el cargo de " + this.cargo + ".\n"
-					+ "No está disponible actualmente.";
+			return "El Empleado " + this.nombre + " con C.C. " + this.cedula + " trabaja en el restaurante "
+					+ this.restaurante.getNombre() + "\n" + "Tiene un salario de: $" + this.salario
+					+ " y desempeña el cargo de " + this.cargo + ".\n" + "No está disponible actualmente.";
 		}
 	}
+
 	public String toString() {
-		return    "Cedula: \"" + cedula + "\"\n"
-				+ "Nombre: \"" + nombre + "\"\n"
-				+ "Cargo: \"" + cargo + "\"\n"
-				+ "Disponiblidad: " + disponibilidad + "\n"
-				+ "Salario: " + salario + "\n"
-				+ "Restaurante: " + restaurante;
+		return "Cedula: \"" + cedula + "\"\n" + "Nombre: \"" + nombre + "\"\n" + "Cargo: \"" + cargo + "\"\n"
+				+ "Disponiblidad: " + disponibilidad + "\n" + "Salario: " + salario + "\n" + "Restaurante: "
+				+ restaurante;
 	}
 }
-
-	

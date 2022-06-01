@@ -28,17 +28,8 @@ public class Restaurante implements Serializable {
 	private float balanceCuenta;
 
 	// Constructores
-	public Restaurante(
-			String nombre, 
-			int nit, 
-			int telefono, 
-			String direccion, 
-			String correo, 
-			boolean abierto,
-			int capacidad, 
-			ArrayList<Empleado> empleados, 
-			ArrayList<Producto> menu, 
-			ArrayList<Pedido> pedidos,
+	public Restaurante(String nombre, int nit, int telefono, String direccion, String correo, boolean abierto,
+			int capacidad, ArrayList<Empleado> empleados, ArrayList<Producto> menu, ArrayList<Pedido> pedidos,
 			int balanceCuenta) {
 		super();
 		this.nombre = nombre;
@@ -164,7 +155,6 @@ public class Restaurante implements Serializable {
 				chef = true;
 			}
 		}
-		
 
 		// Identificar el tipo de pedido
 		switch (pedido.getTipo()) {
@@ -219,143 +209,138 @@ public class Restaurante implements Serializable {
 				return false;
 			}
 		}
-		
+
 		}
 
 		// Si todo es aceptable se realiza el pedido
 		return true;
 	}
 
-	//	Metodo que determina si el restaurante posee los productos solicitados en un pedido
+	// Metodo que determina si el restaurante posee los productos solicitados en un
+	// pedido
 	public boolean verificarProductos(Pedido pedido) {
 		/*
-		// Identificar los productos solicitados y la cantidad de ellos
-		ArrayList<Producto> productos = pedido.getProductos();
-		for (int i = 0; i < productos.size(); i++) {
-			Producto demanda = productos.get(i);
+		 * // Identificar los productos solicitados y la cantidad de ellos
+		 * ArrayList<Producto> productos = pedido.getProductos(); for (int i = 0; i <
+		 * productos.size(); i++) { Producto demanda = productos.get(i);
+		 * 
+		 * // Rectificar que el restaurante tenga los productos solicitados en las
+		 * cantidad pedidas. for (int j = 0; j < menu.size(); j++) { Producto oferta =
+		 * menu.get(j);
+		 * 
+		 * // Si no hay alguno de los productos disponibles o en la cantidad deseada no
+		 * se puede realizar if (demanda.getNombre() != oferta.getNombre() ||
+		 * !oferta.getDisponiblidad() || demanda.getCantidad() > oferta.getCantidad()) {
+		 * return false; } } }
+		 * 
+		 * // Si todo es aceptable se puede realizar el pedido return true;
+		 */
 
-			// Rectificar que el restaurante tenga los productos solicitados en las cantidad pedidas.
-			for (int j = 0; j < menu.size(); j++) {
-				Producto oferta = menu.get(j);
-
-				// Si no hay alguno de los productos disponibles o en la cantidad deseada no se puede realizar
-				if (demanda.getNombre() != oferta.getNombre() || !oferta.getDisponiblidad()
-						|| demanda.getCantidad() > oferta.getCantidad()) {
-					return false;
-				}
-			}
-		}
-
-		// Si todo es aceptable se puede realizar el pedido
-		return true;
-		*/
-		
-		
-		for(Producto demanda: pedido.getProductos()) {
+		for (Producto demanda : pedido.getProductos()) {
 			boolean existe = false;
 			boolean cantidad = false;
 			boolean disponible = false;
-			for(Producto oferta: menu) {
-				if(demanda.getNombre()==oferta.getNombre()) {
-					existe=true;
+			for (Producto oferta : menu) {
+				if (demanda.getNombre() == oferta.getNombre()) {
+					existe = true;
 					disponible = oferta.getDisponiblidad();
-					if(oferta.getCantidad() >= demanda.getCantidad()) {
-						cantidad=true;
+					if (oferta.getCantidad() >= demanda.getCantidad()) {
+						cantidad = true;
 					}
 				}
-				
+
 			}
-			if(!existe || !cantidad || !disponible) {
+			if (!existe || !cantidad || !disponible) {
 				return false;
 			}
 		}
-		
+
 		return true;
 	}
-	
-	
+
 	//////// ESTADISTICAS \\\\\\\
-	public Repartidor getRepartidorConMasPedidos(){
-		//Repartidor vacio para que el metodo funcione
+	public Repartidor getRepartidorConMasPedidos() {
+		// Repartidor vacio para que el metodo funcione
 		Repartidor topRepartidor = new Repartidor();
-		//Loop para encontrar el repartidor con mas pedidos repartidos
-		for (Repartidor repartidor: Repartidor.getRepartidores()) {
-			//Comparamos cada repartidor en la lista de repartidores
+		// Loop para encontrar el repartidor con mas pedidos repartidos
+		for (Repartidor repartidor : Repartidor.getRepartidores()) {
+			// Comparamos cada repartidor en la lista de repartidores
 			int repartidos1 = repartidor.getCantidadPedidosEntregados();
 			int repartidos2 = topRepartidor.getCantidadPedidosEntregados();
-			if(repartidos1 > repartidos2) {
+			if (repartidos1 > repartidos2) {
 				topRepartidor = repartidor;
 			}
 		}
 		return topRepartidor;
 	}
-	
+
 	public Mesero getMeseroConMasPropinas() {
-		//Mesero vacio para que el metodo funcione
+		// Mesero vacio para que el metodo funcione
 		Mesero topMeseroPropinas = new Mesero();
 		// Loop para encontrar al mesero con mas propinas
-		for (Mesero mesero: Mesero.getMeseros()) {
-			//Comparamos todos los meseros en la lista de meseros
+		for (Mesero mesero : Mesero.getMeseros()) {
+			// Comparamos todos los meseros en la lista de meseros
 			int Propinas1 = topMeseroPropinas.totalPropinas();
 			int Propinas2 = mesero.totalPropinas();
-			if(Propinas2 > Propinas1) {
+			if (Propinas2 > Propinas1) {
 				topMeseroPropinas = mesero;
 			}
 		}
 		return topMeseroPropinas;
 	}
-	
-	
+
 	public float PromedioPropinasMeseros() {
 		int cantidad = 0;
 		float propinas = 0;
-		for (Mesero mesero: Mesero.getMeseros()) {
-			cantidad +=1;
+		for (Mesero mesero : Mesero.getMeseros()) {
+			cantidad += 1;
 			propinas += mesero.totalPropinas();
 		}
 		return propinas / cantidad;
 	}
-	
+
 	public float promedioPedidosRepartidores() {
 		int cantidad = 0;
 		float pedidos = 0;
-		for (Repartidor repartidor: Repartidor.getRepartidores()) {
-			cantidad +=1;
+		for (Repartidor repartidor : Repartidor.getRepartidores()) {
+			cantidad += 1;
 			pedidos += repartidor.getCantidadPedidosEntregados();
 		}
 		return pedidos / cantidad;
 	}
-	
-	// Este es el metodo para mostrar todas las estadisticas que querramos implementar juntas. 
+
+	// Este es el metodo para mostrar todas las estadisticas que querramos
+	// implementar juntas.
 	public String estadisticasRestaurante() {
 		Mesero topMesero = getMeseroConMasPropinas();
 		Repartidor topRepartidor = getRepartidorConMasPedidos();
-		return "El mesero con mas propinas es: " + topMesero.getNombre() + 
-				
-				" con " + topMesero.totalPropinas() + " Recibido en propinas." +
-		
-				"\n"+
-				
-				"El repartidor con mas pedidos repartidos es: " + topRepartidor.getNombre() + 
-				
-				" con " + topRepartidor.getCantidadPedidosEntregados() + " Pedidos entregados." + "\n" + 
-				
-				"En promedio un mesero recibe " + PromedioPropinasMeseros() + " en propinas en el restaurante." + "\n" +
-				
-				"En promedio un mesero ha entregado " + promedioPedidosRepartidores() + " pedidos a clientes del restaurante.";
+		return "El mesero con mas propinas es: " + topMesero.getNombre() +
+
+				" con $" + topMesero.totalPropinas() + " Recibido en propinas." +
+
+				"\n" +
+
+				"El repartidor con mas pedidos repartidos es: " + topRepartidor.getNombre() +
+
+				" con " + topRepartidor.getCantidadPedidosEntregados() + " Pedidos entregados." + "\n" +
+
+				"En promedio un mesero recibe $" + PromedioPropinasMeseros() + " en propinas en el restaurante." + "\n"
+				+
+
+				"En promedio un mesero ha entregado " + promedioPedidosRepartidores()
+				+ " pedidos a clientes del restaurante.";
 	}
-	
-	
+
 	// Metodo chequear pedido
-	
+
 	public Boolean chequearPedido(Pedido pedido) {
-		if(verificarProductos(pedido) && verificarPersonal(pedido)) {
+		if (verificarProductos(pedido) && verificarPersonal(pedido)) {
 			return true;
 		}
 		return false;
 	}
-	
-	//Agregar un pedido al historial
+
+	// Agregar un pedido al historial
 	public String agregarPedido(Pedido pedido) {
 
 		if (!pedidos.contains(pedido)) {
@@ -365,19 +350,4 @@ public class Restaurante implements Serializable {
 			return "ERROR: El pedido ya se encuentra anadido";
 		}
 	}
-	
-	/*@Override
-	public String toString() { <--- ESTE TOSTRING GENERA UN ERROR QUE NO SE QUE ES :(
-		return    "Nombre: \"" + nombre + "\"\n"
-				+ "Nit: \"" + nit + "\"\n"
-				+ "Telefono: \"" + telefono + "\"\n"
-				+ "Direccion: " + direccion + "\n"
-				+ "Correo: " + correo + "\n"
-				+ "Estado: " + abierto + "\n"
-				+ "Capacidad: " + capacidad + "\n" 
-				+ "Empleados: " + empleados + "\n"
-				+ "Menu: " + menu + "\n"
-				+ "Pedidos: " + pedidos + "\n"
-				+ "Balance de cuenta: " + balanceCuenta;
-	}*/ 
 }

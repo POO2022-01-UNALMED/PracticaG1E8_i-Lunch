@@ -4,14 +4,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Producto implements Serializable {
-	
+
 	// Serializcion
 	private static final long serialVersionUID = 1L;
 	private static ArrayList<Producto> productos;
 	static {
 		productos = new ArrayList<Producto>();
 	}
-	
+
 	// Atributos
 	private String nombre;
 	private String descripcion;
@@ -20,14 +20,9 @@ public class Producto implements Serializable {
 	private boolean restriccion;
 	private int cantidad;
 	private boolean estado;
-	
+
 	// Constructores
-	public Producto(
-			String nombre, 
-			String descripcion, 
-			int precio, 
-			boolean disponiblidad, 
-			boolean restriccion, 
+	public Producto(String nombre, String descripcion, int precio, boolean disponiblidad, boolean restriccion,
 			int cantidad) {
 		super();
 		this.nombre = nombre;
@@ -39,11 +34,11 @@ public class Producto implements Serializable {
 		this.estado = false; /* <-- false significa sin preparar y true, preparado */
 		productos.add(this);
 	}
-	
+
 	public Producto() {
 		this("", "", 0, false, false, 0);
 	}
-	
+
 	// Getters y Setters
 	public String getNombre() {
 		return nombre;
@@ -100,18 +95,15 @@ public class Producto implements Serializable {
 	public void setEstado(boolean estado) {
 		this.estado = estado;
 	}
-	
+
 	public static ArrayList<Producto> getProductos() {
 		return productos;
 	}
 
 	@Override
 	public String toString() {
-		return    "Nombre: \"" + nombre + "\"\n"
-				+ "Descripcion: \"" + descripcion + "\"\n"
-				+ "Precio: $" + precio + "\n"
-				+ "Disponiblidad: " + disponiblidad + "\n"
-				+ "Restriccion de edad: " + restriccion + "\n"
+		return "Nombre: \"" + nombre + "\"\n" + "Descripcion: \"" + descripcion + "\"\n" + "Precio: $" + precio + "\n"
+				+ "Disponiblidad: " + disponiblidad + "\n" + "Restriccion de edad: " + restriccion + "\n"
 				+ "Cantidad disponible: " + cantidad;
 	}
 }

@@ -51,7 +51,9 @@ public class Consola {
 
 		// Mensaje de bienvenida
 		System.out.println(
-				"                                ,                                                                   \r\n"
+				"\n----------------------------------------------------------------------------------------------------\n");
+		System.out.println(
+				"                                                                                                    \r\n"
 						+ "                        @@@@@@@@@@#                                                                 \r\n"
 						+ "                    @@@@@  @@@@@@@                                                                  \r\n"
 						+ "                  @@@@    (@@@@@@,                                                                  \r\n"
@@ -79,7 +81,7 @@ public class Consola {
 		restaurante = admin.getRestaurante();
 
 		System.out.println(
-				"----------------------------------------------------------------------------------------------------\n");
+				"\n----------------------------------------------------------------------------------------------------\n");
 
 		System.out.println("\"" + admin.getNombre() + "\" Bienvenido de nuevo a i-Lunch");
 		System.out.println("Restaurante: \"" + restaurante.getNombre() + "\"");
@@ -116,12 +118,7 @@ public class Consola {
 
 			switch (opcion) {
 
-			case "1": // David
-				// Muestra la info basica del restaurante
-				/*
-				 * 1. empleados 2. productos 3. historial pedidos 4. balance de cuenta 5.
-				 * estadisticas (Funcionalidad) 6. Volver al menu principal
-				 */
+			case "1":
 				DaviMenu1();
 				break;
 
@@ -134,9 +131,11 @@ public class Consola {
 				break;
 
 			case "4":
+				System.out.println(
+						"\n----------------------------------------------------------------------------------------------------");
 				ArrayList<Pedido> listapedidos = Pedido.getPedidos();
 				ArrayList<Integer> codPedidos = new ArrayList<Integer>();
-				
+
 				for (Pedido pedido : listapedidos) {
 					if (pedido.getEstado().equals(estadoPedido.Recibido.toString())) {
 						codPedidos.add(pedido.getCodigo());
@@ -173,18 +172,13 @@ public class Consola {
 				break;
 
 			case "7":
-				// David
-				// 1. Ver clientes
-				// 2. Crear cliente
-				// 2.1 Manual
-				// 2.2 Automatico
 				DaviMenu2();
 				break;
 
-			case "8": // Jero
+			case "8":
 				System.out.println(
 						"\n----------------------------------------------------------------------------------------------------\n");
-				System.out.println("Gracias por haber usado nuestra aplicacion! Vuelva pronto =)\n");
+				System.out.println("Gracias por haber usado i-Lunch! Esperamos que vuelva pronto ;)\n");
 				Serializador.serializarTodo();
 				break;
 
@@ -225,46 +219,50 @@ public class Consola {
 				ccAdmin = 0;
 			}
 
-			System.out.println("Por favor, ingresa los datos del restaurante que quieres registrar: ");
-			System.out.println("Nombre: ");
+			System.out.println("\nPor favor, ingresa el nombre del restaurante que quieres registrar: ");
 			String nombreRestaurante = readString();
-			System.out.println("Email: ");
-			String emailRestaurante = readString();
-			System.out.println("Direccion: ");
-			String direccionRestaurante = readString();
 
 			System.out.println("\nRegistro completado con exito!\n");
 
 			restaurante = new Restaurante(nombreRestaurante, DatosAleatorios.randInt(100000, 999999),
-					DatosAleatorios.randInt(100000, 999999), direccionRestaurante, emailRestaurante, true,
-					DatosAleatorios.randInt(1, 20), empleados, menu, pedidos, DatosAleatorios.randInt(1000, 10000));
+					DatosAleatorios.randInt(100000, 999999), "", "", true, DatosAleatorios.randInt(1, 20), empleados,
+					menu, pedidos, DatosAleatorios.randInt(10000, 50000));
+
 			new Administrador(ccAdmin, nombreAdmin, true, DatosAleatorios.randInt(500, 2000), restaurante);
 
-			// Generar de 1 a 3 empleados random de cada tipo
-			int numEmpleados = DatosAleatorios.randInt(1, 3);
+			// Generar de 3 a 5 empleados random de cada tipo
+			int numEmpleados = DatosAleatorios.randInt(3, 5);
 
-			for (int i = 0; i < numEmpleados * 3; i++) {
-				if (i < 3) {
-					empleados.add(new Repartidor(DatosAleatorios.randInt(100000, 999999),
-							DatosAleatorios.randString(DatosAleatorios.nombresAleatorios), DatosAleatorios.randBool(),
-							DatosAleatorios.randInt(400, 1200), restaurante, DatosAleatorios.randBool(),
-							"ABC-" + DatosAleatorios.randInt(100, 999),
-							DatosAleatorios.randString(DatosAleatorios.tiposVehiculos)));
-				} else if (i < 6) {
-					empleados.add(new Mesero(DatosAleatorios.randInt(100000, 999999),
-							DatosAleatorios.randString(DatosAleatorios.nombresAleatorios), DatosAleatorios.randBool(),
-							DatosAleatorios.randInt(400, 1200), restaurante));
-				} else {
-					empleados.add(new Chef(DatosAleatorios.randInt(100000, 999999),
-							DatosAleatorios.randString(DatosAleatorios.nombresAleatorios), DatosAleatorios.randBool(),
-							DatosAleatorios.randInt(400, 1200), restaurante,
-							DatosAleatorios.randString(DatosAleatorios.cargosEnCocina),
-							DatosAleatorios.randString(DatosAleatorios.especialidadesChefs)));
-				}
+			for (int i = 0; i < numEmpleados; i++) { // Repartidores
+				empleados.add(new Repartidor(DatosAleatorios.randInt(100000, 999999),
+						DatosAleatorios.randString(DatosAleatorios.nombresAleatorios), DatosAleatorios.randBool(),
+						DatosAleatorios.randInt(400, 1200), restaurante, DatosAleatorios.randBool(),
+						"ABC-" + DatosAleatorios.randInt(100, 999),
+						DatosAleatorios.randString(DatosAleatorios.tiposVehiculos)));
 			}
 
-			// Generar de 1 a 10 productos random
-			int numProductos = DatosAleatorios.randInt(1, 10);
+			for (int i = 0; i < numEmpleados; i++) { // Meseros
+				empleados.add(new Mesero(DatosAleatorios.randInt(100000, 999999),
+						DatosAleatorios.randString(DatosAleatorios.nombresAleatorios), DatosAleatorios.randBool(),
+						DatosAleatorios.randInt(400, 1200), restaurante));
+			}
+
+			// Crear chef en jefe predeterminado
+			empleados.add(new Chef(DatosAleatorios.randInt(100000, 999999),
+					DatosAleatorios.randString(DatosAleatorios.nombresAleatorios), DatosAleatorios.randBool(),
+					DatosAleatorios.randInt(400, 1200), restaurante, "Chef en jefe",
+					DatosAleatorios.randString(DatosAleatorios.especialidadesChefs)));
+
+			for (int i = 0; i < numEmpleados - 1; i++) { // Chefs
+				empleados.add(new Chef(DatosAleatorios.randInt(100000, 999999),
+						DatosAleatorios.randString(DatosAleatorios.nombresAleatorios), DatosAleatorios.randBool(),
+						DatosAleatorios.randInt(400, 1200), restaurante,
+						DatosAleatorios.randString(DatosAleatorios.cargosEnCocina),
+						DatosAleatorios.randString(DatosAleatorios.especialidadesChefs)));
+			}
+
+			// Generar de 5 a 10 productos random
+			int numProductos = DatosAleatorios.randInt(5, 10);
 
 			for (int i = 0; i < numProductos; i++) {
 				menu.add(new Producto(DatosAleatorios.randString(DatosAleatorios.productosAleatorios),
@@ -276,15 +274,15 @@ public class Consola {
 			restaurante.setEmpleados(empleados);
 			restaurante.setMenu(menu);
 
-			// Generar de 1 a 10 clientes random
-			int numClientes = DatosAleatorios.randInt(1, 10);
+			// Generar de 5 a 15 clientes random
+			int numClientes = DatosAleatorios.randInt(5, 15);
 
 			for (int i = 0; i < numClientes; i++) {
 				new Cliente(DatosAleatorios.randInt(100000, 999999),
 						DatosAleatorios.randString(DatosAleatorios.nombresAleatorios),
 						"Calle " + DatosAleatorios.randInt(10, 99) + " #" + DatosAleatorios.randInt(10, 99) + "-"
 								+ DatosAleatorios.randInt(10, 99),
-						DatosAleatorios.randInt(18, 99), null, new ArrayList<Pedido>(), "cliente" + i + "@gmail.com");
+						DatosAleatorios.randInt(18, 60), null, new ArrayList<Pedido>(), "cliente" + i + "@gmail.com");
 			}
 		}
 	}
@@ -550,8 +548,7 @@ public class Consola {
 				// Contratar empleado
 				System.out.println("Contratar empleado\n");
 
-				System.out.println("Ingrese la cedula del empleado: "); // <--- Se pueden crear empleados con cedulas
-																		// repetidas.
+				System.out.println("Ingrese la cedula del empleado: ");
 				String cedSt = readString();
 				int cedula;
 				try {
@@ -625,32 +622,31 @@ public class Consola {
 		boolean continuar = true;
 		do {
 			codPedidos = listarPedidosEnEspera();
-			
-			if(codPedidos.size()==0) {
+
+			if (codPedidos.size() == 0) {
 				System.out.println("No hay mas pedidos en cola");
 				pressEnter();
 				return;
 			}
+			System.out.println("0. Volver al menu principal");
 			System.out.println("Ingrese el codigo de un pedido");
-			System.out.println("Ingrese 0 para volver al menu principal");
-			
+
 			int codigo = 0;
 			boolean valido = false;
 			do {
 				try {
 					String entrada = readString();
-					
+
 					try {
 						codigo = Integer.parseInt(entrada);
 					} catch (Exception e) {
 						codigo = 0;
 					}
-					
-					
-					if(entrada.equals("0")) {
+
+					if (entrada.equals("0")) {
 						return;
 					}
-					
+
 					if (codPedidos.contains(codigo)) {
 						valido = true;
 					} else {
@@ -664,7 +660,7 @@ public class Consola {
 
 			valido = false;
 			String opcion;
-			
+
 			Pedido pedido = null;
 			for (Pedido pedido_aux : restaurante.getPedidos()) {
 				if (pedido_aux.getCodigo() == codigo) {
@@ -673,59 +669,60 @@ public class Consola {
 			}
 
 			do {
-				System.out.println("Que desea hacer con este pedido?\n");
+				System.out.println("\nQue desea hacer con este pedido?\n");
 
 				System.out.println(" 1. Aceptar");
 				System.out.println(" 2. Rechazar");
 
 				opcion = sc.nextLine();
-			
-			if(pedido != null) {
-				switch (opcion) {
-				case "1": {
-					if (admin.procesarPedido(pedido)) {
-						
-						admin.actualizarEstadoPedido(pedido, true); // DE RECIBIDO A ACEPTADO
-						System.out.println("Pedido aceptado. Iniciando preparacion");
-						
-						admin.actualizarEstadoPedido(pedido, true); // DE ACEPTADO A EN PREPARACION
-						// Chef.prepararPedido
-						// Chef.revisionPedido // DE EN PREPARACION A LISTO
-						
-						// SI TRUE:
+
+				if (pedido != null) {
+					switch (opcion) {
+					case "1": {
+						if (admin.procesarPedido(pedido)) {
+
+							admin.actualizarEstadoPedido(pedido, true); // DE RECIBIDO A ACEPTADO
+							System.out.println("Pedido aceptado. Iniciando preparacion");
+
+							admin.actualizarEstadoPedido(pedido, true); // DE ACEPTADO A EN PREPARACION
+							// Chef.prepararPedido
+							// Chef.revisionPedido // DE EN PREPARACION A LISTO
+
+							// SI TRUE:
 							// admin.actualizarEstadoPedido(pedido, true); // DE LISTO A DESPACHADO
 							System.out.println("Pedido despachado");
-						// SI FALSE
-							// System.out.println("El pedido no pudo ser preparado. Ofrecemos disculpas...");
-						
-						valido = true;
-						break;
-					} else {
-						System.out.println("Lo sentimos el pedido no puede ser aceptado por restricciones del restaurante");
+							// SI FALSE
+							// System.out.println("El pedido no pudo ser preparado. Ofrecemos
+							// disculpas...");
+
+							valido = true;
+							break;
+						} else {
+							System.out.println(
+									"Lo sentimos el pedido no puede ser aceptado por restricciones del restaurante");
+							admin.actualizarEstadoPedido(pedido, false);
+							valido = true;
+							break;
+						}
+					}
+					case "2": {
+						System.out.println("Pedido rechazado");
 						admin.actualizarEstadoPedido(pedido, false);
 						valido = true;
 						break;
 					}
-				}
-				case "2": {
-					System.out.println("Pedido rechazado");
-					admin.actualizarEstadoPedido(pedido, false);
-					valido = true;
-					break;
-				}
-				default:
-					System.out.println("Opcion no valida\n");
-					break;
-				}
+					default:
+						System.out.println("Opcion no valida\n");
+						break;
+					}
 
-			}
-			}
-			while (!valido);
+				}
+			} while (!valido);
 
 			valido = false;
 
 			do {
-				System.out.println("Desea continuar con la gestion de pedidos?\n");
+				System.out.println("\nDesea continuar con la gestion de pedidos?\n");
 
 				System.out.println(" 1. Si, continuar");
 				System.out.println(" 2. No, volver al menu principal");
@@ -753,11 +750,12 @@ public class Consola {
 	static ArrayList<Integer> listarPedidosEnEspera() {
 		ArrayList<Pedido> listapedidos = Pedido.getPedidos();
 		ArrayList<Integer> codPedidos = new ArrayList<Integer>();
-		System.out.println("Codigo pedido - " + "Estado pedido");
+		System.out.println("Pedidos recibidos:");
 
 		for (Pedido pedido : listapedidos) {
 			if (pedido.getEstado().equals(estadoPedido.Recibido.toString())) {
-				System.out.println(pedido.getCodigo() + " - " + pedido.getEstado());
+				System.out.println(
+						" " + pedido.getCodigo() + ". " + "Pedido " + pedido.getCodigo() + " - " + pedido.getEstado());
 				codPedidos.add(pedido.getCodigo());
 			}
 		}
@@ -793,8 +791,13 @@ public class Consola {
 				} catch (Exception e) {
 					id = 0;
 				}
-
-				System.out.println(admin.pagoNomina(id));
+				
+				try {
+					System.out.println(admin.pagoNomina(id));
+				} catch (Exception e) {
+					System.out.println("El empleado con ese ID no existe. Por favor intentelo nuevamente");
+				}
+				
 				pressEnter();
 				break;
 			case "2":
@@ -959,7 +962,7 @@ public class Consola {
 			for (int i = 0; i < listapedidos.size(); ++i) {
 				System.out.println(" " + (i + 1) + ". Pedido " + listapedidos.get(i).getCodigo());
 			}
-			
+
 			System.out.println("\n 0. Regresar al menu principal.");
 			try {
 				opcionpedidos = Integer.parseInt(Consola.readString());
@@ -996,7 +999,7 @@ public class Consola {
 					"\n----------------------------------------------------------------------------------------------------");
 			System.out.println("Estadisticas\n");
 			System.out.println(restaurante.estadisticasRestaurante());
-			System.out.println("\n 0. Regresar al menu principal.");
+			System.out.println("\n0. Regresar al menu principal.");
 
 			opcion = readString();
 
@@ -1167,7 +1170,7 @@ public class Consola {
 		String direccionCliente;
 		String correoElectronicoClienteString;
 		boolean verdad = false;
-		System.out.println("Por favor ingrese el nombre del cliente que desea registrar");
+		System.out.println("\nPor favor ingrese el nombre del cliente que desea registrar");
 		nombreCliente = readString();
 		System.out.println("Por favor ingrese la edad del cliente que desea registrar");
 		do {
@@ -1205,10 +1208,9 @@ public class Consola {
 		new Cliente(numeroClienteInt, nombreCliente, direccionCliente, edadClienteInt, null, new ArrayList<Pedido>(),
 				correoElectronicoClienteString);
 
-		System.out.println("Se ha creado el cliente con nombre: " + nombreCliente + "\n" + "con una edad de: "
-				+ edadClienteInt + " anhos" + "\n" + "el cual tiene el numero telfonico: " + numeroCliente + "\n"
-				+ "con el correo electronico: " + correoElectronicoClienteString + "\n"
-				+ "el cual tiene por direccion: " + direccionCliente);
+		System.out.println("\nSe ha creado el cliente con nombre: " + nombreCliente + "\n" + "con una edad de: "
+				+ edadClienteInt + " anhos" + "\n" + "Numero telfonico: " + numeroCliente + "\n"
+				+ "Correo electronico: " + correoElectronicoClienteString + "\n" + "Direccion: " + direccionCliente);
 		pressEnter();
 	}
 
@@ -1220,11 +1222,11 @@ public class Consola {
 				DatosAleatorios.randInt(18, 99), null, new ArrayList<Pedido>(),
 				"cliente" + DatosAleatorios.randInt(150, 999999) + "@gmail.com");
 
-		System.out.println("Se ha creado el cliente con nombre: " + clienteSummonCliente.getNombre() + "\n"
-				+ "con una edad de: " + clienteSummonCliente.getEdad() + " anhos" + "\n"
-				+ "el cual tiene el numero telfonico: " + clienteSummonCliente.getTelefono() + "\n"
-				+ "con el correo electronico: " + clienteSummonCliente.getCorreoElectronico() + "\n"
-				+ "el cual tiene por direccion: " + clienteSummonCliente.getDireccion());
+		System.out.println("\nSe ha generado el cliente con nombre: " + clienteSummonCliente.getNombre()
+				+ "con una edad de: " + clienteSummonCliente.getEdad() + " anhos" + "\n" + "Numero telfonico: "
+				+ clienteSummonCliente.getTelefono() + "\n" + "Correo electronico: "
+				+ clienteSummonCliente.getCorreoElectronico() + "\n" + "Direccion: "
+				+ clienteSummonCliente.getDireccion());
 		pressEnter();
 	}
 

@@ -6,7 +6,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import gestorAplicacion.usuariosRestaurante.*;
-import uiMain.DatosAleatorios;
 
 public class Pedido implements Serializable {
 

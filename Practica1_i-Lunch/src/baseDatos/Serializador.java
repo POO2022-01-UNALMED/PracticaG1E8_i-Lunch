@@ -14,11 +14,17 @@ import gestorAplicacion.usuariosRestaurante.*;
  * @author Felipe Miranda */
 
 public class Serializador {
-	/* Serializamos una lista por el nombre de la clase
-	 * @param <E>       El generico se usa para poder agredar las clases que se crearon
-	 * @param lista     Una lista de objetos
-	 * @param className El nombre de la clase que queremos usar como nombre del archivo */
-	
+	/*
+	 * Serializamos una lista por el nombre de la clase
+	 * 
+	 * @param <E> El generico se usa para poder agredar las clases que se crearon
+	 * 
+	 * @param lista Una lista de objetos
+	 * 
+	 * @param className El nombre de la clase que queremos usar como nombre del
+	 * archivo
+	 */
+
 	public static <E> void serializar(List<E> lista, String className) {
 		FileOutputStream fileOut;
 
@@ -32,16 +38,16 @@ public class Serializador {
 			out.writeObject(lista);
 			out.close();
 			fileOut.close();
-			
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	/* Serializamos todas las clases que necesitamos  */
+	/* Serializamos todas las clases que necesitamos */
 	public static void serializarTodo() {
 		Serializador.serializar(Pedido.getPedidos(), "pedidos");
 		Serializador.serializar(Producto.getProductos(), "productos");
@@ -49,6 +55,8 @@ public class Serializador {
 		Serializador.serializar(Cliente.getClientes(), "clientes");
 		Serializador.serializar(Empleado.getEmpleados(), "empleados");
 		Serializador.serializar(Administrador.getAdministradores(), "administradores");
+		Serializador.serializar(Mesero.getMeseros(), "meseros");
+		Serializador.serializar(Repartidor.getRepartidores(), "repartidores");
 	}
 
 }

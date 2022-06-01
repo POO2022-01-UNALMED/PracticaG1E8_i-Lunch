@@ -31,11 +31,11 @@ public class Administrador extends Empleado implements Serializable, Usuario {
 	// debido a que este siempre será "Administrador"
 	public Administrador(int cedula, String nombre, boolean disponibilidad, int salario, Restaurante restaurante) {
 		super(cedula, nombre, "Administrador", disponibilidad, salario, restaurante);
-		
+
 		ArrayList<Empleado> empleados = this.restaurante.getEmpleados();
 		empleados.add(this);
 		this.restaurante.setEmpleados(empleados);
-		
+
 		administradores.add(this);
 	}
 
@@ -56,26 +56,29 @@ public class Administrador extends Empleado implements Serializable, Usuario {
 	}
 
 	/*
-	 * Este método recibe como parámetro un objeto Empleado, comprueba que no
-	 * esté ya contratado en el restaurante y si no lo está lo agrega a la lista
-	 * de empleados del restaurante. También cambia el atributo Resturante del
+	 * Este método recibe como parámetro un objeto Empleado, comprueba que no esté
+	 * ya contratado en el restaurante y si no lo está lo agrega a la lista de
+	 * empleados del restaurante. También cambia el atributo Resturante del
 	 * Empleado.
 	 */
-	public String contratarEmpleado(int cedula, String nombre, String cargo, boolean disponibilidad, int salario, 
+	public String contratarEmpleado(int cedula, String nombre, String cargo, boolean disponibilidad, int salario,
 			Restaurante restaurante) {
 		Empleado empleadoNuevo;
-		
-		if(cargo.equals("Mesero")) {
-			empleadoNuevo = new Mesero(cedula, nombre , disponibilidad, salario, restaurante);
-		} else if(cargo.equals("Repartidor")) {
-			empleadoNuevo = new Repartidor(cedula, nombre, disponibilidad, salario, restaurante, DatosAleatorios.randBool(), "ABC-" + DatosAleatorios.randInt(100, 999), DatosAleatorios.randString(DatosAleatorios.tiposVehiculos));
-		} else if(cargo.equals("Chef")) {
-			empleadoNuevo = new Chef(cedula, nombre, disponibilidad, salario, restaurante, DatosAleatorios.randString(DatosAleatorios.cargosEnCocina), DatosAleatorios.randString(DatosAleatorios.especialidadesChefs));
+
+		if (cargo.equals("Mesero")) {
+			empleadoNuevo = new Mesero(cedula, nombre, disponibilidad, salario, restaurante);
+		} else if (cargo.equals("Repartidor")) {
+			empleadoNuevo = new Repartidor(cedula, nombre, disponibilidad, salario, restaurante,
+					DatosAleatorios.randBool(), "ABC-" + DatosAleatorios.randInt(100, 999),
+					DatosAleatorios.randString(DatosAleatorios.tiposVehiculos));
+		} else if (cargo.equals("Chef")) {
+			empleadoNuevo = new Chef(cedula, nombre, disponibilidad, salario, restaurante,
+					DatosAleatorios.randString(DatosAleatorios.cargosEnCocina),
+					DatosAleatorios.randString(DatosAleatorios.especialidadesChefs));
 		} else {
 			empleadoNuevo = new Empleado(cedula, nombre, cargo, disponibilidad, salario, restaurante);
 		}
-		
-		 
+
 		ArrayList<Empleado> listaEmpleados = this.restaurante.getEmpleados();
 		if (!listaEmpleados.contains(empleadoNuevo)) {
 			listaEmpleados.add(empleadoNuevo);
@@ -87,8 +90,8 @@ public class Administrador extends Empleado implements Serializable, Usuario {
 	}
 
 	/*
-	 * Este método recibe como parámetro un objeto Empleado, comprueba que este
-	 * esté ya contratado en el restaurante y si lo está lo agrega a la lista de
+	 * Este método recibe como parámetro un objeto Empleado, comprueba que este esté
+	 * ya contratado en el restaurante y si lo está lo agrega a la lista de
 	 * empleados del restaurante. También cambia el atributo Resturante del
 	 * Empleado.
 	 */
@@ -101,20 +104,19 @@ public class Administrador extends Empleado implements Serializable, Usuario {
 			listaEmpleados.remove(empleadoCedula);
 			this.restaurante.setEmpleados(listaEmpleados);
 			return "Empleado \"" + nombreEmp + "\" despedido con éxito";
-		} catch(Exception e) {
+		} catch (Exception e) {
 			return "ERROR: El empleado que intentas eliminar no trabaja en el restaurante";
 		}
 	}
 
 	/*
-	 * Este método recibe como parámetros: - Un String con el nombre del producto
-	 * - Un String con la descripción del producto - Un int con el precio del
-	 * procucto - Un bool que es true si el producto solo puede ser vendido a
-	 * mayores de edad - Un bool que indica la disponibilidad actual del producto
-	 * Luego, se crea un objeto de tipo Producto con estos atributos y se agrega a
-	 * la lista de productos del restaurante. Antes de agregarlo se comprueba que no
-	 * haya un producto con un nombre exactamente igual y si esto no se cumple, se
-	 * agrega.
+	 * Este método recibe como parámetros: - Un String con el nombre del producto -
+	 * Un String con la descripción del producto - Un int con el precio del procucto
+	 * - Un bool que es true si el producto solo puede ser vendido a mayores de edad
+	 * - Un bool que indica la disponibilidad actual del producto Luego, se crea un
+	 * objeto de tipo Producto con estos atributos y se agrega a la lista de
+	 * productos del restaurante. Antes de agregarlo se comprueba que no haya un
+	 * producto con un nombre exactamente igual y si esto no se cumple, se agrega.
 	 */
 	public String crearProducto(String nombre, String descripcion, int precio, boolean disponibilidad,
 			boolean restriccion, int cantidad) {
@@ -131,9 +133,9 @@ public class Administrador extends Empleado implements Serializable, Usuario {
 	}
 
 	/*
-	 * Método útil para cambiar el nombre de un Producto pasado por parámetro.
-	 * Antes de cambiar el atributo se debe de comprobar que el producto esté en la
-	 * lista de productos del restaurante.
+	 * Método útil para cambiar el nombre de un Producto pasado por parámetro. Antes
+	 * de cambiar el atributo se debe de comprobar que el producto esté en la lista
+	 * de productos del restaurante.
 	 */
 	public String actualizarNombreProducto(int producto, String nombre) {
 		ArrayList<Producto> listaMenu = this.restaurante.getMenu();
@@ -149,9 +151,9 @@ public class Administrador extends Empleado implements Serializable, Usuario {
 	}
 
 	/*
-	 * Método útil para cambiar la descripción de un Producto pasado por
-	 * parámetro. Antes de cambiar el atributo se debe de comprobar que el producto
-	 * esté en la lista de productos del restaurante.
+	 * Método útil para cambiar la descripción de un Producto pasado por parámetro.
+	 * Antes de cambiar el atributo se debe de comprobar que el producto esté en la
+	 * lista de productos del restaurante.
 	 */
 	public String actualizarDescripcionProducto(int producto, String descripcion) {
 		ArrayList<Producto> listaMenu = this.restaurante.getMenu();
@@ -167,9 +169,9 @@ public class Administrador extends Empleado implements Serializable, Usuario {
 	}
 
 	/*
-	 * Método útil para cambiar el precio de un Producto pasado por parámetro.
-	 * Antes de cambiar el atributo se debe de comprobar que el producto esté en la
-	 * lista de productos del restaurante.
+	 * Método útil para cambiar el precio de un Producto pasado por parámetro. Antes
+	 * de cambiar el atributo se debe de comprobar que el producto esté en la lista
+	 * de productos del restaurante.
 	 */
 	public String actualizarPrecioProducto(int producto, int precio) {
 		ArrayList<Producto> listaMenu = this.restaurante.getMenu();
@@ -179,7 +181,7 @@ public class Administrador extends Empleado implements Serializable, Usuario {
 			listaMenu.set(producto, productoActualizado);
 			this.restaurante.setMenu(listaMenu);
 			return "Producto " + productoActualizado.getNombre() + " actualizado con éxito";
-		} catch(Exception e) {
+		} catch (Exception e) {
 			return "ERROR: El producto que intentas actualizar no existe";
 		}
 	}
@@ -197,7 +199,7 @@ public class Administrador extends Empleado implements Serializable, Usuario {
 			listaMenu.set(producto, productoActualizado);
 			this.restaurante.setMenu(listaMenu);
 			return "Producto " + productoActualizado.getNombre() + " actualizado con éxito";
-		} catch(Exception e) {
+		} catch (Exception e) {
 			return "ERROR: El producto que intentas actualizar no existe";
 		}
 	}
@@ -215,7 +217,7 @@ public class Administrador extends Empleado implements Serializable, Usuario {
 			listaMenu.set(producto, productoActualizado);
 			this.restaurante.setMenu(listaMenu);
 			return "Producto " + productoActualizado.getNombre() + " actualizado con éxito";
-		} catch(Exception e) {
+		} catch (Exception e) {
 			return "ERROR: El producto que intentas actualizar no existe";
 		}
 	}
@@ -233,7 +235,7 @@ public class Administrador extends Empleado implements Serializable, Usuario {
 			listaMenu.set(producto, productoActualizado);
 			this.restaurante.setMenu(listaMenu);
 			return "Producto " + productoActualizado.getNombre() + " actualizado con éxito";
-		} catch(Exception e) {
+		} catch (Exception e) {
 			return "ERROR: El producto que intentas actualizar no existe";
 		}
 	}
@@ -252,16 +254,16 @@ public class Administrador extends Empleado implements Serializable, Usuario {
 			listaMenu.remove(productoID);
 			this.restaurante.setMenu(listaMenu);
 			return "Producto \"" + nombreProd + "\" eliminado con éxito";
-		} catch(Exception e) {
+		} catch (Exception e) {
 			return "ERROR: El producto que intentas eliminar no existe";
 		}
 	}
 
 	/*
-	 * Método que realiza el pago de la nómina a todos los empleados del
-	 * restaurante incluyendo al Administrador mismo. Antes de hacer efectivo el
-	 * pago se debe de comprobar que en el balance de cuenta del restaurtante
-	 * existan fondos sufucientes para pagar a los empleados
+	 * Método que realiza el pago de la nómina a todos los empleados del restaurante
+	 * incluyendo al Administrador mismo. Antes de hacer efectivo el pago se debe de
+	 * comprobar que en el balance de cuenta del restaurtante existan fondos
+	 * sufucientes para pagar a los empleados
 	 */
 	public String pagoNomina() {
 		ArrayList<Empleado> listaEmpleados = this.restaurante.getEmpleados();
@@ -277,7 +279,8 @@ public class Administrador extends Empleado implements Serializable, Usuario {
 			return "Nomina de todos los empleados pagada con éxito. El nuevo balance de cuenta es: $"
 					+ restaurante.getBalanceCuenta();
 		} else {
-			return "ERROR: No se posee el suficiente dinero para pagar la nomina de todos los empleados ($" + totalSalarios + ")";
+			return "ERROR: No se posee el suficiente dinero para pagar la nomina de todos los empleados ($"
+					+ totalSalarios + ")";
 		}
 	}
 
@@ -289,15 +292,17 @@ public class Administrador extends Empleado implements Serializable, Usuario {
 	 */
 	public String pagoNomina(int empleadoID) {
 		Empleado empleado = this.restaurante.getEmpleados().get(empleadoID);
-		
-		if ((empleado.getSalario() * Administrador.getImpuestos()) <= this.restaurante.getBalanceCuenta()) { 
+
+		if ((empleado.getSalario() * Administrador.getImpuestos()) <= this.restaurante.getBalanceCuenta()) {
 			// Salario mas un impuesto
-			float nuevoBalance = this.restaurante.getBalanceCuenta() - (empleado.getSalario() * Administrador.getImpuestos());
+			float nuevoBalance = this.restaurante.getBalanceCuenta()
+					- (empleado.getSalario() * Administrador.getImpuestos());
 			this.restaurante.setBalanceCuenta(nuevoBalance);
-			return "Nómina del empleado " + empleado.getNombre() + " pagada con éxito.\n" +
-				   "El nuevo balance de cuenta es: $" + restaurante.getBalanceCuenta();
+			return "Nómina del empleado " + empleado.getNombre() + " pagada con éxito.\n"
+					+ "El nuevo balance de cuenta es: $" + restaurante.getBalanceCuenta();
 		} else {
-			return "ERROR: No se posee el suficiente dinero para pagar la nómina del empleado ($" + (empleado.getSalario() * Administrador.getImpuestos()) +")";
+			return "ERROR: No se posee el suficiente dinero para pagar la nómina del empleado ($"
+					+ (empleado.getSalario() * Administrador.getImpuestos()) + ")";
 		}
 	}
 
@@ -307,7 +312,7 @@ public class Administrador extends Empleado implements Serializable, Usuario {
 	 */
 	public Pedido simularPedido(Cliente cliente) {
 		Pedido pedido = new Pedido(cliente);
-		int idTipo = (int) (Math.random()*2);
+		int idTipo = (int) (Math.random() * 2);
 		String tipo = "";
 
 		// Se asigna el restaurante
@@ -316,64 +321,64 @@ public class Administrador extends Empleado implements Serializable, Usuario {
 		pedido.setCodigo(Pedido.getTotalPedidos());
 		// Se guarda fecha y hora
 		pedido.setFechaHora(LocalDateTime.now());
-		// Se le asigna un tipo 
+		// Se le asigna un tipo
 		switch (idTipo) {
 		case 0: {
 			tipo = TipoPedido.Llevar.toString();
-			System.out.println("MESERO");
-			Mesero.getMeseros().get(DatosAleatorios.randInt(0, Mesero.getMeseros().size()))
+			Mesero.getMeseros().get(DatosAleatorios.randInt(0, Mesero.getMeseros().size() - 1))
 					.agregarPedidoHistorial(pedido);
 		}
 		case 1: {
 			tipo = TipoPedido.EnTienda.toString();
-			System.out.println("MESERO");
-			Mesero.getMeseros().get(DatosAleatorios.randInt(0, Mesero.getMeseros().size()))
+			Mesero.getMeseros().get(DatosAleatorios.randInt(0, Mesero.getMeseros().size() - 1))
 					.agregarPedidoHistorial(pedido);
 		}
 		case 2: {
 			tipo = TipoPedido.Domicilio.toString();
-			System.out.println("REPARTIDOR");
-			Repartidor.getRepartidores().get(DatosAleatorios.randInt(0, Repartidor.getRepartidores().size()))
+			Repartidor.getRepartidores().get(DatosAleatorios.randInt(0, Repartidor.getRepartidores().size() - 1))
 					.agregarPedidoHistorial(pedido);
 		}
-		
+
 		}
 		pedido.setTipo(tipo);
-		
-		
-	// Se asgina la lista de productos
-		// Se define la canidad de productos a ordenar con base en la cantidad de productos disponible en el restaurante.
+
+		// Se asgina la lista de productos
+		// Se define la canidad de productos a ordenar con base en la cantidad de
+		// productos disponible en el restaurante.
 		// De 1 a la cantidad disponible en el restaurante.
-		int cantidadProductos = (int) ((Math.random()*(restaurante.getMenu().size()-1))+1);
+		int cantidadProductos = (int) ((Math.random() * (restaurante.getMenu().size() - 1)) + 1);
 		ArrayList<Producto> productos = new ArrayList<Producto>();
-		//En un ciclo que se repite el numero de productos a solicitar se seleccionan los productos del menu del restaurante.
-		for(int i=0; i<cantidadProductos;i++){
-			// Generamos un numero aleatorio para seleccionar un producto al azar de entre el menu del restaurante.
+		// En un ciclo que se repite el numero de productos a solicitar se seleccionan
+		// los productos del menu del restaurante.
+		for (int i = 0; i < cantidadProductos; i++) {
+			// Generamos un numero aleatorio para seleccionar un producto al azar de entre
+			// el menu del restaurante.
 			int idProducto = (int) (Math.random() * restaurante.getMenu().size());
 			Producto producto = restaurante.getMenu().get(idProducto);
 			// Si el producto ya hace parte del pedido no se agrega
-			if(!productos.contains(producto)) {
-				// Se genera una cantidad aleatoria del producto seleccionado para ser agregado al pedido.
-				int cantidadXProducto = (int) ((Math.random()*(5-1))+1);
+			if (!productos.contains(producto)) {
+				// Se genera una cantidad aleatoria del producto seleccionado para ser agregado
+				// al pedido.
+				int cantidadXProducto = (int) ((Math.random() * (5 - 1)) + 1);
 				producto.setCantidad(cantidadXProducto);
 				productos.add(producto);
-			}else {
-				//Si no se selecciona un producto se repite el ciclo.
+			} else {
+				// Si no se selecciona un producto se repite el ciclo.
 				i--;
 			}
 		}
 		pedido.setProductos(productos);
-		
-		 //Se calcula el precio total 
+
+		// Se calcula el precio total
 		int total = 0;
-		for(Producto producto:pedido.getProductos()) {
+		for (Producto producto : pedido.getProductos()) {
 			total += producto.getCantidad() * producto.getPrecio();
 		}
 		pedido.setPrecioTotal(total);
-		//Se pone en estado de Enviado
+		// Se pone en estado de Enviado
 		pedido.setEstado(estadoPedido.Recibido.toString());
-		//Se agregan los mensajes del usuario
-		//Se retorna el pedido completo
+		// Se agregan los mensajes del usuario
+		// Se retorna el pedido completo
 		restaurante.agregarPedido(pedido);
 		return pedido;
 

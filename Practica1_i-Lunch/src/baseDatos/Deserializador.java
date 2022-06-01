@@ -25,7 +25,8 @@ public class Deserializador {
 			// Usamos un FileInputStream para poder saber de donde cargar el archivo
 			fileIn = new FileInputStream(path);
 
-			// Si el archivo esta vacio se lanza un throw EOFException y se muestra como un mensaje de vacio, pero si no se usa el objeto in para leer el archivo
+			// Si el archivo esta vacio se lanza un throw EOFException y se muestra como un
+			// mensaje de vacio, pero si no se usa el objeto in para leer el archivo
 			ObjectInputStream in = new ObjectInputStream(fileIn);
 
 			// Lee el listado de elementos
@@ -41,22 +42,24 @@ public class Deserializador {
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-			
+
 		} catch (IOException e) {
 			System.out.println("Esta vacio");
-			
+
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
 
-	/* Funcion para deserializar toda la aplicacion Generic IT  */
+	/* Funcion para deserializar toda la aplicacion Generic IT */
 	public static void deserializarTodo() {
-		Deserializador.deserializador(Pedido.getPedidos(), "pedidos"); 
+		Deserializador.deserializador(Pedido.getPedidos(), "pedidos");
 		Deserializador.deserializador(Producto.getProductos(), "productos");
 		Deserializador.deserializador(Restaurante.getRestaurantes(), "restaurantes");
 		Deserializador.deserializador(Cliente.getClientes(), "clientes");
 		Deserializador.deserializador(Empleado.getEmpleados(), "empleados");
 		Deserializador.deserializador(Administrador.getAdministradores(), "administradores");
+		Deserializador.deserializador(Mesero.getMeseros(), "meseros");
+		Deserializador.deserializador(Repartidor.getRepartidores(), "repartidores");
 	}
 }
