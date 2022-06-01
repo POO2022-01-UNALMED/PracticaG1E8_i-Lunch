@@ -7,6 +7,7 @@ package gestorAplicacion.usuariosRestaurante;
 import java.util.ArrayList;
 
 import gestorAplicacion.gestionRestaurante.*;
+import uiMain.DatosAleatorios;
 
 public class Repartidor extends Empleado implements Usuario {
 	
@@ -65,7 +66,7 @@ public class Repartidor extends Empleado implements Usuario {
 	public void repartirPedido(Pedido pedido) {
 		pedidosEntregados.add(pedido);
 		if(pedido.getEstado().equals(TipoPedido.Domicilio.toString()) && pedido.getTipo().equals(TipoPedido.Domicilio.toString())) { 
-			pedido.setEstado(estadoPedido.Enviado.toString()); 
+			pedido.setEstado(estadoPedido.Recibido.toString()); 
 		}
 
 	}
@@ -129,5 +130,9 @@ public class Repartidor extends Empleado implements Usuario {
 		}
 		
 		return mensaje;
+	}
+	
+	public void agregarPedidoHistorial(Pedido pedido) {
+		pedidosEntregados.add(pedido);
 	}
 }

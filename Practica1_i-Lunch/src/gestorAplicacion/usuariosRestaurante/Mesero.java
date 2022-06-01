@@ -8,6 +8,7 @@ package gestorAplicacion.usuariosRestaurante;
 import java.util.ArrayList;
 
 import gestorAplicacion.gestionRestaurante.*;
+import uiMain.DatosAleatorios;
 
 public class Mesero extends Empleado implements Usuario{
 	
@@ -21,7 +22,7 @@ public class Mesero extends Empleado implements Usuario{
 	// Aca se almacenan todos los pedidos atentidos por el mesero en cuestion
 	
 	private ArrayList<Pedido> pedidosAtendidos = new ArrayList<Pedido>();
-	private ArrayList<Float> historialPropinas = new ArrayList<Float>();
+	private ArrayList<Integer> historialPropinas = new ArrayList<Integer>();
 	
 	/*Constructor de la clase Mesero*/
 	public Mesero(int cedula, String nombre, boolean disponibilidad, int salario, Restaurante restaurante/*, boolean pagado*/) {
@@ -63,7 +64,7 @@ public class Mesero extends Empleado implements Usuario{
 	 
 	//metodo para agregar una propina al historial de propinas
 	 
-	 public void recibirPropina(float propina) {
+	 public void recibirPropina(int propina) {
 		 historialPropinas.add(propina);
 	 }
 	 
@@ -89,11 +90,11 @@ public class Mesero extends Empleado implements Usuario{
 		Mesero.meseros = meseros;
 	}
 
-	public ArrayList<Float> getHistorialPropinas() {
+	public ArrayList<Integer> getHistorialPropinas() {
 		return historialPropinas;
 	}
 
-	public void setHistorialPropinas(ArrayList<Float> historialPropinas) {
+	public void setHistorialPropinas(ArrayList<Integer> historialPropinas) {
 		this.historialPropinas = historialPropinas;
 	}
 	
@@ -108,6 +109,11 @@ public class Mesero extends Empleado implements Usuario{
 					+ "Tiene un salario de: $" + this.salario + ". Ha atendido " + this.pedidosAtendidos.size() + " pedidos y ha recibido " + this.historialPropinas.size() + " propinas.\n"
 					+ "No está disponible actualmente.";
 		}
+	}
+	
+	public void agregarPedidoHistorial(Pedido pedido) {
+		pedidosAtendidos.add(pedido);
+		historialPropinas.add(DatosAleatorios.randInt(1, 10));
 	}
 }
 

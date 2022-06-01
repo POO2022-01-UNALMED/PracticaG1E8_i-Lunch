@@ -6,31 +6,31 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import gestorAplicacion.usuariosRestaurante.*;
+import uiMain.DatosAleatorios;
 
 public class Pedido implements Serializable {
-	
+
 	// Serializacion
 	private static final long serialVersionUID = 1L;
 	private static ArrayList<Pedido> pedidos;
 	static {
 		pedidos = new ArrayList<Pedido>();
 	}
-	
-	
+
 	////////////// ATRIBUTOS //////////////
 	private static int totalPedidos = 0;
 	private Cliente cliente;
 	private int codigo;
 	private String estado;
-	
-	//ArrayList donde se encuentran todos los productos que componen el pedido.
+
+	// ArrayList donde se encuentran todos los productos que componen el pedido.
 	private ArrayList<Producto> productos = new ArrayList<Producto>();
-	
+
 	private String tipo;
 	// Pienso que es mejor separar fecha.
 	private LocalDateTime fechaHora;
-	
-	//Mensaje agregado por el usuario de forma opcional al realizar un pedido.
+
+	// Mensaje agregado por el usuario de forma opcional al realizar un pedido.
 	private String mensaje;
 	private int precioTotal;
 	private Restaurante restaurante;
@@ -39,21 +39,16 @@ public class Pedido implements Serializable {
 
 	public int calcularPrecioTotal() {
 		int sum = 0;
-		for(int i = 0; i < productos.size(); i++){
+		for (int i = 0; i < productos.size(); i++) {
 			sum += productos.get(i).getPrecio();
 		}
 		return sum;
 	}
-	
+
 	/////////// CONSTRUCTORES /////////////
-	
-	public Pedido(
-			Cliente cliente, 
-			int codigo, 
-			String tipo, 
-			LocalDateTime fechaHora, 
-			Restaurante restaurante) {
-		//Considero que estos son los datos necesarios para empezar un pedido
+
+	public Pedido(Cliente cliente, int codigo, String tipo, LocalDateTime fechaHora, Restaurante restaurante) {
+		// Considero que estos son los datos necesarios para empezar un pedido
 		this.cliente = cliente;
 		this.codigo = codigo;
 		this.tipo = tipo;
@@ -61,20 +56,19 @@ public class Pedido implements Serializable {
 		this.restaurante = restaurante;
 		pedidos.add(this);
 		Pedido.totalPedidos += 1;
-		
+
 		// Sumar a los pedidos del cliente
 		this.cliente.agregarPedidoHistorial(this);
-		
 	}
-	
+
 	public Pedido() {
 		this(null, 0, "", null, null);
 	}
-	
+
 	public Pedido(Cliente cliente) {
 		this(cliente, 0, "", null, null);
 	}
-	
+
 	///////// GETTERS AND SETTERS /////////
 
 	public Cliente getCliente() {
@@ -152,7 +146,7 @@ public class Pedido implements Serializable {
 	public static ArrayList<Pedido> getPedidos() {
 		return pedidos;
 	}
-	
+
 	public static int getTotalPedidos() {
 		return pedidos.size();
 	}
@@ -168,22 +162,17 @@ public class Pedido implements Serializable {
 	@Override
 	public String toString() {
 		String productosString = "";
-		
+
 		// Fecha hora
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd - HH:mm:ss"); 
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd - HH:mm:ss");
 		String fechaHoraString = fechaHora.format(formatter);
 
-		
-		for(Producto producto: this.productos) {
+		for (Producto producto : this.productos) {
 			productosString += " - " + producto.getNombre() + " (" + producto.getCantidad() + ")\n";
 		}
-		
-		return "\nPedido "+ codigo + " hecho por el cliente: \"" + cliente.getNombre() + "\"\n" +
-			   "Fecha y hora: " + fechaHoraString + "\n" +
-			   "Estado: " + estado + "\n" +
-			   "Mensaje: " + mensaje + "\n" +
-			   "Tipo: " + tipo + "\n" +
-			   "Productos: \n" + productosString +
-			   "Precio total: $" + precioTotal;
+
+		return "\nPedido " + codigo + " hecho por el cliente: \"" + cliente.getNombre() + "\"\n" + "Fecha y hora: "
+				+ fechaHoraString + "\n" + "Estado: " + estado + "\n" + "Mensaje: " + mensaje + "\n" + "Tipo: " + tipo
+				+ "\n" + "Productos: \n" + productosString + "Precio total: $" + precioTotal;
 	}
 }

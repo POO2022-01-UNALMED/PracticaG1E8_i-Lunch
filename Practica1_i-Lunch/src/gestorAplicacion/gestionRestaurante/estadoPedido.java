@@ -1,7 +1,7 @@
 package gestorAplicacion.gestionRestaurante;
 
 public enum estadoPedido {
-	Enviado, 
+	Recibido, 
 	Aceptado, 
 	EnPreparacion, 
 	Listo, 

@@ -320,13 +320,23 @@ public class Administrador extends Empleado implements Serializable, Usuario {
 		switch (idTipo) {
 		case 0: {
 			tipo = TipoPedido.Llevar.toString();
+			System.out.println("MESERO");
+			Mesero.getMeseros().get(DatosAleatorios.randInt(0, Mesero.getMeseros().size()))
+					.agregarPedidoHistorial(pedido);
 		}
 		case 1: {
 			tipo = TipoPedido.EnTienda.toString();
+			System.out.println("MESERO");
+			Mesero.getMeseros().get(DatosAleatorios.randInt(0, Mesero.getMeseros().size()))
+					.agregarPedidoHistorial(pedido);
 		}
 		case 2: {
 			tipo = TipoPedido.Domicilio.toString();
+			System.out.println("REPARTIDOR");
+			Repartidor.getRepartidores().get(DatosAleatorios.randInt(0, Repartidor.getRepartidores().size()))
+					.agregarPedidoHistorial(pedido);
 		}
+		
 		}
 		pedido.setTipo(tipo);
 		
@@ -361,7 +371,7 @@ public class Administrador extends Empleado implements Serializable, Usuario {
 		}
 		pedido.setPrecioTotal(total);
 		//Se pone en estado de Enviado
-		pedido.setEstado(estadoPedido.Enviado.toString());
+		pedido.setEstado(estadoPedido.Recibido.toString());
 		//Se agregan los mensajes del usuario
 		//Se retorna el pedido completo
 		restaurante.agregarPedido(pedido);

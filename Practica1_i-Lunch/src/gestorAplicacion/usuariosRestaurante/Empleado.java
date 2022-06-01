@@ -138,16 +138,23 @@ public class Empleado implements Serializable, Usuario {
 			pedido.setEstado(estadoPedido.Rechazado.name());
 			return false;
 		}
+		
 		switch (pedido.getEstado()) {
-		case "Enviado":
-			pedido.setEstado(estadoPedido.Aceptado.name());
-		case "Aceptado":
-			pedido.setEstado(estadoPedido.EnPreparacion.name());
-		case "EnPreparacion":
-			pedido.setEstado(estadoPedido.Listo.name());
-		case "Listo":
-			pedido.setEstado(estadoPedido.Despachado.name());
-		}
+		
+			case "Recibido":
+				pedido.setEstado(estadoPedido.Aceptado.name());
+				break;
+			case "Aceptado":
+				pedido.setEstado(estadoPedido.EnPreparacion.name());
+				break;
+			case "EnPreparacion":
+				pedido.setEstado(estadoPedido.Listo.name());
+				break;
+			case "Listo":
+				pedido.setEstado(estadoPedido.Despachado.name());
+				break;
+			}
+		
 		return true;
 
 	}

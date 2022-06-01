@@ -138,7 +138,7 @@ public class Consola {
 				ArrayList<Integer> codPedidos = new ArrayList<Integer>();
 				
 				for (Pedido pedido : listapedidos) {
-					if (pedido.getEstado().equals(estadoPedido.Enviado.toString())) {
+					if (pedido.getEstado().equals(estadoPedido.Recibido.toString())) {
 						codPedidos.add(pedido.getCodigo());
 					}
 				}
@@ -639,7 +639,13 @@ public class Consola {
 			do {
 				try {
 					String entrada = readString();
-					codigo = Integer.parseInt(entrada);
+					
+					try {
+						codigo = Integer.parseInt(entrada);
+					} catch (Exception e) {
+						codigo = 0;
+					}
+					
 					
 					if(entrada.equals("0")) {
 						return;
@@ -679,10 +685,19 @@ public class Consola {
 				case "1": {
 					if (admin.procesarPedido(pedido)) {
 						
-						
+						admin.actualizarEstadoPedido(pedido, true); // DE RECIBIDO A ACEPTADO
 						System.out.println("Pedido aceptado. Iniciando preparacion");
-						System.out.println("Pedido despachado");
-						admin.actualizarEstadoPedido(pedido, true);
+						
+						admin.actualizarEstadoPedido(pedido, true); // DE ACEPTADO A EN PREPARACION
+						// Chef.prepararPedido
+						// Chef.revisionPedido // DE EN PREPARACION A LISTO
+						
+						// SI TRUE:
+							// admin.actualizarEstadoPedido(pedido, true); // DE LISTO A DESPACHADO
+							System.out.println("Pedido despachado");
+						// SI FALSE
+							// System.out.println("El pedido no pudo ser preparado. Ofrecemos disculpas...");
+						
 						valido = true;
 						break;
 					} else {
@@ -741,7 +756,7 @@ public class Consola {
 		System.out.println("Codigo pedido - " + "Estado pedido");
 
 		for (Pedido pedido : listapedidos) {
-			if (pedido.getEstado().equals(estadoPedido.Enviado.toString())) {
+			if (pedido.getEstado().equals(estadoPedido.Recibido.toString())) {
 				System.out.println(pedido.getCodigo() + " - " + pedido.getEstado());
 				codPedidos.add(pedido.getCodigo());
 			}
