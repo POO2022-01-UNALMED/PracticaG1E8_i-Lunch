@@ -131,8 +131,6 @@ public class Consola {
 				break;
 
 			case "4":
-				System.out.println(
-						"\n----------------------------------------------------------------------------------------------------");
 				ArrayList<Pedido> listapedidos = Pedido.getPedidos();
 				ArrayList<Integer> codPedidos = new ArrayList<Integer>();
 
@@ -306,6 +304,8 @@ public class Consola {
 			switch (opcion) {
 			case "1":
 				// Ver menu
+				System.out.println(
+						"\n----------------------------------------------------------------------------------------------------");
 				System.out.println("\nMenu del restaurante:");
 
 				for (int i = 0; i < restaurante.getMenu().size(); i++) {
@@ -317,6 +317,8 @@ public class Consola {
 				break;
 			case "2":
 				// Crear producto
+				System.out.println(
+						"\n----------------------------------------------------------------------------------------------------");
 				System.out.println("Crear producto\n");
 
 				System.out.println("Ingrese el nombre del producto: ");
@@ -367,6 +369,8 @@ public class Consola {
 				break;
 			case "3":
 				// Eliminar producto
+				System.out.println(
+						"\n----------------------------------------------------------------------------------------------------");
 				System.out.println("Eliminar producto\n");
 
 				System.out.println("Ingrese el ID del producto a eliminar: ");
@@ -377,6 +381,8 @@ public class Consola {
 				break;
 			case "4":
 				// Actualizar producto
+				System.out.println(
+						"\n----------------------------------------------------------------------------------------------------");
 				submenu2_4();
 				break;
 			case "5":
@@ -533,6 +539,8 @@ public class Consola {
 			switch (opcion) {
 			case "1":
 				// Ver personal
+				System.out.println(
+						"\n----------------------------------------------------------------------------------------------------");
 				System.out.println("\nPersonal del restaurante");
 
 				for (int i = 0; i < restaurante.getEmpleados().size(); i++) {
@@ -546,6 +554,8 @@ public class Consola {
 
 			case "2":
 				// Contratar empleado
+				System.out.println(
+						"\n----------------------------------------------------------------------------------------------------");
 				System.out.println("Contratar empleado\n");
 
 				System.out.println("Ingrese la cedula del empleado: ");
@@ -593,6 +603,8 @@ public class Consola {
 
 			case "3":
 				// Despedir empleado
+				System.out.println(
+						"\n----------------------------------------------------------------------------------------------------");
 				System.out.println("Despedir empleado\n");
 
 				System.out.println("Ingrese el ID del empleado a despedir: ");
@@ -621,6 +633,8 @@ public class Consola {
 	static void submenu4(ArrayList<Integer> codPedidos) {
 		boolean continuar = true;
 		do {
+			System.out.println(
+					"\n----------------------------------------------------------------------------------------------------");
 			codPedidos = listarPedidosEnEspera();
 
 			if (codPedidos.size() == 0) {
