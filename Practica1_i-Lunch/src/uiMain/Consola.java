@@ -2,7 +2,6 @@ package uiMain;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.Random;
 import java.util.Scanner;
 
 import baseDatos.*;
