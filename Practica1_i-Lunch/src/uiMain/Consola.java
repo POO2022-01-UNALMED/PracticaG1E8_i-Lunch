@@ -711,6 +711,7 @@ public class Consola {
 							if(chef.revisionPedido(pedido)) { // DE EN PREPARACION A LISTO 
 								admin.actualizarEstadoPedido(pedido, true);
 								System.out.println("Pedido despachado.");
+								restaurante.setBalanceCuenta(restaurante.getBalanceCuenta() + pedido.getPrecioTotal());
 							} else {
 								System.out.println("El pedido no pudo ser depachado por restricciones del restaurante.");
 							}
