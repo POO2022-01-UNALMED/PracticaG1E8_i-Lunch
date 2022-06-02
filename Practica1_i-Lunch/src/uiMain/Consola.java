@@ -643,7 +643,7 @@ public class Consola {
 				pressEnter();
 				return;
 			}
-			System.out.println("0. Volver al menu principal");
+			System.out.println("\n0. Volver al menu principal");
 			System.out.println("Ingrese el codigo de un pedido");
 
 			int codigo = 0;
@@ -697,7 +697,7 @@ public class Consola {
 						if (admin.procesarPedido(pedido)) {
 
 							admin.actualizarEstadoPedido(pedido, true); // DE RECIBIDO A ACEPTADO
-							System.out.println("Pedido aceptado. Iniciando preparacion");
+							System.out.println("\nPedido aceptado. Iniciando preparacion");
 
 							admin.actualizarEstadoPedido(pedido, true); // DE ACEPTADO A EN PREPARACION
 							System.out.println("Pedido preparado. Iniciando verificacion");
@@ -710,28 +710,29 @@ public class Consola {
 							}
 							if(chef.revisionPedido(pedido)) { // DE EN PREPARACION A LISTO 
 								admin.actualizarEstadoPedido(pedido, true);
-								System.out.println("Pedido despachado.");
+								System.out.println("Pedido verificado por el chef en jefe. Iniciando envio");
+								System.out.println("Pedido despachado satisfactoriamente");
 							} else {
-								System.out.println("El pedido no pudo ser depachado por restricciones del restaurante.");
+								System.out.println("El pedido no pudo ser depachado por restricciones del restaurante");
 							}
 							valido = true;
 							break;
 						} else {
 							System.out.println(
-									"Lo sentimos el pedido no puede ser aceptado por restricciones del restaurante");
+									"\nLo sentimos el pedido no puede ser aceptado por restricciones del restaurante");
 							admin.actualizarEstadoPedido(pedido, false);
 							valido = true;
 							break;
 						}
 					}
 					case "2": {
-						System.out.println("Pedido rechazado");
+						System.out.println("\nPedido rechazado");
 						admin.actualizarEstadoPedido(pedido, false);
 						valido = true;
 						break;
 					}
 					default:
-						System.out.println("Opcion no valida\n");
+						System.out.println("\nOpcion no valida");
 						break;
 					}
 
@@ -778,7 +779,6 @@ public class Consola {
 				codPedidos.add(pedido.getCodigo());
 			}
 		}
-		System.out.println("\n");
 		return codPedidos;
 	}
 
