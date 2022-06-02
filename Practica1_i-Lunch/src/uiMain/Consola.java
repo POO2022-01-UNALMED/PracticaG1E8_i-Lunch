@@ -264,8 +264,8 @@ public class Consola {
 			for (int i = 0; i < numProductos; i++) {
 				menu.add(new Producto(DatosAleatorios.randString(DatosAleatorios.productosAleatorios),
 						"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec ultrices dui, ut ultricies leo.",
-						DatosAleatorios.randInt(2, 30), DatosAleatorios.randBool(), DatosAleatorios.randBool(),
-						DatosAleatorios.randInt(10, 50)));
+						DatosAleatorios.randInt(2, 30), true, DatosAleatorios.randBool(),
+						DatosAleatorios.randInt(30, 200)));
 			}
 
 			restaurante.setEmpleados(empleados);
