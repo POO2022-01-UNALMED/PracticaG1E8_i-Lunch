@@ -219,23 +219,6 @@ public class Restaurante implements Serializable {
 	// Metodo que determina si el restaurante posee los productos solicitados en un
 	// pedido
 	public boolean verificarProductos(Pedido pedido) {
-		/*
-		 * // Identificar los productos solicitados y la cantidad de ellos
-		 * ArrayList<Producto> productos = pedido.getProductos(); for (int i = 0; i <
-		 * productos.size(); i++) { Producto demanda = productos.get(i);
-		 * 
-		 * // Rectificar que el restaurante tenga los productos solicitados en las
-		 * cantidad pedidas. for (int j = 0; j < menu.size(); j++) { Producto oferta =
-		 * menu.get(j);
-		 * 
-		 * // Si no hay alguno de los productos disponibles o en la cantidad deseada no
-		 * se puede realizar if (demanda.getNombre() != oferta.getNombre() ||
-		 * !oferta.getDisponiblidad() || demanda.getCantidad() > oferta.getCantidad()) {
-		 * return false; } } }
-		 * 
-		 * // Si todo es aceptable se puede realizar el pedido return true;
-		 */
-
 		for (Producto demanda : pedido.getProductos()) {
 			boolean existe = false;
 			boolean cantidad = false;

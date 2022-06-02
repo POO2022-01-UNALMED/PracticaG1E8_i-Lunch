@@ -154,7 +154,6 @@ public class Consola {
 				break;
 
 			case "6":
-				// Mensaje de control
 				Cliente cliente = Cliente.getClientes()
 						.get(DatosAleatorios.randInt(0, Cliente.getClientes().size() - 1));
 				Pedido pedido = admin.simularPedido(cliente);
@@ -676,7 +675,7 @@ public class Consola {
 			String opcion;
 
 			Pedido pedido = null;
-			for (Pedido pedido_aux : restaurante.getPedidos()) {
+			for (Pedido pedido_aux : Pedido.getPedidos()) {
 				if (pedido_aux.getCodigo() == codigo) {
 					pedido = pedido_aux;
 				}
