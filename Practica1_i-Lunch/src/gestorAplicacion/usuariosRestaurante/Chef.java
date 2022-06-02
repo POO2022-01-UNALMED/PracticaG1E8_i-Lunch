@@ -41,6 +41,7 @@ public class Chef extends Empleado implements Usuario {
 		ArrayList<Empleado> empleados = Empleado.getEmpleados();
 		empleados.add(this);
 		Empleado.setEmpleados(empleados);
+		chefs.add(this);
 	}
 
 	/* Sobrecarga del constructor para valores predeterminados */
@@ -91,7 +92,7 @@ public class Chef extends Empleado implements Usuario {
 	 * "Listo para ser despachado"
 	 */
 
-	public void revisionPedido(Pedido pedido) {
+	public boolean revisionPedido(Pedido pedido) {
 		if (this.cargoEnCocina.equals("Chef en jefe")) {
 			int contador = 0;
 			for (int i = 0; i < pedido.getProductos().size(); i++) {
@@ -101,8 +102,10 @@ public class Chef extends Empleado implements Usuario {
 			}
 			if (contador == pedido.getProductos().size()) {
 				pedido.setEstado(estadoPedido.Listo.toString());
+				return true;
 			}
 		}
+		return false;
 	}
 
 	// Implementación de la interfaz Usuario

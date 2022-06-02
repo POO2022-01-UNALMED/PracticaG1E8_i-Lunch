@@ -2,6 +2,7 @@ package uiMain;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.Random;
 import java.util.Scanner;
 
 import baseDatos.*;
@@ -233,7 +234,7 @@ public class Consola {
 
 			for (int i = 0; i < numEmpleados; i++) { // Repartidores
 				empleados.add(new Repartidor(DatosAleatorios.randInt(100000, 999999),
-						DatosAleatorios.randString(DatosAleatorios.nombresAleatorios), DatosAleatorios.randBool(),
+						DatosAleatorios.randString(DatosAleatorios.nombresAleatorios), true,
 						DatosAleatorios.randInt(400, 1200), restaurante, DatosAleatorios.randBool(),
 						"ABC-" + DatosAleatorios.randInt(100, 999),
 						DatosAleatorios.randString(DatosAleatorios.tiposVehiculos)));
@@ -241,19 +242,19 @@ public class Consola {
 
 			for (int i = 0; i < numEmpleados; i++) { // Meseros
 				empleados.add(new Mesero(DatosAleatorios.randInt(100000, 999999),
-						DatosAleatorios.randString(DatosAleatorios.nombresAleatorios), DatosAleatorios.randBool(),
+						DatosAleatorios.randString(DatosAleatorios.nombresAleatorios), true,
 						DatosAleatorios.randInt(400, 1200), restaurante));
 			}
 
 			// Crear chef en jefe predeterminado
 			empleados.add(new Chef(DatosAleatorios.randInt(100000, 999999),
-					DatosAleatorios.randString(DatosAleatorios.nombresAleatorios), DatosAleatorios.randBool(),
+					DatosAleatorios.randString(DatosAleatorios.nombresAleatorios), true,
 					DatosAleatorios.randInt(400, 1200), restaurante, "Chef en jefe",
 					DatosAleatorios.randString(DatosAleatorios.especialidadesChefs)));
 
 			for (int i = 0; i < numEmpleados - 1; i++) { // Chefs
 				empleados.add(new Chef(DatosAleatorios.randInt(100000, 999999),
-						DatosAleatorios.randString(DatosAleatorios.nombresAleatorios), DatosAleatorios.randBool(),
+						DatosAleatorios.randString(DatosAleatorios.nombresAleatorios), true,
 						DatosAleatorios.randInt(400, 1200), restaurante,
 						DatosAleatorios.randString(DatosAleatorios.cargosEnCocina),
 						DatosAleatorios.randString(DatosAleatorios.especialidadesChefs)));
@@ -699,16 +700,20 @@ public class Consola {
 							System.out.println("Pedido aceptado. Iniciando preparacion");
 
 							admin.actualizarEstadoPedido(pedido, true); // DE ACEPTADO A EN PREPARACION
-							// Chef.prepararPedido
-							// Chef.revisionPedido // DE EN PREPARACION A LISTO
-
-							// SI TRUE:
-							// admin.actualizarEstadoPedido(pedido, true); // DE LISTO A DESPACHADO
-							System.out.println("Pedido despachado");
-							// SI FALSE
-							// System.out.println("El pedido no pudo ser preparado. Ofrecemos
-							// disculpas...");
-
+							System.out.println("Pedido preparado. Iniciando verificacion");
+							Chef chef = Chef.getChefs().get(DatosAleatorios.randInt(0, Chef.getChefs().size()-1));
+							chef.prepararProducto(pedido);
+							for(Chef chef_aux: Chef.getChefs()) {
+								if(chef_aux.getCargoEnCocina().equals("Chef en jefe")) {
+									chef = chef_aux;
+								}
+							}
+							if(chef.revisionPedido(pedido)) { // DE EN PREPARACION A LISTO 
+								admin.actualizarEstadoPedido(pedido, true);
+								System.out.println("Pedido despachado.");
+							} else {
+								System.out.println("El pedido no pudo ser depachado por restricciones del restaurante.");
+							}
 							valido = true;
 							break;
 						} else {

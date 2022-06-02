@@ -57,6 +57,7 @@ public class Serializador {
 		Serializador.serializar(Administrador.getAdministradores(), "administradores");
 		Serializador.serializar(Mesero.getMeseros(), "meseros");
 		Serializador.serializar(Repartidor.getRepartidores(), "repartidores");
+		Serializador.serializar(Chef.getChefs(), "chefs");
 	}
 
 }

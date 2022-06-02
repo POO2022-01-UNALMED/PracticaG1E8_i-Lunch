@@ -61,5 +61,6 @@ public class Deserializador {
 		Deserializador.deserializador(Administrador.getAdministradores(), "administradores");
 		Deserializador.deserializador(Mesero.getMeseros(), "meseros");
 		Deserializador.deserializador(Repartidor.getRepartidores(), "repartidores");
+		Deserializador.deserializador(Chef.getChefs(), "chef");
 	}
 }
