@@ -119,7 +119,7 @@ public class Consola {
 			switch (opcion) {
 
 			case "1":
-				DaviMenu1();
+				submenu1();
 				break;
 
 			case "2":
@@ -169,7 +169,7 @@ public class Consola {
 				break;
 
 			case "7":
-				DaviMenu2();
+				submenu7();
 				break;
 
 			case "8":
@@ -838,7 +838,7 @@ public class Consola {
 		} while (!opcion.equals("3"));
 	}
 
-	static void DaviMenu1() {
+	static void submenu1() {
 
 		String opcion;
 		do {
@@ -857,19 +857,19 @@ public class Consola {
 
 			switch (opcion) {
 			case "1":
-				DaviSubmenuEmpleado();
+				submenu1_empleado();
 				break;
 			case "2":
-				DaviSubmenuProductos();
+				submenu1_productos();
 				break;
 			case "3":
-				DaviSubmenuHistorialPedidos();
+				submenu1_pedidos();
 				break;
 			case "4":
-				DaviSubmenuBalanceDeCuenta();
+				submenu1_balance();
 				break;
 			case "5":
-				DaviSubmenuEstadisticas();
+				submenu1_estadisticas();
 				break;
 
 			case "6":
@@ -887,10 +887,10 @@ public class Consola {
 		} while (!opcion.equals("6"));
 	}
 
-	static void DaviSubmenuEmpleado() {
+	static void submenu1_empleado() {
 		int opcionempleado;
 		ArrayList<Empleado> listaempleados = restaurante.getEmpleados();
-		opcionempleado = -727;
+		opcionempleado = -1;
 		do {
 			System.out.println(
 					"\n----------------------------------------------------------------------------------------------------");
@@ -917,19 +917,19 @@ public class Consola {
 			if (opcionempleado == 0) {
 				continue;
 			}
-			if (opcionempleado != -727) {
+			if (opcionempleado != -1) {
 				System.out.println(listaempleados.get(opcionempleado - 1).informacion());
 				pressEnter();
-				opcionempleado = -727;
+				opcionempleado = -1;
 			}
 		} while (!(opcionempleado == 0));
 
 	}
 
-	static void DaviSubmenuProductos() {
+	static void submenu1_productos() {
 		int opcionproducto;
 		ArrayList<Producto> listaproductos = Producto.getProductos();
-		opcionproducto = -727;
+		opcionproducto = -1;
 		do {
 			System.out.println(
 					"\n----------------------------------------------------------------------------------------------------");
@@ -957,19 +957,19 @@ public class Consola {
 			if (opcionproducto == 0) {
 				continue;
 			}
-			if (opcionproducto != -727) {
+			if (opcionproducto != -1) {
 				System.out.println(listaproductos.get(opcionproducto - 1));
 				pressEnter();
-				opcionproducto = -727;
+				opcionproducto = -1;
 			}
 		} while (!(opcionproducto == 0));
 
 	}
 
-	static void DaviSubmenuHistorialPedidos() {
+	static void submenu1_pedidos() {
 		int opcionpedidos;
 		ArrayList<Pedido> listapedidos = Pedido.getPedidos();
-		opcionpedidos = -727;
+		opcionpedidos = -1;
 		do {
 			System.out.println(
 					"\n----------------------------------------------------------------------------------------------------");
@@ -999,16 +999,16 @@ public class Consola {
 			if (opcionpedidos == 0) {
 				continue;
 			}
-			if (opcionpedidos != -727) {
+			if (opcionpedidos != -1) {
 				System.out.println(listapedidos.get(opcionpedidos - 1));
 				pressEnter();
-				opcionpedidos = -727;
+				opcionpedidos = -1;
 			}
 		} while (!(opcionpedidos == 0));
 
 	}
 
-	static void DaviSubmenuEstadisticas() {
+	static void submenu1_estadisticas() {
 
 		String opcion;
 		do {
@@ -1036,7 +1036,7 @@ public class Consola {
 		} while (!opcion.equals("0"));
 	}
 
-	static void DaviSubmenuBalanceDeCuenta() {
+	static void submenu1_balance() {
 
 		String opcion;
 		do {
@@ -1064,7 +1064,7 @@ public class Consola {
 		} while (!opcion.equals("0"));
 	}
 
-	static void DaviMenu2() {
+	static void submenu7() {
 
 		String opcion;
 		do {
@@ -1078,11 +1078,11 @@ public class Consola {
 
 			switch (opcion) {
 			case "1":
-				DaviSubmenuVerClientes();
+				submenu7_1();
 				break;
 
 			case "2":
-				DaviSubmenuCrearCliente();
+				submenu7_2();
 				break;
 
 			case "3":
@@ -1100,10 +1100,10 @@ public class Consola {
 		} while (!opcion.equals("3"));
 	}
 
-	static void DaviSubmenuVerClientes() {
+	static void submenu7_1() {
 		int opcionClientes;
 		ArrayList<Cliente> listaclientes = Cliente.getClientes();
-		opcionClientes = -727;
+		opcionClientes = -1;
 		do {
 			System.out.println(
 					"\n----------------------------------------------------------------------------------------------------");
@@ -1132,16 +1132,16 @@ public class Consola {
 			if (opcionClientes == 0) {
 				continue;
 			}
-			if (opcionClientes != -727) {
+			if (opcionClientes != -1) {
 				System.out.println(listaclientes.get(opcionClientes - 1).informacion());
 				pressEnter();
-				opcionClientes = -727;
+				opcionClientes = -1;
 			}
 		} while (!(opcionClientes == 0));
 
 	}
 
-	static void DaviSubmenuCrearCliente() {
+	static void submenu7_2() {
 
 		String opcion;
 		do {
@@ -1156,11 +1156,11 @@ public class Consola {
 			switch (opcion) {
 
 			case "1":
-				DaviSubSubMenuCrearClienteManual();
+				submenu7_2_1();
 				break;
 
 			case "2":
-				DaviSubmenuGenerarClienteRandom();
+				submenu7_2_2();
 				break;
 
 			case "3":
@@ -1178,7 +1178,7 @@ public class Consola {
 		} while (!opcion.equals("3"));
 	}
 
-	static void DaviSubSubMenuCrearClienteManual() {
+	static void submenu7_2_1() {
 		String nombreCliente;
 		String edadClienteString;
 		String numeroCliente;
@@ -1231,7 +1231,7 @@ public class Consola {
 		pressEnter();
 	}
 
-	static void DaviSubmenuGenerarClienteRandom() {
+	static void submenu7_2_2() {
 		Cliente clienteSummonCliente = new Cliente(DatosAleatorios.randInt(100000, 999999),
 				DatosAleatorios.randString(DatosAleatorios.nombresAleatorios),
 				"Calle " + DatosAleatorios.randInt(10, 99) + " #" + DatosAleatorios.randInt(10, 99) + "-"
