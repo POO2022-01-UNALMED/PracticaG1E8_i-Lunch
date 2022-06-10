@@ -1,12 +1,13 @@
 from random import randint
+
 from usuariosRestaurante.empleado import Empleado
 
 class Mesero(Empleado):
 
     # Constructor
 
-    def __init__(self, cedula=0, nombre="", cargo="", disponibilidad=False, salario=0, restaurante=None):
-        super().__init__(cedula, nombre, cargo, disponibilidad, salario, restaurante)
+    def __init__(self, cedula = 0, nombre = "", disponibilidad = False, salario = 0, restaurante = None):
+        super().__init__(cedula, nombre, "Mesero", disponibilidad, salario, restaurante)
         self._pedidosAtendidos = []
         self._historialPropinas = []
     
@@ -24,7 +25,6 @@ class Mesero(Empleado):
     def setHistorialPropinas(self, historialPropinas):
         self._historialPropinas = historialPropinas
 
-
     # Metodos
 
     def recibirPropina(self, propina):
@@ -37,7 +37,7 @@ class Mesero(Empleado):
     def llevarPedido(self, pedido):
         self.agregarPedidoHistorial(pedido)
         
-        if pedido.getEstado() == EstadoPedido.LISTO and pedido.getTipo() == TipoPedido.CONSUMIR_EN_LUGAR:
+        if pedido.getEstado() == EstadoPedido.LISTO and pedido.getTipo() == TipoPedido.TIENDA:
             pedido.setEstado(EstadoPedido.DESPACHADO)
 
     def totalPropinas(self):
