@@ -3,9 +3,15 @@ from random import choice, randint
 from string import ascii_uppercase
 from src.datosAleatorios import randbool, tiposVehiculos, cargosEnCocina, especialidadesChefs
 
+from gestionRestaurante.restaurante import Restaurante
+from gestionRestaurante.producto import Producto
+from gestionRestaurante.pedido import Pedido
+from gestionRestaurante.estadoPedido import EstadoPedido
+from gestionRestaurante.tipoPedido import TipoPedido
+
 from usuariosRestaurante.empleado import Empleado
-from usuariosRestaurante.mesero import Mesero
 from usuariosRestaurante.repartidor import Repartidor
+from usuariosRestaurante.mesero import Mesero
 from usuariosRestaurante.chef import Chef
 
 class Administrador(Empleado):

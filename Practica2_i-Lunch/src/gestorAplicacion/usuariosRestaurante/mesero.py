@@ -2,6 +2,9 @@ from random import randint
 
 from usuariosRestaurante.empleado import Empleado
 
+from gestionRestaurante.estadoPedido import EstadoPedido
+from gestionRestaurante.tipoPedido import TipoPedido
+
 class Mesero(Empleado):
 
     # Constructor
@@ -14,13 +17,13 @@ class Mesero(Empleado):
     # Getters y Setters
 
     def getPedidosAtendidos(self):
-        return pedidosAtendidos
+        return self._pedidosAtendidos
 
     def setPedidosAtendidos(self, pedidosAtendidos):
         self._pedidosAtendidos = pedidosAtendidos
 
     def getHistorialPropinas(self):
-        return historialPropinas
+        return self._historialPropinas
 
     def setHistorialPropinas(self, historialPropinas):
         self._historialPropinas = historialPropinas

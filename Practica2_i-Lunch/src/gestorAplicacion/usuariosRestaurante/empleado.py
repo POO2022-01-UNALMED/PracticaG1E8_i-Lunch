@@ -1,5 +1,7 @@
 from usuariosRestaurante.usuario import Usuario
 
+from gestionRestaurante.estadoPedido import EstadoPedido
+
 class Empleado(Usuario):
      
     # Constructor
@@ -68,7 +70,7 @@ class Empleado(Usuario):
         if pedido.getEstado() == "Recibido":
             pedido.setEstado(EstadoPedido.ACEPTADO);
         elif pedido.getEstado() == "Aceptado":
-            pedido.setEstado(EstadoPedido.EN_PREPARACION);
+            pedido.setEstado(EstadoPedido.PREPARACION);
         elif pedido.getEstado() == "EnPreparacion":
             pedido.setEstado(EstadoPedido.LISTO);
         elif pedido.getEstado() == "Listo":
