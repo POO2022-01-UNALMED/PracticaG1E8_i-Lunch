@@ -1,11 +1,15 @@
 from random import randint
 
-from usuariosRestaurante.empleado import Empleado
-
 from gestionRestaurante.estadoPedido import EstadoPedido
 from gestionRestaurante.tipoPedido import TipoPedido
 
+from usuariosRestaurante.empleado import Empleado
+
 class Mesero(Empleado):
+
+    # Atributos estaticos
+
+    _meseros = []
 
     # Constructor
 
@@ -13,6 +17,8 @@ class Mesero(Empleado):
         super().__init__(cedula, nombre, "Mesero", disponibilidad, salario, restaurante)
         self._pedidosAtendidos = []
         self._historialPropinas = []
+
+        Mesero._meseros.append(self)
     
     # Getters y Setters
 
@@ -28,6 +34,14 @@ class Mesero(Empleado):
     def setHistorialPropinas(self, historialPropinas):
         self._historialPropinas = historialPropinas
 
+    @classmethod
+    def getMeseros(cls):
+        return cls._meseros
+
+    @classmethod
+    def setMeseros(cls, meseros):
+        cls._meseros = meseros
+
     # Metodos
 
     def recibirPropina(self, propina):
@@ -40,8 +54,8 @@ class Mesero(Empleado):
     def llevarPedido(self, pedido):
         self.agregarPedidoHistorial(pedido)
         
-        if pedido.getEstado() == EstadoPedido.LISTO and pedido.getTipo() == TipoPedido.TIENDA:
-            pedido.setEstado(EstadoPedido.DESPACHADO)
+        if pedido.getEstado() == EstadoPedido.LISTO.value and pedido.getTipo() == TipoPedido.TIENDA.value:
+            pedido.setEstado(EstadoPedido.DESPACHADO.value)
 
     def totalPropinas(self):
         total = 0

@@ -3,7 +3,6 @@ from random import choice, randint
 from string import ascii_uppercase
 from src.datosAleatorios import randbool, tiposVehiculos, cargosEnCocina, especialidadesChefs
 
-from gestionRestaurante.restaurante import Restaurante
 from gestionRestaurante.producto import Producto
 from gestionRestaurante.pedido import Pedido
 from gestionRestaurante.estadoPedido import EstadoPedido
@@ -18,14 +17,29 @@ class Administrador(Empleado):
 
     # Atributos estaticos
 
+    _administradores = []
     _IMPUESTOS = 1.19 # Constante
 
     # Constructor
 
     def __init__(self, cedula = 0, nombre = "", disponibilidad = False, salario = 0, restaurante = None):
         super().__init__(cedula, nombre, "Administrador", disponibilidad, salario, restaurante)
+        
+        listaEmpleados = self._restaurante.getEmpleados()
+        listaEmpleados.append(self)
+        self._restaurante.setEmpleados(listaEmpleados)
+
+        Administrador._administradores.append(self)
 
     # Getters y Setters
+
+    @classmethod
+    def getAdministradores(cls):
+        return cls._administradores
+
+    @classmethod
+    def setAdministradores(cls, administradores):
+        cls._administradores = administradores
 
     @classmethod
     def getImpuestos(cls):
@@ -212,11 +226,11 @@ class Administrador(Empleado):
         tipoRandom = randint(0,2)
 
         if tipoRandom == 0:
-            tipo = TipoPedido.LLEVAR
+            tipo = TipoPedido.LLEVAR.value
         elif tipoRandom == 1:
-            tipo = TipoPedido.TIENDA
+            tipo = TipoPedido.TIENDA.value
         elif tipoRandom == 2:
-            tipo = TipoPedido.DOMICILIO
+            tipo = TipoPedido.DOMICILIO.value
 
         pedido.setTipo(tipo)
         
@@ -247,7 +261,7 @@ class Administrador(Empleado):
 
         pedido.setPrecioTotal(precioTotal)
 
-        pedido.setEstado(EstadoPedido.RECIBIDO);
+        pedido.setEstado(EstadoPedido.RECIBIDO.value);
         self._restaurante.agregarPedido(pedido);
         return pedido
 

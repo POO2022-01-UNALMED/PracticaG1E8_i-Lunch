@@ -1,9 +1,13 @@
-from usuariosRestaurante.usuario import Usuario
-
 from gestionRestaurante.estadoPedido import EstadoPedido
 
+from usuariosRestaurante.usuario import Usuario
+
 class Empleado(Usuario):
-     
+
+    # Atributos estaticos
+
+    _empleados = []
+
     # Constructor
 
     def __init__(self, cedula = 0, nombre = "", cargo = "", disponibilidad = False, salario = 0, restaurante = None):
@@ -13,6 +17,8 @@ class Empleado(Usuario):
         self._disponibilidad = disponibilidad
         self._salario = salario
         self._restaurante = restaurante
+
+        Empleado._empleados.append(self)
 
     # Getters y Setters
     
@@ -54,6 +60,14 @@ class Empleado(Usuario):
     def setRestaurante(self, restaurante):
         self._restaurante = restaurante
 
+    @classmethod
+    def getEmpleados(cls):
+        return cls._empleados
+
+    @classmethod
+    def setEmpleados(cls, empleados):
+        cls._empleados = empleados
+
     # Metodos
 
     def procesarPedido(self, pedido):
@@ -64,17 +78,17 @@ class Empleado(Usuario):
 
     def actualizarEstadoPedido(self, pedido, aceptado):
         if not aceptado:
-            pedido.setEstado(EstadoPedido.RECHAZADO)
+            pedido.setEstado(EstadoPedido.RECHAZADO.value)
             return False
         
         if pedido.getEstado() == "Recibido":
-            pedido.setEstado(EstadoPedido.ACEPTADO);
+            pedido.setEstado(EstadoPedido.ACEPTADO.value);
         elif pedido.getEstado() == "Aceptado":
-            pedido.setEstado(EstadoPedido.PREPARACION);
+            pedido.setEstado(EstadoPedido.PREPARACION.value);
         elif pedido.getEstado() == "EnPreparacion":
-            pedido.setEstado(EstadoPedido.LISTO);
+            pedido.setEstado(EstadoPedido.LISTO.value);
         elif pedido.getEstado() == "Listo":
-            pedido.setEstado(EstadoPedido.DESPACHADO);
+            pedido.setEstado(EstadoPedido.DESPACHADO.value);
 
         return True
 
