@@ -11,8 +11,8 @@ nombresAleatorios = ["Phoebe Bright", "Nikolas Beltran", "Jimmy Harrell", "Onur 
 
 productosAleatorios = ["Pizza sin pinha", "Hamburguesa", "Bandeja Paisa", "Sushi", "Empanadas", "Pollo frito", "Spaghetti", "Paella", "Tacos", "Fondue", "Burrito", "Chop Suey", "Ratatouille", "Ceviche", "Risotto", "Papas fritas", "Lasagna", "Arepas", "Kebab", "Langosta", "Donas", "Curry", "Chicken Teriyaki", "Ramen", "Tamales", "Tortilla", "Shawarma", "Hummus", "Ajiaco", "Fish and Chips", "Rollitos de Primavera", "Buhuelos", "Pozole", "Milanesa", "Croissant", "Helado", "Fideos", "Tofu", "Sashimi", "Costillas BBQ", "Cupcake", "Pastel", "Brownies (Legales)", "Nachos", "Pastas", "Mac and Cheese", "Ensalada", "Quesadilla", "Galletas", "Fajitas", "Macarrones", "Churrasco", "Tiramisu", "Tarta de Manazana", "Churros", "Hot Dog"]
 
-cargosEnCocina = ["Chef ejecutivo", "Chef general", "Chef repostero", "Lavaplatos" ]
+tiposVehiculos = ["Automovil", "Motoicicleta", "Bicicleta", "Cuatrimoto", "Monopatin", "Helicoptero de la Policia", "Zeppelin", "Globo Aerostatico", "Tanque de Guerra Sovietico", "Excavadora Industrial", "Tractor", "Helicoptero de Guerra Apache AH-64", "Xavineta", "Monoplaza de Formula 1", "OVNI", "Papamovil"]
 
 especialidadesChefs = ["Saucier", "Poissonnier", "Rotisseur", "Grillardin", "Friturier", "Entremetier", "Tournant", "Garde Manger", "Boucher", "Patissier"]
 
-tiposVehiculos = ["Automovil", "Motoicicleta", "Bicicleta", "Cuatrimoto", "Monopatin", "Helicoptero de la Policia", "Zeppelin", "Globo Aerostatico", "Tanque de Guerra Sovietico", "Excavadora Industrial", "Tractor", "Helicoptero de Guerra Apache AH-64", "Xavineta", "Monoplaza de Formula 1", "OVNI", "Papamovil"]
+cargosEnCocina = ["Chef ejecutivo", "Chef general", "Chef repostero", "Lavaplatos"]

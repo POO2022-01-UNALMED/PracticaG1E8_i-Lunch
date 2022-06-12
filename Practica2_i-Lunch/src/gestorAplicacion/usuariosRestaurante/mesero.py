@@ -1,16 +1,5 @@
-from random import randint
-
-from src.gestorAplicacion.usuariosRestaurante.usuario import Usuario
 from src.gestorAplicacion.usuariosRestaurante.empleado import Empleado
-from src.gestorAplicacion.usuariosRestaurante.administrador import Administrador
-from src.gestorAplicacion.usuariosRestaurante.repartidor import Repartidor
-from src.gestorAplicacion.usuariosRestaurante.mesero import Mesero
-from src.gestorAplicacion.usuariosRestaurante.chef import Chef
-from src.gestorAplicacion.usuariosRestaurante.cliente import Cliente
 
-from src.gestorAplicacion.gestionRestaurante.restaurante import Restaurante
-from src.gestorAplicacion.gestionRestaurante.producto import Producto
-from src.gestorAplicacion.gestionRestaurante.pedido import Pedido
 from src.gestorAplicacion.gestionRestaurante.estadoPedido import EstadoPedido
 from src.gestorAplicacion.gestionRestaurante.tipoPedido import TipoPedido
 
@@ -24,6 +13,7 @@ class Mesero(Empleado):
 
     def __init__(self, cedula = 0, nombre = "", disponibilidad = False, salario = 0, restaurante = None):
         super().__init__(cedula, nombre, "Mesero", disponibilidad, salario, restaurante)
+
         self._pedidosAtendidos = []
         self._historialPropinas = []
 
@@ -56,12 +46,12 @@ class Mesero(Empleado):
     def recibirPropina(self, propina):
         self._historialPropinas.append(propina)
 
-    def agregarPedidoHistorial(self, pedido):
+    def agregarPedidoHistorial(self, pedido, propina):
         self._pedidosAtendidos.append(pedido)
-        self.recibirPropina(randint(1,10))
+        self.recibirPropina(propina)
 
-    def llevarPedido(self, pedido):
-        self.agregarPedidoHistorial(pedido)
+    def llevarPedido(self, pedido, propina):
+        self.agregarPedidoHistorial(pedido, propina)
         
         if pedido.getEstado() == EstadoPedido.LISTO.value and pedido.getTipo() == TipoPedido.TIENDA.value:
             pedido.setEstado(EstadoPedido.DESPACHADO.value)

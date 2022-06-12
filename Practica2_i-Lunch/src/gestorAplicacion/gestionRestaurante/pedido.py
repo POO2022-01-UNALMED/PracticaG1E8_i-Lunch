@@ -8,9 +8,33 @@ from src.gestorAplicacion.usuariosRestaurante.cliente import Cliente
 
 from src.gestorAplicacion.gestionRestaurante.restaurante import Restaurante
 from src.gestorAplicacion.gestionRestaurante.producto import Producto
-from src.gestorAplicacion.gestionRestaurante.pedido import Pedido
 from src.gestorAplicacion.gestionRestaurante.estadoPedido import EstadoPedido
 from src.gestorAplicacion.gestionRestaurante.tipoPedido import TipoPedido
 
 class Pedido:
-    pass
+
+    # Atributos estaticos
+
+    _pedidos = []
+
+    # Constructor
+
+    def __init__(self):
+
+
+        Pedido._pedidos.append(self)
+
+    # Getters y Setters
+
+    
+
+    @classmethod
+    def getPedidos(cls):
+        return cls._pedidos
+
+    @classmethod
+    def setPedidos(cls, pedidos):
+        cls._pedidos = pedidos
+
+    # Metodos
+    
