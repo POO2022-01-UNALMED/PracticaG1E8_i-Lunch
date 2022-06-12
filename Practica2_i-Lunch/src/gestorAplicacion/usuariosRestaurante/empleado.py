@@ -1,6 +1,6 @@
-from src.gestorAplicacion.usuariosRestaurante.usuario import Usuario
+from gestorAplicacion.usuariosRestaurante.usuario import Usuario
 
-from src.gestorAplicacion.gestionRestaurante.estadoPedido import EstadoPedido
+from gestorAplicacion.gestionRestaurante.estadoPedido import EstadoPedido
 
 class Empleado(Usuario):
 

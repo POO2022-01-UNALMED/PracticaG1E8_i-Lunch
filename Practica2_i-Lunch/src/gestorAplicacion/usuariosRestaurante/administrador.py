@@ -2,17 +2,17 @@ from datetime import date
 from random import choice, randint
 from string import ascii_uppercase
 
-from src.datosAleatorios import randbool, tiposVehiculos, cargosEnCocina, especialidadesChefs
+from gestorAplicacion.datosAleatorios import randbool, tiposVehiculos, cargosEnCocina, especialidadesChefs
 
-from src.gestorAplicacion.usuariosRestaurante.empleado import Empleado
-from src.gestorAplicacion.usuariosRestaurante.repartidor import Repartidor
-from src.gestorAplicacion.usuariosRestaurante.mesero import Mesero
-from src.gestorAplicacion.usuariosRestaurante.chef import Chef
+from gestorAplicacion.usuariosRestaurante.empleado import Empleado
+from gestorAplicacion.usuariosRestaurante.repartidor import Repartidor
+from gestorAplicacion.usuariosRestaurante.mesero import Mesero
+from gestorAplicacion.usuariosRestaurante.chef import Chef
 
-from src.gestorAplicacion.gestionRestaurante.producto import Producto
-from src.gestorAplicacion.gestionRestaurante.pedido import Pedido
-from src.gestorAplicacion.gestionRestaurante.estadoPedido import EstadoPedido
-from src.gestorAplicacion.gestionRestaurante.tipoPedido import TipoPedido
+from gestorAplicacion.gestionRestaurante.producto import Producto
+from gestorAplicacion.gestionRestaurante.pedido import Pedido
+from gestorAplicacion.gestionRestaurante.estadoPedido import EstadoPedido
+from gestorAplicacion.gestionRestaurante.tipoPedido import TipoPedido
 
 class Administrador(Empleado):
 

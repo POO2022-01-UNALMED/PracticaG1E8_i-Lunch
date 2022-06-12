@@ -2,16 +2,16 @@ import pathlib
 import pickle
 import os
 
-from src.gestorAplicacion.usuariosRestaurante.empleado import Empleado
-from src.gestorAplicacion.usuariosRestaurante.administrador import Administrador
-from src.gestorAplicacion.usuariosRestaurante.repartidor import Repartidor
-from src.gestorAplicacion.usuariosRestaurante.mesero import Mesero
-from src.gestorAplicacion.usuariosRestaurante.chef import Chef
-from src.gestorAplicacion.usuariosRestaurante.cliente import Cliente
+from gestorAplicacion.usuariosRestaurante.empleado import Empleado
+from gestorAplicacion.usuariosRestaurante.administrador import Administrador
+from gestorAplicacion.usuariosRestaurante.repartidor import Repartidor
+from gestorAplicacion.usuariosRestaurante.mesero import Mesero
+from gestorAplicacion.usuariosRestaurante.chef import Chef
+from gestorAplicacion.usuariosRestaurante.cliente import Cliente
 
-from src.gestorAplicacion.gestionRestaurante.restaurante import Restaurante
-from src.gestorAplicacion.gestionRestaurante.producto import Producto
-from src.gestorAplicacion.gestionRestaurante.pedido import Pedido
+from gestorAplicacion.gestionRestaurante.restaurante import Restaurante
+from gestorAplicacion.gestionRestaurante.producto import Producto
+from gestorAplicacion.gestionRestaurante.pedido import Pedido
 
 def serializar():
     serializarEmpleados()

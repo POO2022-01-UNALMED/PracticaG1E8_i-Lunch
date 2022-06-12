@@ -1,4 +1,4 @@
-from src.excepciones.errorAplicacion import ErrorAplicacion
+from excepciones.errorAplicacion import ErrorAplicacion
 
 class ErrorTipoDato(ErrorAplicacion):
     

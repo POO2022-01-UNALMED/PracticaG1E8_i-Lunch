@@ -1,7 +1,7 @@
-from src.gestorAplicacion.usuariosRestaurante.empleado import Empleado
+from gestorAplicacion.usuariosRestaurante.empleado import Empleado
 
-from src.gestorAplicacion.gestionRestaurante.estadoPedido import EstadoPedido
-from src.gestorAplicacion.gestionRestaurante.tipoPedido import TipoPedido
+from gestorAplicacion.gestionRestaurante.estadoPedido import EstadoPedido
+from gestorAplicacion.gestionRestaurante.tipoPedido import TipoPedido
 
 class Mesero(Empleado):
 
