@@ -25,46 +25,46 @@ def serializar():
     serializarPedidos()
 
 def serializarEmpleados():
-    ficheroEmpleados = open(os.path.join(pathlib.Path(__file__).parent.absolute(), "temp\\empleados"),"wb") 
+    ficheroEmpleados = open(os.path.join(pathlib.Path(__file__).parent.absolute(), "temp\\empleados.txt"),"wb") 
     pickle.dump(Empleado.getEmpleados(), ficheroEmpleados)
     ficheroEmpleados.close()
 
 def serializarAdministradores():
-    ficheroAdministradores = open(os.path.join(pathlib.Path(__file__).parent.absolute(), "temp\\administradores"),"wb") 
+    ficheroAdministradores = open(os.path.join(pathlib.Path(__file__).parent.absolute(), "temp\\administradores.txt"),"wb") 
     pickle.dump(Administrador.getAdministradores(), ficheroAdministradores)
     ficheroAdministradores.close()
 
 def serializarRepartidores():
-    ficheroRepartidores = open(os.path.join(pathlib.Path(__file__).parent.absolute(), "temp\\repartidores"),"wb") 
+    ficheroRepartidores = open(os.path.join(pathlib.Path(__file__).parent.absolute(), "temp\\repartidores.txt"),"wb") 
     pickle.dump(Repartidor.getRepartidores(), ficheroRepartidores)
     ficheroRepartidores.close()
 
 def serializarMeseros():
-    ficheroMeseros = open(os.path.join(pathlib.Path(__file__).parent.absolute(), "temp\\meseros"),"wb") 
+    ficheroMeseros = open(os.path.join(pathlib.Path(__file__).parent.absolute(), "temp\\meseros.txt"),"wb") 
     pickle.dump(Mesero.getMeseros(), ficheroMeseros)
     ficheroMeseros.close()
 
 def serializarChefs():
-    ficheroChefs = open(os.path.join(pathlib.Path(__file__).parent.absolute(), "temp\\chefs"),"wb") 
+    ficheroChefs = open(os.path.join(pathlib.Path(__file__).parent.absolute(), "temp\\chefs.txt"),"wb") 
     pickle.dump(Chef.getChefs(), ficheroChefs)
     ficheroChefs.close()
 
 def serializarClientes():
-    ficheroClientes = open(os.path.join(pathlib.Path(__file__).parent.absolute(), "temp\\clientes"),"wb") 
+    ficheroClientes = open(os.path.join(pathlib.Path(__file__).parent.absolute(), "temp\\clientes.txt"),"wb") 
     pickle.dump(Cliente.getClientes(), ficheroClientes)
     ficheroClientes.close()
 
 def serializarRestaurantes():
-    ficheroRestaurantes = open(os.path.join(pathlib.Path(__file__).parent.absolute(), "temp\\restaurantes"),"wb") 
+    ficheroRestaurantes = open(os.path.join(pathlib.Path(__file__).parent.absolute(), "temp\\restaurantes.txt"),"wb") 
     pickle.dump(Restaurante.getRestaurantes(), ficheroRestaurantes)
     ficheroRestaurantes.close()
 
 def serializarProductos():
-    ficheroProductos = open(os.path.join(pathlib.Path(__file__).parent.absolute(), "temp\\productos"),"wb") 
+    ficheroProductos = open(os.path.join(pathlib.Path(__file__).parent.absolute(), "temp\\productos.txt"),"wb") 
     pickle.dump(Producto.getProductos(), ficheroProductos)
     ficheroProductos.close()
 
 def serializarPedidos():
-    ficheroPedidos = open(os.path.join(pathlib.Path(__file__).parent.absolute(), "temp\\pedidos"),"wb") 
+    ficheroPedidos = open(os.path.join(pathlib.Path(__file__).parent.absolute(), "temp\\pedidos.txt"),"wb") 
     pickle.dump(Pedido.getPedidos(), ficheroPedidos)
     ficheroPedidos.close()
