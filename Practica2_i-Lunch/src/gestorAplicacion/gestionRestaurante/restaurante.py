@@ -1,11 +1,12 @@
 class Restaurante:
+    
     # Atributos estaticos
 
     _restaurantes = []
 
     # Constructor
 
-    def _init_(self, nombre = "", nit = 0, telefono = 0, direccion = "", email = "", abierto= False, capacidad = 0, empleados = None, menu = None, pedidos = None, balanceCuenta = 0):
+    def _init_(self, nombre = "", nit = 0, telefono = 0, direccion = "", email = "", abierto = False, capacidad = 0, empleados = None, menu = None, pedidos = None, balanceCuenta = 0):
         self._nombre = nombre
         self._nit = nit 
         self._telefono = telefono
