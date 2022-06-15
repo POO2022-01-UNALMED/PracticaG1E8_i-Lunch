@@ -1,3 +1,6 @@
+from gestorAplicacion.usuariosRestaurante.repartidor import Repartidor
+from gestorAplicacion.usuariosRestaurante.mesero import Mesero
+
 class Restaurante:
     
     # Atributos estaticos
@@ -171,10 +174,10 @@ class Restaurante:
     # Busqueda del repartidor con mas pedidos
     def  getRepartidorConMasPedidos(self):		
         # Repártidor vacio para que el metodo funcione
-        topMeseroPropinas = None
+        topRepartidor = None
         
         # Loop para encontrar el repartidor con mas pedidos repartidos
-        for repartidor in repartidor.getRepartidores():
+        for repartidor in Repartidor.getRepartidores():
 			# Comparamos cada repartidor en la lista de repartidores
             repartidos1 = repartidor.getCantidadPedidosEntregados()
             repartidos2 = topRepartidor.getCantidadPedidosEntregados()
@@ -190,7 +193,7 @@ class Restaurante:
         topMeseroPropinas = None
 
 		# Loop para encontrar al mesero con mas propinas
-        for mesero in mesero.getMeseros():
+        for mesero in Mesero.getMeseros():
 			#Comparamos todos los meseros en la lista de meseros
             propinas1 = topMeseroPropinas.totalPropinas()
             propinas2 = mesero.totalPropinas()
@@ -205,7 +208,7 @@ class Restaurante:
         cantidad = 0
         propinas = 0
 
-        for mesero in mesero.getMeseros():
+        for mesero in Mesero.getMeseros():
             cantidad += 1
             propinas += mesero.totalPropinas()
         
@@ -216,7 +219,7 @@ class Restaurante:
         cantidad = 0
         pedidos = 0
         
-        for repartidor in repartidor.getRepartidores():
+        for repartidor in Repartidor.getRepartidores():
             cantidad += 1
             pedidos += repartidor.getCantidadPedidosEntregados()
         
