@@ -1,7 +1,5 @@
-from re import T
-from sympy import true
 from gestorAplicacion.gestionRestaurante.estadoPedido import EstadoPedido
-from gestorAplicacion.gestionRestaurante.pedido import Pedido
+
 from gestorAplicacion.usuariosRestaurante.empleado import Empleado
 
 class Chef(Empleado):
@@ -12,15 +10,16 @@ class Chef(Empleado):
 
     # Constructor
 
-    def __init__(self, cedula = 0, nombre = "", disponibilidad = False, salario = 0, restaurante = None, cargoEnCocina = " ", especialidad = " "):
+    def __init__(self, cedula = 0, nombre = "", disponibilidad = False, salario = 0, restaurante = None, cargoEnCocina = "", especialidad = ""):
+        super().__init__(cedula, nombre, "Chef", disponibilidad, salario, restaurante)
+
         self._cargoEnCocina = cargoEnCocina
         self._especialidad = especialidad
-        super().__init__(cedula, nombre, "Mesero", disponibilidad, salario, restaurante)
-        
 
         Chef._chefs.append(self)
 
     # Getters y Setters
+
     def getCargoEnCocina(self):
         return self._cargoEnCocina
 
@@ -33,7 +32,6 @@ class Chef(Empleado):
     def setEspecialidad(self, especialidad):
         self._especialidad = especialidad
     
-
     @classmethod
     def getChefs(cls):
         return cls._chefs
@@ -51,22 +49,22 @@ class Chef(Empleado):
     def revisionPedido(self,pedido):
         if self._cargoEnCocina == "Chef en jefe":
             cuenta = 0
+
             for i in range(0, len(pedido.getProductos)):
                 if pedido.getProductos.get(i).getEstado() == True:
                     cuenta += 1
             
             if cuenta == len(pedido.getProductos()):
                 pedido.setEstado(EstadoPedido.LISTO.value)
-
-
-
-
+    
     # Implementacion de la interfaz
 
     def informacion(self):
-        info = f"El Chef {self._nombre} con C.C. {self._cedula} trabaja en el restaurante {self._restaurante.getNombre()}. Tiene un salario de: ${self._salario}, tiene el cargo {self._cargo} en la cocina y esta especializado en {self.especialidad}."
+        info = f"El Chef {self._nombre} con C.C. {self._cedula} trabaja en el restaurante {self._restaurante.getNombre()}.\n" \
+               f"Tiene un salario de: ${self._salario}.\n" \
+               f"Tiene el cargo {self._cargo} en la cocina y esta especializado en {self.especialidad}.\n"
         
         if self._disponibilidad:
-            return info + "Está disponible actualmente."
+            return info + "Esta disponible actualmente."
         else:
-            return info + "No está disponible actualmente."
+            return info + "No esta disponible actualmente."

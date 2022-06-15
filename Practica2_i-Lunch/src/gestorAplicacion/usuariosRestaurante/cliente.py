@@ -14,6 +14,7 @@ class Cliente(Usuario):
         self._telefono = telefono
         self._direccion = direccion
         self._edad = edad
+
         self._historialPedidos = []
 
         Cliente._clientes.append(self)
@@ -72,4 +73,7 @@ class Cliente(Usuario):
     # Implementacion de la interfaz
 
     def informacion(self):
-        return f"El cliente {self._nombre} con email {self._correoElectronico} y telefono {self._telefono}. Vive en la direccion {self._direccion} y tiene {self._edad} años. Ha hecho {len(self._historialPedidos)} pedidos en la aplicacion."
+        return f"El cliente {self._nombre} tiene email {self._correoElectronico} y telefono {self._telefono}.\n" \
+               f"Tiene {self._edad} años.\n" \
+               f"Vive en la direccion {self._direccion}.\n" \
+               f"Ha hecho {len(self._historialPedidos)} pedidos en la aplicacion."

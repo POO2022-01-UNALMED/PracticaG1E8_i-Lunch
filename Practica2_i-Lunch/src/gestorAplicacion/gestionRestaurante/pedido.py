@@ -4,44 +4,23 @@ class Pedido:
 
     _pedidos = []
     _totalPedidos = 0
+
     # Constructor
 
-    def __init__(self, cliente = None, codigo = None, tipo = None, estado = None, mensaje = None,fechaHora = None, precioTotal = None, restaurante = None):
+    def __init__(self, cliente = None, tipo = "", estado = "", mensaje = "", fechaHora = None, precioTotal = 0, restaurante = None):
         self._cliente = cliente
-        self._codigo = codigo
         self._tipo = tipo
         self._estado = estado
-        self._productos = []
         self._mensaje = mensaje
         self._fechaHora = fechaHora
         self._precioTotal = precioTotal
         self._restaurante = restaurante
+        
+        self._codigo = Pedido._totalPedidos
+        self._productos = []
+
         Pedido._pedidos.append(self)
-
-    @classmethod
-    def getPedidos(cls):
-        return cls._pedidos
-
-    @classmethod
-    def setPedidos(cls, pedidos):
-        cls._pedidos = pedidos
-
-    @classmethod
-    def getTotalPedidos(cls):
-        return cls._totalPedidos
-
-    @classmethod
-    def setTotalPedidos(cls, totalPedidos):
-        cls._totalPedidos = totalPedidos
-
-    # Metodos
-    
-    def calcularPrecioTotal(self):
-        sum = 0
-        for i in self._productos:
-            sum += i.getPrecio()
-        return sum
-
+        Pedido._totalPedidos += 1
 
     # Getters y Setters
 
@@ -62,12 +41,6 @@ class Pedido:
 
     def setEstado(self, estado):
         self._estado = estado
-
-    def getProductos(self):
-        return self._productos
-
-    def setProductos(self, productos):
-        self._productos = productos
 
     def getTipo(self):
         return  self._tipo
@@ -99,11 +72,42 @@ class Pedido:
     def setRestaurante(self, restaurante):
         self._restaurante = restaurante
 
+    def getProductos(self):
+        return self._productos
+
+    def setProductos(self, productos):
+        self._productos = productos
+
+    @classmethod
+    def getPedidos(cls):
+        return cls._pedidos
+
+    @classmethod
+    def setPedidos(cls, pedidos):
+        cls._pedidos = pedidos
+
+    @classmethod
+    def getTotalPedidos(cls):
+        return cls._totalPedidos
+
+    @classmethod
+    def setTotalPedidos(cls, totalPedidos):
+        cls._totalPedidos = totalPedidos
+
+    # Metodos
+    
+    def calcularPrecioTotal(self):
+        sum = 0
+        for i in self._productos:
+            sum += i.getPrecio()
+        return sum
+
+    # ToString
 
     def __str__(self):
-        return f'Pedido {self._codigo} hecho por el cliente {self._cliente} \n' \
-               f'Fecha y hora: {self._fechaHora} \n' \
-               f'Estado: {self._estado} \n' \
-               f'Mensaje: {self._mensaje} \n' \
-               f'Tipo: {self._tipo}\n' \
-               f'Precio total: {self._precioTotal}'
+        return f"Pedido {self._codigo} hecho por el cliente {self._cliente}\n" \
+               f"Fecha y hora: {self._fechaHora}\n" \
+               f"Estado: {self._estado}\n" \
+               f"Mensaje: {self._mensaje}\n" \
+               f"Tipo: {self._tipo}\n" \
+               f"Precio total: ${self._precioTotal}"

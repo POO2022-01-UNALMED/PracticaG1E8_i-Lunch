@@ -105,6 +105,7 @@ class Restaurante:
     def verificarPersonal(self, pedido):
 		# Comprobamos si existe un chef en el restaurante
         chef = False
+
         for empleado in self._empleados:
             if empleado.getCargo() == "Chef":
                 chef = True
@@ -113,6 +114,7 @@ class Restaurante:
         if pedido.getTipo() == "A domicilio": 
 			# Rectificar el personal del restaurante y comprobar que haya el necesario para el tipo de pedido
             repartidor = False
+
             for empleado in self._empleados:
                 if empleado.getCargo() == "Repartidor":
                     repartidor = True
@@ -137,6 +139,7 @@ class Restaurante:
         return True
     
     # Determina si el restaurante posee los productos solicitados en un pedido
+
     def verificarProductos(self, pedido):
         for demanda in pedido.getProductos():
             existe = False
@@ -165,6 +168,7 @@ class Restaurante:
     def agregarPedido(self, pedido):
         if not self._pedidos.contains(pedido):
             self._pedidos.add(pedido)
+
             return f"Pedido #{pedido.getCodigo()} anadido con exito al historial"
         else:
             return f"El pedido #{pedido.getCodigo()} ya se encuentra en el historial"
@@ -173,7 +177,7 @@ class Restaurante:
 
     # Busqueda del repartidor con mas pedidos
     def  getRepartidorConMasPedidos(self):		
-        # Repártidor vacio para que el metodo funcione
+        # Repartidor vacio para que el metodo funcione
         topRepartidor = None
         
         # Loop para encontrar el repartidor con mas pedidos repartidos
@@ -230,4 +234,7 @@ class Restaurante:
         topMesero = self.getMeseroConMasPropinas()
         topRepartidor = self.getRepartidorConMasPedidos()
 
-        return f"El mesero con mas propinas es: {topMesero.getNombre()} con ${topMesero.totalPropinas()} recibido en propinas. El repartidor con mas pedidos repartidos es: {topRepartidor.getNombre()} con {topRepartidor.getCantidadPedidosEntregados()} pedidos entregados. En promedio un mesero recibe ${self.promedioPropinasMeseros()} en propinas en el restaurante. En promedio un mesero ha entregado {self.promedioPedidosRepartidores()} pedidos a clientes del restaurante."
+        return f"El mesero con mas propinas es: {topMesero.getNombre()} con ${topMesero.totalPropinas()} recibido en propinas.\n" \
+               f"El repartidor con mas pedidos repartidos es: {topRepartidor.getNombre()} con {topRepartidor.getCantidadPedidosEntregados()} pedidos entregados.\n" \
+               f"En promedio un mesero recibe ${self.promedioPropinasMeseros()} en propinas en el restaurante.\n" \
+               f"En promedio un mesero ha entregado {self.promedioPedidosRepartidores()} pedidos a clientes del restaurante."

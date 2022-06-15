@@ -269,9 +269,10 @@ class Administrador(Empleado):
     # Implementacion de la interfaz
 
     def informacion(self):
-        info = f"El Administrador {self._nombre} del restaurente {self._restaurante.getNombre()} es {self._nombre} con C.C. {self._cedula}. Tiene un salario de: ${self._salario}. "
+        info = f"El Administrador {self._nombre} del restaurente {self._restaurante.getNombre()} es {self._nombre} con C.C. {self._cedula}.\n" \
+               f"Tiene un salario de: ${self._salario}.\n"
         
         if self._disponibilidad:
-            return info + "Está disponible actualmente."
+            return info + "Esta disponible actualmente."
         else:
-            return info + "No está disponible actualmente."
+            return info + "No esta disponible actualmente."

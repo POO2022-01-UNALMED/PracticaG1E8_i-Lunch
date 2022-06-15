@@ -1,5 +1,6 @@
 from gestorAplicacion.gestionRestaurante.estadoPedido import EstadoPedido
 from gestorAplicacion.gestionRestaurante.tipoPedido import TipoPedido
+
 from gestorAplicacion.usuariosRestaurante.empleado import Empleado
 
 class Repartidor(Empleado):
@@ -13,17 +14,17 @@ class Repartidor(Empleado):
 
     # Constructor
 
-    def __init__(self, cedula = 0, nombre = "", disponibilidad = False, salario = 0, restaurante = None, poseeVehiculo = False, placa = " ", tipoVehiculo = " "):
+    def __init__(self, cedula = 0, nombre = "", disponibilidad = False, salario = 0, restaurante = None, poseeVehiculo = False, placa = "", tipoVehiculo = ""):
+        super().__init__(cedula, nombre, "Repartidor", disponibilidad, salario, restaurante)
+
         self._poseeVehiculo = poseeVehiculo
         self._placa = placa
         self._tipoVehiculo = tipoVehiculo
-        super().__init__(cedula, nombre, "Mesero", disponibilidad, salario, restaurante)
-
-
 
         Repartidor._repartidores.append(self)
 
     # Getters y Setters
+
     def getPoseeVehiculo(self):
         return self._poseeVehiculo
 
@@ -47,7 +48,6 @@ class Repartidor(Empleado):
     
     def setPedidosEntregados(self, pedidosEntregados):
         self._pedidosEntregados = pedidosEntregados
-    
 
     @classmethod
     def getRepartidores(cls):
@@ -61,6 +61,7 @@ class Repartidor(Empleado):
 
     def repartirPedido(self, pedido):
         Repartidor._pedidosEntregados.append(pedido)
+
         if pedido.getEstado() == EstadoPedido.LISTO.value and pedido.getTipo() == TipoPedido.DOMICILIO.value:
             pedido.setEstado(EstadoPedido.DESPACHADO)
 
@@ -69,14 +70,15 @@ class Repartidor(Empleado):
     # Implementacion de la interfaz
 
     def informacion(self):
-        info = f"El Repartidor {self._nombre} con C.C. {self._cedula} trabaja en el restaurante {self._restaurante.getNombre()}. Tiene un salario de: ${self._salario}. "
+        info = f"El Repartidor {self._nombre} con C.C. {self._cedula} trabaja en el restaurante {self._restaurante.getNombre()}.\n" \
+               f"Tiene un salario de: ${self._salario}.\n"
         
         if self._poseeVehiculo:
-            return info + f"Posee un vehiculo de tipo {self._tipoVehiculo}, con placa {self._placa}."
+            info += f"Posee un vehiculo de tipo {self._tipoVehiculo}, con placa {self._placa}.\n"
         else:
-            info + "No tiene vehiculo."
+            info += "No tiene vehiculo.\n"
 
         if self._disponibilidad:
-            return info + "Está disponible actualmente."
+            return info + "Esta disponible actualmente."
         else:
-            return info + "No está disponible actualmente."
+            return info + "No esta disponible actualmente."

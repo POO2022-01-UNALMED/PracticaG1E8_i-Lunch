@@ -6,18 +6,20 @@ class Producto:
 
     # Constructor
 
-    def __init__(self, nombre = None, descripcino = None, precio = None, disponibilidad = None, restriccion = None, cantidad = None):
+    def __init__(self, nombre = "", descripcion = "", precio = 0, disponibilidad = False, restriccion = False, cantidad = 0):
         self._nombre = nombre
-        self._descripcion = descripcino
+        self._descripcion = descripcion
         self._precio = precio
         self._restriccion = restriccion
         self._disponibilidad= disponibilidad
         self._cantidad = cantidad
-        self._estado = False
+        
+        self._estado = False # Sin preparar aun
 
         Producto._productos.append(self)
 
     # Getters y Setters
+
     def getNombre(self):
         return self._nombre
 
@@ -65,13 +67,13 @@ class Producto:
     def setProductos(cls, productos):
         cls._productos = productos
 
-    # Metodos
+    # ToString
 
     def __str__(self):
-        return f'Nombre: {self._nombre} \n' \
-               f'Descripcion: {self._descripcion} \n' \
-               f'Precio: {self._precio}\n' \
-               f'Disponibilidad: {self._disponibilidad} \n' \
-               f'Restriccion de edad: {self._restriccion}\n' \
-               f'Cantidad disponible: {self._cantidad}'
+        return f"Nombre: {self._nombre} \n" \
+               f"Descripcion: {self._descripcion} \n" \
+               f"Precio: ${self._precio}\n" \
+               f"Disponibilidad: {self._disponibilidad} \n" \
+               f"Restriccion de edad: {self._restriccion}\n" \
+               f"Cantidad disponible: {self._cantidad}"
     
