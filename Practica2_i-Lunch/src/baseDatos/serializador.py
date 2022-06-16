@@ -13,18 +13,20 @@ from gestorAplicacion.gestionRestaurante.restaurante import Restaurante
 from gestorAplicacion.gestionRestaurante.producto import Producto
 from gestorAplicacion.gestionRestaurante.pedido import Pedido
 
+# Codigo sacado del ejemplo proporcionado por el monitor
+
 def serializar(lista, className):
     def camino(className):
         return os.path.join(pathlib.Path(__file__).parent.absolute(), f"temp\{className}.txt")
 
     try:
-        # Creo el archivo pickle para guardar los objetos
+        # Crear el archivo pickle para guardar los objetos
         picklefile = open(camino(className), 'wb')
 
         # Pickle el objeto en el archivo
         pickle.dump(lista, picklefile)
 
-        # Cierro el archivo para guardar
+        # Cerrar el archivo
         picklefile.close()
         
     except:

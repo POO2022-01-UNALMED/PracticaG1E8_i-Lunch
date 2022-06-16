@@ -15,10 +15,14 @@ from gestorAplicacion.usuariosRestaurante.repartidor import Repartidor
 
 def inicializar():
     if len(Administrador.getAdministradores()) == 0:
+        
+        # Crear objeto restaurante y administrador principales
+        
         restaurante = Restaurante("Teso's Food", randint(1000000000, 9999999999), randint(1000000000, 9999999999), "M9 Segundo piso", "poo@fuiciosos.com", True, randint(5, 20), randint(25000, 250000))
         administrador = Administrador(randint(1000000000, 9999999999), "Pepito Perez", True, randint(1000, 5000), restaurante)
         
         # Generar de 3 a 5 empleados random de cada tipo
+
         empleados = [administrador]
 
         for i in range(randint(3, 5)): # Repartidores
@@ -36,6 +40,7 @@ def inicializar():
         restaurante.setEmpleados(empleados)
 
         # Generar de 5 a 10 productos random
+
         menu = []
 
         for i in range(5, 10):
@@ -44,6 +49,7 @@ def inicializar():
         restaurante.setMenu(menu)
         
         # Generar de 5 a 15 clientes random
+
         for i in range(randint(5, 15)):
             nombre = choice(nombresAleatorios)
             Cliente(nombre, generarEmail(nombre), randint(1000000000, 9999999999), randDireccion(), randint(18, 65))

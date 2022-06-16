@@ -100,6 +100,7 @@ class Pedido:
         sum = 0
         for i in self._productos:
             sum += i.getPrecio()
+            
         return sum
 
     # ToString

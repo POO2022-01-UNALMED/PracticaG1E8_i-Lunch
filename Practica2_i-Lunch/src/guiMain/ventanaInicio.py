@@ -1,10 +1,11 @@
-from tkinter import Tk, Menu, Label, Entry, Button, Text, PhotoImage, Frame, INSERT, scrolledtext
+from tkinter import *
 import pathlib
 import os
-import tkinter
 
 from gestorAplicacion.gestionRestaurante.restaurante import Restaurante
 from gestorAplicacion.usuariosRestaurante.administrador import Administrador
+
+from guiMain.ventanaUsuario import VentanaUsuario
 
 class VentanaInicio(Tk):
     def __init__(self):
@@ -16,11 +17,11 @@ class VentanaInicio(Tk):
         self.option_add("*tearOff",  False)
         self.geometry("1280x720")
 
-        # Creacion menu
+        # Creacion del menu
 
         self._barraMenu = Menu(self)
         inicio = Menu(self._barraMenu)
-        inicio.add_command(label = "Descripcion", command = lambda: self._p1._descripcion.pack(pady=(10,0)))
+        inicio.add_command(label = "Descripcion", command = lambda: self.desplegarDescripcion())
         inicio.add_command(label = "Salir", command = lambda: self.destroy())
         self._barraMenu.add_cascade(label = "Inicio", menu = inicio)
         self.config(menu = self._barraMenu)
@@ -31,18 +32,26 @@ class VentanaInicio(Tk):
 
         # Hoja de vida e imagen de los desarrolladores
 
-        self._p2 = Frame(self)
+        self._p2 = Frame(self) # ! Falta esto (Cambiar Frame por P2)
 
         # Colocar los elementos en pantalla
 
         self._p1.grid(row = 0, column = 0, padx=(10,10))
         self._p2.grid(row = 0, column = 1, padx=(10,10))
 
+    # Desplegar la descripcion y aumentar un poco el tamaño de la ventana
+
+    def desplegarDescripcion(self):
+        self._p1._descripcion.pack(pady=(10,0))
+        self.geometry("1280x840")
+
+# Frame P1 con la bienvenida al sistema
+
 class P1(Frame):
     def __init__(self, ventana):
         super().__init__(ventana)
 
-        # Guardar la referncia a la ventana
+        # Guardar la referncia a la ventana para cerrarla luego
 
         self._ventana = ventana
 
@@ -56,22 +65,26 @@ class P1(Frame):
 
         restaurante = Restaurante.getRestaurantes()[0].getNombre()
         administrador = Administrador.getAdministradores()[0].getNombre()
-        textoSaludo = f"Bienvenido de nuevo a i-Lunch.\nAdministrador: {administrador}\nRestaurante: {restaurante}"
+        textoSaludo = f"Bienvenido de nuevo a i-Lunch.\n" \
+                      f"Administrador: {administrador}.\n" \
+                      f"Restaurante: {restaurante}."
         self._saludo = Label(self._p3, text = textoSaludo, font = ("Verdana", 16), fg = "#245efd")
         self._saludo.pack()
 
-        # Mostrar descripcion en P3 si se le da click al menu
+        # Mostrar descripcion en P3 si se le da click al boton en el menu
 
-        textoDescripcion = f"i-Lunch es una aplicación de gestión de restaurantes. El administrador del restaurante que contrate la aplicación\ntendrá acceso a un software en el cual podrá llevar el control de todos los aspectos de su restaurante como:\n" \
-                           f"- La información básica del restaurante\n" \
-                           f"- Su oferta de productos\n" \
-                           f"- Sus empleados\n" \
-                           f"- Los pedidos realizados al restaurante\n" \
-                           f"- El balance de cuenta y la nómina de los empleados\n" \
-                           f"- Su clientela"
+        textoDescripcion = f"i-Lunch es una aplicación de gestión de restaurantes. El administrador del restaurante que contrate la aplicación\n" \
+                           f"tendrá acceso a un software en el cual podrá llevar el control de todos los aspectos de su restaurante como:\n" \
+                           f"- La información básica del restaurante.\n" \
+                           f"- Su oferta de productos.\n" \
+                           f"- Sus empleados.\n" \
+                           f"- Los pedidos realizados al restaurante.\n" \
+                           f"- El balance de cuenta y la nómina de los empleados.\n" \
+                           f"- Su clientela."
         self._descripcion = Label(self._p3, text = textoDescripcion, width = 100, justify = "left")
 
         # Cargar la imagenes relacionadas con la app en que se usaran en P4
+
         self._imagenActual = 0 # Imagen actual
         self._imagenes = []
 
@@ -83,15 +96,15 @@ class P1(Frame):
         # Imprimir la primera imagen relacionada a la aplicacion en P4
 
         self._imagen = Label(self._p4_1, image = self._imagenes[0], height = 480, width = 640)
-        self._imagen.bind('<Leave>', self.cambiarImagen) # Cambiar de imagen de P4 al pasar el mouse por encima
+        self._imagen.bind('<Enter>', self.cambiarImagen) # Cambiar de imagen de P4 al pasar el mouse por encima
         self._imagen.pack()
 
-        # Boton de acceso a la app abajo en P4
+        # Boton de acceso a la aplicacion abajo en P4
 
         self._boton = Button(self._p4_2, text = "Acceder a la aplicacion", font = ("Verdana", 16), fg = "white", bg = "#245efd", command = lambda: self.accederApp())
         self._boton.pack()
 
-        # Colocar los elementos en pantalla
+        # Colocar todos los elementos en pantalla
 
         self._p3.grid(row = 0, column = 0, pady=(10,10))
         self._p4_1.grid(row = 1, column = 0, pady=(10,10))
@@ -108,13 +121,17 @@ class P1(Frame):
         self._imagen.configure(image = self._imagenes[self._imagenActual])
         self._imagen.image = self._imagenes[self._imagenActual]
 
-    # Acceder a la aplicacion al darle click al boton
+    # Acceder a la aplicacion al darle click al boton de P4
 
     def accederApp(self):
         self._ventana.destroy()
-        # ! Metodo para abrir la ventana principal
+        ventanaUsuario = VentanaUsuario()
 
-# class HojaVida(Frame):
+# Frame P2 con la hoja de vida de los desarrolladores
+
+# ! Jero
+
+# class P2(Frame):
 #     _posicion_imagen = [(0, 0), (0, 1), (1, 0), (1, 1)]
 
 #     def __init__(self, window):

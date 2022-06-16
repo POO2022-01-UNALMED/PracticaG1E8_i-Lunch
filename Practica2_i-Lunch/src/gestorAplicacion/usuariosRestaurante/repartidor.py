@@ -9,17 +9,22 @@ class Repartidor(Empleado):
 
     _repartidores = []
 
-    # Aca se guardan todos pedidos entregados por el repartidor en cuestion.
-    _pedidosEntregados = []
-
     # Constructor
 
     def __init__(self, cedula = 0, nombre = "", disponibilidad = False, salario = 0, restaurante = None, poseeVehiculo = False, placa = "", tipoVehiculo = ""):
         super().__init__(cedula, nombre, "Repartidor", disponibilidad, salario, restaurante)
 
         self._poseeVehiculo = poseeVehiculo
-        self._placa = placa
-        self._tipoVehiculo = tipoVehiculo
+
+        # Solo agregar informacion del vehiculo si se posee uno
+        if poseeVehiculo:
+            self._placa = placa
+            self._tipoVehiculo = tipoVehiculo
+        else:
+            self._placa = None
+            self._tipoVehiculo = None
+
+        self._pedidosEntregados = []
 
         Repartidor._repartidores.append(self)
 
@@ -59,14 +64,14 @@ class Repartidor(Empleado):
 
     # Metodos
 
+    # Simulacion de llevar un pedido a domicilio a un cliente
     def repartirPedido(self, pedido):
-        Repartidor._pedidosEntregados.append(pedido)
+        self._pedidosEntregados.append(pedido)
 
+        # Solo se puede hacer si el pedido es de tipo domicilio y ya esta listo. Cambiar el estado del pedido
         if pedido.getEstado() == EstadoPedido.LISTO.value and pedido.getTipo() == TipoPedido.DOMICILIO.value:
             pedido.setEstado(EstadoPedido.DESPACHADO)
-
-        
-
+    
     # Implementacion de la interfaz
 
     def informacion(self):

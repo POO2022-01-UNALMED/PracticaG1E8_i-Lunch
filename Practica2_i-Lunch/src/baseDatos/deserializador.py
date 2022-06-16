@@ -13,11 +13,13 @@ from gestorAplicacion.gestionRestaurante.restaurante import Restaurante
 from gestorAplicacion.gestionRestaurante.producto import Producto
 from gestorAplicacion.gestionRestaurante.pedido import Pedido
 
+# Codigo sacado del ejemplo proporcionado por el monitor
+
 def deserializar(lista, className):
         def camino(className):
             return os.path.join(pathlib.Path(__file__).parent.absolute(), f"temp\{className}.txt")
 
-        # Leo el archivo
+        # Leer el archivo
         try:
             picklefile = open(camino(className), 'rb')
 
@@ -29,7 +31,7 @@ def deserializar(lista, className):
         if os.path.getsize(camino(className)) > 0:
             lista = pickle.load(picklefile)
         
-        # Cierro el archivo
+        # Cerrar el archivo
         picklefile.close()
 
         return lista

@@ -70,12 +70,14 @@ class Empleado(Usuario):
 
     # Metodos
 
+    # Usado para la funcionalidad de procesar pedido
     def procesarPedido(self, pedido):
         if self._restaurante.verificarPedido(pedido) and self._restaurante.verificarProductos(pedido):
             return True
         else:
             return False
 
+    # Ver el estado actual de un pedido y pasarlo al siguiente. Tambien permite aceptar/rechazar el pedido
     def actualizarEstadoPedido(self, pedido, aceptado):
         if not aceptado:
             pedido.setEstado(EstadoPedido.RECHAZADO.value)

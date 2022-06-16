@@ -50,12 +50,15 @@ class Mesero(Empleado):
         self._pedidosAtendidos.append(pedido)
         self.recibirPropina(propina)
 
+    # Simulacion de llevar el pedido a un cliente
     def llevarPedido(self, pedido, propina):
         self.agregarPedidoHistorial(pedido, propina)
         
+        # Solo se puede hacer si el pedido es de tipo consumir en el local y ya esta listo. Cambiar el estado del pedido
         if pedido.getEstado() == EstadoPedido.LISTO.value and pedido.getTipo() == TipoPedido.TIENDA.value:
             pedido.setEstado(EstadoPedido.DESPACHADO.value)
 
+    # Calcular propinas totales del mesero
     def totalPropinas(self):
         total = 0
 
