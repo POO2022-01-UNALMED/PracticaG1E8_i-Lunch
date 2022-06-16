@@ -1,9 +1,19 @@
-from random import choice
+from random import choice, randint
+from string import ascii_uppercase
 
 # Funciones utiles
 
 def randbool():
     return choice([True, False])
+
+def randPlaca():
+    return f"{choice(ascii_uppercase)}{choice(ascii_uppercase)}{choice(ascii_uppercase)}-{randint(100, 999)}"
+
+def generarEmail(nombre):
+    return f"{nombre.split()[0].lower()}{randint(1,99)}@unal.edu.co"
+
+def randDireccion():
+    return f"Calle {randint(10, 99)} #{randint(10, 99)}-{randint(10, 99)}"
 
 # Listas de datos aleatorios
 

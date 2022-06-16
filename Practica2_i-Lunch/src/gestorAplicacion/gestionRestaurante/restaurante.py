@@ -9,7 +9,7 @@ class Restaurante:
 
     # Constructor
 
-    def _init_(self, nombre = "", nit = 0, telefono = 0, direccion = "", email = "", abierto = False, capacidad = 0, empleados = None, menu = None, pedidos = None, balanceCuenta = 0):
+    def __init__(self, nombre = "", nit = 0, telefono = 0, direccion = "", email = "", abierto = False, capacidad = 0, balanceCuenta = 0):
         self._nombre = nombre
         self._nit = nit 
         self._telefono = telefono
@@ -17,10 +17,11 @@ class Restaurante:
         self._email = email
         self._abierto = abierto
         self._capacidad = capacidad
-        self._empleados = empleados
-        self._menu = menu
-        self._pedidos = pedidos
         self._balanceCuenta = balanceCuenta
+
+        self._empleados = []
+        self._menu = []
+        self._pedidos = []
         
         Restaurante._restaurantes.append(self)
    

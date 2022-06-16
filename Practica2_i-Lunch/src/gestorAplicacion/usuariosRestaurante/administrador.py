@@ -1,8 +1,7 @@
 from datetime import date
 from random import choice, randint
-from string import ascii_uppercase
 
-from gestorAplicacion.datosAleatorios import randbool, tiposVehiculos, cargosEnCocina, especialidadesChefs
+from gestorAplicacion.datosAleatorios import randbool, tiposVehiculos, cargosEnCocina, especialidadesChefs, randPlaca
 
 from gestorAplicacion.usuariosRestaurante.empleado import Empleado
 from gestorAplicacion.usuariosRestaurante.repartidor import Repartidor
@@ -25,10 +24,6 @@ class Administrador(Empleado):
 
     def __init__(self, cedula = 0, nombre = "", disponibilidad = False, salario = 0, restaurante = None):
         super().__init__(cedula, nombre, "Administrador", disponibilidad, salario, restaurante)
-        
-        listaEmpleados = self._restaurante.getEmpleados()
-        listaEmpleados.append(self)
-        self._restaurante.setEmpleados(listaEmpleados)
 
         Administrador._administradores.append(self)
 
@@ -59,7 +54,7 @@ class Administrador(Empleado):
             empleadoNuevo = Mesero(cedula, nombre, disponibilidad, salario, restaurante)
         elif cargo == "Repartidor":
             poseeVehiculo = randbool()
-            placa = f"{choice(ascii_uppercase)}{choice(ascii_uppercase)}{choice(ascii_uppercase)}-{randint(100, 999)}"
+            placa = randPlaca()
             tipoVehiculo = choice(tiposVehiculos)
             empleadoNuevo = Repartidor(cedula, nombre, disponibilidad, salario, restaurante, poseeVehiculo, placa, tipoVehiculo)
         elif cargo == "Chef":

@@ -13,58 +13,34 @@ from gestorAplicacion.gestionRestaurante.restaurante import Restaurante
 from gestorAplicacion.gestionRestaurante.producto import Producto
 from gestorAplicacion.gestionRestaurante.pedido import Pedido
 
-def deserializar():
-    deserializarEmpleados()
-    deserializarAdministradores()
-    deserializarRepartidores()
-    deserializarMeseros()
-    deserializarChefs()
-    deserializarClientes()
-    deserializarRestaurantes()
-    deserializarProductos()
-    deserializarPedidos()
+def deserializar(lista, className):
+        def camino(className):
+            return os.path.join(pathlib.Path(__file__).parent.absolute(), f"temp\{className}.txt")
 
-def deserializarEmpleados():
-    ficheroEmpleados = open(os.path.join(pathlib.Path(__file__).parent.absolute(), "temp\\empleados.txt"),"rb") 
-    Empleado.setEmpleados(pickle.load(ficheroEmpleados))
-    ficheroEmpleados.close()
+        # Leo el archivo
+        try:
+            picklefile = open(camino(className), 'rb')
 
-def deserializarAdministradores():
-    ficheroAdministradores = open(os.path.join(pathlib.Path(__file__).parent.absolute(), "temp\\administradores.txt"),"rb") 
-    Administrador.setAdministradores(pickle.load(ficheroAdministradores))
-    ficheroAdministradores.close()
+        except:
+            picklefile = open(camino(className), 'x')
+            picklefile = open(camino(className), 'rb')
 
-def deserializarRepartidores():
-    ficheroRepartidores = open(os.path.join(pathlib.Path(__file__).parent.absolute(), "temp\\repartidores.txt"),"rb") 
-    Repartidor.setRepartidores(pickle.load(ficheroRepartidores))
-    ficheroRepartidores.close()
+        # Unpickle los datos
+        if os.path.getsize(camino(className)) > 0:
+            lista = pickle.load(picklefile)
+        
+        # Cierro el archivo
+        picklefile.close()
 
-def deserializarMeseros():
-    ficheroMeseros = open(os.path.join(pathlib.Path(__file__).parent.absolute(), "temp\\meseros.txt"),"rb") 
-    Mesero.setMeseros(pickle.load(ficheroMeseros))
-    ficheroMeseros.close()
-
-def deserializarChefs():
-    ficheroChefs = open(os.path.join(pathlib.Path(__file__).parent.absolute(), "temp\\chefs.txt"),"rb") 
-    Chef.setChefs(pickle.load(ficheroChefs))
-    ficheroChefs.close()
-
-def deserializarClientes():
-    ficheroClientes = open(os.path.join(pathlib.Path(__file__).parent.absolute(), "temp\\clientes.txt"),"rb") 
-    Cliente.setClientes(pickle.load(ficheroClientes))
-    ficheroClientes.close()
-
-def deserializarRestaurantes():
-    ficheroRestaurantes = open(os.path.join(pathlib.Path(__file__).parent.absolute(), "temp\\restaurantes.txt"),"rb") 
-    Restaurante.setRestaurantes(pickle.load(ficheroRestaurantes))
-    ficheroRestaurantes.close()
-
-def deserializarProductos():
-    ficheroProductos = open(os.path.join(pathlib.Path(__file__).parent.absolute(), "temp\\productos.txt"),"rb") 
-    Producto.setProductos(pickle.load(ficheroProductos))
-    ficheroProductos.close()
-
-def deserializarPedidos():
-    ficheroPedidos = open(os.path.join(pathlib.Path(__file__).parent.absolute(), "temp\\pedidos.txt"),"rb") 
-    Pedido.setPedidos(pickle.load(ficheroPedidos))
-    ficheroPedidos.close()
+        return lista
+    
+def deserializarTodo():
+    Empleado._empleados = deserializar(Empleado._empleados, "empleados")
+    Administrador._administradores =  deserializar(Administrador._administradores, "administradores")
+    Repartidor._repartidores = deserializar(Repartidor._repartidores, "repartidores")
+    Mesero._meseros = deserializar(Mesero._meseros, "meseros")
+    Chef._chefs = deserializar(Chef._chefs, "chefs")
+    Cliente._clientes = deserializar(Cliente._clientes, "clientes")
+    Restaurante._restaurantes = deserializar(Restaurante._restaurantes, "restaurantes")
+    Producto._productos = deserializar(Producto._productos, "productos")
+    Pedido._pedidos = deserializar(Pedido._pedidos, "pedidos")
