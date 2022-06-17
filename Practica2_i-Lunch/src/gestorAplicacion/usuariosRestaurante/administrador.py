@@ -13,6 +13,8 @@ from gestorAplicacion.gestionRestaurante.pedido import Pedido
 from gestorAplicacion.gestionRestaurante.estadoPedido import EstadoPedido
 from gestorAplicacion.gestionRestaurante.tipoPedido import TipoPedido
 
+from excepciones.excepcionLista import ExcepcionLista
+
 class Administrador(Empleado):
 
     # Atributos estaticos
@@ -80,13 +82,13 @@ class Administrador(Empleado):
         nombre = listaEmpleados[idEmpleado].getNombre()
 
         # Verificar si el numero dado pertenece a la lista
-        if len(listaEmpleados) > idEmpleado:
+        if len(listaEmpleados) > idEmpleado and idEmpleado >= 0:
             listaEmpleados.remove(idEmpleado)
             self._restaurante.setEmpleados(listaEmpleados)
 
             return f"El empleado {nombre} ha sido despedido"
         else:
-            return "El empleado que intentas despedir no trabaja en el restaurante"
+            raise ExcepcionLista([idEmpleado, len(listaEmpleados)-1])
 
     # Crear nuevo producto y añadirlo al menu del restaurante
     def crearProducto(self, nombre, descripcion, precio, disponibilidad, restriccion, cantidad):
@@ -118,7 +120,7 @@ class Administrador(Empleado):
             listaNombresMenu.append(producto.getNombre())
         
         # Verificar que existe el ID especificado
-        if len(listaMenu) > idProducto:
+        if len(listaMenu) > idProducto and idProducto >= 0:
             productoActualizado = listaMenu[idProducto]
 
             # Si no hay producto con el mismo nombre, actualizarlo
@@ -131,13 +133,13 @@ class Administrador(Empleado):
             else:
                 return f"Ya exista un producto con este nombre. Intentalo de nuevo con otro nombre"
         else:
-            return f"El producto que intentas actualizar no existe"
+            raise ExcepcionLista([idProducto, len(listaMenu)-1])
 
     # Actualizar la descripcion de un producto, primero verificar si existe
     def actualizarDescripcionProducto(self, idProducto, descripcion):
         listaMenu = self._restaurante.getMenu()
 
-        if len(listaMenu) > idProducto:
+        if len(listaMenu) > idProducto and idProducto >= 0:
             productoActualizado = listaMenu[idProducto]
             productoActualizado.setDescripcion(descripcion)
             listaMenu[idProducto] = productoActualizado
@@ -145,13 +147,13 @@ class Administrador(Empleado):
 
             return f"Producto {productoActualizado.getNombre()} actualizado con exito"
         else:
-            return f"El producto que intentas actualizar no existe"
+            raise ExcepcionLista([idProducto, len(listaMenu)-1])
 
     # Actualizar el precio de un producto, primero verificar si existe
     def actualizarPrecioProducto(self, idProducto, precio):
         listaMenu = self._restaurante.getMenu()
 
-        if len(listaMenu) > idProducto:
+        if len(listaMenu) > idProducto and idProducto >= 0:
             productoActualizado = listaMenu[idProducto]
             productoActualizado.setPrecio(precio)
             listaMenu[idProducto] = productoActualizado
@@ -159,13 +161,13 @@ class Administrador(Empleado):
 
             return f"Producto {productoActualizado.getNombre()} actualizado con exito"
         else:
-            return f"El producto que intentas actualizar no existe"
+            raise ExcepcionLista([idProducto, len(listaMenu)-1])
 
     # Actualizar la restriccion de edad de un producto, primero verificar si existe
     def actualizarRestriccionProducto(self, idProducto, restriccion):
         listaMenu = self._restaurante.getMenu()
 
-        if len(listaMenu) > idProducto:
+        if len(listaMenu) > idProducto and idProducto >= 0:
             productoActualizado = listaMenu[idProducto]
             productoActualizado.setRestriccion(restriccion)
             listaMenu[idProducto] = productoActualizado
@@ -173,13 +175,13 @@ class Administrador(Empleado):
 
             return f"Producto {productoActualizado.getNombre()} actualizado con exito"
         else:
-            return f"El producto que intentas actualizar no existe"
+            raise ExcepcionLista([idProducto, len(listaMenu)-1])
 
     # Actualizar la disponibilidad de un producto, primero verificar si existe
     def actualizarDisponibilidadProducto(self, idProducto, disponibilidad):
         listaMenu = self._restaurante.getMenu()
 
-        if len(listaMenu) > idProducto:
+        if len(listaMenu) > idProducto and idProducto >= 0:
             productoActualizado = listaMenu[idProducto]
             productoActualizado.setDisponiblidad(disponibilidad)
             listaMenu[idProducto] = productoActualizado
@@ -187,13 +189,13 @@ class Administrador(Empleado):
 
             return f"Producto {productoActualizado.getNombre()} actualizado con exito"
         else:
-            return f"El producto que intentas actualizar no existe"
+            raise ExcepcionLista([idProducto, len(listaMenu)-1])
 
     # Actualizar la cantidad disponible de un producto, primero verificar si existe
     def actualizarCantidadProducto(self, idProducto, cantidad):
         listaMenu = self._restaurante.getMenu()
 
-        if len(listaMenu) > idProducto:
+        if len(listaMenu) > idProducto and idProducto >= 0:
             productoActualizado = listaMenu[idProducto]
             productoActualizado.setCantidad(cantidad)
             listaMenu[idProducto] = productoActualizado
@@ -201,27 +203,28 @@ class Administrador(Empleado):
 
             return f"Producto {productoActualizado.getNombre()} actualizado con exito"
         else:
-            return f"El producto que intentas actualizar no existe"
+            raise ExcepcionLista([idProducto, len(listaMenu)-1])
 
     # Eliminar un producto del menu, primero verificar si existe
     def eliminarProducto(self, idProducto):
         listaMenu = self._restaurante.getMenu()
         producto = listaMenu[idProducto].getNombre()
         
-        if len(listaMenu) > idProducto:
+        if len(listaMenu) > idProducto and idProducto >= 0:
             listaMenu.remove(idProducto)
             self._restaurante.setMenu(listaMenu)
 
             return f"El producto {producto} ha sido eliminado"
         else:
-            return f"El producto que intentas eliminar no existe"
+            raise ExcepcionLista([idProducto, len(listaMenu)-1])
 
     # Funcionalidad de pago de nomina
     
     def pagoNomina(self, idEmpleado = None):
+        listaEmpleados = self._restaurante.getEmpleados()
+
         # Verificar si se especifico un empleado, si no, se le paga a todos
         if idEmpleado is None:
-            listaEmpleados = self._restaurante.getEmpleados()
             total = 0
 
             # Conseguir el total de los salarios
@@ -241,6 +244,10 @@ class Administrador(Empleado):
         else:
             empleado = self._restaurante.getEmpleados()[idEmpleado]
             salario = empleado.getSalario() * Administrador.getImpuestos()
+
+            # Verificar si existe el empleado
+            if  not (len(listaEmpleados) > idEmpleado and idEmpleado >= 0):
+                raise ExcepcionLista([idEmpleado, len(listaEmpleados)-1])
 
             # Verificar si se posee el dinero suficiente para pagar
             if salario <= self._restaurante.getBalanceCuenta():
