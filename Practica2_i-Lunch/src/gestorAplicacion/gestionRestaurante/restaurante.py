@@ -140,7 +140,6 @@ class Restaurante:
         return True
     
     # Determina si el restaurante posee los productos solicitados en un pedido
-
     def verificarProductos(self, pedido):
         for demanda in pedido.getProductos():
             existe = False
