@@ -1,4 +1,4 @@
-# i-Lunch
+# Práctica POO: i-Lunch
 - **Materia:** Programación Orientada a Objetos
 - **Profesor:** Jaime Alberto Guzman Luna
 - **Institución:** Universidad Nacional de Colombia sede Medellín
