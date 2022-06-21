@@ -3,4 +3,7 @@ emlopezr@unal.edu.co
 31 de diciembre de 2001
 Medellin, Colombia
 
-Estudiante de Ingenieria de Sistemas e Informatica de la Universidad Nacional de Colombia sede Medellin actualmente en el sexto semestre. Tengo experiencia desarrollando en lenguajes como Python y JavaScript. Tengo interes en el desarrollo de videojuegos, el desarrollo web y la inteligencia artificial.
+Estudiante de Ingenieria de Sistemas e Informatica de la Universidad Nacional de
+Colombia sede Medellin actualmente en el sexto semestre. Tengo experiencia 
+desarrollando en lenguajes como Python y JavaScript. Tengo interes en el 
+desarrollo de videojuegos, el desarrollo web y la inteligencia artificial.
