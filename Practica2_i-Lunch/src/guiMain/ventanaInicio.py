@@ -43,7 +43,7 @@ class VentanaInicio(Tk):
 
     def desplegarDescripcion(self):
         self._p1._descripcion.pack(pady=(10,0))
-        self.geometry("1280x840")
+        self.geometry("1480x840")
 
 # Frame P1 con la bienvenida al sistema
 
@@ -143,15 +143,15 @@ class P2(Frame):
         self._photos = [None, None, None, None]
         self._labels = []
 
-        self.cargar_hv(0)
+        self.cargarHVTexto(0)
 
         for i in range(0, 4):
-            label = Label(self._p6, width=300, height=200)
+            label = Label(self._p6, width = 320, height = 240)
             (r, c) = P2._posicion_imagen[i]
             label.grid(row=r, column=c)
             self._labels.append(label)
             # Se cargan las primeras imagenes
-            self.cargar_hv_imagen(0, i)
+            self.cargarHVImagen(0, i)
     
         self._p5.grid()
         self._p6.grid()
@@ -164,25 +164,25 @@ class P2(Frame):
             self._next_hv = 0
 
         self._photos = [None, None, None, None]
-        self.cargar_hv(self._next_hv)
+        self.cargarHVTexto(self._next_hv)
         for i in range(0, 4):
-            self.cargar_hv_imagen(self._next_hv, i)
+            self.cargarHVImagen(self._next_hv, i)
 
     # Carga el component imagen que sirve para mostrar las fotos
-    def cargar_hv_imagen(self, hv_num, numero):
-        path = os.path.join(pathlib.Path(__file__).parent.parent.parent.absolute(),'src\imagenes\hv_{0}_{1}.png'.format(hv_num, numero))
+    def cargarHVImagen(self, hv_num, numero):
+        path = os.path.join(pathlib.Path(__file__).parent.parent.parent.absolute(),'src\imagenes\HV{0}{1}.png'.format(hv_num, numero))
         photo = PhotoImage(file = path)
         self._labels[numero].configure(image = photo)
         self._labels[numero].image = photo
 
     # Carga el texto para la hoja de vida respecto al numero asignado
 
-    def cargar_hv(self, numero):
-        self._text = Text(self._p5, height=10)
-        self._text.grid(row=1, column=0)
+    def cargarHVTexto(self, numero):
+        self._text = Text(self._p5, height = 10, font = ("Verdana",10), width = 80)
+        self._text.grid(row = 1, column = 0)
         self._text.bind('<Button-1>', self.proximo)
 
-        path = os.path.join(pathlib.Path(__file__).parent.parent.parent.absolute(),'src\imagenes\hv{0}.txt'.format(numero))
+        path = os.path.join(pathlib.Path(__file__).parent.parent.parent.absolute(),'src\imagenes\HV{0}4.txt'.format(numero))
 
         with open(path, "r+") as hv_text:
             self._text.insert(INSERT, hv_text.read())
