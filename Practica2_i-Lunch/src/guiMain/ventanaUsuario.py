@@ -1,57 +1,86 @@
 from tkinter import *
-from tkinter import ttk
-import pathlib
-import os
+import tkinter
+
+from baseDatos.serializador import serializarTodo
+
 class VentanaUsuario(Tk):
     def __init__(self):
         super().__init__()
 
         # Configuracion de la ventana
 
-        self._p1 = Frame()
-        self._p2 = Frame()
-        self._p3 = Frame()
-
         self.title('i-Lunch - Ventana de Usuario')
         self.option_add("*tearOff",  False)
         self.geometry("1280x720")
+        self.resizable(False,False)
+
+        # Creacion del menu
 
         self._barraMenu = Menu(self)
         archivo = Menu(self._barraMenu)
-        archivo.add_command(label = "Aplicacion", command = lambda: print("IDK"))
-        archivo.add_command(label = "Salir", command = lambda: self.cerrar())
+        archivo.add_command(label = "Aplicación", command = lambda: self.infoApp())
+        archivo.add_command(label = "Salir y guardar", command = lambda: self.cerrarGuardar())
         self._barraMenu.add_cascade(label = "Archivo", menu = archivo)
 
         procesosYConsultas = Menu(self._barraMenu)
-        procesosYConsultas.add_command(label="Informacion del restaurante", command=lambda:print("IDK"))
-        procesosYConsultas.add_command(label="Gestionar Menu", command=lambda: print("IDK"))
-        procesosYConsultas.add_command(label="Gestionar Personal", command=lambda: print("IDK"))
+        procesosYConsultas.add_command(label="Información del restaurante", command=lambda:print("IDK"))
+        procesosYConsultas.add_command(label="Gestionar menú", command=lambda: print("IDK"))
+        procesosYConsultas.add_command(label="Gestionar personal", command=lambda: print("IDK"))
         procesosYConsultas.add_command(label="Cola de pedidos", command=lambda: print("IDK"))
         procesosYConsultas.add_separator()
         procesosYConsultas.add_command(label="Simular pedido", command=lambda: print("IDK"))
         procesosYConsultas.add_command(label="Gestionar clientela", command=lambda: print("IDK"))
-        self._barraMenu.add_cascade(label="Procesos Y Consultas", menu= procesosYConsultas)
-
+        self._barraMenu.add_cascade(label="Procesos y consultas", menu= procesosYConsultas)
 
         ayuda = Menu(self._barraMenu)
-        ayuda.add_command(label="Acerca de", command = lambda: print("IDK"))
+        ayuda.add_command(label="Acerca de", command = lambda: self.infoDevs())
         self._barraMenu.add_cascade(label="Ayuda", menu = ayuda)
-
 
         self.config(menu = self._barraMenu)
 
-    def cerrar(self):
+        # ! Continuar
+
+    # Archivo -> Aplicación
+
+    def infoApp(self):
+        ventanaInfo = Tk()
+        ventanaInfo.geometry("640x360")
+        ventanaInfo.resizable(False,False)
+        ventanaInfo.title("i-Lunch - Aplicación")
+
+        textoInfo = f"i-Lunch es una aplicación de gestión de restaurantes.\n" \
+                    f"El administrador del restaurante que contrate la aplicación\n" \
+                    f"tendrá acceso a un software en el cual podrá llevar el control\n"\
+                    f"de todos los aspectos de su restaurante como:\n" \
+                    f"• La información básica del restaurante.\n" \
+                    f"• Su oferta de productos.\n" \
+                    f"• Sus empleados.\n" \
+                    f"• Los pedidos realizados al restaurante.\n" \
+                    f"• El balance de cuenta y la nómina de los empleados.\n" \
+                    f"• Su clientela."
+        info = Label(ventanaInfo, text = textoInfo, justify = "left", font=("Verdana", 12))
+        info.pack(fill=tkinter.Y, expand=True)
+
+    # Archivo -> Salir y guardar
+
+    def cerrarGuardar(self):
         from guiMain.ventanaInicio import VentanaInicio
-        VentanaInicio()
+        serializarTodo()
+        self.destroy()
+        ventanaInicio = VentanaInicio()
+    
+    # Ayuda -> Acerca de
 
+    def infoDevs(self):
+        ventanaDevs = Tk()
+        ventanaDevs.geometry("640x360")
+        ventanaDevs.resizable(False,False)
+        ventanaDevs.title("i-Lunch - Acerca de")
 
-
-
-
-
-ventana = VentanaUsuario()
-
-# Loop de Tkinter
-
-ventana.mainloop()
-
+        textoInfo = f"Desarrolladores:\n" \
+                    f"• Emmanuel López Rodríguez\n" \
+                    f"• Jerónimo Gómez Restrepo\n" \
+                    f"• Andrés Felipe Aparicio Mestre\n" \
+                    f"• David Alejandro López Zapata"
+        devs = Label(ventanaDevs, text = textoInfo, justify = "left", font=("Verdana", 12))
+        devs.pack(fill=tkinter.Y, expand=True)

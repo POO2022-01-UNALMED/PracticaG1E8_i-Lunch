@@ -16,6 +16,7 @@ class VentanaInicio(Tk):
         self.title('i-Lunch - Inicio')
         self.option_add("*tearOff",  False)
         self.geometry("1400x720")
+        self.resizable(False,False)
 
         # Creacion del menu
 
@@ -43,7 +44,7 @@ class VentanaInicio(Tk):
 
     def desplegarDescripcion(self):
         self._p1._descripcion.pack(pady=(10,0))
-        self.geometry("1480x840")
+        self.geometry("1420x840")
 
 # Frame P1 con la bienvenida al sistema
 
@@ -75,13 +76,13 @@ class P1(Frame):
 
         textoDescripcion = f"i-Lunch es una aplicación de gestión de restaurantes. El administrador del restaurante que contrate la aplicación\n" \
                            f"tendrá acceso a un software en el cual podrá llevar el control de todos los aspectos de su restaurante como:\n" \
-                           f"- La información básica del restaurante.\n" \
-                           f"- Su oferta de productos.\n" \
-                           f"- Sus empleados.\n" \
-                           f"- Los pedidos realizados al restaurante.\n" \
-                           f"- El balance de cuenta y la nómina de los empleados.\n" \
-                           f"- Su clientela."
-        self._descripcion = Label(self._p3, text = textoDescripcion, width = 100, justify = "left")
+                           f"• La información básica del restaurante.\n" \
+                           f"• Su oferta de productos.\n" \
+                           f"• Sus empleados.\n" \
+                           f"• Los pedidos realizados al restaurante.\n" \
+                           f"• El balance de cuenta y la nómina de los empleados.\n" \
+                           f"• Su clientela."
+        self._descripcion = Label(self._p3, text = textoDescripcion, width = 100, justify = "left", font=("Verdana", 8))
 
         # Cargar la imagenes relacionadas con la app en que se usaran en P4
 
