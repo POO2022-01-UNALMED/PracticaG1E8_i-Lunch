@@ -1,3 +1,4 @@
+import imp
 from random import randint
 from tkinter import *
 import tkinter
@@ -5,6 +6,7 @@ import tkinter
 from baseDatos.serializador import serializarTodo
 from gestorAplicacion.usuariosRestaurante.cliente import Cliente
 from gestorAplicacion.usuariosRestaurante.administrador import Administrador
+from guiMain.gestionarPedidos import GestionarPedidos
 
 class VentanaUsuario(Tk):
     def __init__(self):
@@ -29,7 +31,7 @@ class VentanaUsuario(Tk):
         procesosYConsultas.add_command(label="Información del restaurante", command=lambda:print("IDK"))
         procesosYConsultas.add_command(label="Gestionar menú", command=lambda: print("IDK"))
         procesosYConsultas.add_command(label="Gestionar personal", command=lambda: print("IDK"))
-        procesosYConsultas.add_command(label="Cola de pedidos", command=lambda: print("IDK"))
+        procesosYConsultas.add_command(label="Cola de pedidos", command=lambda: self.gestionarPedidos())
         procesosYConsultas.add_separator()
         procesosYConsultas.add_command(label="Simular pedido", command = lambda: self.simularPedido())
         procesosYConsultas.add_command(label="Gestionar clientela", command=lambda: print("IDK"))
@@ -107,5 +109,11 @@ class VentanaUsuario(Tk):
                     f"{pedido.getCodigo()}"
         devs = Label(ventanaDevs, text = textoInfo, justify = "left", font=("Verdana", 12))
         devs.pack(fill=tkinter.Y, expand=True)
+    
+    #Gestionar pedidos en cola
+    def gestionarPedidos(self):
+        colaPedidos = GestionarPedidos()
+
+
 		
 
