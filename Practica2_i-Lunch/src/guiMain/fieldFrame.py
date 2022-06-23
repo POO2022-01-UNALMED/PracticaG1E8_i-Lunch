@@ -55,3 +55,7 @@ class FieldFrame(Frame):
     def getValue(self, criterio):
         indice = self._criterios.index(criterio)
         return self._elementos[indice].get()
+
+    def crearBotones(self, comando1):
+        aceptar = Button(self, text="Aceptar",command=comando1).grid(pady = 50, column = 0, row = len(self._criterios)+1)
+        borrar = Button(self, text="Borrar",command=lambda: print("IDK")).grid(pady = 50, column = 1, row = len(self._criterios)+1)

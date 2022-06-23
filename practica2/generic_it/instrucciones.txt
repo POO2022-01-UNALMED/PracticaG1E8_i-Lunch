@@ -1,0 +1,42 @@
+Instrucciones de uso:
+
+En esta aplicacion, el administrador de Generic IT tiene control sobre todos sus
+empleados y el ingreso de clientes a su base de datos.
+
+Para utilizar el programa desde 0, seguir las siguientes instrucciones del menu
+Procesos y Consultas:
+
+1. Crear un cliente: puede hacerse manualmente desde 
+Menu diagnosticar un producto -> Crear cliente manualmente y diligenciar la
+informacion solicitada. Para crearlo 
+automaticamente, Menu diagnosticar un producto -> Generar cliente.
+
+2. Una vez creado un cliente, este solicitara un servicio. Para esto, basta con
+entrar a Menu diagnosticar un producto -> Solicitar servicio e ingresar el id
+del cliente que solicito el servicio
+
+3. Ya con el servicio generado, comienza el diagnostico del producto en
+Menu diagnosticar un producto -> Diagnosticar producto ingresando el id del
+servicio correspondiente al producto a diagnosticar.
+
+4. Luego de identificar el problema, se puede reparar un producto simplemente
+ingresando el id de su servicio en el apartado Reparar un producto
+
+5. Para finalizar el servicio, el Dependiente debe notificarle al cliente que
+su producto fue reparado y entregarle un recibo. Esto se hace desde 
+Finalizar un servicio, simplemente ingresando el id del servicio a finalizar.
+
+6. Con el cliente ya notificado del costo, este procede a pagar por su servicio
+y, a su vez, el dependiente guarda este pago en la caja registradora. Para 
+cobrar un servicio, basta con ingresar el id del servicio a cobrar en Cobrar un
+servicio.
+
+7. Al final de un periodo de liquidacion, el administrador puede obtar por 
+liquidar el periodo desde la aplicacion, lo cual causa que se le pague su 
+respectivo salario a los empleados desde la caja registradora. Si se desea 
+liquidar el periodo, puede hacerse desde el apartado Liquidar el periodo.
+
+8. Si en cualquier paso del proceso se pierde el rastro de los ids de los 
+clientes y servicios, se pueden mostrar todos los clientes existentes desde
+Mostrar clientes o todos los servicios desde Mostrar servicios.
+

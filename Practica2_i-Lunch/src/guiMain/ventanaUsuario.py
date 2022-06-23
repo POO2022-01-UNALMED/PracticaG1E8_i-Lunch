@@ -1,14 +1,18 @@
 import imp
 from random import randint
+import this
 from tkinter import *
 import tkinter
 
 from baseDatos.serializador import serializarTodo
 from gestorAplicacion.usuariosRestaurante.cliente import Cliente
 from gestorAplicacion.usuariosRestaurante.administrador import Administrador
-from guiMain.gestionarPedidos import GestionarPedidos
+from gestorAplicacion.usuariosRestaurante.empleado import Empleado
+from gestorAplicacion.gestionRestaurante.pedido import Pedido
+from guiMain.fieldFrame import FieldFrame
 
 class VentanaUsuario(Tk):
+    framesAMatar=[]
     def __init__(self):
         super().__init__()
 
@@ -31,7 +35,8 @@ class VentanaUsuario(Tk):
         procesosYConsultas.add_command(label="Información del restaurante", command=lambda:print("IDK"))
         procesosYConsultas.add_command(label="Gestionar menú", command=lambda: print("IDK"))
         procesosYConsultas.add_command(label="Gestionar personal", command=lambda: print("IDK"))
-        procesosYConsultas.add_command(label="Cola de pedidos", command=lambda: self.gestionarPedidos())
+        procesosYConsultas.add_command(label="Cola de pedidos", command=lambda: self.colaPedidos())
+        procesosYConsultas.add_command(label="Gestionar pedidos en cola", command=lambda: self.gestionarPedidos())
         procesosYConsultas.add_separator()
         procesosYConsultas.add_command(label="Simular pedido", command = lambda: self.simularPedido())
         procesosYConsultas.add_command(label="Gestionar clientela", command=lambda: print("IDK"))
@@ -44,6 +49,8 @@ class VentanaUsuario(Tk):
         self.config(menu = self._barraMenu)
 
         # ! Continuar
+
+
 
     # Archivo -> Aplicación
 
@@ -90,6 +97,14 @@ class VentanaUsuario(Tk):
         devs = Label(ventanaDevs, text = textoInfo, justify = "left", font=("Verdana", 12))
         devs.pack(fill=tkinter.Y, expand=True)
 
+
+    # Cambiar vista del frame
+
+    def cambiarVista(frameUtilizado):
+        for frame in VentanaUsuario.framesAMatar:
+            frame.pack_forget()
+        frameUtilizado.pack(fill=BOTH,expand=True)
+
         # FUNCIONALIDADES
 
         #Simular pedido
@@ -111,9 +126,42 @@ class VentanaUsuario(Tk):
         devs.pack(fill=tkinter.Y, expand=True)
     
     #Gestionar pedidos en cola
+    def outPut(string, text):
+        text.delete("1.0", "end")
+        text.insert(INSERT, string)
+        text.pack(fill=X, expand=True)
+
     def gestionarPedidos(self):
-        colaPedidos = GestionarPedidos()
+
+        def finalizar(): 
+            index = FFGestionarPedido.getValue("Codigo del pedido")
+            pedido = Pedido.getPedidos()[int(index)-1]                
+            if Empleado.procesarPedido(pedido):
+                return (f"{pedido.getCodigo()}\n"
+                        f"Pedido aceptado")
+
+        def aceptarPedido():           
+            VentanaUsuario.outPut(finalizar(), outputGestionarPedido)
+
+        gestionarPedido = Frame(self)
+        nombreGestionarPedido = Label(gestionarPedido, text="Gestionar pedidos en espera", bd=10)
+        dcrGestionarPedido = Label(gestionarPedido, text="Ingrese el ID del pedidos", bd=10)
+        FFGestionarPedido = FieldFrame(gestionarPedido, None, ["Codigo del pedido"], None, None, [True])
+        outputGestionarPedido = Text(gestionarPedido, height=6)
+        VentanaUsuario.framesAMatar.append(outputGestionarPedido)
+        FFGestionarPedido.crearBotones(aceptarPedido)
+        gestionarPedido.pack()
+        nombreGestionarPedido.pack()
+        dcrGestionarPedido.pack()
+        FFGestionarPedido.pack()
+        VentanaUsuario.framesAMatar.append(gestionarPedido)
+
+        
+    
+        
+        
 
 
-		
+
+
 
