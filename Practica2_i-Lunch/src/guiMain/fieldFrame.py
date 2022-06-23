@@ -21,21 +21,21 @@ class FieldFrame(Frame):
         self._elementos = []
 
         # Crear y colocar titulo de los criterios
-        labelTituloCriterios = Label(self, text = tituloCriterios, font= ("Verdana", 16))
+        labelTituloCriterios = Label(self, text = tituloCriterios, font= ("Verdana", 14))
         labelTituloCriterios.grid(column=0, row=0, padx = (10,10), pady = (10,10))
 
         # Crear y colocar titulo de los valores
-        labelTituloValores = Label(self, text = tituloValores, font= ("Verdana", 16))
+        labelTituloValores = Label(self, text = tituloValores, font= ("Verdana", 14))
         labelTituloValores.grid(column=1, row=0, padx = (10,10), pady = (10,10))
 
         # Crear cada uno de los criterios
         for  i in range(len(criterios)):
             # Crear y colocar nombre de cada criterio
-            labelCriterio = Label(self, text = criterios[i], font = ("Verdana", 16))
+            labelCriterio = Label(self, text = criterios[i], font = ("Verdana", 12))
             labelCriterio.grid(column=0, row=i+1, padx = (10,10), pady = (10,10))
 
             # Crear y colocar entrada de cada criterio
-            entryValor = Entry(self, font = ("Verdana", 16))
+            entryValor = Entry(self, font = ("Verdana", 12))
             entryValor.grid(column=1, row=i+1, padx = (10,10), pady = (10,10))
 
             # Colocar el valor inicial si lo hay

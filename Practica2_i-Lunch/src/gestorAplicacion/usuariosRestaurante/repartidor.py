@@ -26,6 +26,7 @@ class Repartidor(Empleado):
 
         self._pedidosEntregados = []
 
+        Empleado._empleados.append(self)
         Repartidor._repartidores.append(self)
 
     # Getters y Setters

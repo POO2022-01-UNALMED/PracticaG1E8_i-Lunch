@@ -16,6 +16,7 @@ class Chef(Empleado):
         self._cargoEnCocina = cargoEnCocina
         self._especialidad = especialidad
 
+        Empleado._empleados.append(self)
         Chef._chefs.append(self)
 
     # Getters y Setters

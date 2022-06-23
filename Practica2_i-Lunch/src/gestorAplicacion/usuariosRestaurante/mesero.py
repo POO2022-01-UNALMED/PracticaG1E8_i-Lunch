@@ -17,6 +17,7 @@ class Mesero(Empleado):
         self._pedidosAtendidos = []
         self._historialPropinas = []
 
+        Empleado._empleados.append(self)
         Mesero._meseros.append(self)
     
     # Getters y Setters

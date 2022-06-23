@@ -52,10 +52,8 @@ class Empleado(Usuario):
     def setSalario(self, salario):
         self._salario = salario
 
-
     def getRestaurante(self):
         return self._restaurante
-
 
     def setRestaurante(self, restaurante):
         self._restaurante = restaurante
