@@ -50,12 +50,15 @@ class Mesero(Empleado):
         self._pedidosAtendidos.append(pedido)
         self.recibirPropina(propina)
 
+    # Simulacion de llevar el pedido a un cliente
     def llevarPedido(self, pedido, propina):
         self.agregarPedidoHistorial(pedido, propina)
         
+        # Solo se puede hacer si el pedido es de tipo consumir en el local y ya esta listo. Cambiar el estado del pedido
         if pedido.getEstado() == EstadoPedido.LISTO.value and pedido.getTipo() == TipoPedido.TIENDA.value:
             pedido.setEstado(EstadoPedido.DESPACHADO.value)
 
+    # Calcular propinas totales del mesero
     def totalPropinas(self):
         total = 0
 
@@ -67,9 +70,10 @@ class Mesero(Empleado):
     # Implementacion de la interfaz
 
     def informacion(self):
-        info = f"El Mesero {self._nombre} con C.C. {self._cedula} trabaja en el restaurante {self._restaurante.getNombre()}. Tiene un salario de: ${self._salario}. "
+        info = f"El Mesero {self._nombre} con C.C. {self._cedula} trabaja en el restaurante {self._restaurante.getNombre()}.\n" \
+               f"Tiene un salario de: ${self._salario}.\n"
         
         if self._disponibilidad:
-            return info + "Está disponible actualmente."
+            return info + "Esta disponible actualmente."
         else:
-            return info + "No está disponible actualmente."
+            return info + "No esta disponible actualmente."

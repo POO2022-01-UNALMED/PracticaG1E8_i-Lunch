@@ -70,12 +70,14 @@ class Empleado(Usuario):
 
     # Metodos
 
+    # Usado para la funcionalidad de procesar pedido
     def procesarPedido(self, pedido):
         if self._restaurante.verificarPedido(pedido) and self._restaurante.verificarProductos(pedido):
             return True
         else:
             return False
 
+    # Ver el estado actual de un pedido y pasarlo al siguiente. Tambien permite aceptar/rechazar el pedido
     def actualizarEstadoPedido(self, pedido, aceptado):
         if not aceptado:
             pedido.setEstado(EstadoPedido.RECHAZADO.value)
@@ -95,9 +97,10 @@ class Empleado(Usuario):
     # Implementacion de la interfaz
 
     def informacion(self):
-        info = f"El Empleado {self._nombre} con C.C. {self._cedula} trabaja en el restaurante {self._restaurante.getNombre()}. Tiene un salario de: ${self._salario} y desempeña el cargo de {self._salario}. "
+        info = f"El Empleado {self._nombre} con C.C. {self._cedula} trabaja en el restaurante {self._restaurante.getNombre()}.\n" \
+               f"Tiene un salario de: ${self._salario} y desempeña el cargo de {self._salario}.\n"
         
         if self._disponibilidad:
-            return info + "Está disponible actualmente."
+            return info + "Esta disponible actualmente."
         else:
-            return info + "No está disponible actualmente."
+            return info + "No esta disponible actualmente."
