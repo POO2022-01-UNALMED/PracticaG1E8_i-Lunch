@@ -1,7 +1,0 @@
-Generic IT es una compañía tecnológica.\n
-Se busca crear un programa que emule las interacciones de Generic IT,\n
-para mejorar la organización de la empresa y proveer un mejor servicio.\n
-Se tendrá en cuenta toda la cadena de servicio, desde que llega el\n
-cliente con un producto a reparar, su paso por las manos del ténico,\n
-las partes que tendrán que ser cambiadas, hasta finalizar con la\n
-devolución del producto y el pago del servicio."
