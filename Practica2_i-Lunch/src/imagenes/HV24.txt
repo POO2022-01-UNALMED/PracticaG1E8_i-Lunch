@@ -3,6 +3,6 @@ anapariciom@unal.edu.co
 Medellin, Antioquia, Colombia
 
 Estudiante de Ingenieria de Sistemas e Informatica de la Universidad Nacional de Colombia.
-Actualmente me encuentro trabajando como desarrollador web y poseo experiencia en el area de 2 años.
-Me considero un lider y, sumado a mi capacidad de integrarme con las personas y trabajar en equipo,
-me ha permitido desenvolverme en gran manera en mis distintos entornos.
+Actualmente me encuentro trabajando como desarrollador web. Me considero un lider y, sumado
+a mi capacidad de integrarme con las personas y trabajar en equipo me ha permitido
+desenvolverme en gran manera en mis distintos entornos.
