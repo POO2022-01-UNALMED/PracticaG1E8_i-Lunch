@@ -166,8 +166,8 @@ class Restaurante:
 
     # Agregar un pedido al historial del restaurante
     def agregarPedido(self, pedido):
-        if not self._pedidos.contains(pedido):
-            self._pedidos.add(pedido)
+        if self._pedidos.count(pedido)==0:
+            self._pedidos.append(pedido)
 
             return f"Pedido #{pedido.getCodigo()} anadido con exito al historial"
         else:

@@ -1,7 +1,10 @@
+from random import randint
 from tkinter import *
 import tkinter
 
 from baseDatos.serializador import serializarTodo
+from gestorAplicacion.usuariosRestaurante.cliente import Cliente
+from gestorAplicacion.usuariosRestaurante.administrador import Administrador
 
 class VentanaUsuario(Tk):
     def __init__(self):
@@ -28,7 +31,7 @@ class VentanaUsuario(Tk):
         procesosYConsultas.add_command(label="Gestionar personal", command=lambda: print("IDK"))
         procesosYConsultas.add_command(label="Cola de pedidos", command=lambda: print("IDK"))
         procesosYConsultas.add_separator()
-        procesosYConsultas.add_command(label="Simular pedido", command=lambda: print("IDK"))
+        procesosYConsultas.add_command(label="Simular pedido", command = lambda: self.simularPedido())
         procesosYConsultas.add_command(label="Gestionar clientela", command=lambda: print("IDK"))
         self._barraMenu.add_cascade(label="Procesos y consultas", menu= procesosYConsultas)
 
@@ -84,3 +87,25 @@ class VentanaUsuario(Tk):
                     f"• David Alejandro López Zapata"
         devs = Label(ventanaDevs, text = textoInfo, justify = "left", font=("Verdana", 12))
         devs.pack(fill=tkinter.Y, expand=True)
+
+        # FUNCIONALIDADES
+
+        #Simular pedido
+    def simularPedido(self):
+        cliente =  Cliente.getClientes()[(randint(0, len(Cliente.getClientes()) - 1))]
+        pedido = Administrador.getAdministradores()[0].simularPedido(cliente)     
+        ventanaDevs = Tk()
+        ventanaDevs.geometry("640x360")
+        ventanaDevs.resizable(False,False)
+        ventanaDevs.title("i-Lunch - Simular pedido")
+
+        textoInfo = f"Pedido Recibio\n" \
+                    f"Información del pedido:\n" \
+                    f"• Cliente: " \
+                    f"{cliente.getNombre()}\n"\
+                    f"• Codigo pedido: " \
+                    f"{pedido.getCodigo()}"
+        devs = Label(ventanaDevs, text = textoInfo, justify = "left", font=("Verdana", 12))
+        devs.pack(fill=tkinter.Y, expand=True)
+		
+

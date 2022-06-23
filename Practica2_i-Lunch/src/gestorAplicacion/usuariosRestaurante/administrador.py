@@ -282,7 +282,7 @@ class Administrador(Empleado):
         # Asignar un mesero aleatorio
         listaMeseros = Mesero.getMeseros()
         meseroElegido = listaMeseros[randint(0, len(listaMeseros)-1)]
-        meseroElegido.agregarPedidoHistorial(pedido)
+        meseroElegido.agregarPedidoHistorial(pedido, randint(1, 10))
 
         # Escoger aleatoriamente una cantidad de productos del restaurante (Minimo 1)
         cantidadProductos = randint(1, len(self._restaurante.getMenu())-1)
