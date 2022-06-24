@@ -1,3 +1,21 @@
+
+# ! ACTUALIZAR METODOS DE ACTUALIZACION PARA LOS NUMEROS Y BOOLEANOS
+# ! ACTUALIZAR METODOS DE ACTUALIZACION PARA LOS NUMEROS Y BOOLEANOS
+# ! ACTUALIZAR METODOS DE ACTUALIZACION PARA LOS NUMEROS Y BOOLEANOS
+# ! ACTUALIZAR METODOS DE ACTUALIZACION PARA LOS NUMEROS Y BOOLEANOS
+# ! ACTUALIZAR METODOS DE ACTUALIZACION PARA LOS NUMEROS Y BOOLEANOS
+# ! ACTUALIZAR METODOS DE ACTUALIZACION PARA LOS NUMEROS Y BOOLEANOS
+# ! ACTUALIZAR METODOS DE ACTUALIZACION PARA LOS NUMEROS Y BOOLEANOS
+# ! ACTUALIZAR METODOS DE ACTUALIZACION PARA LOS NUMEROS Y BOOLEANOS
+# ! ACTUALIZAR METODOS DE ACTUALIZACION PARA LOS NUMEROS Y BOOLEANOS
+# ! ACTUALIZAR METODOS DE ACTUALIZACION PARA LOS NUMEROS Y BOOLEANOS
+# ! ACTUALIZAR METODOS DE ACTUALIZACION PARA LOS NUMEROS Y BOOLEANOS
+# ! ACTUALIZAR METODOS DE ACTUALIZACION PARA LOS NUMEROS Y BOOLEANOS
+# ! ACTUALIZAR METODOS DE ACTUALIZACION PARA LOS NUMEROS Y BOOLEANOS
+# ! ACTUALIZAR METODOS DE ACTUALIZACION PARA LOS NUMEROS Y BOOLEANOS
+# ! ACTUALIZAR METODOS DE ACTUALIZACION PARA LOS NUMEROS Y BOOLEANOS
+# ! ACTUALIZAR METODOS DE ACTUALIZACION PARA LOS NUMEROS Y BOOLEANOS
+
 from datetime import date
 from random import choice, randint
 
@@ -79,11 +97,11 @@ class Administrador(Empleado):
     # Sacar empleado de la lista del restaurente, primero verificar si existe
     def despedirEmpleado(self, idEmpleado):
         listaEmpleados = self._restaurante.getEmpleados()
-        nombre = listaEmpleados[idEmpleado].getNombre()
 
         # Verificar si el numero dado pertenece a la lista
         if len(listaEmpleados) > idEmpleado and idEmpleado >= 0:
-            listaEmpleados.remove(idEmpleado)
+            nombre = listaEmpleados[idEmpleado].getNombre()
+            del listaEmpleados[idEmpleado]
             self._restaurante.setEmpleados(listaEmpleados)
 
             return f"El empleado {nombre} ha sido despedido"
@@ -183,7 +201,7 @@ class Administrador(Empleado):
 
         if len(listaMenu) > idProducto and idProducto >= 0:
             productoActualizado = listaMenu[idProducto]
-            productoActualizado.setDisponiblidad(disponibilidad)
+            productoActualizado.setDisponibilidad(disponibilidad)
             listaMenu[idProducto] = productoActualizado
             self._restaurante.setMenu(listaMenu)
 
@@ -208,10 +226,10 @@ class Administrador(Empleado):
     # Eliminar un producto del menu, primero verificar si existe
     def eliminarProducto(self, idProducto):
         listaMenu = self._restaurante.getMenu()
-        producto = listaMenu[idProducto].getNombre()
         
         if len(listaMenu) > idProducto and idProducto >= 0:
-            listaMenu.remove(idProducto)
+            producto = listaMenu[idProducto].getNombre()
+            del listaMenu[idProducto]
             self._restaurante.setMenu(listaMenu)
 
             return f"El producto {producto} ha sido eliminado"

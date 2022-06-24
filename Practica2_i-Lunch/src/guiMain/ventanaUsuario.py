@@ -40,7 +40,14 @@ class VentanaUsuario(Tk):
 
         procesosYConsultas = Menu(self._barraMenu)
         procesosYConsultas.add_command(label="Información del restaurante", command=lambda:print("IDK"))
-        procesosYConsultas.add_command(label="Gestionar menú", command=lambda: print("IDK"))
+
+        gestionarMenu = Menu(self._barraMenu)
+        gestionarMenu.add_command(label="Ver menú", command=lambda: cambiarVista(frameVerMenu))
+        gestionarMenu.add_command(label="Crear producto", command=lambda: cambiarVista(frameCrearProducto))
+        gestionarMenu.add_command(label="Eliminar producto", command=lambda: cambiarVista(frameEliminarProducto))
+        gestionarMenu.add_command(label="Actualizar producto", command=lambda: cambiarVista(frameActualizarProducto))
+        procesosYConsultas.add_cascade(label="Gestionar menú", menu=gestionarMenu)
+
         procesosYConsultas.add_command(label="Gestionar personal", command=lambda: print("IDK"))
         procesosYConsultas.add_command(label="Cola de pedidos", command=lambda: print("IDK"))
         procesosYConsultas.add_command(label="Gestionar pedidos en cola", command=lambda: cambiarVista(frameGestionarPedidos))
@@ -146,12 +153,12 @@ class VentanaUsuario(Tk):
             mostrarOutput(finalizarPedido(), outputGestionarPedido)
 
         frameGestionarPedidos = Frame(self)
-        nombreGestionarPedido = Label(frameGestionarPedidos, text="Gestionar pedidos en espera", font=("Verdana", 16))
+        nombreGestionarPedido = Label(frameGestionarPedidos, text="Gestionar pedidos en espera", font=("Verdana", 16), fg = "#245efd")
         descGestionarPedido = Label(frameGestionarPedidos, text="Ingrese el ID del pedido", font=("Verdana", 12))
         FFGestionarPedido = FieldFrame(frameGestionarPedidos, None, ["Código del pedido"], None, None, [True])
         FFGestionarPedido.crearBotones(aceptarPedido)
 
-        outputGestionarPedido = Text(frameGestionarPedidos, height=6, font=("Verdana", 10))
+        outputGestionarPedido = Text(frameGestionarPedidos, height=100, font=("Verdana", 10))
         VentanaUsuario.framesEnPantalla.append(outputGestionarPedido)
 
         nombreGestionarPedido.pack()
@@ -172,12 +179,12 @@ class VentanaUsuario(Tk):
                 mostrarOutput(resultadoPagoNomina, outputPagarNomina)
         
         framePagarNomina = Frame(self)
-        nombrePagarNomina = Label(framePagarNomina, text="Pagar la nómina de los empleados", font=("Verdana", 16))
+        nombrePagarNomina = Label(framePagarNomina, text="Pagar la nómina de los empleados", font=("Verdana", 16), fg = "#245efd")
         descPagarNomina = Label(framePagarNomina, text="Ingrese el ID del empleado o ingrese el valor -1 para pagar a todos los empleados", font=("Verdana", 12))
         FFPagarNomina = FieldFrame(framePagarNomina, None, ["ID del empleado"], None, None, None)
         FFPagarNomina.crearBotones(efectuarPagoNomina)
 
-        outputPagarNomina = Text(framePagarNomina, height=6, font=("Verdana", 10))
+        outputPagarNomina = Text(framePagarNomina, height=100, font=("Verdana", 10))
         VentanaUsuario.framesEnPantalla.append(outputPagarNomina)
 
         nombrePagarNomina.pack()
@@ -185,3 +192,154 @@ class VentanaUsuario(Tk):
         FFPagarNomina.pack()
 
         VentanaUsuario.framesEnPantalla.append(framePagarNomina)
+
+        # Procesos y consultas -> Gestionar menú -> Ver menú
+        def refrescarMenu():
+            stringMenu = ""
+            for i in range(len(restaurante.getMenu())):
+                stringMenu += f"ID: {i}\n" \
+                            f"{restaurante.getMenu()[i].__str__()}\n\n"
+            if stringMenu == "":
+                stringMenu += "No hay productos creados"
+            
+            mostrarOutput(stringMenu, outputVerMenu)
+        
+        frameVerMenu = Frame(self)
+        nombreVerMenu = Label(frameVerMenu, text="Menú del restaurante", font=("Verdana", 16), fg = "#245efd")
+        descVerMenu = Label(frameVerMenu, text="Recuerde que puede que inicialmente no se observe la totalidad del menú. Puebe a mover rueda del mouse para ver más productos", font=("Verdana", 12))
+        refrescarVerMenu = Button(frameVerMenu, text="Mostrar/Refescar", font = ("Verdana", 12), fg = "white", bg = "#245efd", command = refrescarMenu)
+
+        outputVerMenu = Text(frameVerMenu, height=100, font=("Verdana", 10))
+        VentanaUsuario.framesEnPantalla.append(frameVerMenu)
+        
+        nombreVerMenu.pack()
+        descVerMenu.pack()
+        refrescarVerMenu.pack(pady=(10,10))
+
+        VentanaUsuario.framesEnPantalla.append(frameVerMenu)
+
+        # Procesos y consultas -> Gestionar menú -> Crear producto
+        def botonCrearProducto():
+            nombre = FFCrearProducto.getValue("Nombre")
+            descripcion = FFCrearProducto.getValue("Descripción")
+            precio = FFCrearProducto.getValue("Precio")
+            disponibilidad = FFCrearProducto.getValue("Disponibilidad")
+            restriccion = FFCrearProducto.getValue("Restricción")
+            cantidad = FFCrearProducto.getValue("Cantidad")
+
+            if disponibilidad == "1":
+                disponibilidad = True
+            else:
+                disponibilidad = False
+
+            if restriccion == "1":
+                restriccion = True
+            else:
+                restriccion = False
+            
+            resultadoCrearProducto = administrador.crearProducto(nombre, descripcion, precio, disponibilidad, restriccion, cantidad)
+            mostrarOutput(resultadoCrearProducto, outputCrearProducto)
+        
+        frameCrearProducto = Frame(self)
+        nombreCrearProducto = Label(frameCrearProducto, text="Crear un producto", font=("Verdana", 16), fg = "#245efd")
+        descCrearProducto = Label(frameCrearProducto, text="Por favor llene todos los campos. Recuerde que en los campos de \"Disponibilidad\" y \n\"Restricción de edad\" debe escribir \"0\" o \"1\" (Representando Falso y Verdadero respectivamente)", font=("Verdana", 12))
+        FFCrearProducto = FieldFrame(frameCrearProducto, None, ["Nombre", "Descripción", "Precio", "Disponibilidad", "Restricción", "Cantidad"], None, None, None)
+        FFCrearProducto.crearBotones(botonCrearProducto)
+
+        outputCrearProducto = Text(frameCrearProducto, height=100, font=("Verdana", 10))
+        VentanaUsuario.framesEnPantalla.append(outputCrearProducto)
+
+        nombreCrearProducto.pack()
+        descCrearProducto.pack()
+        FFCrearProducto.pack()
+
+        VentanaUsuario.framesEnPantalla.append(frameCrearProducto)
+
+        # Procesos y consultas -> Gestionar menú -> Eliminar producto
+        def botonEliminarProducto():
+            idProducto = FFEliminarProducto.getValue("ID Producto")
+            resultadoEliminarProducto = administrador.eliminarProducto(int(idProducto))
+            mostrarOutput(resultadoEliminarProducto, outputEliminarProducto)
+        
+        frameEliminarProducto = Frame(self)
+        nombreEliminarProducto = Label(frameEliminarProducto, text="Eliminar un producto", font=("Verdana", 16), fg = "#245efd")
+        descEliminarProducto = Label(frameEliminarProducto, text="Ingrese el ID del producto a eliminar. Recuerde observar muy bien el ID en la pestaña \"Ver menú\", ya que este ID puede variar", font=("Verdana", 12))
+        FFEliminarProducto = FieldFrame(frameEliminarProducto, None, ["ID Producto"], None, None, None)
+        FFEliminarProducto.crearBotones(botonEliminarProducto)
+
+        outputEliminarProducto = Text(frameEliminarProducto, height=100, font=("Verdana", 10))
+        VentanaUsuario.framesEnPantalla.append(outputEliminarProducto)
+
+        nombreEliminarProducto.pack()
+        descEliminarProducto.pack()
+        FFEliminarProducto.pack()
+
+        VentanaUsuario.framesEnPantalla.append(frameEliminarProducto)
+
+        # Procesos y consultas -> Gestionar menú -> Actualizar producto
+        def buscarProductoID():
+            # Volver a la búsqueda
+            def volverBuscarProductoID():
+                FFActualizarProductoBuscar.pack()
+                descActualizarProducto2.pack_forget()
+                FFActualizarProducto.pack_forget()
+                botonActualizarProductoVolver.pack_forget()
+                outputActualizarProducto.pack_forget()
+
+            def botonActualizarProducto():
+                idProducto = FFActualizarProductoBuscar.getValue("ID Producto")
+
+                stringResultadosActualizarProducto = ""
+
+                disponibilidad = FFActualizarProducto.getValue("Disponibilidad")
+                restriccion = FFActualizarProducto.getValue("Restricción")
+
+                if disponibilidad == "1":
+                    disponibilidad = True
+                else:
+                    disponibilidad = False
+
+                if restriccion == "1":
+                    restriccion = True
+                else:
+                    restriccion = False
+
+                stringResultadosActualizarProducto += "Nombre del " + administrador.actualizarNombreProducto(int(idProducto), FFActualizarProducto.getValue("Nombre")) + "\n"
+                stringResultadosActualizarProducto += "Descripción del " + administrador.actualizarDescripcionProducto(int(idProducto), FFActualizarProducto.getValue("Descripción")) + "\n"
+                stringResultadosActualizarProducto += "Precio del " + administrador.actualizarPrecioProducto(int(idProducto), FFActualizarProducto.getValue("Precio")) + "\n"
+                stringResultadosActualizarProducto += "Disponibilidad del " + administrador.actualizarDisponibilidadProducto(int(idProducto), disponibilidad) + "\n"
+                stringResultadosActualizarProducto += "Restricción de edad del " + administrador.actualizarRestriccionProducto(int(idProducto), restriccion) + "\n"
+                stringResultadosActualizarProducto += "Cantidad disponible del " + administrador.actualizarCantidadProducto(int(idProducto), FFActualizarProducto.getValue("Cantidad"))
+
+                mostrarOutput(stringResultadosActualizarProducto, outputActualizarProducto)
+            
+            idProducto = FFActualizarProductoBuscar.getValue("ID Producto")
+            producto = restaurante.getMenu()[int(idProducto)]
+            camposProducto = [producto.getNombre(), producto.getDescripcion(), producto.getPrecio(), producto.getDisponibilidad(), producto.getRestriccion(), producto.getCantidad()]
+
+            descActualizarProducto2 = Label(frameActualizarProducto, text="Por favor llene todos los campos. Recuerde que en los campos de \"Disponibilidad\" y\n\"Restricción de edad\" debe escribir \"0\" o \"1\" (Representando Falso y Verdadero respectivamente)", font=("Verdana", 12))
+            FFActualizarProducto = FieldFrame(frameActualizarProducto, None, ["Nombre", "Descripción", "Precio", "Disponibilidad", "Restricción", "Cantidad"], None, camposProducto, None)
+            FFActualizarProducto.crearBotones(botonActualizarProducto)
+            botonActualizarProductoVolver = Button(frameActualizarProducto, text="Volver a buscar ID", font = ("Verdana", 12), fg = "white", bg = "#245efd", command = volverBuscarProductoID)
+
+            # Mostrar campos para actualizar y quitar formulario de busquedas
+            descActualizarProducto2.pack()
+            FFActualizarProducto.pack()
+            FFActualizarProductoBuscar.pack_forget()
+            botonActualizarProductoVolver.pack()
+        
+        frameActualizarProducto = Frame(self)
+        nombreActualizarProducto = Label(frameActualizarProducto, text="Actualizar un producto", font=("Verdana", 16), fg = "#245efd")
+        descActualizarProducto = Label(frameActualizarProducto, text="Ingrese el ID del producto a actualizar. Recuerde observar muy bien el ID en la pestaña \"Ver menú\", ya que este ID puede variar", font=("Verdana", 12))
+
+        FFActualizarProductoBuscar = FieldFrame(frameActualizarProducto, None, ["ID Producto"], None, None, None)
+        FFActualizarProductoBuscar.crearBotones(buscarProductoID)
+
+        outputActualizarProducto = Text(frameActualizarProducto, height=100, font=("Verdana", 10))
+        VentanaUsuario.framesEnPantalla.append(outputActualizarProducto)
+
+        nombreActualizarProducto.pack()
+        descActualizarProducto.pack()
+        FFActualizarProductoBuscar.pack()
+
+        VentanaUsuario.framesEnPantalla.append(frameActualizarProducto)
