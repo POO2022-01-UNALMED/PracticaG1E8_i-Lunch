@@ -39,7 +39,14 @@ class VentanaUsuario(Tk):
         self._barraMenu.add_cascade(label = "Archivo", menu = archivo)
 
         procesosYConsultas = Menu(self._barraMenu)
-        procesosYConsultas.add_command(label="Información del restaurante", command=lambda:print("IDK"))
+
+        infoRestaurante = Menu(self._barraMenu)
+        infoRestaurante.add_command(label="Ver empleados", command=lambda: print("IDK"))
+        infoRestaurante.add_command(label="Ver productos", command=lambda: print("IDK"))
+        infoRestaurante.add_command(label="Ver historial de pedidos", command=lambda: print("IDK"))
+        infoRestaurante.add_command(label="Ver balance de cuenta", command=lambda: print("IDK"))
+        infoRestaurante.add_command(label="Ver estadísticas", command=lambda: print("IDK"))
+        procesosYConsultas.add_cascade(label="Información del restaurante", menu=infoRestaurante)
 
         gestionarMenu = Menu(self._barraMenu)
         gestionarMenu.add_command(label="Ver menú", command=lambda: cambiarVista(frameVerMenu))
@@ -48,13 +55,28 @@ class VentanaUsuario(Tk):
         gestionarMenu.add_command(label="Actualizar producto", command=lambda: cambiarVista(frameActualizarProducto))
         procesosYConsultas.add_cascade(label="Gestionar menú", menu=gestionarMenu)
 
-        procesosYConsultas.add_command(label="Gestionar personal", command=lambda: print("IDK"))
-        procesosYConsultas.add_command(label="Cola de pedidos", command=lambda: print("IDK"))
-        procesosYConsultas.add_command(label="Gestionar pedidos en cola", command=lambda: cambiarVista(frameGestionarPedidos))
+        gestionarPersonal = Menu(self._barraMenu)
+        gestionarPersonal.add_command(label="Ver personal", command=lambda: print("IDK"))
+        gestionarPersonal.add_command(label="Contratar empleado", command=lambda: print("IDK"))
+        gestionarPersonal.add_command(label="Despedir empleado", command=lambda: print("IDK"))
+        procesosYConsultas.add_cascade(label="Gestionar personal", menu=gestionarPersonal)
+
+        colaPedidos = Menu(self._barraMenu)
+        colaPedidos.add_command(label="Ver cola de pedidos", command=lambda: print("IDK"))
+        colaPedidos.add_command(label="Gestionar pedidos en cola", command=lambda: cambiarVista(frameGestionarPedidos))
+        procesosYConsultas.add_cascade(label="Cola de pedidos", menu=colaPedidos)
+
         procesosYConsultas.add_command(label="Pagar nómina", command=lambda: cambiarVista(framePagarNomina))
+
         procesosYConsultas.add_separator()
+
         procesosYConsultas.add_command(label="Simular pedido", command = lambda: simularPedido())
-        procesosYConsultas.add_command(label="Gestionar clientela", command=lambda: print("IDK"))
+
+        gestionarClientela = Menu(self._barraMenu)
+        gestionarClientela.add_command(label="Ver clientes", command=lambda: print("IDK"))
+        gestionarClientela.add_command(label="Generar un cliente", command=lambda: print("IDK"))
+        procesosYConsultas.add_cascade(label="Gestionar clientela", menu=gestionarClientela)
+
         self._barraMenu.add_cascade(label="Procesos y consultas", menu= procesosYConsultas)
 
         ayuda = Menu(self._barraMenu)
