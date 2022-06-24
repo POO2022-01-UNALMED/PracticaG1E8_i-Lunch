@@ -267,7 +267,7 @@ class VentanaUsuario(Tk):
             stringMenu = ""
             for i in range(len(restaurante.getMenu())):
                 stringMenu += f"ID: {i}\n" \
-                            f"{restaurante.getMenu()[i].__str__()}\n\n"
+                              f"{restaurante.getMenu()[i].__str__()}\n\n"
             if stringMenu == "":
                 stringMenu += "No hay productos creados"
             
@@ -414,24 +414,17 @@ class VentanaUsuario(Tk):
         VentanaUsuario.framesEnPantalla.append(frameActualizarProducto)
 
         # VER EMPLEADOS
-
         def refrescarEmpleados():
-            stringPedidos = "Empleados contratados:\n\n"
+            stringEmpleados = ""
             listaEmpleado = restaurante.getEmpleados()
-            for empleado in listaEmpleado:
-                nombre = empleado.getNombre()
-                cargo = empleado.getCargo()
-                disp ="Si" if empleado.getDisponibilidad()  else "No"
+            for i in range(len(listaEmpleado)):
+                stringEmpleados += f"ID: {i}\n" \
+                                   f"{listaEmpleado[i].informacion()}\n\n"
 
-                stringPedidos += f"Nombre: {nombre}\n" \
-                                 f"Cargo: {cargo}\n" \
-                                 f"Disponibilidad: {disp}\n" + "\n"
+            if stringEmpleados == "Empleados contratados:\n\n":
+                stringEmpleados += "No hay empleados contratados"
 
-
-            if stringPedidos == "Empleados contratados:\n\n":
-                stringPedidos += "No hay empleados contratados"
-
-            mostrarOutput(stringPedidos, outputVerEmpleados)
+            mostrarOutput(stringEmpleados, outputVerEmpleados)
 
         frameVerEmpleados = Frame(self)
         nombreVerEmpleados = Label(frameVerEmpleados, text="Lista de empleados", font=("Verdana", 16), fg="#245efd")
@@ -451,25 +444,14 @@ class VentanaUsuario(Tk):
         VentanaUsuario.framesEnPantalla.append(frameVerEmpleados)
 
         # VER PRODUCTOS
-
         def refrescarProductos():
-            stringProductos = "Productos disponibles:\n\n"
-            listaProductos = Producto.getProductos()
-            for producto in listaProductos:
-                nombre = producto.getNombre()
-                precio = producto.getPrecio()
-                restriccion = "Si" if producto.getRestriccion()  else "No"
-                descripcion = producto.getDescripcion()
-
-                stringProductos += f"Nombre: {nombre}\n" \
-                                   f"precio: {precio}\n " \
-                                   f"Restriccion de edad: {restriccion}\n" \
-                                   f"descripcion del producto: {descripcion}\n\n"
-
-
-            if stringProductos == "Productos disponibles:\n\n":
-                stringProductos += "No hay productos disponibles"
-
+            stringProductos = ""
+            for i in range(len(restaurante.getMenu())):
+                stringProductos += f"ID: {i}\n" \
+                              f"{restaurante.getMenu()[i].__str__()}\n\n"
+            if stringProductos == "":
+                stringProductos += "No hay productos creados"
+            
             mostrarOutput(stringProductos, outputVerProductos)
 
         frameVerProductos = Frame(self)
@@ -490,19 +472,18 @@ class VentanaUsuario(Tk):
         VentanaUsuario.framesEnPantalla.append(frameVerProductos)
 
         # VER HISTORIAL DE PEDIDOS
-
         def refrescarHistirialPedidos():
             stringPedidos = "Historial de pedidos:\n\n"
             listaPedidos = Pedido.getPedidos()
             for pedido in listaPedidos:
                 codigo = pedido.getCodigo()
                 precioT = pedido.getPrecioTotal()
-               # restriccion = "Si" if pedido.getRestriccion()  else "No"
+                # restriccion = "Si" if pedido.getRestriccion()  else "No"
                 cliente = pedido.getCliente().getNombre()
                 estado = pedido.getEstado()
 
                 stringPedidos += f"Codigo: {codigo}\n" \
-                                 f"precio Total: {precioT}\n" \
+                                 f"Precio Total: ${precioT}\n" \
                                  f"Cliente: {cliente}\n" \
                                  f"Estado: {estado}\n\n"
 
@@ -529,27 +510,12 @@ class VentanaUsuario(Tk):
 
         VentanaUsuario.framesEnPantalla.append(frameVerPedidos)
 
-
-
-#        VER CLIENTES
-
-
-
-
+        # VER CLIENTES
         def refrescarClientes():
-            stringClientes = "Lista de clientes:\n\n"
+            stringClientes = ""
             listaClientes = Cliente.getClientes()
             for cliente in listaClientes:
-                nombre = cliente.getNombre()
-                email = cliente.getEmail()
-                cantidadP = len(cliente.getHistorialPedidos())
-                telefono = cliente.getTelefono()
-                direccion = cliente.getDireccion()
-                stringClientes += f"Nombre: {nombre}\n" \
-                                 f"Email: {email}\n" \
-                                 f"Telefono: {telefono}\n" \
-                                 f"Direccion: {direccion}\n" \
-                                 f"Cantidad de pedidos realizados: {cantidadP}\n\n"
+                stringClientes += f"{cliente.informacion()}\n\n"
 
 
             if stringClientes == "Lista de clientes:\n\n":
@@ -592,5 +558,5 @@ class VentanaUsuario(Tk):
                         f"• Codigo pedido: " \
                         f"{pedido.getCodigo()}"
 
-            simulado = Label(ventanaSimularPedido, text=textoInfo, justify="left", font=("Verdana", 12))
+            simulado = Label(ventanaGenerarCliente, text=textoInfo, justify="left", font=("Verdana", 12))
             simulado.pack(fill=tkinter.Y, expand=True)

@@ -73,7 +73,7 @@ class Cliente(Usuario):
     # Implementacion de la interfaz
 
     def informacion(self):
-        return f"El cliente {self._nombre} tiene email {self._correoElectronico} y telefono {self._telefono}.\n" \
+        return f"El cliente {self._nombre} tiene email {self._email} y telefono {self._telefono}.\n" \
                f"Tiene {self._edad} años.\n" \
                f"Vive en la direccion {self._direccion}.\n" \
                f"Ha hecho {len(self._historialPedidos)} pedidos en la aplicacion."

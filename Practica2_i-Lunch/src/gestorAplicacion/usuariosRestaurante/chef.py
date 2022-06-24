@@ -69,7 +69,7 @@ class Chef(Empleado):
     def informacion(self):
         info = f"El Chef {self._nombre} con C.C. {self._cedula} trabaja en el restaurante {self._restaurante.getNombre()}.\n" \
                f"Tiene un salario de: ${self._salario}.\n" \
-               f"Tiene el cargo {self._cargo} en la cocina y esta especializado en {self.especialidad}.\n"
+               f"Tiene el cargo {self._cargo} en la cocina y esta especializado en {self._especialidad}.\n"
         
         if self._disponibilidad:
             return info + "Esta disponible actualmente."
