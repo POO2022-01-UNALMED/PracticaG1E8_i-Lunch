@@ -3,6 +3,7 @@ from tkinter import *
 import tkinter
 
 from baseDatos.serializador import serializarTodo
+from gestorAplicacion.gestionRestaurante.producto import Producto
 
 from gestorAplicacion.gestionRestaurante.restaurante import Restaurante
 from gestorAplicacion.usuariosRestaurante.cliente import Cliente
@@ -42,9 +43,9 @@ class VentanaUsuario(Tk):
         procesosYConsultas = Menu(self._barraMenu)
 
         infoRestaurante = Menu(self._barraMenu)
-        infoRestaurante.add_command(label="Ver empleados", command=lambda: print("IDK"))
-        infoRestaurante.add_command(label="Ver productos", command=lambda: print("IDK"))
-        infoRestaurante.add_command(label="Ver historial de pedidos", command=lambda: print("IDK"))
+        infoRestaurante.add_command(label="Ver empleados", command=lambda: cambiarVista(frameVerEmpleados))
+        infoRestaurante.add_command(label="Ver productos", command=lambda: cambiarVista(frameVerProductos))
+        infoRestaurante.add_command(label="Ver historial de pedidos", command=lambda: cambiarVista(frameVerPedidos))
         infoRestaurante.add_command(label="Ver balance de cuenta", command=lambda: print("IDK"))
         infoRestaurante.add_command(label="Ver estadísticas", command=lambda: print("IDK"))
         procesosYConsultas.add_cascade(label="Información del restaurante", menu=infoRestaurante)
@@ -74,7 +75,7 @@ class VentanaUsuario(Tk):
         procesosYConsultas.add_command(label="Simular pedido", command = lambda: simularPedido())
 
         gestionarClientela = Menu(self._barraMenu)
-        gestionarClientela.add_command(label="Ver clientes", command=lambda: print("IDK"))
+        gestionarClientela.add_command(label="Ver clientes", command=lambda: cambiarVista(frameVerClientes))
         gestionarClientela.add_command(label="Generar un cliente", command=lambda: print("IDK"))
         procesosYConsultas.add_cascade(label="Gestionar clientela", menu=gestionarClientela)
 
@@ -411,3 +412,185 @@ class VentanaUsuario(Tk):
         FFActualizarProductoBuscar.pack()
 
         VentanaUsuario.framesEnPantalla.append(frameActualizarProducto)
+
+        # VER EMPLEADOS
+
+        def refrescarEmpleados():
+            stringPedidos = "Empleados contratados:\n\n"
+            listaEmpleado = restaurante.getEmpleados()
+            for empleado in listaEmpleado:
+                nombre = empleado.getNombre()
+                cargo = empleado.getCargo()
+                disp ="Si" if empleado.getDisponibilidad()  else "No"
+
+                stringPedidos += f"Nombre: {nombre}\n" \
+                                 f"Cargo: {cargo}\n" \
+                                 f"Disponibilidad: {disp}\n" + "\n"
+
+
+            if stringPedidos == "Empleados contratados:\n\n":
+                stringPedidos += "No hay empleados contratados"
+
+            mostrarOutput(stringPedidos, outputVerEmpleados)
+
+        frameVerEmpleados = Frame(self)
+        nombreVerEmpleados = Label(frameVerEmpleados, text="Lista de empleados", font=("Verdana", 16), fg="#245efd")
+        descVerEmpleados = Label(frameVerEmpleados,
+                               text="Recuerde que puede que inicialmente no se observe la totalidad de los empleados. Puebe a mover rueda del mouse para ver más empleados",
+                               font=("Verdana", 12))
+        refrescarVerEmpleados = Button(frameVerEmpleados, text="Mostrar/Refescar", font=("Verdana", 12), fg="white",
+                                     bg="#245efd", command=refrescarEmpleados)
+
+        outputVerEmpleados = Text(frameVerEmpleados, height=100, font=("Verdana", 10))
+        VentanaUsuario.framesEnPantalla.append(frameVerEmpleados)
+
+        nombreVerEmpleados.pack()
+        descVerEmpleados.pack()
+        refrescarVerEmpleados.pack(pady=(10, 10))
+
+        VentanaUsuario.framesEnPantalla.append(frameVerEmpleados)
+
+        # VER PRODUCTOS
+
+        def refrescarProductos():
+            stringProductos = "Productos disponibles:\n\n"
+            listaProductos = Producto.getProductos()
+            for producto in listaProductos:
+                nombre = producto.getNombre()
+                precio = producto.getPrecio()
+                restriccion = "Si" if producto.getRestriccion()  else "No"
+                descripcion = producto.getDescripcion()
+
+                stringProductos += f"Nombre: {nombre}\n" \
+                                   f"precio: {precio}\n " \
+                                   f"Restriccion de edad: {restriccion}\n" \
+                                   f"descripcion del producto: {descripcion}\n\n"
+
+
+            if stringProductos == "Productos disponibles:\n\n":
+                stringProductos += "No hay productos disponibles"
+
+            mostrarOutput(stringProductos, outputVerProductos)
+
+        frameVerProductos = Frame(self)
+        nombreVerProductos = Label(frameVerProductos, text="Lista de productos", font=("Verdana", 16), fg="#245efd")
+        descVerProductos = Label(frameVerProductos,
+                               text="Recuerde que puede que inicialmente no se observe la totalidad de los productos. Puebe a mover rueda del mouse para ver más productos",
+                               font=("Verdana", 12))
+        refrescarVerProductos = Button(frameVerProductos, text="Mostrar/Refescar", font=("Verdana", 12), fg="white",
+                                     bg="#245efd", command=refrescarProductos)
+
+        outputVerProductos = Text(frameVerProductos, height=100, font=("Verdana", 10))
+        VentanaUsuario.framesEnPantalla.append(frameVerProductos)
+
+        nombreVerProductos.pack()
+        descVerProductos.pack()
+        refrescarVerProductos.pack(pady=(10, 10))
+
+        VentanaUsuario.framesEnPantalla.append(frameVerProductos)
+
+        # VER HISTORIAL DE PEDIDOS
+
+        def refrescarHistirialPedidos():
+            stringPedidos = "Historial de pedidos:\n\n"
+            listaPedidos = Pedido.getPedidos()
+            for pedido in listaPedidos:
+                codigo = pedido.getCodigo()
+                precioT = pedido.getPrecioTotal()
+               # restriccion = "Si" if pedido.getRestriccion()  else "No"
+                cliente = pedido.getCliente().getNombre()
+                estado = pedido.getEstado()
+
+                stringPedidos += f"Codigo: {codigo}\n" \
+                                 f"precio Total: {precioT}\n" \
+                                 f"Cliente: {cliente}\n" \
+                                 f"Estado: {estado}\n\n"
+
+
+            if stringPedidos == "Historial de pedidos:\n\n":
+                stringPedidos += "No hay pedidos registrados"
+
+            mostrarOutput(stringPedidos, outputVerPedidos)
+
+        frameVerPedidos = Frame(self)
+        nombreVerPedidos = Label(frameVerPedidos, text="Historial de pedidos", font=("Verdana", 16), fg="#245efd")
+        descVerPedidos = Label(frameVerPedidos,
+                               text="Recuerde que puede que inicialmente no se observe la totalidad de los pedidos. Puebe a mover rueda del mouse para ver más pedidos",
+                               font=("Verdana", 12))
+        refrescarVerPedidos = Button(frameVerPedidos, text="Mostrar/Refescar", font=("Verdana", 12), fg="white",
+                                     bg="#245efd", command=refrescarHistirialPedidos)
+
+        outputVerPedidos = Text(frameVerPedidos, height=100, font=("Verdana", 10))
+        VentanaUsuario.framesEnPantalla.append(frameVerPedidos)
+
+        nombreVerPedidos.pack()
+        descVerPedidos.pack()
+        refrescarVerPedidos.pack(pady=(10, 10))
+
+        VentanaUsuario.framesEnPantalla.append(frameVerPedidos)
+
+
+
+#        VER CLIENTES
+
+
+
+
+        def refrescarClientes():
+            stringClientes = "Lista de clientes:\n\n"
+            listaClientes = Cliente.getClientes()
+            for cliente in listaClientes:
+                nombre = cliente.getNombre()
+                email = cliente.getEmail()
+                cantidadP = len(cliente.getHistorialPedidos())
+                telefono = cliente.getTelefono()
+                direccion = cliente.getDireccion()
+                stringClientes += f"Nombre: {nombre}\n" \
+                                 f"Email: {email}\n" \
+                                 f"Telefono: {telefono}\n" \
+                                 f"Direccion: {direccion}\n" \
+                                 f"Cantidad de pedidos realizados: {cantidadP}\n\n"
+
+
+            if stringClientes == "Lista de clientes:\n\n":
+                stringClientes += "No hay clientes registrados"
+
+            mostrarOutput(stringClientes, outputVerClientes)
+
+        frameVerClientes = Frame(self)
+        nombreVerClientes = Label(frameVerClientes, text="Historial de pedidos", font=("Verdana", 16), fg="#245efd")
+        descVerClientes = Label(frameVerClientes,
+                               text="Recuerde que puede que inicialmente no se observe la totalidad de los clientes. Puebe a mover rueda del mouse para ver más clientes",
+                               font=("Verdana", 12))
+        refrescarVerClientes = Button(frameVerClientes, text="Mostrar/Refescar", font=("Verdana", 12), fg="white",
+                                     bg="#245efd", command=refrescarClientes)
+
+        outputVerClientes = Text(frameVerClientes, height=100, font=("Verdana", 10))
+        VentanaUsuario.framesEnPantalla.append(frameVerClientes)
+
+        nombreVerClientes.pack()
+        descVerClientes.pack()
+        refrescarVerClientes.pack(pady=(10, 10))
+
+        VentanaUsuario.framesEnPantalla.append(frameVerClientes)
+
+        # GENERAR CLIENTE NUEVO ---------- FALTA TERMINAR ---- TENGO SUENHO ZZZZZZZZ
+
+        def generarCliente():
+            ventanaGenerarCliente = Tk()
+            ventanaGenerarCliente.geometry("640x360")
+            ventanaGenerarCliente.resizable(False, False)
+            ventanaGenerarCliente.title("i-Lunch - Generar cliente nuevo")
+
+            cliente = Cliente.getClientes()[(randint(0, len(Cliente.getClientes()) - 1))]
+            pedido = Administrador.getAdministradores()[0].simularPedido(cliente)
+
+            textoInfo = f"Pedido Recibio\n" \
+                        f"Información del pedido:\n" \
+                        f"• Cliente: " \
+                        f"{cliente.getNombre()}\n" \
+                        f"• Codigo pedido: " \
+                        f"{pedido.getCodigo()}"
+
+            simulado = Label(ventanaSimularPedido, text=textoInfo, justify="left", font=("Verdana", 12))
+            simulado.pack(fill=tkinter.Y, expand=True)

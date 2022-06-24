@@ -18,7 +18,7 @@ class Pedido:
         
         self._codigo = Pedido._totalPedidos
         self._productos = []
-
+        cliente.agregarPedidoHistorial(self)
         Pedido._pedidos.append(self)
         Pedido._totalPedidos += 1
 
