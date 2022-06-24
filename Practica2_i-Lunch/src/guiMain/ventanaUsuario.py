@@ -9,6 +9,7 @@ from gestorAplicacion.usuariosRestaurante.cliente import Cliente
 from gestorAplicacion.usuariosRestaurante.administrador import Administrador
 from gestorAplicacion.usuariosRestaurante.empleado import Empleado
 from gestorAplicacion.gestionRestaurante.pedido import Pedido
+from gestorAplicacion.usuariosRestaurante.chef import Chef
 
 from guiMain.fieldFrame import FieldFrame
 
@@ -62,8 +63,8 @@ class VentanaUsuario(Tk):
         procesosYConsultas.add_cascade(label="Gestionar personal", menu=gestionarPersonal)
 
         colaPedidos = Menu(self._barraMenu)
-        colaPedidos.add_command(label="Ver cola de pedidos", command=lambda: print("IDK"))
-        colaPedidos.add_command(label="Gestionar pedidos en cola", command=lambda: cambiarVista(frameGestionarPedidos))
+        colaPedidos.add_command(label="Ver cola de pedidos", command=lambda: cambiarVista(frameVerPedidos))
+        colaPedidos.add_command(label="Gestionar pedidos en espera", command=lambda: cambiarVista(frameGestionarPedidos))
         procesosYConsultas.add_cascade(label="Cola de pedidos", menu=colaPedidos)
 
         procesosYConsultas.add_command(label="Pagar nómina", command=lambda: cambiarVista(framePagarNomina))
@@ -162,17 +163,62 @@ class VentanaUsuario(Tk):
             
             simulado = Label(ventanaSimularPedido, text = textoInfo, justify = "left", font=("Verdana", 12))
             simulado.pack(fill=tkinter.Y, expand=True)
+
+        # Procesos y consultas -> Ver cola de pedidos
+
+        def refrescarCola():
+            stringPedidos = "Pedidos en espera:\n"
+            for pedido in Pedido.getPedidos():
+                    stringPedidos += f"Código: {pedido.getCodigo()} - Cliente: {pedido.getCliente().getNombre()} - Estado: {pedido.getEstado()}\n"
+            if stringPedidos == "Pedidos en espera:\n":
+                stringPedidos += "No hay pedidos en cola"
+            
+            mostrarOutput(stringPedidos, outputVerPedidos)
+        
+        frameVerPedidos = Frame(self)
+        nombreVerPedidos = Label(frameVerPedidos, text="Cola de pedidos", font=("Verdana", 16), fg = "#245efd")
+        descVerPedidos = Label(frameVerPedidos, text="Recuerde que puede que inicialmente no se observe la totalidad de los pedidos. Puebe a mover rueda del mouse para ver más pedidos", font=("Verdana", 12))
+        refrescarVerPedidos = Button(frameVerPedidos, text="Mostrar/Refescar", font = ("Verdana", 12), fg = "white", bg = "#245efd", command = refrescarCola)
+
+        outputVerPedidos = Text(frameVerPedidos, height=100, font=("Verdana", 10))
+        VentanaUsuario.framesEnPantalla.append(frameVerPedidos)
+        
+        nombreVerPedidos.pack()
+        descVerPedidos.pack()
+        refrescarVerPedidos.pack(pady=(10,10))
+
+        VentanaUsuario.framesEnPantalla.append(frameVerPedidos)
         
         # Procesos y consultas -> Gestionar pedidos en cola
-        def finalizarPedido(): 
+        def procesarPedido(): 
             index = FFGestionarPedido.getValue("Código del pedido")
-            pedido = Pedido.getPedidos()[int(index)-1]                
-            if Empleado.procesarPedido(pedido):
+            pedido = Pedido.getPedidos()[int(index)-1]
+            if(pedido.getEstado()!="Recibido"):
+                return "Ingrese un codigo de pedido valido"         
+            if administrador.procesarPedido(pedido):
+                administrador.actualizarEstadoPedido(pedido, True) #DE RECIBIDO A ACEPTADO
+                administrador.actualizarEstadoPedido(pedido, True) #DE ACEPTADO A EN PREPARACION
+                chef = Chef.getChefs()[randint(0, len(Chef.getChefs())-1)]
+                chef.prepararProducto(pedido)
+                for  chef_aux in Chef.getChefs():
+                    if chef_aux.getCargoEnCocina()=="Chef en jefe":
+                        chef = chef_aux
+								
+							
+                if chef.revisionPedido(pedido): # DE EN PREPARACION A LISTO 
+                    administrador.actualizarEstadoPedido(pedido, True)
+                    restaurante.setBalanceCuenta(restaurante.getBalanceCuenta() + pedido.getPrecioTotal())
+
                 return (f"{pedido.getCodigo()}\n"
-                        f"Pedido aceptado")
+                        f"Pedido aceptado. Iniciando preparacion\n"
+                        f"Pedido preparado. Iniciando verificacion\n"
+                        f"Pedido verificado por el chef en jefe. Iniciando envio\n"
+                        f"Pedido despachado satisfactoriamente")
+            else:
+                return "Ha habido un error, por favor intentelo nuevamente"
 
         def aceptarPedido():           
-            mostrarOutput(finalizarPedido(), outputGestionarPedido)
+            mostrarOutput(procesarPedido(), outputGestionarPedido)
 
         frameGestionarPedidos = Frame(self)
         nombreGestionarPedido = Label(frameGestionarPedidos, text="Gestionar pedidos en espera", font=("Verdana", 16), fg = "#245efd")

@@ -59,6 +59,10 @@ class Producto:
     def getEstado(self):
         return self._estado
 
+    def setEstado(self, estado):
+        self._estado = estado
+
+
     @classmethod
     def getProductos(cls):
         return cls._productos

@@ -45,8 +45,8 @@ class Chef(Empleado):
 
     # Simulacion de la preparacion completa de un pedido por parte de un chef
     def prepararProducto(self, pedido):
-        for i in range(0, len(pedido.getProductos)):
-            pedido.getProductos.get(i).setEstado(True)
+        for i in range(0, len(pedido.getProductos())):
+            pedido.getProductos()[i].setEstado(True)
     
     # Funcionalidad revisar pedido antes de ser despachado
 
@@ -56,8 +56,8 @@ class Chef(Empleado):
             cuenta = 0
 
             # Verificar si cada producto esta preparado
-            for i in range(0, len(pedido.getProductos)):
-                if pedido.getProductos.get(i).getEstado() == True:
+            for i in range(0, len(pedido.getProductos())):
+                if pedido.getProductos()[i].getEstado() == True:
                     cuenta += 1
             
             # Solo poner el pedido como listo si todos los productos fueron preparados

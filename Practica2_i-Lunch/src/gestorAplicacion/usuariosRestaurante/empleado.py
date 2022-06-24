@@ -70,7 +70,7 @@ class Empleado(Usuario):
 
     # Usado para la funcionalidad de procesar pedido
     def procesarPedido(self, pedido):
-        if self._restaurante.verificarPedido(pedido) and self._restaurante.verificarProductos(pedido):
+        if self._restaurante.chequearPedido(pedido):
             return True
         else:
             return False

@@ -149,7 +149,7 @@ class Restaurante:
             for oferta in self._menu:
                 if demanda.getNombre() == oferta.getNombre():
                     existe = True
-                    disponible = oferta.getDisponiblidad()
+                    disponible = oferta.getDisponibilidad()
 
                     if oferta.getCantidad() >= demanda.getCantidad():
                         cantidad = True
