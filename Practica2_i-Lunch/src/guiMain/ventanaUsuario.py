@@ -44,7 +44,7 @@ class VentanaUsuario(Tk):
 
         infoRestaurante = Menu(self._barraMenu)
         infoRestaurante.add_command(label="Ver empleados", command=lambda: cambiarVista(frameVerEmpleados))
-        infoRestaurante.add_command(label="Ver productos", command=lambda: cambiarVista(frameVerProductos))
+        infoRestaurante.add_command(label="Ver productos", command=lambda: cambiarVista(frameVerMenu))
         infoRestaurante.add_command(label="Ver historial de pedidos", command=lambda: cambiarVista(frameVerPedidos))
         infoRestaurante.add_command(label="Ver balance de cuenta", command=lambda: print("IDK"))
         infoRestaurante.add_command(label="Ver estadísticas", command=lambda: print("IDK"))
@@ -58,13 +58,13 @@ class VentanaUsuario(Tk):
         procesosYConsultas.add_cascade(label="Gestionar menú", menu=gestionarMenu)
 
         gestionarPersonal = Menu(self._barraMenu)
-        gestionarPersonal.add_command(label="Ver personal", command=lambda: print("IDK"))
+        gestionarPersonal.add_command(label="Ver personal", command=lambda: cambiarVista(frameVerEmpleados))
         gestionarPersonal.add_command(label="Contratar empleado", command=lambda: print("IDK"))
         gestionarPersonal.add_command(label="Despedir empleado", command=lambda: print("IDK"))
         procesosYConsultas.add_cascade(label="Gestionar personal", menu=gestionarPersonal)
 
         colaPedidos = Menu(self._barraMenu)
-        colaPedidos.add_command(label="Ver cola de pedidos", command=lambda: cambiarVista(frameVerPedidos))
+        colaPedidos.add_command(label="Ver cola de pedidos", command=lambda: cambiarVista(frameVerColaPedidos))
         colaPedidos.add_command(label="Gestionar pedidos en espera", command=lambda: cambiarVista(frameGestionarPedidos))
         procesosYConsultas.add_cascade(label="Cola de pedidos", menu=colaPedidos)
 
@@ -153,42 +153,38 @@ class VentanaUsuario(Tk):
             ventanaSimularPedido.title("i-Lunch - Simular pedido")
 
             cliente =  Cliente.getClientes()[(randint(0, len(Cliente.getClientes()) - 1))]
-            pedido = Administrador.getAdministradores()[0].simularPedido(cliente)     
+            pedido = administrador.simularPedido(cliente)
 
-            textoInfo = f"Pedido Recibio\n" \
-                        f"Información del pedido:\n" \
-                        f"• Cliente: " \
-                        f"{cliente.getNombre()}\n"\
-                        f"• Codigo pedido: " \
-                        f"{pedido.getCodigo()}"
+            textoInfo = f"{pedido.__str__()}\n\n"
             
             simulado = Label(ventanaSimularPedido, text = textoInfo, justify = "left", font=("Verdana", 12))
             simulado.pack(fill=tkinter.Y, expand=True)
 
         # Procesos y consultas -> Ver cola de pedidos
-
-        def refrescarCola():
-            stringPedidos = "Pedidos en espera:\n"
+        def refrescarColaPedidos():
+            stringPedidos = ""
             for pedido in Pedido.getPedidos():
-                    stringPedidos += f"Código: {pedido.getCodigo()} - Cliente: {pedido.getCliente().getNombre()} - Estado: {pedido.getEstado()}\n"
-            if stringPedidos == "Pedidos en espera:\n":
+                if pedido.getEstado() == "Recibido":
+                    stringPedidos += f"{pedido.__str__()}\n"
+
+            if stringPedidos == "":
                 stringPedidos += "No hay pedidos en cola"
             
-            mostrarOutput(stringPedidos, outputVerPedidos)
+            mostrarOutput(stringPedidos, outputVerColaPedidos)
         
-        frameVerPedidos = Frame(self)
-        nombreVerPedidos = Label(frameVerPedidos, text="Cola de pedidos", font=("Verdana", 16), fg = "#245efd")
-        descVerPedidos = Label(frameVerPedidos, text="Recuerde que puede que inicialmente no se observe la totalidad de los pedidos. Puebe a mover rueda del mouse para ver más pedidos", font=("Verdana", 12))
-        refrescarVerPedidos = Button(frameVerPedidos, text="Mostrar/Refescar", font = ("Verdana", 12), fg = "white", bg = "#245efd", command = refrescarCola)
+        frameVerColaPedidos = Frame(self)
+        nombreVerColaPedidos = Label(frameVerColaPedidos, text="Cola de pedidos", font=("Verdana", 16), fg = "#245efd")
+        descVerColaPedidos = Label(frameVerColaPedidos, text="Recuerde que puede que inicialmente no se observe la totalidad de los pedidos. Puebe a mover rueda del mouse para ver más pedidos", font=("Verdana", 12))
+        refrescarVerColaPedidos = Button(frameVerColaPedidos, text="Mostrar/Refescar", font = ("Verdana", 12), fg = "white", bg = "#245efd", command = refrescarColaPedidos)
 
-        outputVerPedidos = Text(frameVerPedidos, height=100, font=("Verdana", 10))
-        VentanaUsuario.framesEnPantalla.append(frameVerPedidos)
+        outputVerColaPedidos = Text(frameVerColaPedidos, height=100, font=("Verdana", 10))
+        VentanaUsuario.framesEnPantalla.append(frameVerColaPedidos)
         
-        nombreVerPedidos.pack()
-        descVerPedidos.pack()
-        refrescarVerPedidos.pack(pady=(10,10))
+        nombreVerColaPedidos.pack()
+        descVerColaPedidos.pack()
+        refrescarVerColaPedidos.pack(pady=(10,10))
 
-        VentanaUsuario.framesEnPantalla.append(frameVerPedidos)
+        VentanaUsuario.framesEnPantalla.append(frameVerColaPedidos)
         
         # Procesos y consultas -> Gestionar pedidos en cola
         def procesarPedido(): 
@@ -197,8 +193,8 @@ class VentanaUsuario(Tk):
             if(pedido.getEstado()!="Recibido"):
                 return "Ingrese un codigo de pedido valido"         
             if administrador.procesarPedido(pedido):
-                administrador.actualizarEstadoPedido(pedido, True) #DE RECIBIDO A ACEPTADO
-                administrador.actualizarEstadoPedido(pedido, True) #DE ACEPTADO A EN PREPARACION
+                administrador.actualizarEstadoPedido(pedido, True) # DE RECIBIDO A ACEPTADO
+                administrador.actualizarEstadoPedido(pedido, True) # DE ACEPTADO A EN PREPARACION
                 chef = Chef.getChefs()[randint(0, len(Chef.getChefs())-1)]
                 chef.prepararProducto(pedido)
                 for  chef_aux in Chef.getChefs():
@@ -210,7 +206,7 @@ class VentanaUsuario(Tk):
                     administrador.actualizarEstadoPedido(pedido, True)
                     restaurante.setBalanceCuenta(restaurante.getBalanceCuenta() + pedido.getPrecioTotal())
 
-                return (f"{pedido.getCodigo()}\n"
+                return (f"Pedido {pedido.getCodigo()}\n"
                         f"Pedido aceptado. Iniciando preparacion\n"
                         f"Pedido preparado. Iniciando verificacion\n"
                         f"Pedido verificado por el chef en jefe. Iniciando envio\n"
@@ -263,6 +259,7 @@ class VentanaUsuario(Tk):
         VentanaUsuario.framesEnPantalla.append(framePagarNomina)
 
         # Procesos y consultas -> Gestionar menú -> Ver menú
+        # Procesos y consultas -> Información del restaurante -> Ver productos
         def refrescarMenu():
             stringMenu = ""
             for i in range(len(restaurante.getMenu())):
@@ -413,7 +410,8 @@ class VentanaUsuario(Tk):
 
         VentanaUsuario.framesEnPantalla.append(frameActualizarProducto)
 
-        # VER EMPLEADOS
+        # Procesos y consultas -> Gestionar menú -> Ver personal
+        # Procesos y consultas -> Información del restaurante -> Ver empleados
         def refrescarEmpleados():
             stringEmpleados = ""
             listaEmpleado = restaurante.getEmpleados()
@@ -443,52 +441,14 @@ class VentanaUsuario(Tk):
 
         VentanaUsuario.framesEnPantalla.append(frameVerEmpleados)
 
-        # VER PRODUCTOS
-        def refrescarProductos():
-            stringProductos = ""
-            for i in range(len(restaurante.getMenu())):
-                stringProductos += f"ID: {i}\n" \
-                              f"{restaurante.getMenu()[i].__str__()}\n\n"
-            if stringProductos == "":
-                stringProductos += "No hay productos creados"
-            
-            mostrarOutput(stringProductos, outputVerProductos)
-
-        frameVerProductos = Frame(self)
-        nombreVerProductos = Label(frameVerProductos, text="Lista de productos", font=("Verdana", 16), fg="#245efd")
-        descVerProductos = Label(frameVerProductos,
-                               text="Recuerde que puede que inicialmente no se observe la totalidad de los productos. Puebe a mover rueda del mouse para ver más productos",
-                               font=("Verdana", 12))
-        refrescarVerProductos = Button(frameVerProductos, text="Mostrar/Refescar", font=("Verdana", 12), fg="white",
-                                     bg="#245efd", command=refrescarProductos)
-
-        outputVerProductos = Text(frameVerProductos, height=100, font=("Verdana", 10))
-        VentanaUsuario.framesEnPantalla.append(frameVerProductos)
-
-        nombreVerProductos.pack()
-        descVerProductos.pack()
-        refrescarVerProductos.pack(pady=(10, 10))
-
-        VentanaUsuario.framesEnPantalla.append(frameVerProductos)
-
-        # VER HISTORIAL DE PEDIDOS
+        # Procesos y consultas -> Información del restaurante -> Ver historial de pedidos
         def refrescarHistirialPedidos():
-            stringPedidos = "Historial de pedidos:\n\n"
+            stringPedidos = ""
             listaPedidos = Pedido.getPedidos()
             for pedido in listaPedidos:
-                codigo = pedido.getCodigo()
-                precioT = pedido.getPrecioTotal()
-                # restriccion = "Si" if pedido.getRestriccion()  else "No"
-                cliente = pedido.getCliente().getNombre()
-                estado = pedido.getEstado()
+                stringPedidos += f"{pedido.__str__()}\n\n"
 
-                stringPedidos += f"Codigo: {codigo}\n" \
-                                 f"Precio Total: ${precioT}\n" \
-                                 f"Cliente: {cliente}\n" \
-                                 f"Estado: {estado}\n\n"
-
-
-            if stringPedidos == "Historial de pedidos:\n\n":
+            if stringPedidos == "":
                 stringPedidos += "No hay pedidos registrados"
 
             mostrarOutput(stringPedidos, outputVerPedidos)
@@ -510,13 +470,12 @@ class VentanaUsuario(Tk):
 
         VentanaUsuario.framesEnPantalla.append(frameVerPedidos)
 
-        # VER CLIENTES
+        # Procesos y consultas -> Gestionar clientela -> Ver clientes
         def refrescarClientes():
             stringClientes = ""
             listaClientes = Cliente.getClientes()
             for cliente in listaClientes:
                 stringClientes += f"{cliente.informacion()}\n\n"
-
 
             if stringClientes == "Lista de clientes:\n\n":
                 stringClientes += "No hay clientes registrados"
@@ -541,7 +500,6 @@ class VentanaUsuario(Tk):
         VentanaUsuario.framesEnPantalla.append(frameVerClientes)
 
         # GENERAR CLIENTE NUEVO ---------- FALTA TERMINAR ---- TENGO SUENHO ZZZZZZZZ
-
         def generarCliente():
             ventanaGenerarCliente = Tk()
             ventanaGenerarCliente.geometry("640x360")

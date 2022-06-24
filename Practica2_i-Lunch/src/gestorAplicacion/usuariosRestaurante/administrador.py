@@ -283,7 +283,8 @@ class Administrador(Empleado):
         pedido = Pedido(cliente)
         pedido.setRestaurante(self._restaurante)
         pedido.setCodigo(Pedido.getTotalPedidos())
-        pedido.setFechaHora(date.today().strftime("%b-%d-%Y"));
+        pedido.setFechaHora(date.today().strftime("%b-%d-%Y"))
+        pedido.setMensaje("Lorem ipsum dolor sit amet.")
 
         # Escoger aleatoriamente el tipo del pedido
         tipoRandom = randint(0,2)

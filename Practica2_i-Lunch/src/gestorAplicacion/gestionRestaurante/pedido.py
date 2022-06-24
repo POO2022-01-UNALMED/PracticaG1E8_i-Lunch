@@ -106,7 +106,7 @@ class Pedido:
     # ToString
 
     def __str__(self):
-        return f"Pedido {self._codigo} hecho por el cliente {self._cliente}\n" \
+        return f"Pedido {self._codigo} hecho por el cliente {self._cliente.getNombre()}\n" \
                f"Fecha y hora: {self._fechaHora}\n" \
                f"Estado: {self._estado}\n" \
                f"Mensaje: {self._mensaje}\n" \
