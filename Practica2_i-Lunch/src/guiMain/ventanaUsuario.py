@@ -63,9 +63,9 @@ class VentanaUsuario(Tk):
         procesosYConsultas.add_cascade(label="Gestionar menú", menu=gestionarMenu)
 
         gestionarPersonal = Menu(self._barraMenu)
-        gestionarPersonal.add_command(label="Ver personal", command=lambda: cambiarVista(frameVerEmpleados))
-        gestionarPersonal.add_command(label="Contratar empleado", command=lambda: print("IDK"))
-        gestionarPersonal.add_command(label="Despedir empleado", command=lambda: print("IDK"))
+        gestionarPersonal.add_command(label="Ver personal", command=lambda: cambiarVista(frameVerPersonal))
+        gestionarPersonal.add_command(label="Contratar empleado", command=lambda: cambiarVista(frameContratarEmpleado))
+        gestionarPersonal.add_command(label="Despedir empleado", command=lambda: cambiarVista(frameDespedirEmpleado))
         procesosYConsultas.add_cascade(label="Gestionar personal", menu=gestionarPersonal)
 
         colaPedidos = Menu(self._barraMenu)
@@ -416,6 +416,89 @@ class VentanaUsuario(Tk):
         VentanaUsuario.framesEnPantalla.append(frameActualizarProducto)
 
         # Procesos y consultas -> Gestionar menú -> Ver personal
+        def refrescarPersonal():
+            stringPersonal = ""
+            listaPersonal = restaurante.getEmpleados()
+            for i in range(len(listaPersonal)):
+                stringPersonal += f"ID: {i}\n" \
+                                   f"{listaPersonal[i].informacion()}\n\n"
+
+            if stringPersonal == "Empleados contratados:\n\n":
+                stringPersonal += "No hay empleados contratados"
+
+            mostrarOutput(stringPersonal, outputVerPersonal)
+
+        frameVerPersonal = Frame(self)
+        nombreVerPersonal = Label(frameVerPersonal, text="Personal del restaurante", font=("Verdana", 16), fg="#245efd")
+        descVerPersonal = Label(frameVerPersonal,
+                               text="Recuerde que puede que inicialmente no se observe la totalidad del personal. Pruebe a mover la rueda del mouse para ver más empleados",
+                               font=("Verdana", 12))
+        refrescarVerPersonal = Button(frameVerPersonal, text="Mostrar/Refescar", font=("Verdana", 12), fg="white",
+                                     bg="#245efd", command=refrescarPersonal)
+
+        outputVerPersonal = Text(frameVerPersonal, height=100, font=("Verdana", 10))
+        VentanaUsuario.framesEnPantalla.append(frameVerPersonal)
+
+        nombreVerPersonal.pack()
+        descVerPersonal.pack()
+        refrescarVerPersonal.pack(pady=(10, 10))
+
+        VentanaUsuario.framesEnPantalla.append(frameVerPersonal)
+
+        # Procesos y consultas -> Gestionar menú -> Contratar Empleado
+        def botonContratarEmpleado():
+            cedula = FFContratarEmpleado.getValue("Cédula")
+            nombre = FFContratarEmpleado.getValue("Nombre")
+            cargo = FFContratarEmpleado.getValue("Cargo")
+            disponibilidad = FFContratarEmpleado.getValue("Disponibilidad")
+            salario = FFContratarEmpleado.getValue("Salario")
+
+
+            if disponibilidad == "1":
+                disponibilidad = True
+            else:
+                disponibilidad = False
+            
+            resultadoContratarEmpleado = administrador.contratarEmpleado(cedula, nombre, cargo, disponibilidad, salario, restaurante)
+            mostrarOutput(resultadoContratarEmpleado, outputContratarEmpleado)
+        
+        frameContratarEmpleado = Frame(self)
+        nombreContratarEmpleado = Label(frameContratarEmpleado, text="Contratar empleado", font=("Verdana", 16), fg = "#245efd")
+        descContratarEmpleado = Label(frameContratarEmpleado, text="Por favor llene todos los campos. Recuerde que en el campo de \"Disponibilidad\" debe escribir \"0\" o \"1\" (Representando Falso y Verdadero respectivamente)", font=("Verdana", 12))
+        FFContratarEmpleado = FieldFrame(frameContratarEmpleado, None, ["Cédula", "Nombre", "Cargo", "Disponibilidad", "Salario"], None, None, None)
+        FFContratarEmpleado.crearBotones(botonContratarEmpleado)
+
+        outputContratarEmpleado = Text(frameContratarEmpleado, height=100, font=("Verdana", 10))
+        VentanaUsuario.framesEnPantalla.append(outputContratarEmpleado)
+
+        nombreContratarEmpleado.pack()
+        descContratarEmpleado.pack()
+        FFContratarEmpleado.pack()
+
+        VentanaUsuario.framesEnPantalla.append(frameContratarEmpleado)
+
+        # Procesos y consultas -> Gestionar menú -> Despedir Empleado
+        def botonDespedirEmpleado():
+            idEmpleado = FFDespedirEmpleado.getValue("ID Empleado")
+            resultadoDespedirEmpleado = administrador.despedirEmpleado(int(idEmpleado))
+            mostrarOutput(resultadoDespedirEmpleado, outputDespedirEmpleado)
+        
+        frameDespedirEmpleado = Frame(self)
+        nombreDespedirEmpleado = Label(frameDespedirEmpleado, text="Despedir un empleado", font=("Verdana", 16), fg = "#245efd")
+        descDespedirEmpleado = Label(frameDespedirEmpleado, text="Ingrese el ID del empleado a eliminar. Recuerde observar muy bien el ID en la pestaña \"Ver personal\".", font=("Verdana", 12))
+        FFDespedirEmpleado = FieldFrame(frameDespedirEmpleado, None, ["ID Empleado"], None, None, None)
+        FFDespedirEmpleado.crearBotones(botonDespedirEmpleado)
+
+        outputDespedirEmpleado = Text(frameDespedirEmpleado, height=100, font=("Verdana", 10))
+        VentanaUsuario.framesEnPantalla.append(outputDespedirEmpleado)
+
+        nombreDespedirEmpleado.pack()
+        descDespedirEmpleado.pack()
+        FFDespedirEmpleado.pack()
+
+        VentanaUsuario.framesEnPantalla.append(frameDespedirEmpleado)
+
+
         # Procesos y consultas -> Información del restaurante -> Ver empleados
         def refrescarEmpleados():
             stringEmpleados = ""
