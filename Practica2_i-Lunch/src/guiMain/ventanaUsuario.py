@@ -1,6 +1,7 @@
 from random import randint
 from tkinter import *
 import tkinter
+from random import choice, randint
 
 from baseDatos.serializador import serializarTodo
 from gestorAplicacion.gestionRestaurante.producto import Producto
@@ -11,6 +12,10 @@ from gestorAplicacion.usuariosRestaurante.administrador import Administrador
 from gestorAplicacion.usuariosRestaurante.empleado import Empleado
 from gestorAplicacion.gestionRestaurante.pedido import Pedido
 from gestorAplicacion.usuariosRestaurante.chef import Chef
+from gestorAplicacion.usuariosRestaurante.mesero import Mesero
+from gestorAplicacion.usuariosRestaurante.repartidor import Repartidor
+from gestorAplicacion.datosAleatorios import nombresAleatorios,generarEmail, randDireccion
+
 
 from guiMain.fieldFrame import FieldFrame
 
@@ -46,8 +51,8 @@ class VentanaUsuario(Tk):
         infoRestaurante.add_command(label="Ver empleados", command=lambda: cambiarVista(frameVerEmpleados))
         infoRestaurante.add_command(label="Ver productos", command=lambda: cambiarVista(frameVerMenu))
         infoRestaurante.add_command(label="Ver historial de pedidos", command=lambda: cambiarVista(frameVerPedidos))
-        infoRestaurante.add_command(label="Ver balance de cuenta", command=lambda: print("IDK"))
-        infoRestaurante.add_command(label="Ver estadísticas", command=lambda: print("IDK"))
+        infoRestaurante.add_command(label="Ver balance de cuenta", command=lambda: verBalanceDeCuenta())
+        infoRestaurante.add_command(label="Ver estadísticas", command=lambda: verEstadisticas())
         procesosYConsultas.add_cascade(label="Información del restaurante", menu=infoRestaurante)
 
         gestionarMenu = Menu(self._barraMenu)
@@ -76,7 +81,7 @@ class VentanaUsuario(Tk):
 
         gestionarClientela = Menu(self._barraMenu)
         gestionarClientela.add_command(label="Ver clientes", command=lambda: cambiarVista(frameVerClientes))
-        gestionarClientela.add_command(label="Generar un cliente", command=lambda: print("IDK"))
+        gestionarClientela.add_command(label="Generar un cliente", command=lambda: generarCliente())
         procesosYConsultas.add_cascade(label="Gestionar clientela", menu=gestionarClientela)
 
         self._barraMenu.add_cascade(label="Procesos y consultas", menu= procesosYConsultas)
@@ -502,19 +507,34 @@ class VentanaUsuario(Tk):
         # GENERAR CLIENTE NUEVO ---------- FALTA TERMINAR ---- TENGO SUENHO ZZZZZZZZ
         def generarCliente():
             ventanaGenerarCliente = Tk()
-            ventanaGenerarCliente.geometry("640x360")
+            ventanaGenerarCliente.geometry("720x240")
             ventanaGenerarCliente.resizable(False, False)
             ventanaGenerarCliente.title("i-Lunch - Generar cliente nuevo")
+            nombreCliente = choice(nombresAleatorios)
+            cliente = Cliente(nombreCliente, generarEmail(nombreCliente),randint(1000000000, 9999999999), randDireccion(), randint(18, 65))
 
-            cliente = Cliente.getClientes()[(randint(0, len(Cliente.getClientes()) - 1))]
-            pedido = Administrador.getAdministradores()[0].simularPedido(cliente)
+            textoInfo = "Se ha agregado el siguiente cliente: \n\n" + cliente.informacion()
 
-            textoInfo = f"Pedido Recibio\n" \
-                        f"Información del pedido:\n" \
-                        f"• Cliente: " \
-                        f"{cliente.getNombre()}\n" \
-                        f"• Codigo pedido: " \
-                        f"{pedido.getCodigo()}"
+            generado = Label(ventanaGenerarCliente, text=textoInfo, justify="left", font=("Verdana", 12))
+            generado.pack(fill=tkinter.Y, expand=True)
 
-            simulado = Label(ventanaGenerarCliente, text=textoInfo, justify="left", font=("Verdana", 12))
-            simulado.pack(fill=tkinter.Y, expand=True)
+        def verEstadisticas():
+            ventanaverEstadisticas = Tk()
+            ventanaverEstadisticas.geometry("800x250")
+            ventanaverEstadisticas.resizable(False, False)
+            ventanaverEstadisticas.title("i-Lunch - Ver Estadisticas")
+            textoInfo = "Las estadisticas del restaurante son las siguientes: \n\n" + restaurante.estadisticasRestaurante()
+
+            Estadisticas = Label(ventanaverEstadisticas, text=textoInfo, justify="left", font=("Verdana", 12))
+            Estadisticas.pack(fill=tkinter.Y, expand=True)
+
+
+        def verBalanceDeCuenta():
+            ventanaVerBalanceDeCuenta = Tk()
+            ventanaVerBalanceDeCuenta.geometry("480x240")
+            ventanaVerBalanceDeCuenta.resizable(False, False)
+            ventanaVerBalanceDeCuenta.title("i-Lunch - Ver balance de cuenta")
+            textoInfo = "El balance de cuenta es el siguiente: \n\n $" + str(restaurante.getBalanceCuenta())
+
+            Estadisticas = Label(ventanaVerBalanceDeCuenta, text=textoInfo, justify="left", font=("Verdana", 12))
+            Estadisticas.pack(fill=tkinter.Y, expand=True)

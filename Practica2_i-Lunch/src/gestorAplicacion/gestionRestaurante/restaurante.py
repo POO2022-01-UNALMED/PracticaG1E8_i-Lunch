@@ -178,7 +178,7 @@ class Restaurante:
     # Busqueda del repartidor con mas pedidos
     def  getRepartidorConMasPedidos(self):		
         # Repartidor vacio para que el metodo funcione
-        topRepartidor = None
+        topRepartidor = Repartidor(cedula = 0, nombre = "", disponibilidad = False, salario = 0, poseeVehiculo = False, placa = "", tipoVehiculo = "")
         
         # Loop para encontrar el repartidor con mas pedidos repartidos
         for repartidor in Repartidor.getRepartidores():
@@ -194,7 +194,7 @@ class Restaurante:
     # Busqueda del mesero con mas propinas
     def getMeseroConMasPropinas(self):
 		# Mesero vacio para que el metodo funcione
-        topMeseroPropinas = None
+        topMeseroPropinas = Mesero(cedula = 0, nombre = "TEST", disponibilidad = False, salario = 0)
 
 		# Loop para encontrar al mesero con mas propinas
         for mesero in Mesero.getMeseros():
@@ -236,5 +236,5 @@ class Restaurante:
 
         return f"El mesero con mas propinas es: {topMesero.getNombre()} con ${topMesero.totalPropinas()} recibido en propinas.\n" \
                f"El repartidor con mas pedidos repartidos es: {topRepartidor.getNombre()} con {topRepartidor.getCantidadPedidosEntregados()} pedidos entregados.\n" \
-               f"En promedio un mesero recibe ${self.promedioPropinasMeseros()} en propinas en el restaurante.\n" \
-               f"En promedio un mesero ha entregado {self.promedioPedidosRepartidores()} pedidos a clientes del restaurante."
+               f"En promedio un mesero recibe ${round(self.promedioPropinasMeseros(),2)} en propinas en el restaurante.\n" \
+               f"En promedio un repartidor ha entregado {round(self.promedioPedidosRepartidores(),2)} pedidos a clientes del restaurante."

@@ -299,9 +299,14 @@ class Administrador(Empleado):
         pedido.setTipo(tipo)
         
         # Asignar un mesero aleatorio
-        listaMeseros = Mesero.getMeseros()
-        meseroElegido = listaMeseros[randint(0, len(listaMeseros)-1)]
-        meseroElegido.agregarPedidoHistorial(pedido, randint(1, 10))
+        if tipo == TipoPedido.TIENDA.value:
+            listaMeseros = Mesero.getMeseros()
+            meseroElegido = listaMeseros[randint(0, len(listaMeseros)-1)]
+            meseroElegido.agregarPedidoHistorial(pedido, randint(1, 10))
+        elif tipo == TipoPedido.DOMICILIO.value:
+            listaRepartidores = Repartidor.getRepartidores()
+            repartidorElegido = listaRepartidores[randint(0, len(listaRepartidores)-1)]
+            repartidorElegido.agregarPedido(pedido)
 
         # Escoger aleatoriamente una cantidad de productos del restaurante (Minimo 1)
         cantidadProductos = randint(1, len(self._restaurante.getMenu())-1)

@@ -88,3 +88,8 @@ class Repartidor(Empleado):
             return info + "Esta disponible actualmente."
         else:
             return info + "No esta disponible actualmente."
+
+    def getCantidadPedidosEntregados(self):
+        return len(self._pedidosEntregados)
+    def agregarPedido(self,pedido):
+        self._pedidosEntregados.append(pedido)
