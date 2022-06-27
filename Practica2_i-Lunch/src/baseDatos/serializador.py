@@ -33,7 +33,7 @@ def serializar(lista, className):
         print("Error de serializacion")
 
 def serializarTodo():
-    serializar(Empleado.getEmpleados(), "ampleados")
+    serializar(Empleado.getEmpleados(), "empleados")
     serializar(Administrador.getAdministradores(), "administradores")
     serializar(Repartidor.getRepartidores(), "repartidores")
     serializar(Mesero.getMeseros(), "meseros")
