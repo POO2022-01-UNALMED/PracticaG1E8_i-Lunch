@@ -1,3 +1,5 @@
+import os
+import pathlib
 from random import randint
 from tkinter import *
 import tkinter
@@ -7,6 +9,7 @@ from baseDatos.serializador import serializarTodo
 from excepciones.errorAplicacion import ErrorAplicacion
 from excepciones.excepcionExistente import ExcepcionExistente
 from excepciones.excepcionLista import ExcepcionLista
+from excepciones.excepcionLongitud import ExcepcionLongitud
 from excepciones.excepcionNumerica import ExcepcionNumerica
 from excepciones.excepcionVacio import ExcepcionVacio
 from gestorAplicacion.gestionRestaurante.producto import Producto
@@ -112,11 +115,33 @@ class VentanaUsuario(Tk):
                 if fieldFrame.getValue(criterio) == "":
                     raise ExcepcionVacio(criterio)
 
+        # Verificar longitud de input
+
+        def verificarLongitud(texto, requerido, nombreCampo):
+            if len(texto) < requerido:
+                raise ExcepcionLongitud([nombreCampo, requerido])
+
         # Verificar input numerico
         def verificarNumero(valor):
             if not valor.isnumeric():
                 raise ExcepcionNumerica(valor)
         
+        # Pantalla de inicio
+
+        framePantallaInicio = Frame(self)
+        nombrePantallaInicio = Label(framePantallaInicio, text=f"Bienvenido a i-Lunch, {administrador.getNombre()}", font=("Verdana", 16), fg = "#245efd")
+        outputPantallaInicio = Text(framePantallaInicio, height=100, font=("Verdana", 10))
+
+        pathManualUsuario = os.path.join(pathlib.Path(__file__).parent.parent.absolute(),f"recursos\manualUsuario.txt")
+        with open(pathManualUsuario, "r+") as manualUsuario:
+            outputPantallaInicio.insert(INSERT, manualUsuario.read())
+        
+        nombrePantallaInicio.pack()
+        outputPantallaInicio.pack(fill=X, expand=True, padx=(10,10))
+
+        VentanaUsuario.framesEnPantalla.append(framePantallaInicio)
+        cambiarVista(framePantallaInicio)
+
         # Funcionalidades
         
         # Archivo -> Aplicación
@@ -323,6 +348,8 @@ class VentanaUsuario(Tk):
 
                 verificarNumero(precio)
                 verificarNumero(cantidad)
+                verificarLongitud(nombre, 3, "Nombre")
+                verificarLongitud(descripcion, 20, "Descripción")
 
                 if disponibilidad == "1":
                     disponibilidad = True
@@ -408,6 +435,8 @@ class VentanaUsuario(Tk):
                     verificarNumero(idProducto)
                     verificarNumero(FFActualizarProducto.getValue("Precio"))
                     verificarNumero(FFActualizarProducto.getValue("Cantidad"))
+                    verificarLongitud(FFActualizarProducto.getValue("Nombre"), 3, "Nombre")
+                    verificarLongitud(FFActualizarProducto.getValue("Descripción"), 20, "Descripción")
 
                     disponibilidad = FFActualizarProducto.getValue("Disponibilidad")
                     restriccion = FFActualizarProducto.getValue("Restricción")
@@ -512,6 +541,7 @@ class VentanaUsuario(Tk):
 
                 verificarNumero(cedula)
                 verificarNumero(salario)
+                verificarLongitud(nombre, 3, "Nombre")
 
                 if disponibilidad == "1":
                     disponibilidad = True
@@ -679,7 +709,6 @@ class VentanaUsuario(Tk):
 
             estadisticas = Label(ventanaverEstadisticas, text=textoInfo, justify="left", font=("Verdana", 12))
             estadisticas.pack(fill=tkinter.Y, expand=True)
-
 
         # Procesos y consultas -> Informacion del restaurante -> Ver balance de cuenta
         def verBalanceDeCuenta():

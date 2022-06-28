@@ -1,5 +1,6 @@
 from datetime import date
 from random import choice, randint
+from excepciones.excepcionCargoEmpleado import ExcepcionCargoEmpleado
 from excepciones.excepcionExistente import ExcepcionExistente
 
 from gestorAplicacion.datosAleatorios import randbool, tiposVehiculos, cargosEnCocina, especialidadesChefs, randPlaca
@@ -76,7 +77,7 @@ class Administrador(Empleado):
             especialidad = choice(especialidadesChefs)
             Chef(cedula, nombre, disponibilidad, salario, restaurante, cargoEnCocina, especialidad)
         else:
-            return f"Cargo no válido, por favor usar \"Chef\", \"Mesero\" o \"Repartidor\""
+            raise ExcepcionCargoEmpleado(cargo)
 
         # Mensaje de confirmacion
         return f"{cargo}: {nombre} creado con exito"
