@@ -667,7 +667,7 @@ class VentanaUsuario(Tk):
             mostrarOutput(stringClientes, outputVerClientes)
 
         frameVerClientes = Frame(self)
-        nombreVerClientes = Label(frameVerClientes, text="Historial de pedidos", font=("Verdana", 16), fg="#245efd")
+        nombreVerClientes = Label(frameVerClientes, text="Clientes registrados", font=("Verdana", 16), fg="#245efd")
         descVerClientes = Label(frameVerClientes,
                                text="Recuerde que puede que inicialmente no se observe la totalidad de los clientes. Puebe a mover rueda del mouse para ver más clientes",
                                font=("Verdana", 12))
