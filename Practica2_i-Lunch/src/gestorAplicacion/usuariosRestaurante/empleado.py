@@ -18,7 +18,7 @@ class Empleado(Usuario):
         self._salario = salario
         self._restaurante = restaurante
 
-        # Para que no se dupliquen (Se añaden a esta lista desde los constructores de las subclases)
+        # Para que no se dupliquen (Se anaden a esta lista desde los constructores de las subclases)
         if cargo != "Chef" and cargo != "Repartidor" and cargo != "Mesero":
             Empleado._empleados.append(self)
 
@@ -98,7 +98,7 @@ class Empleado(Usuario):
 
     def informacion(self):
         info = f"El Empleado {self._nombre} con C.C. {self._cedula} trabaja en el restaurante {self._restaurante.getNombre()}.\n" \
-               f"Tiene un salario de: ${self._salario} y desempeña el cargo de {self._salario}.\n"
+               f"Tiene un salario de: ${self._salario} y desempena el cargo de {self._salario}.\n"
         
         if self._disponibilidad:
             return info + "Esta disponible actualmente."

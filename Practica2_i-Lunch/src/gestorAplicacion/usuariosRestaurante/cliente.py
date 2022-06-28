@@ -74,6 +74,6 @@ class Cliente(Usuario):
 
     def informacion(self):
         return f"El cliente {self._nombre} tiene email {self._email} y telefono {self._telefono}.\n" \
-               f"Tiene {self._edad} años.\n" \
+               f"Tiene {self._edad} anos.\n" \
                f"Vive en la direccion {self._direccion}.\n" \
                f"Ha hecho {len(self._historialPedidos)} pedidos en la aplicacion."

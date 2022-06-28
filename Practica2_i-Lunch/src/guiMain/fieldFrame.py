@@ -46,7 +46,7 @@ class FieldFrame(Frame):
             if habilitado is not None and not habilitado[i]:
                 entryValor.configure(state = DISABLED)
             
-            # Añadir a la lista de elementos
+            # Anadir a la lista de elementos
             self._elementos.append(entryValor)
 
     # GetValue

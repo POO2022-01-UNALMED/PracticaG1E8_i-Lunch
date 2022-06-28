@@ -41,7 +41,7 @@ class VentanaInicio(Tk):
         self._p1.grid(row = 0, column = 0, padx=(10,10))
         self._p2.grid(row = 0, column = 1, padx=(10,10))
 
-    # Desplegar la descripcion y aumentar un poco el tamaño de la ventana
+    # Desplegar la descripcion y aumentar un poco el tamano de la ventana
 
     def desplegarDescripcion(self):
         self._p1._descripcion.pack(pady=(10,0))
@@ -76,13 +76,13 @@ class P1(Frame):
 
         # Mostrar descripcion en P3 si se le da click al boton en el menu
 
-        textoDescripcion = f"i-Lunch es una aplicación de gestión de restaurantes. El administrador del restaurante que contrate la aplicación\n" \
-                           f"tendrá acceso a un software en el cual podrá llevar el control de todos los aspectos de su restaurante como:\n" \
-                           f"• La información básica del restaurante.\n" \
+        textoDescripcion = f"i-Lunch es una aplicacion de gestion de restaurantes. El administrador del restaurante que contrate la aplicacion\n" \
+                           f"tendra acceso a un software en el cual podra llevar el control de todos los aspectos de su restaurante como:\n" \
+                           f"• La informacion basica del restaurante.\n" \
                            f"• Su oferta de productos.\n" \
                            f"• Sus empleados.\n" \
                            f"• Los pedidos realizados al restaurante.\n" \
-                           f"• El balance de cuenta y la nómina de los empleados.\n" \
+                           f"• El balance de cuenta y la nomina de los empleados.\n" \
                            f"• Su clientela."
         self._descripcion = Label(self._p3, text = textoDescripcion, width = 100, justify = "left", font=("Verdana", 8))
 

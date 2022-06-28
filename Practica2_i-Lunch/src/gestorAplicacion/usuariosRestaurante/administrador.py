@@ -52,7 +52,7 @@ class Administrador(Empleado):
 
     # Metodos
 
-    # Crear un nuevo empleado (O alguno de sus subtipos) y añadirlo a los empleados del restaurante
+    # Crear un nuevo empleado (O alguno de sus subtipos) y anadirlo a los empleados del restaurante
     def contratarEmpleado(self, cedula, nombre, cargo, disponibilidad, salario, restaurante):
         listaEmpleados = Empleado.getEmpleados()
 
@@ -97,7 +97,7 @@ class Administrador(Empleado):
         else:
             raise ExcepcionLista([idEmpleado, len(listaEmpleados)-1])
 
-    # Crear nuevo producto y añadirlo al menu del restaurante
+    # Crear nuevo producto y anadirlo al menu del restaurante
     def crearProducto(self, nombre, descripcion, precio, disponibilidad, restriccion, cantidad):
         # Verificar primero si ya existe un producto que se llame asi
         listaMenu = Producto.getProductos()
@@ -106,7 +106,7 @@ class Administrador(Empleado):
         for producto in listaMenu:
             listaNombresMenu.append(producto.getNombre())
 
-        # Si no existe, añadirlo a la lista
+        # Si no existe, anadirlo a la lista
         if nombre in listaNombresMenu:
             raise ExcepcionExistente(nombre)
         else:

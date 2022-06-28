@@ -43,7 +43,7 @@ class VentanaUsuario(Tk):
 
         self._barraMenu = Menu(self)
         archivo = Menu(self._barraMenu)
-        archivo.add_command(label = "Aplicación", command = lambda: infoApp())
+        archivo.add_command(label = "Aplicacion", command = lambda: infoApp())
         archivo.add_command(label = "Salir y guardar", command = lambda: cerrarGuardar())
         self._barraMenu.add_cascade(label = "Archivo", menu = archivo)
 
@@ -54,15 +54,15 @@ class VentanaUsuario(Tk):
         infoRestaurante.add_command(label="Ver productos", command=lambda: cambiarVista(frameVerMenu))
         infoRestaurante.add_command(label="Ver historial de pedidos", command=lambda: cambiarVista(frameVerPedidos))
         infoRestaurante.add_command(label="Ver balance de cuenta", command=lambda: verBalanceDeCuenta())
-        infoRestaurante.add_command(label="Ver estadísticas", command=lambda: verEstadisticas())
-        procesosYConsultas.add_cascade(label="Información del restaurante", menu=infoRestaurante)
+        infoRestaurante.add_command(label="Ver estadisticas", command=lambda: verEstadisticas())
+        procesosYConsultas.add_cascade(label="Informacion del restaurante", menu=infoRestaurante)
 
         gestionarMenu = Menu(self._barraMenu)
-        gestionarMenu.add_command(label="Ver menú", command=lambda: cambiarVista(frameVerMenu))
+        gestionarMenu.add_command(label="Ver menu", command=lambda: cambiarVista(frameVerMenu))
         gestionarMenu.add_command(label="Crear producto", command=lambda: cambiarVista(frameCrearProducto))
         gestionarMenu.add_command(label="Eliminar producto", command=lambda: cambiarVista(frameEliminarProducto))
         gestionarMenu.add_command(label="Actualizar producto", command=lambda: cambiarVista(frameActualizarProducto))
-        procesosYConsultas.add_cascade(label="Gestionar menú", menu=gestionarMenu)
+        procesosYConsultas.add_cascade(label="Gestionar menu", menu=gestionarMenu)
 
         gestionarPersonal = Menu(self._barraMenu)
         gestionarPersonal.add_command(label="Ver personal", command=lambda: cambiarVista(frameVerPersonal))
@@ -75,7 +75,7 @@ class VentanaUsuario(Tk):
         colaPedidos.add_command(label="Gestionar pedidos en espera", command=lambda: cambiarVista(frameGestionarPedidos))
         procesosYConsultas.add_cascade(label="Cola de pedidos", menu=colaPedidos)
 
-        procesosYConsultas.add_command(label="Pagar nómina", command=lambda: cambiarVista(framePagarNomina))
+        procesosYConsultas.add_command(label="Pagar nomina", command=lambda: cambiarVista(framePagarNomina))
 
         procesosYConsultas.add_separator()
 
@@ -94,7 +94,7 @@ class VentanaUsuario(Tk):
 
         self.config(menu = self._barraMenu)
 
-        # Funciones útiles en la manipulación de Frames
+        # Funciones utiles en la manipulacion de Frames
         
         # Cambiar vista del frame
         def cambiarVista(frameUtilizado):
@@ -144,22 +144,22 @@ class VentanaUsuario(Tk):
 
         # Funcionalidades
         
-        # Archivo -> Aplicación
+        # Archivo -> Aplicacion
         def infoApp():
             ventanaInfo = Tk()
             ventanaInfo.geometry("640x360")
             ventanaInfo.resizable(False,False)
-            ventanaInfo.title("i-Lunch - Aplicación")
+            ventanaInfo.title("i-Lunch - Aplicacion")
 
-            textoInfo = f"i-Lunch es una aplicación de gestión de restaurantes.\n" \
-                        f"El administrador del restaurante que contrate la aplicación\n" \
-                        f"tendrá acceso a un software en el cual podrá llevar el control\n"\
+            textoInfo = f"i-Lunch es una aplicacion de gestion de restaurantes.\n" \
+                        f"El administrador del restaurante que contrate la aplicacion\n" \
+                        f"tendra acceso a un software en el cual podra llevar el control\n"\
                         f"de todos los aspectos de su restaurante como:\n" \
-                        f"• La información básica del restaurante.\n" \
+                        f"• La informacion basica del restaurante.\n" \
                         f"• Su oferta de productos.\n" \
                         f"• Sus empleados.\n" \
                         f"• Los pedidos realizados al restaurante.\n" \
-                        f"• El balance de cuenta y la nómina de los empleados.\n" \
+                        f"• El balance de cuenta y la nomina de los empleados.\n" \
                         f"• Su clientela."
             info = Label(ventanaInfo, text = textoInfo, justify = "left", font=("Verdana", 12))
             info.pack(fill=tkinter.Y, expand=True)
@@ -178,10 +178,10 @@ class VentanaUsuario(Tk):
             ventanaDevs.title("i-Lunch - Acerca de")
 
             textoInfo = f"Desarrolladores:\n" \
-                        f"• Emmanuel López Rodríguez\n" \
-                        f"• Jerónimo Gómez Restrepo\n" \
-                        f"• Andrés Felipe Aparicio Mestre\n" \
-                        f"• David Alejandro López Zapata"
+                        f"• Emmanuel Lopez Rodriguez\n" \
+                        f"• Jeronimo Gomez Restrepo\n" \
+                        f"• Andres Felipe Aparicio Mestre\n" \
+                        f"• David Alejandro Lopez Zapata"
             devs = Label(ventanaDevs, text = textoInfo, justify = "left", font=("Verdana", 12))
             devs.pack(fill=tkinter.Y, expand=True)
 
@@ -214,7 +214,7 @@ class VentanaUsuario(Tk):
         
         frameVerColaPedidos = Frame(self)
         nombreVerColaPedidos = Label(frameVerColaPedidos, text="Cola de pedidos", font=("Verdana", 16), fg = "#245efd")
-        descVerColaPedidos = Label(frameVerColaPedidos, text="Recuerde que puede que inicialmente no se observe la totalidad de los pedidos. Puebe a mover rueda del mouse para ver más pedidos", font=("Verdana", 12))
+        descVerColaPedidos = Label(frameVerColaPedidos, text="Recuerde que puede que inicialmente no se observe la totalidad de los pedidos. Puebe a mover rueda del mouse para ver mas pedidos", font=("Verdana", 12))
         refrescarVerColaPedidos = Button(frameVerColaPedidos, text="Mostrar/Refescar", font = ("Verdana", 12), fg = "white", bg = "#245efd", command = refrescarColaPedidos)
 
         outputVerColaPedidos = Text(frameVerColaPedidos, height=100, font=("Verdana", 10))
@@ -230,7 +230,7 @@ class VentanaUsuario(Tk):
         def procesarPedido():
             try:
                 verificarVacio(FFGestionarPedido)
-                index = FFGestionarPedido.getValue("Código del pedido")
+                index = FFGestionarPedido.getValue("Codigo del pedido")
                 verificarNumero(index)
                 pedido = Pedido.getPedidos()[int(index)-1]
                 if(pedido.getEstado()!="Recibido"):
@@ -264,7 +264,7 @@ class VentanaUsuario(Tk):
         frameGestionarPedidos = Frame(self)
         nombreGestionarPedido = Label(frameGestionarPedidos, text="Gestionar pedidos en espera", font=("Verdana", 16), fg = "#245efd")
         descGestionarPedido = Label(frameGestionarPedidos, text="Ingrese el ID del pedido", font=("Verdana", 12))
-        FFGestionarPedido = FieldFrame(frameGestionarPedidos, None, ["Código del pedido"], None, None, [True])
+        FFGestionarPedido = FieldFrame(frameGestionarPedidos, None, ["Codigo del pedido"], None, None, [True])
         FFGestionarPedido.crearBotones(aceptarPedido)
 
         outputGestionarPedido = Text(frameGestionarPedidos, height=100, font=("Verdana", 10))
@@ -276,7 +276,7 @@ class VentanaUsuario(Tk):
 
         VentanaUsuario.framesEnPantalla.append(frameGestionarPedidos)
 
-        # Procesos y consultas -> Pagar nómina
+        # Procesos y consultas -> Pagar nomina
         def efectuarPagoNomina():
             try:
                 verificarVacio(FFPagarNomina)
@@ -294,7 +294,7 @@ class VentanaUsuario(Tk):
 
         
         framePagarNomina = Frame(self)
-        nombrePagarNomina = Label(framePagarNomina, text="Pagar la nómina de los empleados", font=("Verdana", 16), fg = "#245efd")
+        nombrePagarNomina = Label(framePagarNomina, text="Pagar la nomina de los empleados", font=("Verdana", 16), fg = "#245efd")
         descPagarNomina = Label(framePagarNomina, text="Ingrese el ID del empleado o ingrese el valor -1 para pagar a todos los empleados", font=("Verdana", 12))
         FFPagarNomina = FieldFrame(framePagarNomina, None, ["ID del empleado"], None, None, None)
         FFPagarNomina.crearBotones(efectuarPagoNomina)
@@ -308,8 +308,8 @@ class VentanaUsuario(Tk):
 
         VentanaUsuario.framesEnPantalla.append(framePagarNomina)
 
-        # Procesos y consultas -> Gestionar menú -> Ver menú
-        # Procesos y consultas -> Información del restaurante -> Ver productos
+        # Procesos y consultas -> Gestionar menu -> Ver menu
+        # Procesos y consultas -> Informacion del restaurante -> Ver productos
         def refrescarMenu():
             stringMenu = ""
             listaProductos = Producto.getProductos()
@@ -322,8 +322,8 @@ class VentanaUsuario(Tk):
             mostrarOutput(stringMenu, outputVerMenu)
         
         frameVerMenu = Frame(self)
-        nombreVerMenu = Label(frameVerMenu, text="Menú del restaurante", font=("Verdana", 16), fg = "#245efd")
-        descVerMenu = Label(frameVerMenu, text="Recuerde que puede que inicialmente no se observe la totalidad del menú. Puebe a mover rueda del mouse para ver más productos", font=("Verdana", 12))
+        nombreVerMenu = Label(frameVerMenu, text="Menu del restaurante", font=("Verdana", 16), fg = "#245efd")
+        descVerMenu = Label(frameVerMenu, text="Recuerde que puede que inicialmente no se observe la totalidad del menu. Puebe a mover rueda del mouse para ver mas productos", font=("Verdana", 12))
         refrescarVerMenu = Button(frameVerMenu, text="Mostrar/Refescar", font = ("Verdana", 12), fg = "white", bg = "#245efd", command = refrescarMenu)
 
         outputVerMenu = Text(frameVerMenu, height=100, font=("Verdana", 10))
@@ -335,21 +335,21 @@ class VentanaUsuario(Tk):
 
         VentanaUsuario.framesEnPantalla.append(frameVerMenu)
 
-        # Procesos y consultas -> Gestionar menú -> Crear producto
+        # Procesos y consultas -> Gestionar menu -> Crear producto
         def botonCrearProducto():
             try:
                 verificarVacio(FFCrearProducto)
                 nombre = FFCrearProducto.getValue("Nombre")
-                descripcion = FFCrearProducto.getValue("Descripción")
+                descripcion = FFCrearProducto.getValue("Descripcion")
                 precio = FFCrearProducto.getValue("Precio")
                 disponibilidad = FFCrearProducto.getValue("Disponibilidad")
-                restriccion = FFCrearProducto.getValue("Restricción")
+                restriccion = FFCrearProducto.getValue("Restriccion")
                 cantidad = FFCrearProducto.getValue("Cantidad")
 
                 verificarNumero(precio)
                 verificarNumero(cantidad)
                 verificarLongitud(nombre, 3, "Nombre")
-                verificarLongitud(descripcion, 20, "Descripción")
+                verificarLongitud(descripcion, 20, "Descripcion")
 
                 if disponibilidad == "1":
                     disponibilidad = True
@@ -369,8 +369,8 @@ class VentanaUsuario(Tk):
         
         frameCrearProducto = Frame(self)
         nombreCrearProducto = Label(frameCrearProducto, text="Crear un producto", font=("Verdana", 16), fg = "#245efd")
-        descCrearProducto = Label(frameCrearProducto, text="Por favor llene todos los campos. Recuerde que en los campos de \"Disponibilidad\" y \n\"Restricción de edad\" debe escribir \"0\" o \"1\" (Representando Falso y Verdadero respectivamente)", font=("Verdana", 12))
-        FFCrearProducto = FieldFrame(frameCrearProducto, None, ["Nombre", "Descripción", "Precio", "Disponibilidad", "Restricción", "Cantidad"], None, None, None)
+        descCrearProducto = Label(frameCrearProducto, text="Por favor llene todos los campos. Recuerde que en los campos de \"Disponibilidad\" y \n\"Restriccion de edad\" debe escribir \"0\" o \"1\" (Representando Falso y Verdadero respectivamente)", font=("Verdana", 12))
+        FFCrearProducto = FieldFrame(frameCrearProducto, None, ["Nombre", "Descripcion", "Precio", "Disponibilidad", "Restriccion", "Cantidad"], None, None, None)
         FFCrearProducto.crearBotones(botonCrearProducto)
 
         outputCrearProducto = Text(frameCrearProducto, height=100, font=("Verdana", 10))
@@ -382,7 +382,7 @@ class VentanaUsuario(Tk):
 
         VentanaUsuario.framesEnPantalla.append(frameCrearProducto)
 
-        # Procesos y consultas -> Gestionar menú -> Eliminar producto
+        # Procesos y consultas -> Gestionar menu -> Eliminar producto
         def botonEliminarProducto():
             try:
                 verificarVacio(FFEliminarProducto)
@@ -395,7 +395,7 @@ class VentanaUsuario(Tk):
         
         frameEliminarProducto = Frame(self)
         nombreEliminarProducto = Label(frameEliminarProducto, text="Eliminar un producto", font=("Verdana", 16), fg = "#245efd")
-        descEliminarProducto = Label(frameEliminarProducto, text="Ingrese el ID del producto a eliminar. Recuerde observar muy bien el ID en la pestaña \"Ver menú\", ya que este ID puede variar", font=("Verdana", 12))
+        descEliminarProducto = Label(frameEliminarProducto, text="Ingrese el ID del producto a eliminar. Recuerde observar muy bien el ID en la pestana \"Ver menu\", ya que este ID puede variar", font=("Verdana", 12))
         FFEliminarProducto = FieldFrame(frameEliminarProducto, None, ["ID Producto"], None, None, None)
         FFEliminarProducto.crearBotones(botonEliminarProducto)
 
@@ -408,7 +408,7 @@ class VentanaUsuario(Tk):
 
         VentanaUsuario.framesEnPantalla.append(frameEliminarProducto)
 
-        # Procesos y consultas -> Gestionar menú -> Actualizar producto
+        # Procesos y consultas -> Gestionar menu -> Actualizar producto
         def buscarProductoBoton():
             try:
                 verificarVacio(FFActualizarProductoBuscar)
@@ -417,7 +417,7 @@ class VentanaUsuario(Tk):
                 PopUp(str(e))
         
         def buscarProductoID():
-            # Volver a la búsqueda
+            # Volver a la busqueda
             def volverBuscarProductoID():
                 FFActualizarProductoBuscar.pack()
                 descActualizarProducto2.pack_forget()
@@ -436,10 +436,10 @@ class VentanaUsuario(Tk):
                     verificarNumero(FFActualizarProducto.getValue("Precio"))
                     verificarNumero(FFActualizarProducto.getValue("Cantidad"))
                     verificarLongitud(FFActualizarProducto.getValue("Nombre"), 3, "Nombre")
-                    verificarLongitud(FFActualizarProducto.getValue("Descripción"), 20, "Descripción")
+                    verificarLongitud(FFActualizarProducto.getValue("Descripcion"), 20, "Descripcion")
 
                     disponibilidad = FFActualizarProducto.getValue("Disponibilidad")
-                    restriccion = FFActualizarProducto.getValue("Restricción")
+                    restriccion = FFActualizarProducto.getValue("Restriccion")
 
                     if disponibilidad == "1":
                         disponibilidad = True
@@ -452,10 +452,10 @@ class VentanaUsuario(Tk):
                         restriccion = False
 
                     stringResultadosActualizarProducto += "Nombre del " + administrador.actualizarNombreProducto(int(idProducto), FFActualizarProducto.getValue("Nombre")) + "\n"
-                    stringResultadosActualizarProducto += "Descripción del " + administrador.actualizarDescripcionProducto(int(idProducto), FFActualizarProducto.getValue("Descripción")) + "\n"
+                    stringResultadosActualizarProducto += "Descripcion del " + administrador.actualizarDescripcionProducto(int(idProducto), FFActualizarProducto.getValue("Descripcion")) + "\n"
                     stringResultadosActualizarProducto += "Precio del " + administrador.actualizarPrecioProducto(int(idProducto), FFActualizarProducto.getValue("Precio")) + "\n"
                     stringResultadosActualizarProducto += "Disponibilidad del " + administrador.actualizarDisponibilidadProducto(int(idProducto), disponibilidad) + "\n"
-                    stringResultadosActualizarProducto += "Restricción de edad del " + administrador.actualizarRestriccionProducto(int(idProducto), restriccion) + "\n"
+                    stringResultadosActualizarProducto += "Restriccion de edad del " + administrador.actualizarRestriccionProducto(int(idProducto), restriccion) + "\n"
                     stringResultadosActualizarProducto += "Cantidad disponible del " + administrador.actualizarCantidadProducto(int(idProducto), FFActualizarProducto.getValue("Cantidad"))
 
                     mostrarOutput(stringResultadosActualizarProducto, outputActualizarProducto)
@@ -471,8 +471,8 @@ class VentanaUsuario(Tk):
             else:
                 raise ExcepcionLista([int(idProducto), len(Producto.getProductos())-1])
 
-            descActualizarProducto2 = Label(frameActualizarProducto, text="Por favor llene todos los campos. Recuerde que en los campos de \"Disponibilidad\" y\n\"Restricción de edad\" debe escribir \"0\" o \"1\" (Representando Falso y Verdadero respectivamente)", font=("Verdana", 12))
-            FFActualizarProducto = FieldFrame(frameActualizarProducto, None, ["Nombre", "Descripción", "Precio", "Disponibilidad", "Restricción", "Cantidad"], None, camposProducto, None)
+            descActualizarProducto2 = Label(frameActualizarProducto, text="Por favor llene todos los campos. Recuerde que en los campos de \"Disponibilidad\" y\n\"Restriccion de edad\" debe escribir \"0\" o \"1\" (Representando Falso y Verdadero respectivamente)", font=("Verdana", 12))
+            FFActualizarProducto = FieldFrame(frameActualizarProducto, None, ["Nombre", "Descripcion", "Precio", "Disponibilidad", "Restriccion", "Cantidad"], None, camposProducto, None)
             FFActualizarProducto.crearBotones(botonActualizarProducto)
             botonActualizarProductoVolver = Button(frameActualizarProducto, text="Volver a buscar ID", font = ("Verdana", 12), fg = "white", bg = "#245efd", command = volverBuscarProductoID)
 
@@ -484,7 +484,7 @@ class VentanaUsuario(Tk):
         
         frameActualizarProducto = Frame(self)
         nombreActualizarProducto = Label(frameActualizarProducto, text="Actualizar un producto", font=("Verdana", 16), fg = "#245efd")
-        descActualizarProducto = Label(frameActualizarProducto, text="Ingrese el ID del producto a actualizar. Recuerde observar muy bien el ID en la pestaña \"Ver menú\", ya que este ID puede variar", font=("Verdana", 12))
+        descActualizarProducto = Label(frameActualizarProducto, text="Ingrese el ID del producto a actualizar. Recuerde observar muy bien el ID en la pestana \"Ver menu\", ya que este ID puede variar", font=("Verdana", 12))
 
         FFActualizarProductoBuscar = FieldFrame(frameActualizarProducto, None, ["ID Producto"], None, None, None)
         FFActualizarProductoBuscar.crearBotones(buscarProductoBoton)
@@ -498,7 +498,7 @@ class VentanaUsuario(Tk):
 
         VentanaUsuario.framesEnPantalla.append(frameActualizarProducto)
 
-        # Procesos y consultas -> Gestionar menú -> Ver personal
+        # Procesos y consultas -> Gestionar menu -> Ver personal
         def refrescarPersonal():
             stringPersonal = ""
             listaPersonal = Empleado.getEmpleados()
@@ -515,7 +515,7 @@ class VentanaUsuario(Tk):
         frameVerPersonal = Frame(self)
         nombreVerPersonal = Label(frameVerPersonal, text="Personal del restaurante", font=("Verdana", 16), fg="#245efd")
         descVerPersonal = Label(frameVerPersonal,
-                               text="Recuerde que puede que inicialmente no se observe la totalidad del personal. Pruebe a mover la rueda del mouse para ver más empleados",
+                               text="Recuerde que puede que inicialmente no se observe la totalidad del personal. Pruebe a mover la rueda del mouse para ver mas empleados",
                                font=("Verdana", 12))
         refrescarVerPersonal = Button(frameVerPersonal, text="Mostrar/Refescar", font=("Verdana", 12), fg="white",
                                      bg="#245efd", command=refrescarPersonal)
@@ -529,11 +529,11 @@ class VentanaUsuario(Tk):
 
         VentanaUsuario.framesEnPantalla.append(frameVerPersonal)
 
-        # Procesos y consultas -> Gestionar menú -> Contratar Empleado
+        # Procesos y consultas -> Gestionar menu -> Contratar Empleado
         def botonContratarEmpleado():
             try:
                 verificarVacio(FFContratarEmpleado)
-                cedula = FFContratarEmpleado.getValue("Cédula")
+                cedula = FFContratarEmpleado.getValue("Cedula")
                 nombre = FFContratarEmpleado.getValue("Nombre")
                 cargo = FFContratarEmpleado.getValue("Cargo")
                 disponibilidad = FFContratarEmpleado.getValue("Disponibilidad")
@@ -556,7 +556,7 @@ class VentanaUsuario(Tk):
         frameContratarEmpleado = Frame(self)
         nombreContratarEmpleado = Label(frameContratarEmpleado, text="Contratar empleado", font=("Verdana", 16), fg = "#245efd")
         descContratarEmpleado = Label(frameContratarEmpleado, text="Por favor llene todos los campos. Recuerde que en el campo de \"Disponibilidad\" debe escribir \"0\" o \"1\" (Representando Falso y Verdadero respectivamente)", font=("Verdana", 12))
-        FFContratarEmpleado = FieldFrame(frameContratarEmpleado, None, ["Cédula", "Nombre", "Cargo", "Disponibilidad", "Salario"], None, None, None)
+        FFContratarEmpleado = FieldFrame(frameContratarEmpleado, None, ["Cedula", "Nombre", "Cargo", "Disponibilidad", "Salario"], None, None, None)
         FFContratarEmpleado.crearBotones(botonContratarEmpleado)
 
         outputContratarEmpleado = Text(frameContratarEmpleado, height=100, font=("Verdana", 10))
@@ -568,7 +568,7 @@ class VentanaUsuario(Tk):
 
         VentanaUsuario.framesEnPantalla.append(frameContratarEmpleado)
 
-        # Procesos y consultas -> Gestionar menú -> Despedir Empleado
+        # Procesos y consultas -> Gestionar menu -> Despedir Empleado
         def botonDespedirEmpleado():
             try:
                 verificarVacio(FFDespedirEmpleado)
@@ -581,7 +581,7 @@ class VentanaUsuario(Tk):
         
         frameDespedirEmpleado = Frame(self)
         nombreDespedirEmpleado = Label(frameDespedirEmpleado, text="Despedir un empleado", font=("Verdana", 16), fg = "#245efd")
-        descDespedirEmpleado = Label(frameDespedirEmpleado, text="Ingrese el ID del empleado a eliminar. Recuerde observar muy bien el ID en la pestaña \"Ver personal\".", font=("Verdana", 12))
+        descDespedirEmpleado = Label(frameDespedirEmpleado, text="Ingrese el ID del empleado a eliminar. Recuerde observar muy bien el ID en la pestana \"Ver personal\".", font=("Verdana", 12))
         FFDespedirEmpleado = FieldFrame(frameDespedirEmpleado, None, ["ID Empleado"], None, None, None)
         FFDespedirEmpleado.crearBotones(botonDespedirEmpleado)
 
@@ -594,7 +594,7 @@ class VentanaUsuario(Tk):
 
         VentanaUsuario.framesEnPantalla.append(frameDespedirEmpleado)
 
-        # Procesos y consultas -> Información del restaurante -> Ver empleados
+        # Procesos y consultas -> Informacion del restaurante -> Ver empleados
         def refrescarEmpleados():
             stringEmpleados = ""
             listaPersonal = Empleado.getEmpleados()
@@ -611,7 +611,7 @@ class VentanaUsuario(Tk):
         frameVerEmpleados = Frame(self)
         nombreVerEmpleados = Label(frameVerEmpleados, text="Lista de empleados", font=("Verdana", 16), fg="#245efd")
         descVerEmpleados = Label(frameVerEmpleados,
-                               text="Recuerde que puede que inicialmente no se observe la totalidad de los empleados. Puebe a mover rueda del mouse para ver más empleados",
+                               text="Recuerde que puede que inicialmente no se observe la totalidad de los empleados. Puebe a mover rueda del mouse para ver mas empleados",
                                font=("Verdana", 12))
         refrescarVerEmpleados = Button(frameVerEmpleados, text="Mostrar/Refescar", font=("Verdana", 12), fg="white",
                                      bg="#245efd", command=refrescarEmpleados)
@@ -625,7 +625,7 @@ class VentanaUsuario(Tk):
 
         VentanaUsuario.framesEnPantalla.append(frameVerEmpleados)
 
-        # Procesos y consultas -> Información del restaurante -> Ver historial de pedidos
+        # Procesos y consultas -> Informacion del restaurante -> Ver historial de pedidos
         def refrescarHistorialPedidos():
             stringPedidos = ""
             listaPedidos = Pedido.getPedidos()
@@ -640,7 +640,7 @@ class VentanaUsuario(Tk):
         frameVerPedidos = Frame(self)
         nombreVerPedidos = Label(frameVerPedidos, text="Historial de pedidos", font=("Verdana", 16), fg="#245efd")
         descVerPedidos = Label(frameVerPedidos,
-                               text="Recuerde que puede que inicialmente no se observe la totalidad de los pedidos. Puebe a mover rueda del mouse para ver más pedidos",
+                               text="Recuerde que puede que inicialmente no se observe la totalidad de los pedidos. Puebe a mover rueda del mouse para ver mas pedidos",
                                font=("Verdana", 12))
         refrescarVerPedidos = Button(frameVerPedidos, text="Mostrar/Refescar", font=("Verdana", 12), fg="white",
                                      bg="#245efd", command=refrescarHistorialPedidos)
@@ -669,7 +669,7 @@ class VentanaUsuario(Tk):
         frameVerClientes = Frame(self)
         nombreVerClientes = Label(frameVerClientes, text="Clientes registrados", font=("Verdana", 16), fg="#245efd")
         descVerClientes = Label(frameVerClientes,
-                               text="Recuerde que puede que inicialmente no se observe la totalidad de los clientes. Puebe a mover rueda del mouse para ver más clientes",
+                               text="Recuerde que puede que inicialmente no se observe la totalidad de los clientes. Puebe a mover rueda del mouse para ver mas clientes",
                                font=("Verdana", 12))
         refrescarVerClientes = Button(frameVerClientes, text="Mostrar/Refescar", font=("Verdana", 12), fg="white",
                                      bg="#245efd", command=refrescarClientes)

@@ -1,0 +1,67 @@
+Instrucciones de uso de i-Lunch:
+
+i-Lunch es una aplicacion de gestion de restaurantes. El administrador del restaurante que contrate la aplicacion tendra acceso a un software en el cual podra llevar el control de todos los aspectos
+de su restaurante como:
+- La informacion basica del restaurante.
+- Su oferta de productos.
+- Sus empleados.
+- Los pedidos realizados al restaurante.
+- El balance de cuenta y la nomina de los empleados.
+- Su clientela.
+
+Una pequena guia de la aplicacion:
+
+Archivo -> Aplicacion: Al darle click a esta opcion, se despliega una nueva ventana que da una breve descripcion de la aplicacion.
+
+Archivo -> Salir y guardar: Al darle click a esta opcion, se serializan los datos y se cierra la aplicacion totalmente.
+
+Procesos y consultas -> Informacion del restaurante -> Ver empleados: Le permite ver al usuario, todos los empleados que trabajan actualmente en el restaurante e informacion detallada de cada uno.
+
+Procesos y consultas -> Informacion del restaurante -> Ver productos: Muestra todos los productos que ofrece el restaurante e informacion detallada de cada uno.
+
+Procesos y consultas -> Informacion del restaurante -> Ver historial de pedidos: muestra todos los pedidos que tiene actualmente el restaurante e informacion detallada de cada uno.
+
+Procesos y consultas -> Informacion del restaurante -> Ver balance de cuenta: Al darle click a esta opcion, se despliega una nueva ventana en la que se muestra el balance de cuenta actual del restaurante.
+
+Procesos y consultas -> Informacion del restaurante -> Ver estadisticas: Al darle click a esta opcion, se despliega una nueva ventana en la que se muestran algunas estadisticas importantes del
+restaurante como: El mesero con mas propinas, el repartidor con mas pedidos entregados, el promedio de propinas de un mesero y el promedio de pedidos entregados de un repartidor.
+
+Procesos y consultas -> Gestionar menu -> Ver menu: La opcion Ver menu, permite ver el menu completo y detallado del restaurante.
+ 
+Procesos y consultas -> Gestionar menu -> Crear producto: Le permite al usuario crear un producto manualmente en el sistema. Se solicitara, el nombre del producto, una descripcion del
+producto, el precio del producto, la disponibilidad del producto, si tiene restriccion de edad y  la cantidad disponible actualmente. Los campos "Disponibilidad" y "Restriccion" se deben
+de llenar con los valores 0 y 1 representando Falso y Verdadero respectivamente.
+
+Procesos y consultas -> Gestionar menu -> Eliminar producto: Le permite al usuario eliminar un producto del menu. Para esto, se le solicitara que ingrese el ID correspondiente al producto
+a eliminar, el cual puede ser consultado en la opcion "Ver menu". Una vez ingresado el ID correspondiente, se da "Aceptar".
+
+Procesos y consultas -> Gestionar menu -> Actualizar producto: Le permite al usuario actualizar alguno de los atributos de un producto existente. Se le pide al usuario que ingrese el ID
+del producto a actualizar. Luego, puede editar los atributos que desee e ingresar el nuevo "valor". El usuario puede darle al boton Volver a buscar ID para ingresar un ID diferente.
+
+Procesos y consultas -> Gestionar personal -> Ver personal: Le permite ver al usuario, todos los empleados que trabajan actualmente en el restaurante e informacion detallada de cada uno.
+
+Procesos y consultas -> Gestionar personal -> Contratar empleado: Le permite al usuario ingresar en el sistema la informacion correspondiente a un nuevo empleado. Se solicitara la cedula
+del empleado, el nombre completo del empleado, el cargo a desempenar, su disponibilidad inmediata y su salario. El campo "Disponibilidad" se debe de llenar con los valores 0 y 1 representando
+Falso y Verdadero respectivamente.
+
+Procesos y consultas -> Gestionar personal -> Despedir empleado: La opcion Despedir empleado, le permite al usuario despedir un empleado del restaurante. Para esto, se le solicitara
+que ingrese el ID correspondiente al empleado a despedir, el cual puede ser consultado en la opcion "Ver personal".
+
+Procesos y consultas -> Cola de pedidos -> Ver cola de pedidos: Si se accede por primera vez a este submenu, la cola no tendra pedidos. El usuario podra simular la llegada de un pedido
+mediante la funcionalidad "Simular pedido" (Ver opcion "Simular Pedido" del menu "Procesos y Consultas"). Una vez simulado uno o mas pedidos, dentro de este submenu, el usuario
+podra ver la lista de pedidos que estan entrando al restaurante.
+
+Procesos y consultas -> Cola de pedidos -> Gestionar pedidos en espera: Dentro de este submenu, el usuario podra ingresar el codigo de un pedido, para empezar la gestion del mismo.
+
+Procesos y consultas -> Pagar nomina: Le permite al usuario pagarle a un empleado en especifico, ingresando el correspondiente ID del empleado o pagar a todos los empleados
+ingresando, en el mismo espacio, el valor -1.
+
+Procesos y consultas -> Simular pedido: Al darle click a esta opcion, se simula de manera aleatoria un pedido. Este pedido esta asociado a uno de los clientes ya registrados en la
+aplicacion y tiene un numero aleatorio de productos. La informacion de dicho pedido se muestra en una nueva ventana que se despliega.
+
+Procesos y consultas -> Gestionar clientela -> Ver clientes: Le permite ver al usuario la lista de clientes registrados en la aplicacion junto con informacion relevante de cada uno.
+
+Procesos y consultas -> Gestionar clientela -> Generar un cliente: Al darle click a esta opcion se genera un nuevo cliente con nombre, email, telefono y direccion aleatorios.
+La informacion de dicho cliente se muestra en una nueva ventana que se despliega.
+
+Ayuda -> Acerca de: Al darle click a esta opcion, se despliega una nueva ventana en la que se muestran los nombres de los desarrolladores de la aplicacion.
