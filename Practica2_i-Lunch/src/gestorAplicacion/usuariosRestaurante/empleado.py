@@ -18,7 +18,9 @@ class Empleado(Usuario):
         self._salario = salario
         self._restaurante = restaurante
 
-        Empleado._empleados.append(self)
+        # Para que no se dupliquen (Se añaden a esta lista desde los constructores de las subclases)
+        if cargo != "Chef" and cargo != "Repartidor" and cargo != "Mesero":
+            Empleado._empleados.append(self)
 
     # Getters y Setters
     

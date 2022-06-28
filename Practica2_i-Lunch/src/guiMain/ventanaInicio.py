@@ -5,6 +5,7 @@ import os
 from gestorAplicacion.gestionRestaurante.restaurante import Restaurante
 from gestorAplicacion.usuariosRestaurante.administrador import Administrador
 
+
 from guiMain.ventanaUsuario import VentanaUsuario
 
 class VentanaInicio(Tk):
@@ -64,11 +65,12 @@ class P1(Frame):
 
         # Mesaje de bienvenida en P3
 
-        restaurante = Restaurante.getRestaurantes()[0].getNombre()
-        administrador = Administrador.getAdministradores()[0].getNombre()
+        restaurante = Restaurante.getRestaurantes()[0]
+        administrador = Administrador.getAdministradores()[0]
+
         textoSaludo = f"Bienvenido de nuevo a i-Lunch.\n" \
-                      f"Administrador: {administrador}.\n" \
-                      f"Restaurante: {restaurante}."
+                      f"Administrador: {administrador.getNombre()}.\n" \
+                      f"Restaurante: {restaurante.getNombre()}."
         self._saludo = Label(self._p3, text = textoSaludo, font = ("Verdana", 16), fg = "#245efd")
         self._saludo.pack()
 
@@ -102,7 +104,7 @@ class P1(Frame):
 
         # Boton de acceso a la aplicacion abajo en P4
 
-        self._boton = Button(self._p4_2, text = "Acceder a la aplicacion", font = ("Verdana", 16), fg = "white", bg = "#245efd", command = lambda: self.accederApp())
+        self._boton = Button(self._p4_2, text = "Acceder a la aplicacion", font = ("Verdana", 16), fg = "white", bg = "#245efd", command = lambda: self.accederApp(restaurante, administrador))
         self._boton.pack()
 
         # Colocar todos los elementos en pantalla
@@ -124,9 +126,9 @@ class P1(Frame):
 
     # Acceder a la aplicacion al darle click al boton de P4
 
-    def accederApp(self):
+    def accederApp(self, restaurante, administrador):
         self._ventana.destroy()
-        ventanaUsuario = VentanaUsuario()
+        ventanaUsuario = VentanaUsuario(restaurante, administrador)
 
 # Frame P2 con la hoja de vida de los desarrolladores
 

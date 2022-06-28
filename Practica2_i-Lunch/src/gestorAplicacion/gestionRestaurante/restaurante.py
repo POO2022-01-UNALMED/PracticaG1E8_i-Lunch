@@ -178,7 +178,7 @@ class Restaurante:
     # Busqueda del repartidor con mas pedidos
     def  getRepartidorConMasPedidos(self):		
         # Repartidor vacio para que el metodo funcione
-        topRepartidor = Repartidor(cedula = 0, nombre = "", disponibilidad = False, salario = 0, poseeVehiculo = False, placa = "", tipoVehiculo = "")
+        topRepartidor = Repartidor(cedula = 0, nombre = "Nadie", disponibilidad = False, salario = 0, poseeVehiculo = False, placa = "", tipoVehiculo = "")
         
         # Loop para encontrar el repartidor con mas pedidos repartidos
         for repartidor in Repartidor.getRepartidores():
@@ -194,7 +194,7 @@ class Restaurante:
     # Busqueda del mesero con mas propinas
     def getMeseroConMasPropinas(self):
 		# Mesero vacio para que el metodo funcione
-        topMeseroPropinas = Mesero(cedula = 0, nombre = "TEST", disponibilidad = False, salario = 0)
+        topMeseroPropinas = Mesero(cedula = 0, nombre = "Nadie", disponibilidad = False, salario = 0)
 
 		# Loop para encontrar al mesero con mas propinas
         for mesero in Mesero.getMeseros():

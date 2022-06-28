@@ -7,34 +7,27 @@ from baseDatos.serializador import serializarTodo
 from gestorAplicacion.gestionRestaurante.producto import Producto
 
 from gestorAplicacion.gestionRestaurante.restaurante import Restaurante
-from gestorAplicacion.usuariosRestaurante.cliente import Cliente
-from gestorAplicacion.usuariosRestaurante.administrador import Administrador
-from gestorAplicacion.usuariosRestaurante.empleado import Empleado
 from gestorAplicacion.gestionRestaurante.pedido import Pedido
-from gestorAplicacion.usuariosRestaurante.chef import Chef
-from gestorAplicacion.usuariosRestaurante.mesero import Mesero
-from gestorAplicacion.usuariosRestaurante.repartidor import Repartidor
 from gestorAplicacion.datosAleatorios import nombresAleatorios,generarEmail, randDireccion
 
+from gestorAplicacion.usuariosRestaurante.cliente import Cliente
+from gestorAplicacion.usuariosRestaurante.administrador import Administrador
+from gestorAplicacion.usuariosRestaurante.chef import Chef
+from gestorAplicacion.usuariosRestaurante.empleado import Empleado
 
 from guiMain.fieldFrame import FieldFrame
 
 class VentanaUsuario(Tk):
     framesEnPantalla = []
 
-    def __init__(self):
+    def __init__(self, restaurante, administrador):
         super().__init__()
-
-        # Referencias al admin y restaurante que serán útiles más adelante
-
-        restaurante = Restaurante.getRestaurantes()[0]
-        administrador = Administrador.getAdministradores()[0]
 
         # Configuracion de la ventana
 
         self.title('i-Lunch - Ventana de Usuario')
         self.option_add("*tearOff",  False)
-        self.geometry("1280x720")
+        self.geometry("1400x720")
         self.resizable(False,False)
 
         # Creacion del menu
@@ -81,7 +74,7 @@ class VentanaUsuario(Tk):
 
         gestionarClientela = Menu(self._barraMenu)
         gestionarClientela.add_command(label="Ver clientes", command=lambda: cambiarVista(frameVerClientes))
-        gestionarClientela.add_command(label="Generar un cliente", command=lambda: generarCliente())
+        gestionarClientela.add_command(label="Generar un cliente", command=lambda:generarCliente())
         procesosYConsultas.add_cascade(label="Gestionar clientela", menu=gestionarClientela)
 
         self._barraMenu.add_cascade(label="Procesos y consultas", menu= procesosYConsultas)
@@ -133,7 +126,6 @@ class VentanaUsuario(Tk):
             from guiMain.ventanaInicio import VentanaInicio
             serializarTodo()
             self.destroy()
-            ventanaInicio = VentanaInicio()
         
         # Ayuda -> Acerca de
         def infoDevs():
@@ -267,9 +259,10 @@ class VentanaUsuario(Tk):
         # Procesos y consultas -> Información del restaurante -> Ver productos
         def refrescarMenu():
             stringMenu = ""
-            for i in range(len(restaurante.getMenu())):
+            listaProductos = Producto.getProductos()
+            for i in range(len(listaProductos)):
                 stringMenu += f"ID: {i}\n" \
-                              f"{restaurante.getMenu()[i].__str__()}\n\n"
+                              f"{listaProductos[i].__str__()}\n\n"
             if stringMenu == "":
                 stringMenu += "No hay productos creados"
             
@@ -385,7 +378,7 @@ class VentanaUsuario(Tk):
                 mostrarOutput(stringResultadosActualizarProducto, outputActualizarProducto)
             
             idProducto = FFActualizarProductoBuscar.getValue("ID Producto")
-            producto = restaurante.getMenu()[int(idProducto)]
+            producto = Producto.getProductos()[int(idProducto)]
             camposProducto = [producto.getNombre(), producto.getDescripcion(), producto.getPrecio(), producto.getDisponibilidad(), producto.getRestriccion(), producto.getCantidad()]
 
             descActualizarProducto2 = Label(frameActualizarProducto, text="Por favor llene todos los campos. Recuerde que en los campos de \"Disponibilidad\" y\n\"Restricción de edad\" debe escribir \"0\" o \"1\" (Representando Falso y Verdadero respectivamente)", font=("Verdana", 12))
@@ -418,12 +411,13 @@ class VentanaUsuario(Tk):
         # Procesos y consultas -> Gestionar menú -> Ver personal
         def refrescarPersonal():
             stringPersonal = ""
-            listaPersonal = restaurante.getEmpleados()
+            listaPersonal = Empleado.getEmpleados()
             for i in range(len(listaPersonal)):
-                stringPersonal += f"ID: {i}\n" \
-                                   f"{listaPersonal[i].informacion()}\n\n"
+                if not listaPersonal[i].getNombre() == "Nadie":
+                    stringPersonal += f"ID: {i}\n" \
+                                    f"{listaPersonal[i].informacion()}\n\n"
 
-            if stringPersonal == "Empleados contratados:\n\n":
+            if stringPersonal == "":
                 stringPersonal += "No hay empleados contratados"
 
             mostrarOutput(stringPersonal, outputVerPersonal)
@@ -452,7 +446,6 @@ class VentanaUsuario(Tk):
             cargo = FFContratarEmpleado.getValue("Cargo")
             disponibilidad = FFContratarEmpleado.getValue("Disponibilidad")
             salario = FFContratarEmpleado.getValue("Salario")
-
 
             if disponibilidad == "1":
                 disponibilidad = True
@@ -502,12 +495,13 @@ class VentanaUsuario(Tk):
         # Procesos y consultas -> Información del restaurante -> Ver empleados
         def refrescarEmpleados():
             stringEmpleados = ""
-            listaEmpleado = restaurante.getEmpleados()
-            for i in range(len(listaEmpleado)):
-                stringEmpleados += f"ID: {i}\n" \
-                                   f"{listaEmpleado[i].informacion()}\n\n"
+            listaPersonal = Empleado.getEmpleados()
+            for i in range(len(listaPersonal)):
+                if not listaPersonal[i].getNombre() == "Nadie":
+                    stringEmpleados += f"ID: {i}\n" \
+                                    f"{listaPersonal[i].informacion()}\n\n"
 
-            if stringEmpleados == "Empleados contratados:\n\n":
+            if stringEmpleados == "":
                 stringEmpleados += "No hay empleados contratados"
 
             mostrarOutput(stringEmpleados, outputVerEmpleados)
@@ -530,7 +524,7 @@ class VentanaUsuario(Tk):
         VentanaUsuario.framesEnPantalla.append(frameVerEmpleados)
 
         # Procesos y consultas -> Información del restaurante -> Ver historial de pedidos
-        def refrescarHistirialPedidos():
+        def refrescarHistorialPedidos():
             stringPedidos = ""
             listaPedidos = Pedido.getPedidos()
             for pedido in listaPedidos:
@@ -547,7 +541,7 @@ class VentanaUsuario(Tk):
                                text="Recuerde que puede que inicialmente no se observe la totalidad de los pedidos. Puebe a mover rueda del mouse para ver más pedidos",
                                font=("Verdana", 12))
         refrescarVerPedidos = Button(frameVerPedidos, text="Mostrar/Refescar", font=("Verdana", 12), fg="white",
-                                     bg="#245efd", command=refrescarHistirialPedidos)
+                                     bg="#245efd", command=refrescarHistorialPedidos)
 
         outputVerPedidos = Text(frameVerPedidos, height=100, font=("Verdana", 10))
         VentanaUsuario.framesEnPantalla.append(frameVerPedidos)
@@ -587,37 +581,42 @@ class VentanaUsuario(Tk):
 
         VentanaUsuario.framesEnPantalla.append(frameVerClientes)
 
-        # GENERAR CLIENTE NUEVO ---------- FALTA TERMINAR ---- TENGO SUENHO ZZZZZZZZ
+        # Procesos y consultas -> Gestionar clientela -> Generar un cliente
         def generarCliente():
             ventanaGenerarCliente = Tk()
-            ventanaGenerarCliente.geometry("720x240")
+            ventanaGenerarCliente.geometry("800x360")
             ventanaGenerarCliente.resizable(False, False)
             ventanaGenerarCliente.title("i-Lunch - Generar cliente nuevo")
             nombreCliente = choice(nombresAleatorios)
-            cliente = Cliente(nombreCliente, generarEmail(nombreCliente),randint(1000000000, 9999999999), randDireccion(), randint(18, 65))
 
-            textoInfo = "Se ha agregado el siguiente cliente: \n\n" + cliente.informacion()
+            cliente = Cliente(nombreCliente, generarEmail(nombreCliente),randint(1000000000, 9999999999), randDireccion(), randint(18, 65))
+            textoInfo = f"Se ha generado el siguiente cliente:\n" \
+                        f"{cliente.informacion()}"
 
             generado = Label(ventanaGenerarCliente, text=textoInfo, justify="left", font=("Verdana", 12))
             generado.pack(fill=tkinter.Y, expand=True)
 
+        # Procesos y consultas -> Informacion del restaurante -> Ver estadisticas
         def verEstadisticas():
             ventanaverEstadisticas = Tk()
-            ventanaverEstadisticas.geometry("800x250")
+            ventanaverEstadisticas.geometry("800x360")
             ventanaverEstadisticas.resizable(False, False)
             ventanaverEstadisticas.title("i-Lunch - Ver Estadisticas")
-            textoInfo = "Las estadisticas del restaurante son las siguientes: \n\n" + restaurante.estadisticasRestaurante()
 
-            Estadisticas = Label(ventanaverEstadisticas, text=textoInfo, justify="left", font=("Verdana", 12))
-            Estadisticas.pack(fill=tkinter.Y, expand=True)
+            textoInfo = restaurante.estadisticasRestaurante()
+
+            estadisticas = Label(ventanaverEstadisticas, text=textoInfo, justify="left", font=("Verdana", 12))
+            estadisticas.pack(fill=tkinter.Y, expand=True)
 
 
+        # Procesos y consultas -> Informacion del restaurante -> Ver balance de cuenta
         def verBalanceDeCuenta():
             ventanaVerBalanceDeCuenta = Tk()
-            ventanaVerBalanceDeCuenta.geometry("480x240")
+            ventanaVerBalanceDeCuenta.geometry("640x360")
             ventanaVerBalanceDeCuenta.resizable(False, False)
             ventanaVerBalanceDeCuenta.title("i-Lunch - Ver balance de cuenta")
-            textoInfo = "El balance de cuenta es el siguiente: \n\n $" + str(restaurante.getBalanceCuenta())
+            textoInfo = f"El balance de cuenta actualmente es:\n" \
+                        f"${restaurante.getBalanceCuenta()}"
 
-            Estadisticas = Label(ventanaVerBalanceDeCuenta, text=textoInfo, justify="left", font=("Verdana", 12))
-            Estadisticas.pack(fill=tkinter.Y, expand=True)
+            balance = Label(ventanaVerBalanceDeCuenta, text=textoInfo, justify="left", font=("Verdana", 12))
+            balance.pack(fill=tkinter.Y, expand=True)

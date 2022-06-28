@@ -1,21 +1,3 @@
-
-# ! ACTUALIZAR METODOS DE ACTUALIZACION PARA LOS NUMEROS Y BOOLEANOS
-# ! ACTUALIZAR METODOS DE ACTUALIZACION PARA LOS NUMEROS Y BOOLEANOS
-# ! ACTUALIZAR METODOS DE ACTUALIZACION PARA LOS NUMEROS Y BOOLEANOS
-# ! ACTUALIZAR METODOS DE ACTUALIZACION PARA LOS NUMEROS Y BOOLEANOS
-# ! ACTUALIZAR METODOS DE ACTUALIZACION PARA LOS NUMEROS Y BOOLEANOS
-# ! ACTUALIZAR METODOS DE ACTUALIZACION PARA LOS NUMEROS Y BOOLEANOS
-# ! ACTUALIZAR METODOS DE ACTUALIZACION PARA LOS NUMEROS Y BOOLEANOS
-# ! ACTUALIZAR METODOS DE ACTUALIZACION PARA LOS NUMEROS Y BOOLEANOS
-# ! ACTUALIZAR METODOS DE ACTUALIZACION PARA LOS NUMEROS Y BOOLEANOS
-# ! ACTUALIZAR METODOS DE ACTUALIZACION PARA LOS NUMEROS Y BOOLEANOS
-# ! ACTUALIZAR METODOS DE ACTUALIZACION PARA LOS NUMEROS Y BOOLEANOS
-# ! ACTUALIZAR METODOS DE ACTUALIZACION PARA LOS NUMEROS Y BOOLEANOS
-# ! ACTUALIZAR METODOS DE ACTUALIZACION PARA LOS NUMEROS Y BOOLEANOS
-# ! ACTUALIZAR METODOS DE ACTUALIZACION PARA LOS NUMEROS Y BOOLEANOS
-# ! ACTUALIZAR METODOS DE ACTUALIZACION PARA LOS NUMEROS Y BOOLEANOS
-# ! ACTUALIZAR METODOS DE ACTUALIZACION PARA LOS NUMEROS Y BOOLEANOS
-
 from datetime import date
 from random import choice, randint
 
@@ -45,6 +27,7 @@ class Administrador(Empleado):
     def __init__(self, cedula = 0, nombre = "", disponibilidad = False, salario = 0, restaurante = None):
         super().__init__(cedula, nombre, "Administrador", disponibilidad, salario, restaurante)
 
+        Empleado._empleados.append(self)
         Administrador._administradores.append(self)
 
     # Getters y Setters
@@ -69,39 +52,33 @@ class Administrador(Empleado):
 
     # Crear un nuevo empleado (O alguno de sus subtipos) y añadirlo a los empleados del restaurante
     def contratarEmpleado(self, cedula, nombre, cargo, disponibilidad, salario, restaurante):
-        empleadoNuevo = None
-
         # Verificar cargo del empleado
         if cargo == "Mesero":
-            empleadoNuevo = Mesero(cedula, nombre, disponibilidad, salario, restaurante)
+            Mesero(cedula, nombre, disponibilidad, salario, restaurante)
         elif cargo == "Repartidor":
             poseeVehiculo = randbool()
             placa = randPlaca()
             tipoVehiculo = choice(tiposVehiculos)
-            empleadoNuevo = Repartidor(cedula, nombre, disponibilidad, salario, restaurante, poseeVehiculo, placa, tipoVehiculo)
+            Repartidor(cedula, nombre, disponibilidad, salario, restaurante, poseeVehiculo, placa, tipoVehiculo)
         elif cargo == "Chef":
             cargoEnCocina = choice(cargosEnCocina)
             especialidad = choice(especialidadesChefs)
-            empleadoNuevo = Chef(cedula, nombre, disponibilidad, salario, restaurante, cargoEnCocina, especialidad)
+            Chef(cedula, nombre, disponibilidad, salario, restaurante, cargoEnCocina, especialidad)
         else:
-            empleadoNuevo = Empleado(cedula, nombre, disponibilidad, salario, restaurante)
-
-        # Añadir a la lista de empleados
-        listaEmpleados = self._restaurante.getEmpleados()
-        listaEmpleados.append(empleadoNuevo)
-        self._restaurante.setEmpleados(listaEmpleados)
+            return f"Cargo no válido, por favor usar \"Chef\", \"Mesero\" o \"Repartidor\""
 
         # Mensaje de confirmacion
-        return f"Empleado {nombre} creado con exito"
+        return f"{cargo}: {nombre} creado con exito"
 
     # Sacar empleado de la lista del restaurente, primero verificar si existe
     def despedirEmpleado(self, idEmpleado):
-        listaEmpleados = self._restaurante.getEmpleados()
+        listaEmpleados = Empleado.getEmpleados()
 
         # Verificar si el numero dado pertenece a la lista
         if len(listaEmpleados) > idEmpleado and idEmpleado >= 0:
             nombre = listaEmpleados[idEmpleado].getNombre()
             del listaEmpleados[idEmpleado]
+            Empleado._empleados = listaEmpleados
             self._restaurante.setEmpleados(listaEmpleados)
 
             return f"El empleado {nombre} ha sido despedido"
@@ -113,7 +90,7 @@ class Administrador(Empleado):
         productoNuevo = Producto(nombre, descripcion, precio, disponibilidad, restriccion, cantidad)
         
         # Verificar primero si ya existe un producto que se llame asi
-        listaMenu = self._restaurante.getMenu()
+        listaMenu = Producto.getProductos()
         listaNombresMenu = []
         
         for producto in listaMenu:
@@ -131,7 +108,7 @@ class Administrador(Empleado):
     # Actualizar el nombre de un producto, primero verificar si existe
     def actualizarNombreProducto(self, idProducto, nombre):
         # Verificar si hay ya un producto que se llame asi
-        listaMenu = self._restaurante.getMenu()
+        listaMenu = Producto.getProductos()
         listaNombresMenu = []
 
         for producto in listaMenu:
@@ -145,6 +122,7 @@ class Administrador(Empleado):
             if not nombre in listaNombresMenu:
                 productoActualizado.setNombre(nombre)
                 listaMenu[idProducto] = productoActualizado
+                Producto._productos = listaMenu
                 self._restaurante.setMenu(listaMenu)
 
                 return f"Producto {productoActualizado.getNombre()} actualizado con exito"
@@ -155,12 +133,13 @@ class Administrador(Empleado):
 
     # Actualizar la descripcion de un producto, primero verificar si existe
     def actualizarDescripcionProducto(self, idProducto, descripcion):
-        listaMenu = self._restaurante.getMenu()
+        listaMenu = Producto.getProductos()
 
         if len(listaMenu) > idProducto and idProducto >= 0:
             productoActualizado = listaMenu[idProducto]
             productoActualizado.setDescripcion(descripcion)
             listaMenu[idProducto] = productoActualizado
+            Producto._productos = listaMenu
             self._restaurante.setMenu(listaMenu)
 
             return f"Producto {productoActualizado.getNombre()} actualizado con exito"
@@ -169,12 +148,13 @@ class Administrador(Empleado):
 
     # Actualizar el precio de un producto, primero verificar si existe
     def actualizarPrecioProducto(self, idProducto, precio):
-        listaMenu = self._restaurante.getMenu()
+        listaMenu = Producto.getProductos()
 
         if len(listaMenu) > idProducto and idProducto >= 0:
             productoActualizado = listaMenu[idProducto]
             productoActualizado.setPrecio(precio)
             listaMenu[idProducto] = productoActualizado
+            Producto._productos = listaMenu
             self._restaurante.setMenu(listaMenu)
 
             return f"Producto {productoActualizado.getNombre()} actualizado con exito"
@@ -183,12 +163,13 @@ class Administrador(Empleado):
 
     # Actualizar la restriccion de edad de un producto, primero verificar si existe
     def actualizarRestriccionProducto(self, idProducto, restriccion):
-        listaMenu = self._restaurante.getMenu()
+        listaMenu = Producto.getProductos()
 
         if len(listaMenu) > idProducto and idProducto >= 0:
             productoActualizado = listaMenu[idProducto]
             productoActualizado.setRestriccion(restriccion)
             listaMenu[idProducto] = productoActualizado
+            Producto._productos = listaMenu
             self._restaurante.setMenu(listaMenu)
 
             return f"Producto {productoActualizado.getNombre()} actualizado con exito"
@@ -197,12 +178,13 @@ class Administrador(Empleado):
 
     # Actualizar la disponibilidad de un producto, primero verificar si existe
     def actualizarDisponibilidadProducto(self, idProducto, disponibilidad):
-        listaMenu = self._restaurante.getMenu()
+        listaMenu = Producto.getProductos()
 
         if len(listaMenu) > idProducto and idProducto >= 0:
             productoActualizado = listaMenu[idProducto]
             productoActualizado.setDisponibilidad(disponibilidad)
             listaMenu[idProducto] = productoActualizado
+            Producto._productos = listaMenu
             self._restaurante.setMenu(listaMenu)
 
             return f"Producto {productoActualizado.getNombre()} actualizado con exito"
@@ -211,12 +193,13 @@ class Administrador(Empleado):
 
     # Actualizar la cantidad disponible de un producto, primero verificar si existe
     def actualizarCantidadProducto(self, idProducto, cantidad):
-        listaMenu = self._restaurante.getMenu()
+        listaMenu = Producto.getProductos()
 
         if len(listaMenu) > idProducto and idProducto >= 0:
             productoActualizado = listaMenu[idProducto]
             productoActualizado.setCantidad(cantidad)
             listaMenu[idProducto] = productoActualizado
+            Producto._productos = listaMenu
             self._restaurante.setMenu(listaMenu)
 
             return f"Producto {productoActualizado.getNombre()} actualizado con exito"
@@ -225,11 +208,12 @@ class Administrador(Empleado):
 
     # Eliminar un producto del menu, primero verificar si existe
     def eliminarProducto(self, idProducto):
-        listaMenu = self._restaurante.getMenu()
+        listaMenu = Producto.getProductos()
         
         if len(listaMenu) > idProducto and idProducto >= 0:
             producto = listaMenu[idProducto].getNombre()
             del listaMenu[idProducto]
+            Producto._productos = listaMenu
             self._restaurante.setMenu(listaMenu)
 
             return f"El producto {producto} ha sido eliminado"
@@ -239,7 +223,7 @@ class Administrador(Empleado):
     # Funcionalidad de pago de nomina
     
     def pagoNomina(self, idEmpleado = None):
-        listaEmpleados = self._restaurante.getEmpleados()
+        listaEmpleados = Empleado.getEmpleados()
 
         # Verificar si se especifico un empleado, si no, se le paga a todos
         if idEmpleado is None:
@@ -344,7 +328,7 @@ class Administrador(Empleado):
     # Implementacion de la interfaz
 
     def informacion(self):
-        info = f"El Administrador {self._nombre} del restaurente {self._restaurante.getNombre()} es {self._nombre} con C.C. {self._cedula}.\n" \
+        info = f"El Administrador del restaurente {self._restaurante.getNombre()} es {self._nombre} con C.C. {self._cedula}.\n" \
                f"Tiene un salario de: ${self._salario}.\n"
         
         if self._disponibilidad:
