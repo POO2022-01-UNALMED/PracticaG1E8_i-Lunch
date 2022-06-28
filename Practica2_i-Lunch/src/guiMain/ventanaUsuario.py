@@ -4,6 +4,11 @@ import tkinter
 from random import choice, randint
 
 from baseDatos.serializador import serializarTodo
+from excepciones.errorAplicacion import ErrorAplicacion
+from excepciones.excepcionExistente import ExcepcionExistente
+from excepciones.excepcionLista import ExcepcionLista
+from excepciones.excepcionNumerica import ExcepcionNumerica
+from excepciones.excepcionVacio import ExcepcionVacio
 from gestorAplicacion.gestionRestaurante.producto import Producto
 
 from gestorAplicacion.gestionRestaurante.restaurante import Restaurante
@@ -16,6 +21,7 @@ from gestorAplicacion.usuariosRestaurante.chef import Chef
 from gestorAplicacion.usuariosRestaurante.empleado import Empleado
 
 from guiMain.fieldFrame import FieldFrame
+from guiMain.popUp import PopUp
 
 class VentanaUsuario(Tk):
     framesEnPantalla = []
@@ -98,6 +104,18 @@ class VentanaUsuario(Tk):
             text.delete("1.0", "end")
             text.insert(INSERT, string)
             text.pack(fill=X, expand=True, padx=(10,10))
+
+        # Verificar input vacio
+
+        def verificarVacio(fieldFrame):
+            for criterio in fieldFrame._criterios:
+                if fieldFrame.getValue(criterio) == "":
+                    raise ExcepcionVacio(criterio)
+
+        # Verificar input numerico
+        def verificarNumero(valor):
+            if not valor.isnumeric():
+                raise ExcepcionNumerica(valor)
         
         # Funcionalidades
         
@@ -184,32 +202,36 @@ class VentanaUsuario(Tk):
         VentanaUsuario.framesEnPantalla.append(frameVerColaPedidos)
         
         # Procesos y consultas -> Gestionar pedidos en cola
-        def procesarPedido(): 
-            index = FFGestionarPedido.getValue("Código del pedido")
-            pedido = Pedido.getPedidos()[int(index)-1]
-            if(pedido.getEstado()!="Recibido"):
-                return "Ingrese un codigo de pedido valido"         
-            if administrador.procesarPedido(pedido):
-                administrador.actualizarEstadoPedido(pedido, True) # DE RECIBIDO A ACEPTADO
-                administrador.actualizarEstadoPedido(pedido, True) # DE ACEPTADO A EN PREPARACION
-                chef = Chef.getChefs()[randint(0, len(Chef.getChefs())-1)]
-                chef.prepararProducto(pedido)
-                for  chef_aux in Chef.getChefs():
-                    if chef_aux.getCargoEnCocina()=="Chef en jefe":
-                        chef = chef_aux
-								
-							
-                if chef.revisionPedido(pedido): # DE EN PREPARACION A LISTO 
-                    administrador.actualizarEstadoPedido(pedido, True)
-                    restaurante.setBalanceCuenta(restaurante.getBalanceCuenta() + pedido.getPrecioTotal())
+        def procesarPedido():
+            try:
+                verificarVacio(FFGestionarPedido)
+                index = FFGestionarPedido.getValue("Código del pedido")
+                verificarNumero(index)
+                pedido = Pedido.getPedidos()[int(index)-1]
+                if(pedido.getEstado()!="Recibido"):
+                    return "Ingrese un codigo de pedido valido"         
+                if administrador.procesarPedido(pedido):
+                    administrador.actualizarEstadoPedido(pedido, True) # DE RECIBIDO A ACEPTADO
+                    administrador.actualizarEstadoPedido(pedido, True) # DE ACEPTADO A EN PREPARACION
+                    chef = Chef.getChefs()[randint(0, len(Chef.getChefs())-1)]
+                    chef.prepararProducto(pedido)
+                    for  chef_aux in Chef.getChefs():
+                        if chef_aux.getCargoEnCocina()=="Chef en jefe":
+                            chef = chef_aux       
+                                
+                    if chef.revisionPedido(pedido): # DE EN PREPARACION A LISTO 
+                        administrador.actualizarEstadoPedido(pedido, True)
+                        restaurante.setBalanceCuenta(restaurante.getBalanceCuenta() + pedido.getPrecioTotal())
 
-                return (f"Pedido {pedido.getCodigo()}\n"
-                        f"Pedido aceptado. Iniciando preparacion\n"
-                        f"Pedido preparado. Iniciando verificacion\n"
-                        f"Pedido verificado por el chef en jefe. Iniciando envio\n"
-                        f"Pedido despachado satisfactoriamente")
-            else:
-                return "Ha habido un error, por favor intentelo nuevamente"
+                    return (f"Pedido {pedido.getCodigo()}\n"
+                            f"Pedido aceptado. Iniciando preparacion\n"
+                            f"Pedido preparado. Iniciando verificacion\n"
+                            f"Pedido verificado por el chef en jefe. Iniciando envio\n"
+                            f"Pedido despachado satisfactoriamente")
+                else:
+                    return "Ha habido un error, por favor intentelo nuevamente"
+            except ErrorAplicacion as e:
+                PopUp(str(e))
 
         def aceptarPedido():           
             mostrarOutput(procesarPedido(), outputGestionarPedido)
@@ -231,14 +253,20 @@ class VentanaUsuario(Tk):
 
         # Procesos y consultas -> Pagar nómina
         def efectuarPagoNomina():
-            index = FFPagarNomina.getValue("ID del empleado")
+            try:
+                verificarVacio(FFPagarNomina)
+                index = FFPagarNomina.getValue("ID del empleado")
 
-            if int(index) == -1:
-                resultadoPagoNomina = administrador.pagoNomina()
-                mostrarOutput(resultadoPagoNomina, outputPagarNomina)
-            else:
-                resultadoPagoNomina = administrador.pagoNomina(int(index))
-                mostrarOutput(resultadoPagoNomina, outputPagarNomina)
+                if int(index) == -1:
+                    resultadoPagoNomina = administrador.pagoNomina()
+                    mostrarOutput(resultadoPagoNomina, outputPagarNomina)
+                else:
+                    verificarNumero(index)
+                    resultadoPagoNomina = administrador.pagoNomina(int(index))
+                    mostrarOutput(resultadoPagoNomina, outputPagarNomina)
+            except ErrorAplicacion as e:
+                PopUp(str(e))
+
         
         framePagarNomina = Frame(self)
         nombrePagarNomina = Label(framePagarNomina, text="Pagar la nómina de los empleados", font=("Verdana", 16), fg = "#245efd")
@@ -284,25 +312,33 @@ class VentanaUsuario(Tk):
 
         # Procesos y consultas -> Gestionar menú -> Crear producto
         def botonCrearProducto():
-            nombre = FFCrearProducto.getValue("Nombre")
-            descripcion = FFCrearProducto.getValue("Descripción")
-            precio = FFCrearProducto.getValue("Precio")
-            disponibilidad = FFCrearProducto.getValue("Disponibilidad")
-            restriccion = FFCrearProducto.getValue("Restricción")
-            cantidad = FFCrearProducto.getValue("Cantidad")
+            try:
+                verificarVacio(FFCrearProducto)
+                nombre = FFCrearProducto.getValue("Nombre")
+                descripcion = FFCrearProducto.getValue("Descripción")
+                precio = FFCrearProducto.getValue("Precio")
+                disponibilidad = FFCrearProducto.getValue("Disponibilidad")
+                restriccion = FFCrearProducto.getValue("Restricción")
+                cantidad = FFCrearProducto.getValue("Cantidad")
 
-            if disponibilidad == "1":
-                disponibilidad = True
-            else:
-                disponibilidad = False
+                verificarNumero(precio)
+                verificarNumero(cantidad)
 
-            if restriccion == "1":
-                restriccion = True
-            else:
-                restriccion = False
-            
-            resultadoCrearProducto = administrador.crearProducto(nombre, descripcion, precio, disponibilidad, restriccion, cantidad)
-            mostrarOutput(resultadoCrearProducto, outputCrearProducto)
+                if disponibilidad == "1":
+                    disponibilidad = True
+                else:
+                    disponibilidad = False
+
+                if restriccion == "1":
+                    restriccion = True
+                else:
+                    restriccion = False
+                
+                resultadoCrearProducto = administrador.crearProducto(nombre, descripcion, int(precio), disponibilidad, restriccion, int(cantidad))
+                mostrarOutput(resultadoCrearProducto, outputCrearProducto)
+            except ErrorAplicacion as e:
+                PopUp(str(e))
+
         
         frameCrearProducto = Frame(self)
         nombreCrearProducto = Label(frameCrearProducto, text="Crear un producto", font=("Verdana", 16), fg = "#245efd")
@@ -321,9 +357,14 @@ class VentanaUsuario(Tk):
 
         # Procesos y consultas -> Gestionar menú -> Eliminar producto
         def botonEliminarProducto():
-            idProducto = FFEliminarProducto.getValue("ID Producto")
-            resultadoEliminarProducto = administrador.eliminarProducto(int(idProducto))
-            mostrarOutput(resultadoEliminarProducto, outputEliminarProducto)
+            try:
+                verificarVacio(FFEliminarProducto)
+                idProducto = FFEliminarProducto.getValue("ID Producto")
+                verificarNumero(idProducto)
+                resultadoEliminarProducto = administrador.eliminarProducto(int(idProducto))
+                mostrarOutput(resultadoEliminarProducto, outputEliminarProducto)
+            except ErrorAplicacion as e:
+                PopUp(str(e))
         
         frameEliminarProducto = Frame(self)
         nombreEliminarProducto = Label(frameEliminarProducto, text="Eliminar un producto", font=("Verdana", 16), fg = "#245efd")
@@ -341,6 +382,13 @@ class VentanaUsuario(Tk):
         VentanaUsuario.framesEnPantalla.append(frameEliminarProducto)
 
         # Procesos y consultas -> Gestionar menú -> Actualizar producto
+        def buscarProductoBoton():
+            try:
+                verificarVacio(FFActualizarProductoBuscar)
+                buscarProductoID()
+            except ErrorAplicacion as e:
+                PopUp(str(e))
+        
         def buscarProductoID():
             # Volver a la búsqueda
             def volverBuscarProductoID():
@@ -355,31 +403,44 @@ class VentanaUsuario(Tk):
 
                 stringResultadosActualizarProducto = ""
 
-                disponibilidad = FFActualizarProducto.getValue("Disponibilidad")
-                restriccion = FFActualizarProducto.getValue("Restricción")
+                try:
+                    verificarVacio(FFActualizarProducto)
+                    verificarNumero(idProducto)
+                    verificarNumero(FFActualizarProducto.getValue("Precio"))
+                    verificarNumero(FFActualizarProducto.getValue("Cantidad"))
 
-                if disponibilidad == "1":
-                    disponibilidad = True
-                else:
-                    disponibilidad = False
+                    disponibilidad = FFActualizarProducto.getValue("Disponibilidad")
+                    restriccion = FFActualizarProducto.getValue("Restricción")
 
-                if restriccion == "1":
-                    restriccion = True
-                else:
-                    restriccion = False
+                    if disponibilidad == "1":
+                        disponibilidad = True
+                    else:
+                        disponibilidad = False
 
-                stringResultadosActualizarProducto += "Nombre del " + administrador.actualizarNombreProducto(int(idProducto), FFActualizarProducto.getValue("Nombre")) + "\n"
-                stringResultadosActualizarProducto += "Descripción del " + administrador.actualizarDescripcionProducto(int(idProducto), FFActualizarProducto.getValue("Descripción")) + "\n"
-                stringResultadosActualizarProducto += "Precio del " + administrador.actualizarPrecioProducto(int(idProducto), FFActualizarProducto.getValue("Precio")) + "\n"
-                stringResultadosActualizarProducto += "Disponibilidad del " + administrador.actualizarDisponibilidadProducto(int(idProducto), disponibilidad) + "\n"
-                stringResultadosActualizarProducto += "Restricción de edad del " + administrador.actualizarRestriccionProducto(int(idProducto), restriccion) + "\n"
-                stringResultadosActualizarProducto += "Cantidad disponible del " + administrador.actualizarCantidadProducto(int(idProducto), FFActualizarProducto.getValue("Cantidad"))
+                    if restriccion == "1":
+                        restriccion = True
+                    else:
+                        restriccion = False
 
-                mostrarOutput(stringResultadosActualizarProducto, outputActualizarProducto)
+                    stringResultadosActualizarProducto += "Nombre del " + administrador.actualizarNombreProducto(int(idProducto), FFActualizarProducto.getValue("Nombre")) + "\n"
+                    stringResultadosActualizarProducto += "Descripción del " + administrador.actualizarDescripcionProducto(int(idProducto), FFActualizarProducto.getValue("Descripción")) + "\n"
+                    stringResultadosActualizarProducto += "Precio del " + administrador.actualizarPrecioProducto(int(idProducto), FFActualizarProducto.getValue("Precio")) + "\n"
+                    stringResultadosActualizarProducto += "Disponibilidad del " + administrador.actualizarDisponibilidadProducto(int(idProducto), disponibilidad) + "\n"
+                    stringResultadosActualizarProducto += "Restricción de edad del " + administrador.actualizarRestriccionProducto(int(idProducto), restriccion) + "\n"
+                    stringResultadosActualizarProducto += "Cantidad disponible del " + administrador.actualizarCantidadProducto(int(idProducto), FFActualizarProducto.getValue("Cantidad"))
+
+                    mostrarOutput(stringResultadosActualizarProducto, outputActualizarProducto)
+                except ErrorAplicacion as e:
+                    PopUp(str(e))
             
             idProducto = FFActualizarProductoBuscar.getValue("ID Producto")
-            producto = Producto.getProductos()[int(idProducto)]
-            camposProducto = [producto.getNombre(), producto.getDescripcion(), producto.getPrecio(), producto.getDisponibilidad(), producto.getRestriccion(), producto.getCantidad()]
+            verificarNumero(idProducto)
+
+            if len(Producto.getProductos()) > int(idProducto) and int(idProducto) >= 0:
+                producto = Producto.getProductos()[int(idProducto)]
+                camposProducto = [producto.getNombre(), producto.getDescripcion(), producto.getPrecio(), producto.getDisponibilidad(), producto.getRestriccion(), producto.getCantidad()]
+            else:
+                raise ExcepcionLista([int(idProducto), len(Producto.getProductos())-1])
 
             descActualizarProducto2 = Label(frameActualizarProducto, text="Por favor llene todos los campos. Recuerde que en los campos de \"Disponibilidad\" y\n\"Restricción de edad\" debe escribir \"0\" o \"1\" (Representando Falso y Verdadero respectivamente)", font=("Verdana", 12))
             FFActualizarProducto = FieldFrame(frameActualizarProducto, None, ["Nombre", "Descripción", "Precio", "Disponibilidad", "Restricción", "Cantidad"], None, camposProducto, None)
@@ -397,7 +458,7 @@ class VentanaUsuario(Tk):
         descActualizarProducto = Label(frameActualizarProducto, text="Ingrese el ID del producto a actualizar. Recuerde observar muy bien el ID en la pestaña \"Ver menú\", ya que este ID puede variar", font=("Verdana", 12))
 
         FFActualizarProductoBuscar = FieldFrame(frameActualizarProducto, None, ["ID Producto"], None, None, None)
-        FFActualizarProductoBuscar.crearBotones(buscarProductoID)
+        FFActualizarProductoBuscar.crearBotones(buscarProductoBoton)
 
         outputActualizarProducto = Text(frameActualizarProducto, height=100, font=("Verdana", 10))
         VentanaUsuario.framesEnPantalla.append(outputActualizarProducto)
@@ -441,19 +502,26 @@ class VentanaUsuario(Tk):
 
         # Procesos y consultas -> Gestionar menú -> Contratar Empleado
         def botonContratarEmpleado():
-            cedula = FFContratarEmpleado.getValue("Cédula")
-            nombre = FFContratarEmpleado.getValue("Nombre")
-            cargo = FFContratarEmpleado.getValue("Cargo")
-            disponibilidad = FFContratarEmpleado.getValue("Disponibilidad")
-            salario = FFContratarEmpleado.getValue("Salario")
+            try:
+                verificarVacio(FFContratarEmpleado)
+                cedula = FFContratarEmpleado.getValue("Cédula")
+                nombre = FFContratarEmpleado.getValue("Nombre")
+                cargo = FFContratarEmpleado.getValue("Cargo")
+                disponibilidad = FFContratarEmpleado.getValue("Disponibilidad")
+                salario = FFContratarEmpleado.getValue("Salario")
 
-            if disponibilidad == "1":
-                disponibilidad = True
-            else:
-                disponibilidad = False
-            
-            resultadoContratarEmpleado = administrador.contratarEmpleado(cedula, nombre, cargo, disponibilidad, salario, restaurante)
-            mostrarOutput(resultadoContratarEmpleado, outputContratarEmpleado)
+                verificarNumero(cedula)
+                verificarNumero(salario)
+
+                if disponibilidad == "1":
+                    disponibilidad = True
+                else:
+                    disponibilidad = False
+                
+                resultadoContratarEmpleado = administrador.contratarEmpleado(int(cedula), nombre, cargo, disponibilidad, int(salario), restaurante)
+                mostrarOutput(resultadoContratarEmpleado, outputContratarEmpleado)
+            except ErrorAplicacion as e:
+                PopUp(str(e))
         
         frameContratarEmpleado = Frame(self)
         nombreContratarEmpleado = Label(frameContratarEmpleado, text="Contratar empleado", font=("Verdana", 16), fg = "#245efd")
@@ -472,9 +540,14 @@ class VentanaUsuario(Tk):
 
         # Procesos y consultas -> Gestionar menú -> Despedir Empleado
         def botonDespedirEmpleado():
-            idEmpleado = FFDespedirEmpleado.getValue("ID Empleado")
-            resultadoDespedirEmpleado = administrador.despedirEmpleado(int(idEmpleado))
-            mostrarOutput(resultadoDespedirEmpleado, outputDespedirEmpleado)
+            try:
+                verificarVacio(FFDespedirEmpleado)
+                idEmpleado = FFDespedirEmpleado.getValue("ID Empleado")
+                verificarNumero(idEmpleado)
+                resultadoDespedirEmpleado = administrador.despedirEmpleado(int(idEmpleado))
+                mostrarOutput(resultadoDespedirEmpleado, outputDespedirEmpleado)
+            except ErrorAplicacion as e:
+                PopUp(str(e))
         
         frameDespedirEmpleado = Frame(self)
         nombreDespedirEmpleado = Label(frameDespedirEmpleado, text="Despedir un empleado", font=("Verdana", 16), fg = "#245efd")
@@ -490,7 +563,6 @@ class VentanaUsuario(Tk):
         FFDespedirEmpleado.pack()
 
         VentanaUsuario.framesEnPantalla.append(frameDespedirEmpleado)
-
 
         # Procesos y consultas -> Información del restaurante -> Ver empleados
         def refrescarEmpleados():

@@ -1,5 +1,6 @@
 from datetime import date
 from random import choice, randint
+from excepciones.excepcionExistente import ExcepcionExistente
 
 from gestorAplicacion.datosAleatorios import randbool, tiposVehiculos, cargosEnCocina, especialidadesChefs, randPlaca
 
@@ -52,6 +53,16 @@ class Administrador(Empleado):
 
     # Crear un nuevo empleado (O alguno de sus subtipos) y añadirlo a los empleados del restaurante
     def contratarEmpleado(self, cedula, nombre, cargo, disponibilidad, salario, restaurante):
+        listaEmpleados = Empleado.getEmpleados()
+
+        listaNombresEmpleados = []
+        
+        for empleado in listaEmpleados:
+            listaNombresEmpleados.append(empleado.getNombre())
+
+        if nombre in listaNombresEmpleados:
+            raise ExcepcionExistente(nombre)
+        
         # Verificar cargo del empleado
         if cargo == "Mesero":
             Mesero(cedula, nombre, disponibilidad, salario, restaurante)
@@ -87,8 +98,6 @@ class Administrador(Empleado):
 
     # Crear nuevo producto y añadirlo al menu del restaurante
     def crearProducto(self, nombre, descripcion, precio, disponibilidad, restriccion, cantidad):
-        productoNuevo = Producto(nombre, descripcion, precio, disponibilidad, restriccion, cantidad)
-        
         # Verificar primero si ya existe un producto que se llame asi
         listaMenu = Producto.getProductos()
         listaNombresMenu = []
@@ -97,13 +106,15 @@ class Administrador(Empleado):
             listaNombresMenu.append(producto.getNombre())
 
         # Si no existe, añadirlo a la lista
-        if not nombre in listaNombresMenu:
+        if nombre in listaNombresMenu:
+            raise ExcepcionExistente(nombre)
+        else:
+            productoNuevo = Producto(nombre, descripcion, precio, disponibilidad, restriccion, cantidad)
             listaMenu.append(productoNuevo)
+            Producto._productos = listaMenu
             self._restaurante.setMenu(listaMenu)
 
             return f"Producto {nombre} creado con exito"
-        else:
-            return f"El producto que intentas crear ya existe"
 
     # Actualizar el nombre de un producto, primero verificar si existe
     def actualizarNombreProducto(self, idProducto, nombre):
@@ -127,7 +138,7 @@ class Administrador(Empleado):
 
                 return f"Producto {productoActualizado.getNombre()} actualizado con exito"
             else:
-                return f"Ya exista un producto con este nombre. Intentalo de nuevo con otro nombre"
+                raise ExcepcionExistente(nombre)
         else:
             raise ExcepcionLista([idProducto, len(listaMenu)-1])
 
